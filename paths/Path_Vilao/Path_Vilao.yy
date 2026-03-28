@@ -1,0 +1,20 @@
+{
+  "$GMPath":"",
+  "%Name":"Path_Vilao",
+  "closed":true,
+  "kind":1,
+  "name":"Path_Vilao",
+  "parent":{
+    "name":"Fase4",
+    "path":"folders/Objetos/Fase4.yy",
+  },
+  "points":[
+    {"speed":100.0,"x":50.499023,"y":482.17615,},
+    {"speed":100.0,"x":902.37787,"y":475.5701,},
+    {"speed":100.0,"x":901.2264,"y":13.782196,},
+    {"speed":100.0,"x":49.802063,"y":25.357971,},
+  ],
+  "precision":4,
+  "resourceType":"GMPath",
+  "resourceVersion":"2.0",
+}
