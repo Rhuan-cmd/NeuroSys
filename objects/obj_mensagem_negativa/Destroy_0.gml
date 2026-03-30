@@ -1,0 +1,1 @@
+criar_explosao_particulas(x, y, c_red, 10, 0.3);

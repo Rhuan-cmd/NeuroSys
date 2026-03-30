@@ -7,9 +7,16 @@ if (instance_exists(objeto_centro)) {
     var angulo = point_direction(objeto_centro.x, objeto_centro.y, mouse_x, mouse_y);
 
     // 3. Posiciona o objeto no raio definido ao redor do centro
-    x = objeto_centro.x + lengthdir_x(raio, angulo);
-    y = objeto_centro.y + lengthdir_y(raio, angulo);
-
+    /*x = objeto_centro.x + lengthdir_x(raio, angulo);
+    y = objeto_centro.y + lengthdir_y(raio, angulo);*/
+	
+	x = lerp(x, objeto_centro.x + lengthdir_x(raio, angulo), 0.3);
+    y = lerp(y, objeto_centro.y + lengthdir_y(raio, angulo), 0.3);
+	
     // 4. Faz o próprio objeto "olhar" para o mouse (opcional)
     image_angle = angulo;
 }
+
+// Faz a escala X e Y voltarem gradualmente para 1
+scala_x = lerp(scala_x, escala_alvo, fator_mola);
+scala_y = lerp(scala_y, escala_alvo, fator_mola);
