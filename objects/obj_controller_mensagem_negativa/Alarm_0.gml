@@ -1,38 +1,54 @@
-// 1. Verificar se a última mensagem já se afastou o suficiente do ponto de spawn
+var centro_x = obj_npc_fase5.x;
+var centro_y = obj_npc_fase5.y;
+var margem = 100;
+
+// 1. Sorteia de onde ele vai vir (Seu código original)
+var lado = irandom(3);
+var spawn_x, spawn_y;
+switch (lado) {
+    case 0: spawn_x = random_range(-margem, room_width + margem); spawn_y = -margem; break;
+    case 1: spawn_x = random_range(-margem, room_width + margem); spawn_y = room_height + margem; break;
+    case 2: spawn_x = -margem; spawn_y = random_range(-margem, room_height + margem); break;
+    case 3: spawn_x = room_width + margem; spawn_y = random_range(-margem, room_height + margem); break;
+}
+
+// 2. Calcula a distância e a velocidade que ESSE objeto terá
+var dist_novo = point_distance(spawn_x, spawn_y, centro_x, centro_y);
+
+// Damos uma leve variada na velocidade para não ficar robótico demais
+var spd_novo = random_range(vel_atual * 0.9, vel_atual * 1.1); 
+
+// Tempo = Distância / Velocidade. Isso dá os frames exatos que ele leva pra chegar.
+var tempo_chegada_novo = dist_novo / spd_novo; 
+
+// 3. Verifica se vai bater junto com algum objeto que JÁ EXISTE
 var pode_spawnar = true;
 
-if (instance_exists(ultima_mensagem)) {
-    // Se a distância entre o centro e a última mensagem for muito grande, 
-    // significa que ela ainda está perto da borda de onde nasceu.
-    var dist = point_distance(ultima_mensagem.x, ultima_mensagem.y, room_width/2, room_height/2);
+with (obj_mensagem_negativa) {
+    var dist_existente = point_distance(x, y, centro_x, centro_y);
     
-    // Se a distância for maior que o "raio de segurança", ela ainda está chegando.
-    // Precisamos que ela esteja MAIS PERTO do centro para soltar a próxima.
-    // Ajuste o valor 400 para o tamanho do seu "raio de spawn"
-    if (dist > 350) { 
+    // Assumindo que o objeto usa a variável nativa 'speed' para se mover.
+    // Se você usa uma variável própria (ex: spd, vel), troque 'speed' por ela abaixo.
+    var tempo_chegada_existente = dist_existente / speed;
+    
+    // Se a diferença de tempo de chegada entre eles for menor que a margem de segurança...
+    if (abs(tempo_chegada_existente - tempo_chegada_novo) < other.margem_frames_chegada) {
         pode_spawnar = false;
+        break; // Achou conflito, já pode parar de procurar
     }
 }
 
+// 4. Executa o Spawn ou entra na Fila
 if (pode_spawnar) {
-    // --- SEU CÓDIGO DE SORTEIO DE LADO (MANTÉM IGUAL) ---
-    var margem = 100;
-    var lado = irandom(3);
-    var spawn_x, spawn_y;
-    switch (lado) {
-        case 0: spawn_x = random_range(-margem, room_width + margem); spawn_y = -margem; break;
-        case 1: spawn_x = random_range(-margem, room_width + margem); spawn_y = room_height + margem; break;
-        case 2: spawn_x = -margem; spawn_y = random_range(-margem, room_height + margem); break;
-        case 3: spawn_x = room_width + margem; spawn_y = random_range(-margem, room_height + margem); break;
-    }
-
-    // 2. Criar e salvar como a "última"
-    ultima_mensagem = instance_create_layer(spawn_x, spawn_y, layer, obj_mensagem_negativa);
+    var inst = instance_create_layer(spawn_x, spawn_y, layer, obj_mensagem_negativa);
     
-    // 3. Reinicia o alarme normalmente
-    alarm[0] = irandom_range(40, 80); 
+    // Já passamos a velocidade e direção para o objeto assim que ele nasce
+    inst.speed = spd_novo;
+    inst.direction = point_direction(spawn_x, spawn_y, centro_x, centro_y);
+    
+    // Reinicia o alarme usando a taxa atualizada pela dificuldade + um leve random
+    alarm[0] = spawn_rate_atual + random_range(-10, 10);
 } else {
-    // Se não pode spawnar agora, tenta de novo daqui a 5 frames (muito rápido)
-    // Isso cria a "fila" que você deseja
-    alarm[0] = 5; 
+    // Teve conflito de tempo no centro! Espera 5 frames e tenta sortear de novo.
+    alarm[0] = 5;
 }

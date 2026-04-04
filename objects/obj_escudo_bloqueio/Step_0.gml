@@ -1,6 +1,6 @@
 // 1. Defina quem é o objeto central e o raio da órbita
-var objeto_centro = obj_npc_fase4; // Altere para o nome do seu objeto central
-var raio = 64;                  // A distância que ele ficará do centro
+var objeto_centro = obj_npc_fase5; // Altere para o nome do seu objeto central
+var raio = 96;                  // A distância que ele ficará do centro
 
 if (instance_exists(objeto_centro)) {
     // 2. Calcula o ângulo do centro para o mouse
@@ -20,3 +20,26 @@ if (instance_exists(objeto_centro)) {
 // Faz a escala X e Y voltarem gradualmente para 1
 scala_x = lerp(scala_x, escala_alvo, fator_mola);
 scala_y = lerp(scala_y, escala_alvo, fator_mola);
+
+if (destruidos >= 50 and !umavez){
+	if (instance_exists(obj_controller_mensagem_negativa)){
+		instance_destroy(obj_controller_mensagem_negativa);
+	}
+	
+	if (instance_exists(obj_mensagem_negativa)){
+		with (obj_mensagem_negativa){
+			instance_destroy()
+		}
+	}
+	ganhou = true;
+	umavez = true;
+	destruidos = 50;
+}
+
+if (ganhou){
+	if (instance_exists(obj_vilao_fase5)){
+		obj_vilao_fase5.parar = true;
+	}
+	
+	ganhou = false;
+}

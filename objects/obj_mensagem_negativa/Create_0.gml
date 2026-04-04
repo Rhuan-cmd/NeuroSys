@@ -1,7 +1,6 @@
-if (instance_exists(obj_npc_fase4)){
-	direction = point_direction(x, y, obj_npc_fase4.x, obj_npc_fase4.y);
+if (instance_exists(obj_npc_fase5)){
+	direction = point_direction(x, y, obj_npc_fase5.x, obj_npc_fase5.y);
 	image_angle = direction;
-	speed = 4;
 }
 
 image_speed = 0;

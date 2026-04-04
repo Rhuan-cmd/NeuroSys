@@ -10,8 +10,8 @@
   "name":"obj_mensagem_negativa",
   "overriddenProperties":[],
   "parent":{
-    "name":"Fase4",
-    "path":"folders/Objetos/Fase4.yy",
+    "name":"Fase5",
+    "path":"folders/Objetos/Fase5.yy",
   },
   "parentObjectId":null,
   "persistent":false,
