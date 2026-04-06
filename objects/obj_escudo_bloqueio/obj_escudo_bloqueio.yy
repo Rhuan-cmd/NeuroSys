@@ -11,8 +11,8 @@
   "name":"obj_escudo_bloqueio",
   "overriddenProperties":[],
   "parent":{
-    "name":"Fase4",
-    "path":"folders/Objetos/Fase4.yy",
+    "name":"Fase5",
+    "path":"folders/Objetos/Fase5.yy",
   },
   "parentObjectId":null,
   "persistent":false,

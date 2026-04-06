@@ -1,16 +1,16 @@
 {
   "$GMRoom":"v1",
-  "%Name":"rm_fase4",
+  "%Name":"rm_fase5",
   "creationCodeFile":"",
   "inheritCode":false,
   "inheritCreationOrder":false,
   "inheritLayers":false,
   "instanceCreationOrder":[
-    {"name":"inst_3B9F667E","path":"rooms/rm_fase4/rm_fase4.yy",},
-    {"name":"inst_152B0832","path":"rooms/rm_fase4/rm_fase4.yy",},
-    {"name":"inst_969B1F2","path":"rooms/rm_fase4/rm_fase4.yy",},
-    {"name":"inst_1B7CD363","path":"rooms/rm_fase4/rm_fase4.yy",},
-    {"name":"inst_393DB322","path":"rooms/rm_fase4/rm_fase4.yy",},
+    {"name":"inst_3B9F667E","path":"rooms/rm_fase5/rm_fase5.yy",},
+    {"name":"inst_152B0832","path":"rooms/rm_fase5/rm_fase5.yy",},
+    {"name":"inst_969B1F2","path":"rooms/rm_fase5/rm_fase5.yy",},
+    {"name":"inst_1B7CD363","path":"rooms/rm_fase5/rm_fase5.yy",},
+    {"name":"inst_393DB322","path":"rooms/rm_fase5/rm_fase5.yy",},
   ],
   "isDnd":false,
   "layers":[
@@ -24,7 +24,7 @@
       ],"layers":[],"name":"Instances","properties":[],"resourceType":"GMRInstanceLayer","resourceVersion":"2.0","userdefinedDepth":false,"visible":true,},
     {"$GMRBackgroundLayer":"","%Name":"Background","animationFPS":30.0,"animationSpeedType":0,"colour":4294967295,"depth":200,"effectEnabled":true,"effectType":null,"gridX":32,"gridY":32,"hierarchyFrozen":false,"hspeed":0.5,"htiled":true,"inheritLayerDepth":false,"inheritLayerSettings":false,"inheritSubLayers":true,"inheritVisibility":true,"layers":[],"name":"Background","properties":[],"resourceType":"GMRBackgroundLayer","resourceVersion":"2.0","spriteId":{"name":"spr_fundo_fase4","path":"sprites/spr_fundo_fase4/spr_fundo_fase4.yy",},"stretch":false,"userdefinedAnimFPS":false,"userdefinedDepth":false,"visible":true,"vspeed":-0.5,"vtiled":true,"x":0,"y":0,},
   ],
-  "name":"rm_fase4",
+  "name":"rm_fase5",
   "parent":{
     "name":"Cenas",
     "path":"folders/Cenas.yy",

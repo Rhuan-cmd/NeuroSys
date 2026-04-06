@@ -1,18 +1,16 @@
 {
   "$GMObject":"",
-  "%Name":"obj_npc_fase4",
+  "%Name":"obj_mensagens",
   "eventList":[
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":{"name":"obj_mensagem_negativa","path":"objects/obj_mensagem_negativa/obj_mensagem_negativa.yy",},"eventNum":0,"eventType":4,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":3,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":64,"eventType":8,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
-  "name":"obj_npc_fase4",
+  "name":"obj_mensagens",
   "overriddenProperties":[],
   "parent":{
-    "name":"Fase5",
-    "path":"folders/Objetos/Fase5.yy",
+    "name":"Fase3",
+    "path":"folders/Objetos/Fase3.yy",
   },
   "parentObjectId":null,
   "persistent":false,
@@ -32,10 +30,7 @@
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
   "solid":false,
-  "spriteId":{
-    "name":"spr_npc_fase4",
-    "path":"sprites/spr_npc_fase4/spr_npc_fase4.yy",
-  },
+  "spriteId":null,
   "spriteMaskId":null,
   "visible":true,
 }
