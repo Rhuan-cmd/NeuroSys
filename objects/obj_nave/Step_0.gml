@@ -1,3 +1,4 @@
+#region Movimentacao
 var h_input = (keyboard_check(ord("D")) || keyboard_check(vk_right)) - (keyboard_check(ord("A")) || keyboard_check(vk_left));
 var v_input = (keyboard_check(ord("S")) || keyboard_check(vk_down)) - (keyboard_check(ord("W")) || keyboard_check(vk_up));
 
@@ -35,3 +36,17 @@ var target_rot = h_input * -15;
 rotacao = lerp(rotacao, target_rot, 0.1);
 
 depth = -y;
+
+#endregion
+
+
+#region Tiro
+var tiro = keyboard_check(vk_space);
+
+if (tiro && pode_atirar){
+	instance_create_layer(x, y, "projeteis", obj_projetil_nave);
+	alarm[0] = tempo_tiro;
+	pode_atirar = false;
+}
+
+#endregion
