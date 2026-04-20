@@ -14,7 +14,8 @@ x_base = x;                 // Guarda a posição X original
 x_offset = 0;               // Variável auxiliar para o deslocamento
 #endregion
 
-vida = 1000;
+vidaMax = 1000;
+vida = vidaMax;
 
 danificado = false;
 tempo_danificado = 5;
