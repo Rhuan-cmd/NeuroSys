@@ -1,3 +1,7 @@
+if (instance_exists(obj_barra_vida_boss)){
+	obj_barra_vida_boss.hp = vida / vidaMax;
+}
+
 #region Movimento
 // 1. Delta Time e Timer do Loop Vertical (O que já fizemos)
 var dt = delta_time / 1000000;
