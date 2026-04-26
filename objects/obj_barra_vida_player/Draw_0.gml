@@ -1,0 +1,11 @@
+draw_sprite_ext(
+	spr_barra_vida_player,
+	frame,
+	1,
+	room_height-1,
+	3,
+	3,
+	rotacao,
+	c_white,
+	1
+);

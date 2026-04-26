@@ -1,0 +1,2 @@
+/// @description Descanso
+descansar = false;

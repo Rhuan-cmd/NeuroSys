@@ -1,0 +1,1 @@
+obj_nave.tomar_dano();

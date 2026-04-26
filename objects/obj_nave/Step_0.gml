@@ -35,8 +35,6 @@ image_yscale = scale * tilt_y_current; // Aplica o tilt sobre a escala de profun
 var target_rot = h_input * -15;
 rotacao = lerp(rotacao, target_rot, 0.1);
 
-depth = -y;
-
 #endregion
 
 
@@ -50,3 +48,17 @@ if (tiro && pode_atirar){
 }
 
 #endregion
+
+
+if (flash_vermelho > 0) {
+	// Interpola entre o Branco (normal) e Vermelho baseado na nossa variável
+	var cor_atual = merge_color(c_white, c_red, flash_vermelho);
+	cor_nave = cor_atual;
+
+	// Diminui o flash
+	flash_vermelho = max(0, flash_vermelho - flash_suave);
+}
+
+if (vida <= 0){
+	room_restart()
+}

@@ -6,6 +6,6 @@ draw_sprite_ext(
     image_xscale, 
     image_yscale, 
     rotacao, 
-    c_white, 
+    cor_nave, 
     1
 );
