@@ -38,3 +38,17 @@ if (danificado){
 	}
 }
 
+if (descansar) return;
+
+if (vida <= vidaMax and vida > (vidaMax/4) * 3){
+	fase1();
+	
+}else if (vida <= (vidaMax/4) * 3 and vida > (vidaMax/4) * 2){
+	fase2();
+	
+}else if (vida <= (vidaMax/4) * 2 and vida > (vidaMax/4)){
+	fase3();
+	
+}else{
+	fase4();
+}

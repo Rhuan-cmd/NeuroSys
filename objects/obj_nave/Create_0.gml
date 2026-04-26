@@ -18,6 +18,28 @@ tilt_y_current = 1; // Começa na escala normal
 
 rotacao = 0;
 
+vida = 4;
 
 pode_atirar = true;
 tempo_tiro = 10;
+
+flash_vermelho = 0;
+// Velocidade do retorno (quanto menor, mais suave/lento)
+flash_suave = 0.01;
+
+cor_nave = c_white;
+
+imune = false;
+
+function tomar_dano(){
+	if (vida <= 0) return;
+	if (imune) return;
+	
+	vida--;
+	flash_vermelho = 1;
+	imune = true;
+	alarm[1] = 60;
+	if (instance_exists(obj_barra_vida_player)){
+		obj_barra_vida_player.tomou_dano = true;
+	}
+}

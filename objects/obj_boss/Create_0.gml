@@ -20,9 +20,68 @@ vida = vidaMax;
 danificado = false;
 tempo_danificado = 5;
 
+descansar = false;
+
+function descanso(temp = 60){
+	descansar = true;
+	alarm[0] = temp;
+}
+
 function tomardano(){
 	vida -= 20;
 	tempo_danificado = 5;
 	danificado = true;
 }
 
+ataque1 = true;
+ataque2 = false;
+
+preparar_fase2 = true;
+preparar_fase3 = true;
+preparar_fase4 = true;
+
+function fase1(){
+	if (ataque1){
+		instance_create_layer(0, 0, "projeteis_boss", obj_controller_ataque1);
+		ataque1 = false;
+	}
+}
+
+
+function fase2(){
+	
+	if (preparar_fase2){
+		if (instance_exists(obj_controller_ataque1)){
+			instance_destroy(obj_controller_ataque1);
+		}
+		
+		ataque1 = false;
+		ataque2 = true;
+		preparar_fase2 = false;
+		return;
+	}
+	
+	if (ataque2){
+		instance_create_layer(0, 0, "projeteis_boss", obj_controller_ataque2);
+		ataque2 = false;
+	}
+}
+
+function fase3(){
+	if (preparar_fase3){
+		if (instance_exists(obj_controller_ataque2)){
+			instance_destroy(obj_controller_ataque2);
+		}
+		ataque1 = false;
+		ataque2 = false;
+		preparar_fase3 = false;
+		return;
+	}
+}
+
+function fase4(){
+	if (preparar_fase4){
+		preparar_fase4 = false;
+		return;
+	}
+}

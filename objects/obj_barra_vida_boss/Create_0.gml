@@ -1,4 +1,3 @@
-
 scale = 3;
 position_x = room_width/2 - (sprite_get_width(spr_esqueleto_barra_boss)/2 * scale);
 position_y = 0;
