@@ -15,7 +15,7 @@ x_offset = 0;               // Variável auxiliar para o deslocamento
 #endregion
 
 vidaMax = 1000;
-vida = vidaMax;
+vida = vidaMax - 499;
 
 danificado = false;
 tempo_danificado = 5;
@@ -28,17 +28,20 @@ function descanso(temp = 60){
 }
 
 function tomardano(){
-	vida -= 20;
+	vida -= 2;
 	tempo_danificado = 5;
 	danificado = true;
 }
 
 ataque1 = true;
 ataque2 = false;
+ataque3 = false;
 
 preparar_fase2 = true;
 preparar_fase3 = true;
 preparar_fase4 = true;
+
+descanso(120);
 
 function fase1(){
 	if (ataque1){
@@ -57,6 +60,7 @@ function fase2(){
 		
 		ataque1 = false;
 		ataque2 = true;
+		descanso();
 		preparar_fase2 = false;
 		return;
 	}
@@ -74,8 +78,15 @@ function fase3(){
 		}
 		ataque1 = false;
 		ataque2 = false;
+		ataque3 = true;
+		descanso();
 		preparar_fase3 = false;
 		return;
+	}
+	
+	if (ataque3){
+		instance_create_layer(0, 0, "projeteis_boss", obj_controller_ataque3);
+		ataque3 = false;
 	}
 }
 
