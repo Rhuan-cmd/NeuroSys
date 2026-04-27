@@ -60,6 +60,7 @@
     {"id":{"name":"obj_close_rede_social","path":"objects/obj_close_rede_social/obj_close_rede_social.yy",},},
     {"id":{"name":"obj_controller_ataque1","path":"objects/obj_controller_ataque1/obj_controller_ataque1.yy",},},
     {"id":{"name":"obj_controller_ataque2","path":"objects/obj_controller_ataque2/obj_controller_ataque2.yy",},},
+    {"id":{"name":"obj_controller_ataque3","path":"objects/obj_controller_ataque3/obj_controller_ataque3.yy",},},
     {"id":{"name":"obj_controller_fase5","path":"objects/obj_controller_fase5/obj_controller_fase5.yy",},},
     {"id":{"name":"obj_controller_jogo","path":"objects/obj_controller_jogo/obj_controller_jogo.yy",},},
     {"id":{"name":"obj_controller_mensagem_negativa","path":"objects/obj_controller_mensagem_negativa/obj_controller_mensagem_negativa.yy",},},
