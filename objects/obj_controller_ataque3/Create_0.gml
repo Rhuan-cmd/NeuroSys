@@ -8,7 +8,7 @@ if (instance_exists(obj_nave)) {
     y = room_height / 2; 
 }
 
-fase = 0; // 0: Piscando (Aviso), 1: Parado (Dano), 2: Girando, 3: Sumindo
+fase = 0; // 0: Piscando (Aviso), 1: Indo pro Centro (Dano), 2: Girando, 3: Sumindo
 timer = 0;
 
 angulo_base = 45; // 45 graus forma um 'X' perfeito

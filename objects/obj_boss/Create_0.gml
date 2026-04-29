@@ -15,7 +15,7 @@ x_offset = 0;               // Variável auxiliar para o deslocamento
 #endregion
 
 vidaMax = 1000;
-vida = vidaMax - 499;
+vida = vidaMax;
 
 danificado = false;
 tempo_danificado = 5;
@@ -36,6 +36,7 @@ function tomardano(){
 ataque1 = true;
 ataque2 = false;
 ataque3 = false;
+ataque4 = false;
 
 preparar_fase2 = true;
 preparar_fase3 = true;
@@ -92,7 +93,25 @@ function fase3(){
 
 function fase4(){
 	if (preparar_fase4){
+		if (instance_exists(obj_controller_ataque3)){
+			instance_destroy(obj_controller_ataque3);
+		}
+		
+		ataque1 = false;
+		ataque2 = false;
+		ataque3 = false;
+		ataque4 = true;
+		
+		if (!descansar){
+			descanso();
+		}
+		
 		preparar_fase4 = false;
 		return;
+	}
+	
+	if (ataque4){
+		
+		ataque4 = false;
 	}
 }
