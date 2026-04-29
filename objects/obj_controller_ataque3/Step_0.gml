@@ -2,30 +2,35 @@ timer++;
 
 // --- CONTROLE DE FASES ---
 switch (fase) {
-    case 0: // AVISO: Piscando na tela
+    case 0: // AVISO: Piscando na tela mirando no player
         // Faz piscar alternando a transparência a cada 5 frames
         alpha_desenho = (timer div 5) % 2 == 0 ? 0.3 : 0.8;
 
-        if (timer >= 60) { // Após 1 segundo (considerando 60 FPS)
+        if (timer >= 60) { // Após 1 segundo
             fase = 1;
             timer = 0;
             alpha_desenho = 1; // Fica totalmente visível
         }
         break;
 
-    case 1: // ATIVO: Parado por um breve momento
-        if (timer >= 20) { // Espera um terço de segundo antes de começar a girar
+    case 1: // ATIVO: Deslizando para o centro da tela
+        // A função lerp move o X suavemente da posição atual para o centro
+        x = lerp(x, room_width / 2, 0.08);
+        y = lerp(y, room_height * 0.70, 0.08);
+        
+        // Aumentei o tempo para 40 (antes era 20) para dar tempo de chegar no centro
+        if (timer >= 40) { 
             fase = 2;
             timer = 0;
         }
         break;
 
-    case 2: // GIRANDO: Gira 90 graus
+    case 2: // GIRANDO: Gira os graus definidos no centro da tela
         var velocidade_giro = 1; // Velocidade do giro por frame
         angulo_base += velocidade_giro * direcao_giro;
         graus_girados += velocidade_giro;
 
-        if (graus_girados >= 45) { // Quando completar 90 graus
+        if (graus_girados >= 90) { // Quando completar os 45 graus (como você definiu)
             fase = 3;
             timer = 0;
         }
@@ -40,7 +45,7 @@ switch (fase) {
 }
 
 // --- SISTEMA DE COLISÃO / DANO ---
-// Só dá dano nas fases 1 (Parado) e 2 (Girando)
+// Só dá dano nas fases 1 (Indo pro Centro) e 2 (Girando)
 if ((fase == 1 or fase == 2) and instance_exists(obj_nave)) {
     
     // Calcula as extremidades da Linha 1 (/)
@@ -55,13 +60,11 @@ if ((fase == 1 or fase == 2) and instance_exists(obj_nave)) {
     var x2_b = x + lengthdir_x(tamanho_linha, angulo_base + 270);
     var y2_b = y + lengthdir_y(tamanho_linha, angulo_base + 270);
 
-    // Checa se alguma das duas linhas bateu no player
-    // Obs: Troque "obj_player" para o nome exato do seu objeto do jogador
+    // Checa colisão
     var bateu_linha_1 = collision_line(x1_a, y1_a, x2_a, y2_a, obj_nave, false, true);
     var bateu_linha_2 = collision_line(x1_b, y1_b, x2_b, y2_b, obj_nave, false, true);
 
     if (bateu_linha_1 or bateu_linha_2) {
-        // Coloque seu código de dano aqui!
-        // Exemplo: obj_player.vida -= 1;
+        obj_nave.tomar_dano();
     }
 }
