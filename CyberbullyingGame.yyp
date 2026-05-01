@@ -69,6 +69,7 @@
     {"id":{"name":"obj_dislike","path":"objects/obj_dislike/obj_dislike.yy",},},
     {"id":{"name":"obj_escudo_bloqueio","path":"objects/obj_escudo_bloqueio/obj_escudo_bloqueio.yy",},},
     {"id":{"name":"obj_mensagem_negativa","path":"objects/obj_mensagem_negativa/obj_mensagem_negativa.yy",},},
+    {"id":{"name":"obj_missil","path":"objects/obj_missil/obj_missil.yy",},},
     {"id":{"name":"obj_nave","path":"objects/obj_nave/obj_nave.yy",},},
     {"id":{"name":"obj_npc_fase5","path":"objects/obj_npc_fase5/obj_npc_fase5.yy",},},
     {"id":{"name":"obj_perigo","path":"objects/obj_perigo/obj_perigo.yy",},},

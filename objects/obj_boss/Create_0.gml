@@ -15,7 +15,7 @@ x_offset = 0;               // Variável auxiliar para o deslocamento
 #endregion
 
 vidaMax = 1000;
-vida = vidaMax;
+vida = vidaMax - 749;
 
 danificado = false;
 tempo_danificado = 5;
@@ -111,7 +111,7 @@ function fase4(){
 	}
 	
 	if (ataque4){
-		
+		instance_create_layer(0, 0, "projeteis_boss", obj_controller_ataque4);
 		ataque4 = false;
 	}
 }
