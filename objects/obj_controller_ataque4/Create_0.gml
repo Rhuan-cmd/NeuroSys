@@ -58,7 +58,7 @@ function spawnar_ataque(){
 	var _y = (room_height/2) + ((room_height/4) * linha) + (room_height/4)/2;
 	
 	
-	var obj = instance_create_layer(_x, _y, "projeteis_boss", obj_silhueta);
+	var obj = instance_create_layer(_x, _y, layer, obj_silhueta);
 }
 
 alarm[0] = 60;
