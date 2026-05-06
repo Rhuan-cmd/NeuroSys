@@ -25,7 +25,7 @@ function retornar_sorteaveis(){
 function sortear_celula(){
 	var array = retornar_sorteaveis();
 	
-	if (ds_list_size(array) <= 0){
+	if (ds_list_size(array) <= 1){
 		return false;
 	}
 	
@@ -59,6 +59,9 @@ function spawnar_ataque(){
 	
 	
 	var obj = instance_create_layer(_x, _y, layer, obj_silhueta);
+	
+	obj.linha = linha;
+	obj.coluna = coluna;
 }
 
 alarm[0] = 60;

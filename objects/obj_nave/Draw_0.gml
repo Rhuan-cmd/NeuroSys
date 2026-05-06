@@ -7,5 +7,5 @@ draw_sprite_ext(
     image_yscale, 
     rotacao, 
     cor_nave, 
-    1
+    alpha
 );

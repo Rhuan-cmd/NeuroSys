@@ -1,3 +1,13 @@
+if (morto) return;
+
+if (vida <= 0){
+	instance_create_layer(x, y, layer, obj_explosao_boss);
+	alpha = 0;
+	morto = true;
+	alarm[2] = 60;
+	return;
+}
+
 #region Movimentacao
 var h_input = (keyboard_check(ord("D")) || keyboard_check(vk_right)) - (keyboard_check(ord("A")) || keyboard_check(vk_left));
 var v_input = (keyboard_check(ord("S")) || keyboard_check(vk_down)) - (keyboard_check(ord("W")) || keyboard_check(vk_up));
@@ -39,7 +49,7 @@ rotacao = lerp(rotacao, target_rot, 0.1);
 
 
 #region Tiro
-var tiro = keyboard_check(vk_space);
+var tiro = keyboard_check(ord("K"));
 
 if (tiro && pode_atirar){
 	instance_create_layer(x, y, "projeteis", obj_projetil_nave);
@@ -57,8 +67,4 @@ if (flash_vermelho > 0) {
 
 	// Diminui o flash
 	flash_vermelho = max(0, flash_vermelho - flash_suave);
-}
-
-if (vida <= 0){
-	room_restart()
 }

@@ -2,6 +2,12 @@ if (instance_exists(obj_barra_vida_boss)){
 	obj_barra_vida_boss.hp = vida / vidaMax;
 }
 
+if (vida <= 0) {
+	if (instance_exists(obj_controller_ataque4)){
+		instance_destroy(obj_controller_ataque4);
+	}
+}
+
 #region Movimento
 // 1. Delta Time e Timer do Loop Vertical (O que já fizemos)
 var dt = delta_time / 1000000;
