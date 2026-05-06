@@ -15,12 +15,12 @@ x_offset = 0;               // Variável auxiliar para o deslocamento
 #endregion
 
 vidaMax = 1000;
-vida = vidaMax - 749;
+vida = vidaMax;
 
 danificado = false;
 tempo_danificado = 5;
 
-descansar = false;
+descansar = true;
 
 function descanso(temp = 60){
 	descansar = true;
@@ -41,8 +41,6 @@ ataque4 = false;
 preparar_fase2 = true;
 preparar_fase3 = true;
 preparar_fase4 = true;
-
-descanso(120);
 
 function fase1(){
 	if (ataque1){

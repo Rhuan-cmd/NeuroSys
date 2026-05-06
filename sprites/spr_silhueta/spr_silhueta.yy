@@ -1,7 +1,7 @@
 {
   "$GMSprite":"v2",
   "%Name":"spr_silhueta",
-  "bboxMode":0,
+  "bboxMode":2,
   "bbox_bottom":41,
   "bbox_left":7,
   "bbox_right":56,

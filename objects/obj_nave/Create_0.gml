@@ -1,4 +1,4 @@
-vel = 500;
+vel = 0;
 
 // Limites de Movimentação
 // A nave só vai até o meio da tela (room_height / 2) no eixo Y
@@ -19,6 +19,7 @@ tilt_y_current = 1; // Começa na escala normal
 rotacao = 0;
 
 vida = 4;
+morto = false;
 
 pode_atirar = true;
 tempo_tiro = 10;
@@ -30,6 +31,8 @@ flash_suave = 0.01;
 cor_nave = c_white;
 
 imune = false;
+
+alpha = 1;
 
 function tomar_dano(){
 	if (vida <= 0) return;

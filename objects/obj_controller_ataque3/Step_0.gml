@@ -26,10 +26,10 @@ switch (fase) {
         break;
 
     case 2: // GIRANDO: Gira os graus definidos no centro da tela
-        var velocidade_giro = 1; // Velocidade do giro por frame
+        var velocidade_giro = 0.5; // Velocidade do giro por frame
         angulo_base += velocidade_giro * direcao_giro;
         graus_girados += velocidade_giro;
-
+		
         if (graus_girados >= 90) { // Quando completar os 45 graus (como você definiu)
             fase = 3;
             timer = 0;
