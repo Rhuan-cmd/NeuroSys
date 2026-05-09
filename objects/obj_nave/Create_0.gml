@@ -35,6 +35,9 @@ imune = false;
 alpha = 1;
 
 function tomar_dano(){
+	if (instance_exists(obj_boss)){
+		if (obj_boss.vida <= 0) return;
+	}
 	if (vida <= 0) return;
 	if (imune) return;
 	

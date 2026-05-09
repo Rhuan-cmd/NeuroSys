@@ -2,10 +2,21 @@ if (instance_exists(obj_barra_vida_boss)){
 	obj_barra_vida_boss.hp = vida / vidaMax;
 }
 
+if (morto){
+	
+	return;
+}
+
 if (vida <= 0) {
 	if (instance_exists(obj_controller_ataque4)){
 		instance_destroy(obj_controller_ataque4);
 	}
+	instance_create_layer(0, 0, "projeteis_boss", obj_controller_morte);
+	if (instance_exists(obj_nave)){
+		obj_nave.vel = 0;
+	}
+	instance_destroy(obj_barra_vida_boss);
+	morto = true;
 }
 
 #region Movimento

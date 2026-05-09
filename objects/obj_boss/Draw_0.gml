@@ -1,3 +1,4 @@
+if (image_alpha <= 0) return;
 draw_sprite_ext(
 	spr_vilao,
 	0,

@@ -51,7 +51,7 @@ rotacao = lerp(rotacao, target_rot, 0.1);
 #region Tiro
 var tiro = keyboard_check(ord("K"));
 
-if (tiro && pode_atirar){
+if (tiro && pode_atirar && vel != 0){
 	instance_create_layer(x, y, "projeteis", obj_projetil_nave);
 	alarm[0] = tempo_tiro;
 	pode_atirar = false;
