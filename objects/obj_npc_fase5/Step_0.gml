@@ -86,6 +86,8 @@ if (atualizar_felicidade > 0){
 	}
 	
 	alarm[0] = 120;
+	audio_stop_sound(snd_music_fase3);
+	audio_play_sound(snd_gameover, 1, 0);
 	perdeu = true;
 }
 

@@ -32,6 +32,8 @@ if (destruidos >= 50 and !umavez){
 		}
 	}
 	ganhou = true;
+	audio_stop_all();
+	audio_play_sound(snd_vilao_com_raiva, 1, 0);
 	umavez = true;
 	destruidos = 50;
 }

@@ -13,6 +13,8 @@ abertura = 0;
 estado = "abrindo";
 timer_ruido = 0;
 
+audio_play_sound(snd_sirene, 1, 0, 0.5);
+
 // --- SIRENE E CADEADO ---
 timer_sirene = 0;
 velocidade_sirene = 0.2;

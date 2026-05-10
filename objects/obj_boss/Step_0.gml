@@ -16,6 +16,8 @@ if (vida <= 0) {
 		obj_nave.vel = 0;
 	}
 	instance_destroy(obj_barra_vida_boss);
+	audio_stop_all();
+	audio_play_sound(snd_boss_derrotado, 1, 0);
 	morto = true;
 }
 
