@@ -35,6 +35,9 @@ imune = false;
 alpha = 1;
 
 function tomar_dano(){
+	if (instance_exists(obj_boss)){
+		if (obj_boss.vida <= 0) return;
+	}
 	if (vida <= 0) return;
 	if (imune) return;
 	
@@ -45,4 +48,5 @@ function tomar_dano(){
 	if (instance_exists(obj_barra_vida_player)){
 		obj_barra_vida_player.tomou_dano = true;
 	}
+	audio_play_sound(snd_damage, 1, 0);
 }

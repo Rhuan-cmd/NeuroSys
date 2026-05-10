@@ -7,6 +7,7 @@ if (estado == "indo") {
         timer = 0; // Reseta o timer para a próxima fase
         estado = "voltando";
         room_goto(proxima_room); // Muda de sala
+		audio_stop_all();
     }
 } else if (estado == "voltando") {
     // Se a animação "voltando" terminou

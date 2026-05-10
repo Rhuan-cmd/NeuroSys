@@ -20,6 +20,8 @@ vida = vidaMax;
 danificado = false;
 tempo_danificado = 5;
 
+morto = false;
+
 descansar = true;
 
 function descanso(temp = 60){
