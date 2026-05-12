@@ -6,20 +6,19 @@ estado = "indo"; // "indo" (preenchendo) ou "voltando" (revelando)
 gui_w = display_get_gui_width();
 gui_h = display_get_gui_height();
 
-// Tamanho de cada quadrado (ajuste para mais ou menos quadrados)
-quadrado_tamanho = 32;
+// Tamanho de cada quadrado
+quadrado_tamanho = 64; 
 
-// Calcula quantos quadrados cabem na tela
-colunas = ceil(gui_w / quadrado_tamanho);
-linhas = ceil(gui_h / quadrado_tamanho);
+// Calcula quantos quadrados cabem na tela (+2 para garantir margem de segurança)
+colunas = ceil(gui_w / quadrado_tamanho) + 2;
+linhas = ceil(gui_h / quadrado_tamanho) + 2;
 
 // --- Variáveis de Animação ---
-// Tempo geral da animação (0 a 1)
 timer = 0; 
 velocidade = 0.020; // Velocidade da transição
-
-// Atraso entre cada quadrado na diagonal
 atraso_diagonal = 0.5; 
 
-// Superfície temporária para desenhar a grade
-surf = -1;
+// Pré-calcula o tempo máximo para evitar calcular isso todo frame
+tempo_maximo = 1 + (colunas + linhas) * atraso_diagonal * 0.1;
+
+// O evento Clean Up pode ser apagado, já que não usamos mais surfaces!

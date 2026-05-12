@@ -14,7 +14,7 @@
   "frames":[
     {"$GMSpriteFrame":"v1","%Name":"c5ff6432-b920-47f6-9aa5-079105e8569e","name":"c5ff6432-b920-47f6-9aa5-079105e8569e","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
     {"$GMSpriteFrame":"v1","%Name":"d6e69e70-3317-4ff0-b8da-5deaae3d6667","name":"d6e69e70-3317-4ff0-b8da-5deaae3d6667","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
-    {"$GMSpriteFrame":"v1","%Name":"db66b391-0d29-4606-8eac-e98ff57db109","name":"db66b391-0d29-4606-8eac-e98ff57db109","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"5abcab1f-5eac-43cc-a240-faec16652c20","name":"5abcab1f-5eac-43cc-a240-faec16652c20","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
   ],
   "gridX":0,
   "gridY":0,
@@ -77,8 +77,8 @@
                 "0":{"$SpriteFrameKeyframe":"","Id":{"name":"d6e69e70-3317-4ff0-b8da-5deaae3d6667","path":"sprites/spr_barra_felicidade_corpo/spr_barra_felicidade_corpo.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
               },"Disabled":false,"id":"2a799ab0-97a4-4531-896b-7d394b4a9e10","IsCreationKey":false,"Key":1.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
             {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"db66b391-0d29-4606-8eac-e98ff57db109","path":"sprites/spr_barra_felicidade_corpo/spr_barra_felicidade_corpo.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
-              },"Disabled":false,"id":"5eec3a42-7fb3-497d-8295-43c99859475e","IsCreationKey":false,"Key":2.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"5abcab1f-5eac-43cc-a240-faec16652c20","path":"sprites/spr_barra_felicidade_corpo/spr_barra_felicidade_corpo.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
+              },"Disabled":false,"id":"5dcf8baa-65bb-420e-83da-ed2dcc486fbe","IsCreationKey":false,"Key":2.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
           ],"resourceType":"KeyframeStore<SpriteFrameKeyframe>","resourceVersion":"2.0",},"modifiers":[],"name":"frames","resourceType":"GMSpriteFramesTrack","resourceVersion":"2.0","spriteId":null,"trackColour":0,"tracks":[],"traits":0,},
     ],
     "visibleRange":null,

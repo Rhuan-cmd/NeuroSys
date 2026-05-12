@@ -10,11 +10,6 @@ atualizar_felicidade = total_felicidade;
 
 cor_barra =  make_color_rgb(3, 255, 0);
 
-// Intensidade do flash (0 = normal, 1 = totalmente vermelho)
-flash_vermelho = 0;
-// Velocidade do retorno (quanto menor, mais suave/lento)
-flash_suave = 0.01;
-
 perdeu = false;
 
 image_speed = 0;
@@ -29,3 +24,5 @@ zoom_atual = 1;     // Começa no normal
 velocidade_zoom = 0.1; // Quão suave é a transição (0.1 a 0.01)
 
 zoom = false;
+
+idbackground = layer_background_get_id("Background");

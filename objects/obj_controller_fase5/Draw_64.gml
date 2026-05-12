@@ -1,9 +1,23 @@
-draw_set_halign(fa_center);
-draw_set_valign(fa_middle);
+draw_sprite_ext(
+	spr_instrucao1,
+	0,
+	display_get_gui_width()/2,
+	y_instrucao1,
+	2,
+	2,
+	0,
+	c_white,
+	alpha
+);
 
-draw_set_color(c_black);
-draw_set_font(fnt_instrucao);
-draw_text(view_wport/2, 100, "Pressione Espaço Para Começar");
-
-draw_set_halign(fa_left);
-draw_set_valign(fa_top);
+draw_sprite_ext(
+	spr_instrucao2,
+	0,
+	display_get_gui_width()/2,
+	display_get_gui_height()-50,
+	scale_intrucao2,
+	scale_intrucao2,
+	0,
+	c_white,
+	alpha
+);

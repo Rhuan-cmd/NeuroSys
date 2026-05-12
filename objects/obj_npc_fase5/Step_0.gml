@@ -32,18 +32,6 @@ if (perdeu){
 	return;
 }
 
-if (flash_vermelho > 0) {
-    var lay_id = layer_get_id("Background"); // Nome da sua camada de fundo
-	var back_id = layer_background_get_id(lay_id);
-
-	// Interpola entre o Branco (normal) e Vermelho baseado na nossa variável
-	var cor_atual = merge_color(c_white, c_red, flash_vermelho);
-	layer_background_blend(back_id, cor_atual);
-
-	// Diminui o flash
-	flash_vermelho = max(0, flash_vermelho - flash_suave);
-}
-
 // Se ainda houver tremor para processar
 if (shake_remain > 0) {
     // Escolhe um valor aleatório entre -shake_remain e +shake_remain
@@ -72,8 +60,24 @@ if (atualizar_felicidade > 0){
 		cor_barra = c_yellow;
 	}else{
 		estado_felicidade = 2;
-		cor_barra = c_red;
+		cor_barra = c_blue;
 	}
+	if (idbackground){
+		switch (estado_felicidade){
+			case 0:
+				layer_background_sprite(idbackground, spr_fundo_fase5_feliz);
+				break;
+				
+			case 1:
+				layer_background_sprite(idbackground, spr_fundo_fase5_serio);
+				break;
+				
+			case 2:
+				layer_background_sprite(idbackground, spr_fundo_fase5_triste);
+				break;
+		}
+	}
+	
 }else{
 	estado_felicidade = 2;
 	flash_vermelho = 1;
@@ -88,6 +92,7 @@ if (atualizar_felicidade > 0){
 	alarm[0] = 120;
 	audio_stop_sound(snd_music_fase3);
 	audio_play_sound(snd_gameover, 1, 0);
+	layer_background_sprite(idbackground, spr_fundo_fase5_morte);
 	perdeu = true;
 }
 
