@@ -1,0 +1,11 @@
+draw_sprite_ext(
+    spr_f2_close,
+    0,
+    x,
+    y,
+    image_xscale,
+    image_yscale,
+    image_angle,
+    c_white,
+    image_alpha
+);

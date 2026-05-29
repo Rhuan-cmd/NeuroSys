@@ -1,5 +1,5 @@
-var centro_x = obj_npc_fase5.x;
-var centro_y = obj_npc_fase5.y;
+var centro_x = obj_npc_fase3.x;
+var centro_y = obj_npc_fase3.y;
 var margem = 100;
 
 // 1. Sorteia de onde ele vai vir (Seu código original)

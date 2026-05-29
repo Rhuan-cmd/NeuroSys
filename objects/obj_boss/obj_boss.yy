@@ -11,8 +11,8 @@
   "name":"obj_boss",
   "overriddenProperties":[],
   "parent":{
-    "name":"Fase6",
-    "path":"folders/Objetos/Fase6.yy",
+    "name":"Fase4",
+    "path":"folders/Objetos/Fase4.yy",
   },
   "parentObjectId":null,
   "persistent":false,

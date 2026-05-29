@@ -1,4 +1,4 @@
-if (room == rm_fase6){
+if (room == rm_fase4){
 	cursor_sprite = cr_none;
 }else{
 	cursor_sprite = spr_mouse;

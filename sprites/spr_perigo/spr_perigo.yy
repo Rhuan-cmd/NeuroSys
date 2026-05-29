@@ -29,8 +29,8 @@
   "nineSlice":null,
   "origin":4,
   "parent":{
-    "name":"Fase6",
-    "path":"folders/Sprites/Fase6.yy",
+    "name":"Fase4",
+    "path":"folders/Sprites/Fase4.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

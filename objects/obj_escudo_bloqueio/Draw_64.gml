@@ -1,5 +1,5 @@
-if (instance_exists(obj_npc_fase5)){
-	if (obj_npc_fase5.perdeu) return;
+if (instance_exists(obj_npc_fase3)){
+	if (obj_npc_fase3.perdeu) return;
 }
 
 if (umavez) return;

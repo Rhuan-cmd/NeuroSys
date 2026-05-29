@@ -1,5 +1,5 @@
 // 1. Defina quem é o objeto central e o raio da órbita
-var objeto_centro = obj_npc_fase5; // Altere para o nome do seu objeto central
+var objeto_centro = obj_npc_fase3; // Altere para o nome do seu objeto central
 var raio = 96;                  // A distância que ele ficará do centro
 
 if (instance_exists(objeto_centro)) {
@@ -39,8 +39,8 @@ if (destruidos >= 50 and !umavez){
 }
 
 if (ganhou){
-	if (instance_exists(obj_vilao_fase5)){
-		obj_vilao_fase5.parar = true;
+	if (instance_exists(obj_vilao_fase3)){
+		obj_vilao_fase3.parar = true;
 	}
 	
 	ganhou = false;

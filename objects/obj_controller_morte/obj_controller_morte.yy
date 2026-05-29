@@ -15,7 +15,7 @@
   "overriddenProperties":[],
   "parent":{
     "name":"Controllers",
-    "path":"folders/Objetos/Fase6/Controllers.yy",
+    "path":"folders/Objetos/Fase4/Controllers.yy",
   },
   "parentObjectId":null,
   "persistent":false,

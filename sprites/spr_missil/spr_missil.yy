@@ -27,7 +27,7 @@
   "origin":7,
   "parent":{
     "name":"Ataques",
-    "path":"folders/Sprites/Fase6/Ataques.yy",
+    "path":"folders/Sprites/Fase4/Ataques.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

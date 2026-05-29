@@ -11,7 +11,7 @@
   "overriddenProperties":[],
   "parent":{
     "name":"Ataques",
-    "path":"folders/Objetos/Fase6/Ataques.yy",
+    "path":"folders/Objetos/Fase4/Ataques.yy",
   },
   "parentObjectId":null,
   "persistent":false,
