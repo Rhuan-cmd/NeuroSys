@@ -11,11 +11,27 @@ if (modo_intro) {
         image_xscale = escala_padrao;
         image_yscale = escala_padrao;
         novo_alvo();
+        imortal_timer = max(imortal_timer, 14);
     }
     exit;
 }
 
+if (imortal_timer > 0) {
+    imortal_timer--;
+}
+
 trocar_alvo_timer--;
+rastro_tick++;
+if (rastro_tick >= 2) {
+    rastro_tick = 0;
+    rastro_indice = (rastro_indice + 1) mod 8;
+    rastro_x[rastro_indice] = x;
+    rastro_y[rastro_indice] = y;
+    rastro_alpha[rastro_indice] = 1;
+}
+for (var rastro_i = 0; rastro_i < 8; rastro_i++) {
+    rastro_alpha[rastro_i] = max(0, rastro_alpha[rastro_i] - 0.085);
+}
 
 if (trocar_alvo_timer <= 0 || point_distance(x, y, alvo_x, alvo_y) < 40) {
     novo_alvo();

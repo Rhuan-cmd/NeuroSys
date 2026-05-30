@@ -16,6 +16,8 @@ historia_finalizada = false;
 dialogo_index = 0;
 dialogo_chars = 0;
 dialogo_total = 6;
+dialogo_encerrando = false;
+dialogo_saida = 0;
 cascata_inicio_tempo = 0;
 transicao_caixa = false;
 transicao_timer = 0;
@@ -26,6 +28,7 @@ final_timer = 0;
 final_transition = 0;
 final_fade = 0;
 final_painel = false;
+final_limpeza_feita = false;
 saida_transition = 0;
 saida_tipo = 0;
 final_vitoria = false;
@@ -39,6 +42,41 @@ fx_x = [];
 fx_y = [];
 fx_timer = [];
 fx_total = 0;
+sino_audio_timer = room_speed;
+ambiente_audio = audio_play_sound(snd_f2_ambiente, 2, true, 0.62);
+ambiente_corrupto_audio = -1;
+chiado_audio = -1;
+audio_play_sound(snd_f2_fadein, 4, false, 0.52);
+digitacao_audio_timer = 0;
+aparicao_audio_etapa = 0;
+audio_mix_timer = 0;
+tremor_audio = -1;
+notificacao_audio_timer = 0;
+notificacao_fila = 0;
+notificacao_contatos_anteriores = 0;
+notificacao_mensagens_anteriores = 0;
+notificacao_contato_ciclo = 0;
+notificacao_mensagem_ciclo = 0;
+aviso_x_timer = 0;
+aviso_x_duracao = room_speed * 1.8;
+poder_cooldown = room_speed * 3;
+congelado_timer = 0;
+congelado_total = room_speed * 0.82;
+gelo_x = 0;
+gelo_y = 0;
+gelo_quebra_timer = 0;
+repel_fx_timer = 0;
+repel_fx_x = 0;
+repel_fx_y = 0;
+poder_ataque_tipo = 0;
+poder_ataque_timer = 0;
+poder_ataque_total = 22;
+poder_ataque_x0 = 0;
+poder_ataque_y0 = 0;
+poder_ataque_x1 = 0;
+poder_ataque_y1 = 0;
+hover_menu_anterior = false;
+hover_reiniciar_anterior = false;
 
 limite_clique = room_speed * 10;
 timer_clique = 0;
@@ -91,6 +129,9 @@ iniciar_minigame = function() {
     cutscene_clickou = true;
     cascata_fluxo = 0;
     window_set_cursor(cr_none);
+    aviso_x_timer = aviso_x_duracao;
+    audio_play_sound(snd_f2_click, 3, false, 0.5);
+    audio_play_sound(snd_f2_suspense, 4, false, 0.76);
     criar_caixa(botao_fixo_x, botao_fixo_y, false);
     if (instance_exists(caixa)) {
         caixa.modo_intro = true;
@@ -103,6 +144,52 @@ iniciar_minigame = function() {
         caixa.image_xscale = 1;
         caixa.image_yscale = 1;
     }
+};
+
+congelar_cursor = function() {
+    gelo_x = mouse_x;
+    gelo_y = mouse_y;
+    congelado_timer = congelado_total;
+    gelo_quebra_timer = 0;
+    window_mouse_set(gelo_x, gelo_y);
+    audio_play_sound(snd_f2_congelar, 4, false, 0.72);
+};
+
+repelir_cursor = function() {
+    var origem_x = room_width * 0.5;
+    var origem_y = room_height * 0.5;
+    if (instance_exists(caixa)) {
+        origem_x = caixa.x;
+        origem_y = caixa.y;
+    }
+    var direcao = point_direction(origem_x, origem_y, mouse_x, mouse_y);
+    if (point_distance(origem_x, origem_y, mouse_x, mouse_y) < 12) {
+        direcao = irandom(359);
+    }
+    var repel_x = clamp(mouse_x + lengthdir_x(210, direcao), 28, room_width - 28);
+    var repel_y = clamp(mouse_y + lengthdir_y(210, direcao), 28, room_height - 28);
+    repel_fx_x = mouse_x;
+    repel_fx_y = mouse_y;
+    repel_fx_timer = 20;
+    window_mouse_set(repel_x, repel_y);
+    cursor_draw_x = repel_x;
+    cursor_draw_y = repel_y;
+    shake_impacto = max(shake_impacto, 18);
+    audio_play_sound(snd_f2_repelir, 4, false, 0.78);
+};
+
+iniciar_ataque_cursor = function(_tipo) {
+    poder_ataque_tipo = _tipo;
+    poder_ataque_timer = poder_ataque_total;
+    poder_ataque_x0 = room_width * 0.5;
+    poder_ataque_y0 = room_height * 0.5;
+    if (instance_exists(caixa)) {
+        poder_ataque_x0 = caixa.x;
+        poder_ataque_y0 = caixa.y;
+    }
+    poder_ataque_x1 = mouse_x;
+    poder_ataque_y1 = mouse_y;
+    audio_play_sound(snd_f2_fuga, 3, false, 0.5, 0, _tipo == 1 ? 1.08 : 0.9);
 };
 
 ativar_minigame = function() {
@@ -122,6 +209,8 @@ ativar_minigame = function() {
     }
     shake_impacto = 42;
     shake_inicio = 3.2;
+    audio_play_sound(snd_f2_fuga, 2, false, 0.52);
+    audio_play_sound(snd_f2_tremor, 3, false, 0.36);
 };
 
 criar_caixa = function(_x, _y, _reposicionar) {
@@ -141,6 +230,7 @@ criar_caixa = function(_x, _y, _reposicionar) {
     caixa.configurar(cliques);
     
     if (_reposicionar) {
+        audio_play_sound(snd_f2_fuga, 2, false, 0.34, 0, random_range(0.96, 1.08));
         caixa.modo_intro = true;
         caixa.intro_timer = 0;
         caixa.intro_duracao = 22;
@@ -157,6 +247,8 @@ criar_caixa = function(_x, _y, _reposicionar) {
 
 perder_vida = function() {
     vidas--;
+    audio_play_sound(snd_f2_damage, 3, false, 0.72);
+    audio_play_sound(snd_f2_tremor, 3, false, min(0.82, 0.42 + (vidas_max - vidas) * 0.08));
     timer_clique = 0;
     shake_impacto = 56 + (vidas_max - vidas) * 18;
     damage_flash = 1;
@@ -183,10 +275,19 @@ finalizar_jogo = function(_vitoria) {
     saida_transition = 0;
     saida_tipo = 0;
     ativo = false;
+    congelado_timer = 0;
+    gelo_quebra_timer = 0;
+    repel_fx_timer = 0;
+    poder_ataque_timer = 0;
+    poder_ataque_tipo = 0;
     tempo_final = tempo_jogo;
     vidas_final = vidas;
     shake_impacto = _vitoria ? 36 : 78;
     damage_flash = _vitoria ? 0.35 : 1;
+    audio_stop_sound(snd_f2_ambiente);
+    audio_stop_sound(snd_f2_ambiente_corrupto);
+    audio_play_sound(snd_f2_fadeout, 4, false, 0.56);
+    audio_play_sound(_vitoria ? snd_f2_win : snd_f2_lose, 4, false, _vitoria ? 0.96 : 0.82);
     
     var nota_pontos = cliques * 8 + vidas * 4 - floor(tempo_final / room_speed);
     if (nota_pontos >= 85) nota_final = "S";

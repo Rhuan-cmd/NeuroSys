@@ -1,3 +1,5 @@
+var desenhar_fase = !(estado_final != 0 && final_painel);
+if (desenhar_fase) {
 draw_sprite(spr_f2_chat_bg, 0, 0, 0);
 
 if (cutscene_clickou || transicao_caixa || ativo || estado_final != 0) {
@@ -22,28 +24,28 @@ if (fase_entrada >= 5.8) contatos_visiveis = 2;
 if (fase_entrada >= 6.6) contatos_visiveis = 3;
 if (fase_entrada >= 7.3) contatos_visiveis = 4;
 if (fase_entrada >= 8.2) contatos_visiveis = 6;
-if (modo_cascata) contatos_visiveis = 9;
+if (modo_cascata) contatos_visiveis = 10;
 if (fase_entrada >= 5.6) mensagens_visiveis = 1;
 if (fase_entrada >= 6.8) mensagens_visiveis = 2;
 if (fase_entrada >= 7.8) mensagens_visiveis = 3;
 if (fase_entrada >= 8.7) mensagens_visiveis = 4;
-if (modo_cascata) mensagens_visiveis = 7;
+if (modo_cascata) mensagens_visiveis = 8;
 
 if (contatos_visiveis > 0) {
     
     for (var c = 0; c < contatos_visiveis; c++) {
         var y_contato;
         if (modo_cascata) {
-            y_contato = 74 + (((86 + c * 78) + fluxo_cascata - 74) mod (9 * 78));
+            y_contato = 66 + (((78 + c * 70) + fluxo_cascata - 66) mod (10 * 70));
         } else {
-            y_contato = 86 + c * 78;
+            y_contato = 78 + c * 70;
         }
         var alpha_contato = 0.72;
         if ((c mod 2) == 0) {
             alpha_contato = 0.9;
         }
         
-        if (y_contato >= 74 && y_contato <= 382) {
+        if (y_contato >= 66 && y_contato <= 394) {
             draw_sprite_ext(
                 spr_f2_contact_item,
                 0,
@@ -73,14 +75,14 @@ if (mensagens_visiveis > 0) {
     for (var m = 0; m < mensagens_visiveis; m++) {
         var y_msg;
         if (modo_cascata) {
-            y_msg = 82 + (((96 + m * 118) + fluxo_cascata * 0.82 - 82) mod (7 * 118));
+            y_msg = 74 + (((88 + m * 108) + fluxo_cascata * 0.82 - 74) mod (8 * 108));
         } else {
-            y_msg = 96 + m * 118;
+            y_msg = 88 + m * 108;
         }
         var spr_msg = spr_f2_msg_censored;
         var x_msg = 266;
         
-        if (y_msg >= 82 && y_msg <= 334) {
+        if (y_msg >= 74 && y_msg <= 350) {
             draw_sprite_ext(
                 spr_msg,
                 0,
@@ -195,8 +197,8 @@ for (var fx_i = 0; fx_i < array_length(fx_timer); fx_i++) {
         draw_set_color(make_color_rgb(255, 80, 96));
         draw_circle(fx_x[fx_i], fx_y[fx_i], fx_raio * 0.38, false);
         draw_set_color(make_color_rgb(255, 224, 116));
-        for (var fx_p = 0; fx_p < 8; fx_p++) {
-            var fx_dir = fx_p * 45 + fx_t * 80;
+        for (var fx_p = 0; fx_p < 6; fx_p++) {
+            var fx_dir = fx_p * 60 + fx_t * 80;
             draw_line_width(
                 fx_x[fx_i] + lengthdir_x(fx_raio * 0.25, fx_dir),
                 fx_y[fx_i] + lengthdir_y(fx_raio * 0.25, fx_dir),
@@ -240,7 +242,7 @@ if (!historia_finalizada && cutscene_timer >= fade_duracao && !ativo && !transic
             break;
     }
     
-    var h_abre = clamp((cutscene_timer - fade_duracao) / 24, 0, 1);
+    var h_abre = clamp((cutscene_timer - fade_duracao) / 24, 0, 1) * (1 - dialogo_saida);
     var h_suave = h_abre * h_abre * (3 - 2 * h_abre);
     var h_x1 = lerp(room_width / 2, 206, h_suave);
     var h_x2 = lerp(room_width / 2, 754, h_suave);
@@ -249,11 +251,12 @@ if (!historia_finalizada && cutscene_timer >= fade_duracao && !ativo && !transic
     var chars_visiveis = min(string_length(historia_texto), floor(dialogo_chars));
     var texto_visivel = string_copy(historia_texto, 1, chars_visiveis);
     var completo = chars_visiveis >= string_length(historia_texto);
+    var h_alpha = 1 - dialogo_saida;
     
-    draw_set_alpha(0.84);
+    draw_set_alpha(0.84 * h_alpha);
     draw_set_color(c_black);
     draw_rectangle(0, 0, room_width, room_height, false);
-    draw_set_alpha(0.96);
+    draw_set_alpha(0.96 * h_alpha);
     draw_set_color(make_color_rgb(9, 16, 30));
     draw_rectangle(h_x1, h_y1, h_x2, h_y2, false);
     draw_set_color(make_color_rgb(42, 211, 238));
@@ -261,7 +264,7 @@ if (!historia_finalizada && cutscene_timer >= fade_duracao && !ativo && !transic
     draw_set_color(make_color_rgb(43, 58, 88));
     draw_rectangle(h_x1 + 12, h_y2 - 22, h_x2 - 12, h_y2 - 18, false);
     
-    draw_set_alpha(h_suave);
+    draw_set_alpha(h_suave * h_alpha);
     draw_set_font(fnt_f2_dialogo);
     draw_set_color(make_color_rgb(115, 230, 255));
     draw_text(h_x1 + 26, h_y1 + 22, historia_titulo);
@@ -270,7 +273,7 @@ if (!historia_finalizada && cutscene_timer >= fade_duracao && !ativo && !transic
     
     if (completo) {
         var enter_alpha = 0.45 + sin(current_time * 0.008) * 0.35;
-        draw_set_alpha(enter_alpha);
+        draw_set_alpha(enter_alpha * h_alpha);
         draw_set_color(make_color_rgb(255, 232, 122));
         draw_set_halign(fa_right);
         draw_text(h_x2 - 24, h_y2 - 48, "ENTER");
@@ -278,6 +281,23 @@ if (!historia_finalizada && cutscene_timer >= fade_duracao && !ativo && !transic
     }
     draw_set_alpha(1);
     draw_set_color(c_white);
+}
+
+if (aviso_x_timer > 0 && estado_final == 0) {
+    var aviso_t = 1 - aviso_x_timer / aviso_x_duracao;
+    var aviso_alpha = min(clamp(aviso_t / 0.22, 0, 1), clamp((1 - aviso_t) / 0.34, 0, 1));
+    var aviso_escala = lerp(0.82, 1.08, clamp(aviso_t / 0.28, 0, 1));
+    draw_set_alpha(aviso_alpha * 0.62);
+    draw_set_color(c_black);
+    draw_rectangle(0, room_height / 2 - 54, room_width, room_height / 2 + 54, false);
+    draw_set_alpha(aviso_alpha);
+    draw_set_font(fnt_f2_dialogo);
+    draw_set_halign(fa_center);
+    draw_set_valign(fa_middle);
+    draw_set_color(make_color_rgb(255, 228, 132));
+    draw_text_transformed(room_width / 2, room_height / 2, "PEGUE O X...", aviso_escala * 1.6, aviso_escala * 1.6, 0);
+    draw_set_halign(fa_left);
+    draw_set_valign(fa_top);
 }
 
 var fade_alpha = max(0, 1 - cutscene_timer / fade_duracao);
@@ -311,7 +331,7 @@ if (damage_flash > 0 || vidas_perdidas_fx > 0) {
     draw_rectangle(0, 0, room_width, room_height, false);
     
     draw_set_alpha(0.16 + ruido_forca * 0.22);
-    for (var r = 0; r < 18 + vidas_perdidas_fx * 10; r++) {
+    for (var r = 0; r < 10 + vidas_perdidas_fx * 5; r++) {
         var ry = irandom(room_height);
         var rx = irandom_range(-24, 24);
         if (irandom(1) == 0) {
@@ -330,6 +350,7 @@ if (damage_flash > 0 || vidas_perdidas_fx > 0) {
     draw_rectangle(room_width - 14, 0, room_width, room_height, false);
     draw_set_alpha(1);
     draw_set_color(c_white);
+}
 }
 
 if (estado_final != 0) {
