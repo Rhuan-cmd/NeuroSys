@@ -1,0 +1,217 @@
+window_set_cursor(cr_none);
+cursor_sprite = cr_none;
+cutscene_timer++;
+if (estado < 3) visual_timer++;
+damage_flash = max(0, damage_flash - 0.05);
+bonus_flash = max(0, bonus_flash - 0.04);
+shake = max(0, shake - 0.7);
+cursor_click_fx = max(0, cursor_click_fx - 1);
+
+// ===== TELA FINAL: CONGELA O JOGO E LIMPA O FUNDO =====
+if (estado >= 3) {
+    fim_timer++;
+    cursor_draw_x = mouse_x;
+    cursor_draw_y = mouse_y;
+    if (!final_painel) {
+        final_fade = min(1, final_fade + 0.04);
+        if (final_fade >= 1 && fim_timer > room_speed * 0.72) final_painel = true;
+    } else {
+        final_transition = min(1, final_transition + 0.06);
+    }
+    if (final_painel && !final_limpeza_feita) {
+        with (obj_controller_jogo) instance_destroy();
+        final_limpeza_feita = true;
+    }
+    if (saida_tipo != 0) {
+        saida_transition = min(1, saida_transition + 0.06);
+        if (saida_transition >= 1) {
+            if (saida_tipo == 1) transicao(rm_fase2);
+            else room_restart();
+        }
+    }
+    var _final_suave = final_transition * final_transition * (3 - 2 * final_transition);
+    var _final_offset = lerp(38, 0, _final_suave);
+    var _hover_acao = final_painel && point_in_rectangle(mouse_x, mouse_y, 312, 375 + _final_offset, 454, 411 + _final_offset);
+    var _hover_reiniciar = final_painel && point_in_rectangle(mouse_x, mouse_y, 506, 375 + _final_offset, 648, 411 + _final_offset);
+    if ((_hover_acao && !hover_acao_anterior) || (_hover_reiniciar && !hover_reiniciar_anterior)) {
+        audio_play_sound(snd_f2_selecao, 3, false, 0.42);
+    }
+    hover_acao_anterior = _hover_acao;
+    hover_reiniciar_anterior = _hover_reiniciar;
+    if (final_painel && mouse_check_button_pressed(mb_left)) {
+        if (_hover_acao) {
+            audio_play_sound(snd_f2_botao, 4, false, 0.62);
+            saida_tipo = final_vitoria ? 1 : 2;
+        }
+        if (_hover_reiniciar) {
+            audio_play_sound(snd_f2_botao, 4, false, 0.62);
+            saida_tipo = 2;
+        }
+    }
+    if (final_painel && keyboard_check_pressed(vk_enter)) {
+        audio_play_sound(snd_f2_botao, 4, false, 0.62);
+        saida_tipo = final_vitoria ? 1 : 2;
+    }
+    exit;
+}
+
+// ===== CUTSCENE NO MESMO RITMO DA FASE 2 =====
+if (estado == 0 && cutscene_timer >= fade_duracao) {
+    var _texto = dialogo_textos[dialogo_index];
+    if (dialogo_encerrando) {
+        dialogo_saida = min(1, dialogo_saida + 0.07);
+        if (dialogo_saida >= 1) {
+            estado = 1;
+            objetivo_timer = 0;
+            audio_play_sound(snd_f2_aparecer, 3, false, 0.52);
+        }
+    } else if (dialogo_chars < string_length(_texto)) {
+        dialogo_chars = min(string_length(_texto), dialogo_chars + 0.62);
+        digitacao_audio_timer--;
+        if (digitacao_audio_timer <= 0) {
+            audio_play_sound(snd_f2_digitacao, 1, false, 0.18, 0, random_range(0.96, 1.06));
+            digitacao_audio_timer = 4;
+        }
+        if (keyboard_check_pressed(vk_enter)) {
+            dialogo_chars = string_length(_texto);
+            audio_play_sound(snd_f2_enter, 3, false, 0.46);
+        }
+    } else if (keyboard_check_pressed(vk_enter)) {
+        dialogo_index++;
+        dialogo_chars = 0;
+        audio_play_sound(snd_f2_enter, 3, false, 0.54);
+        if (dialogo_index >= dialogo_total) {
+            dialogo_index = dialogo_total - 1;
+            dialogo_encerrando = true;
+        }
+    }
+}
+
+if (estado == 0) {
+    var _layout_alvo = (dialogo_index >= 1 && dialogo_index <= 4) ? 1 : 0;
+    dialogo_layout = lerp(dialogo_layout, _layout_alvo, 0.09);
+}
+
+// ===== CURSOR AUTOMATICO: USUARIO INTERAGINDO NA TELA =====
+if (estado == 0) {
+    var _alvo_x = 480;
+    var _alvo_y = 270;
+    switch (dialogo_index) {
+        case 0: _alvo_x = 342; _alvo_y = 244; break;
+        case 1: _alvo_x = 550; _alvo_y = 322; break;
+        case 2: _alvo_x = 488; _alvo_y = 370; break;
+        case 3: _alvo_x = 756; _alvo_y = 242; break;
+        case 4: _alvo_x = 756; _alvo_y = 272; break;
+        case 5: _alvo_x = 480; _alvo_y = 444; break;
+    }
+    cursor_cutscene_x = lerp(cursor_cutscene_x, _alvo_x, 0.045);
+    cursor_cutscene_y = lerp(cursor_cutscene_y, _alvo_y, 0.045);
+    cursor_draw_x = lerp(cursor_draw_x, cursor_cutscene_x, 0.2);
+    cursor_draw_y = lerp(cursor_draw_y, cursor_cutscene_y, 0.2);
+    if (point_distance(cursor_draw_x, cursor_draw_y, _alvo_x, _alvo_y) < 5 && cursor_click_fx <= 0) cursor_click_fx = 34;
+} else {
+    cursor_draw_x = mouse_x;
+    cursor_draw_y = mouse_y;
+}
+
+// ===== CARTÃO DE OBJETIVO ANTES DO JOGO =====
+if (estado == 1) {
+    objetivo_timer++;
+    if (!objetivo_saida && objetivo_timer >= objetivo_minimo && (objetivo_timer >= objetivo_duracao || keyboard_check_pressed(vk_enter) || mouse_check_button_pressed(mb_left))) {
+        objetivo_saida = true;
+        audio_play_sound(snd_f2_enter, 3, false, 0.5);
+    }
+    if (objetivo_saida) {
+        objetivo_saida_alpha = min(1, objetivo_saida_alpha + 0.055);
+    }
+    if (objetivo_saida_alpha >= 1) {
+        reiniciar_fase();
+        audio_play_sound(snd_f2_aparecer, 3, false, 0.62, 0, 1.08);
+    }
+}
+
+// ===== FRUIT NINJA SOCIAL =====
+if (estado == 2) {
+    tempo--;
+    spawn_timer--;
+    var _max_mensagens = clamp(1 + floor(ataques_cortados / 5), 1, 5);
+    if (spawn_timer <= 0 && array_length(mensagens) < _max_mensagens) {
+        criar_mensagem();
+        if (ataques_cortados >= 15 && random(1) < 0.18) criar_mensagem();
+        spawn_timer = max(14, 38 - ataques_cortados);
+    }
+
+    var _dist_mouse = point_distance(mouse_anterior_x, mouse_anterior_y, mouse_x, mouse_y);
+    if (mouse_check_button(mb_left) && _dist_mouse > 3) {
+        array_push(rastros, { x1 : mouse_anterior_x, y1 : mouse_anterior_y, x2 : mouse_x, y2 : mouse_y, vida : 11 });
+        for (var _i = array_length(mensagens) - 1; _i >= 0; _i--) {
+            var _m = mensagens[_i];
+            if (_m.invul <= 0 && distancia_segmento(_m.x, _m.y, mouse_anterior_x, mouse_anterior_y, mouse_x, mouse_y) < _m.altura * 0.68) {
+                criar_particulas(_m.x, _m.y, _m.tipo);
+                if (_m.tipo == 0) {
+                    _m.hp--;
+                    if (_m.hp > 0) {
+                        _m.invul = 10;
+                        _m.vx *= -1.15;
+                        _m.vy -= 1.6;
+                        shake = 4;
+                    } else {
+                        ataques_cortados++;
+                        combo++;
+                        melhor_combo = max(melhor_combo, combo);
+                        pontuacao += 100 + combo * 12;
+                        audio_play_sound(snd_f2_ponto, 3, false, 0.42, 0, 1 + min(combo, 12) * 0.025);
+                        array_delete(mensagens, _i, 1);
+                    }
+                } else if (_m.tipo == 1) {
+                    aplicar_dano();
+                    array_delete(mensagens, _i, 1);
+                } else if (_m.tipo == 2) {
+                    escudo = 1;
+                    tempo = min(tempo_total, tempo + room_speed * 3);
+                    bonus_flash = 1;
+                    pontuacao += 180;
+                    audio_play_sound(snd_f2_repelir, 3, false, 0.62);
+                    array_delete(mensagens, _i, 1);
+                } else {
+                    aplicar_dano();
+                    shake = 18;
+                    array_delete(mensagens, _i, 1);
+                }
+            }
+        }
+    }
+
+    for (var _i = array_length(mensagens) - 1; _i >= 0; _i--) {
+        var _m = mensagens[_i];
+        _m.x += _m.vx;
+        _m.y += _m.vy;
+        _m.vy += _m.grav;
+        _m.rot += _m.vx * 0.045;
+        _m.invul = max(0, _m.invul - 1);
+        if (_m.y > room_height + 100 || _m.x < -320 || _m.x > room_width + 320) {
+            if (_m.tipo == 0) aplicar_dano();
+            array_delete(mensagens, _i, 1);
+        }
+    }
+
+    if (ataques_cortados >= objetivo) finalizar_fase(true);
+    if (vidas <= 0 || tempo <= 0) finalizar_fase(false);
+}
+
+for (var _i = array_length(particulas) - 1; _i >= 0; _i--) {
+    var _p = particulas[_i];
+    _p.x += _p.vx;
+    _p.y += _p.vy;
+    _p.vy += 0.12;
+    _p.vida--;
+    if (_p.vida <= 0) array_delete(particulas, _i, 1);
+}
+
+for (var _i = array_length(rastros) - 1; _i >= 0; _i--) {
+    rastros[_i].vida--;
+    if (rastros[_i].vida <= 0) array_delete(rastros, _i, 1);
+}
+
+mouse_anterior_x = mouse_x;
+mouse_anterior_y = mouse_y;
