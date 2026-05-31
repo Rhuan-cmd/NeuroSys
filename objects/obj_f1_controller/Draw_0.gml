@@ -31,15 +31,29 @@ draw_set_color(make_color_rgb(23, 51, 85));
 draw_rectangle(91 + _sx, 54 + _sy, 869 + _sx, 104 + _sy, false);
 draw_set_color(make_color_rgb(39, 211, 231));
 draw_rectangle(91 + _sx, 101 + _sy, 869 + _sx, 104 + _sy, false);
+// Marca própria do CONECTA: pontos ligados representam uma rede saudável.
 draw_set_color(make_color_rgb(96, 237, 251));
 draw_circle(127 + _sx, 79 + _sy, 15, true);
-draw_circle(127 + _sx, 79 + _sy, 7, false);
+draw_line_width(119 + _sx, 83 + _sy, 127 + _sx, 72 + _sy, 2);
+draw_line_width(127 + _sx, 72 + _sy, 136 + _sx, 83 + _sy, 2);
+draw_line_width(119 + _sx, 83 + _sy, 136 + _sx, 83 + _sy, 2);
+draw_circle(119 + _sx, 83 + _sy, 3, false);
+draw_circle(127 + _sx, 72 + _sy, 3, false);
+draw_circle(136 + _sx, 83 + _sy, 3, false);
 draw_set_color(c_white);
 draw_text_transformed(154 + _sx, 66 + _sy, "CONECTA", 1.04, 1.04, 0);
+draw_set_halign(fa_center);
 draw_set_color(make_color_rgb(131, 166, 201));
-draw_text(699 + _sx, 68 + _sy, "rede segura");
+draw_text(412 + _sx, 68 + _sy, "INÍCIO");
+draw_text(506 + _sx, 68 + _sy, "COMUNIDADE");
+draw_text(618 + _sx, 68 + _sy, "SEGURANÇA");
+draw_set_color(make_color_rgb(81, 224, 240));
+draw_rectangle(388 + _sx, 98 + _sy, 436 + _sx, 101 + _sy, false);
+draw_set_halign(fa_left);
+draw_set_color(make_color_rgb(131, 166, 201));
+draw_text(739 + _sx, 68 + _sy, "rede segura");
 draw_set_color(make_color_rgb(80, 232, 187));
-draw_circle(837 + _sx, 79 + _sy, 6 + _pulso, false);
+draw_circle(718 + _sx, 79 + _sy, 5 + _pulso, false);
 
 // ===== BARRA LATERAL =====
 draw_set_color(make_color_rgb(16, 35, 61));
@@ -68,7 +82,8 @@ draw_roundrect(287 + _sx, 175 + _sy, 315 + _sx, 186 + _sy, false);
 draw_set_color(make_color_rgb(34, 65, 96));
 draw_text(337 + _sx, 145 + _sy, "@luna_online");
 draw_set_color(make_color_rgb(94, 119, 145));
-draw_text(337 + _sx, 174 + _sy, "Meu desenho novo. Ainda estou aprendendo :)");
+draw_text(337 + _sx, 174 + _sy, "Meu desenho novo.");
+draw_text(337 + _sx, 194 + _sy, "Ainda estou aprendendo :)");
 draw_set_color(make_color_rgb(226, 236, 245));
 draw_rectangle(282 + _sx, 216 + _sy, 630 + _sx, 219 + _sy, false);
 draw_set_color(make_color_rgb(46, 139, 182));
@@ -76,16 +91,23 @@ draw_text(291 + _sx, 239 + _sy, "CURTIR    COMENTAR    APOIAR");
 
 // ===== PAINEL DE MODERAÇÃO =====
 draw_set_color(make_color_rgb(12, 29, 51));
-draw_roundrect(676 + _sx, 126 + _sy, 846 + _sx, 286 + _sy, false);
+draw_roundrect(676 + _sx, 126 + _sy, 846 + _sx, 408 + _sy, false);
 draw_set_color(make_color_rgb(52, 202, 225));
 draw_rectangle(676 + _sx, 126 + _sy, 846 + _sx, 131 + _sy, false);
 draw_set_color(make_color_rgb(130, 232, 248));
-draw_text(694 + _sx, 148 + _sy, "MODERACAO");
-draw_set_color(make_color_rgb(151, 180, 205));
-draw_text(694 + _sx, 183 + _sy, "Leia antes");
-draw_text(694 + _sx, 204 + _sy, "de cortar.");
-draw_set_color(make_color_rgb(85, 232, 185));
-draw_text(694 + _sx, 243 + _sy, "DENUNCIA = ESCUDO");
+draw_text(694 + _sx, 148 + _sy, estado == 2 ? "STATUS DA REDE" : "MODERAÇÃO");
+if (estado == 2) {
+    draw_set_color(make_color_rgb(28, 59, 88));
+    draw_rectangle(690 + _sx, 190 + _sy, 832 + _sx, 193 + _sy, false);
+    draw_rectangle(690 + _sx, 264 + _sy, 832 + _sx, 267 + _sy, false);
+    draw_rectangle(690 + _sx, 338 + _sy, 832 + _sx, 341 + _sy, false);
+} else {
+    draw_set_color(make_color_rgb(151, 180, 205));
+    draw_text(694 + _sx, 183 + _sy, "Leia antes");
+    draw_text(694 + _sx, 204 + _sy, "de cortar.");
+    draw_set_color(make_color_rgb(85, 232, 185));
+    draw_text(694 + _sx, 243 + _sy, "DENÚNCIA = ESCUDO");
+}
 
 // ===== CUTSCENE: COMENTARIOS E INTERACOES NA TELA =====
 if (estado == 0 && dialogo_index >= 1) {
@@ -93,19 +115,19 @@ if (estado == 0 && dialogo_index >= 1) {
     draw_set_color(make_color_rgb(163, 48, 73));
     draw_roundrect(286 + _sx, 304 + _sy, 600 + _sx, 344 + _sy, false);
     draw_set_color(c_white);
-    draw_text(306 + _sx, 314 + _sy, "anonimo: apaga isso agora");
+    draw_text(306 + _sx, 314 + _sy, "anônimo: apaga isso agora");
 }
 if (estado == 0 && dialogo_index >= 2) {
     draw_set_color(make_color_rgb(32, 139, 121));
     draw_roundrect(322 + _sx, 354 + _sy, 640 + _sx, 394 + _sy, false);
     draw_set_color(c_white);
-    draw_text(342 + _sx, 364 + _sy, "bia: seu desenho ficou otimo!");
+    draw_text(342 + _sx, 364 + _sy, "bia: seu desenho ficou ótimo!");
 }
 if (estado == 0 && dialogo_index >= 3) {
     draw_set_color(make_color_rgb(17, 40, 68));
     draw_roundrect(688 + _sx, 218 + _sy, 834 + _sx, 314 + _sy, false);
     draw_set_color(make_color_rgb(103, 225, 248));
-    draw_text(704 + _sx, 232 + _sy, "ACOES");
+    draw_text(704 + _sx, 232 + _sy, "AÇÕES");
     draw_set_color(make_color_rgb(41, 132, 177));
     draw_roundrect(702 + _sx, 260 + _sy, 820 + _sx, 292 + _sy, false);
     draw_set_color(c_white);
@@ -154,9 +176,12 @@ for (var _i = 0; _i < array_length(mensagens); _i++) {
 // ===== RASTRO DO CORTE E PARTÍCULAS =====
 for (var _i = 0; _i < array_length(rastros); _i++) {
     var _r = rastros[_i];
-    draw_set_alpha(_r.vida / 11);
+    draw_set_alpha(_r.vida / 11 * 0.28);
     draw_set_color(make_color_rgb(118, 231, 255));
-    draw_line_width(_r.x1, _r.y1, _r.x2, _r.y2, 2 + _r.vida * 0.3);
+    draw_line_width(_r.x1, _r.y1, _r.x2, _r.y2, 7 + _r.vida * 0.36);
+    draw_set_alpha(_r.vida / 11);
+    draw_set_color(c_white);
+    draw_line_width(_r.x1, _r.y1, _r.x2, _r.y2, 2 + _r.vida * 0.24);
 }
 for (var _i = 0; _i < array_length(particulas); _i++) {
     var _p = particulas[_i];

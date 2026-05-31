@@ -8,13 +8,13 @@ draw_set_color(c_white);
 if (estado == 2) {
     var _pulse = 1 + sin(visual_timer * 0.14) * 0.018;
     // Cada informacao usa um sprite proprio da fase 1, integrado ao CONECTA.
-    draw_sprite_ext(spr_f1_status_lives, 0, 756, 142, 0.72 * _pulse, 0.72 * _pulse, 0, c_white, 1);
-    draw_sprite_ext(spr_f1_status_timer, 0, 756, 222, 0.72 * _pulse, 0.72 * _pulse, 0, c_white, 1);
-    draw_sprite_ext(spr_f1_status_progress, 0, 756, 302, 0.72 * _pulse, 0.72 * _pulse, 0, c_white, 1);
+    draw_sprite_ext(spr_f1_status_lives, 0, 756, 182, 0.72 * _pulse, 0.72 * _pulse, 0, c_white, 1);
+    draw_sprite_ext(spr_f1_status_timer, 0, 756, 256, 0.72 * _pulse, 0.72 * _pulse, 0, c_white, 1);
+    draw_sprite_ext(spr_f1_status_progress, 0, 756, 330, 0.72 * _pulse, 0.72 * _pulse, 0, c_white, 1);
     draw_set_color(c_white);
-    draw_text(784, 139, string(vidas) + "/" + string(vidas_max));
-    draw_text(784, 219, string(ceil(tempo / room_speed)) + "s");
-    draw_text(784, 299, string(ataques_cortados) + "/" + string(objetivo));
+    draw_text(784, 179, string(vidas) + "/" + string(vidas_max));
+    draw_text(784, 253, string(ceil(tempo / room_speed)) + "s");
+    draw_text(784, 327, string(ataques_cortados) + "/" + string(objetivo));
 
     // Barra principal posicionada no rodape central.
     draw_set_alpha(0.94);
@@ -34,10 +34,10 @@ if (estado == 2) {
     if (escudo > 0) {
         draw_set_alpha(0.24 + sin(visual_timer * 0.2) * 0.08);
         draw_set_color(make_color_rgb(87, 226, 255));
-        draw_circle(756, 142, 52, true);
+        draw_circle(756, 182, 52, true);
         draw_set_alpha(1);
         draw_set_color(make_color_rgb(126, 237, 255));
-        draw_text(688, 184, "ESCUDO ATIVO");
+        draw_text(688, 376, "ESCUDO ATIVO");
     }
 }
 
@@ -106,7 +106,7 @@ if (estado == 1) {
     draw_set_color(make_color_rgb(255, 226, 128));
     draw_text_transformed(480, 236, "PROTEJA A POSTAGEM", 1.42 * _pop, 1.42 * _pop, 0);
     draw_set_color(make_color_rgb(164, 229, 245));
-    draw_text_transformed(480, 282, "CORTE 26 ATAQUES  |  NOVAS SITUACOES APARECEM AOS POUCOS", 0.9, 0.9, 0);
+    draw_text_transformed(480, 282, "CORTE 26 ATAQUES  |  NOVAS SITUAÇÕES APARECEM AOS POUCOS", 0.9, 0.9, 0);
     draw_set_color(make_color_rgb(255, 224, 123));
     draw_text_transformed(480, 310, "ENTER OU CLIQUE", 0.78, 0.78, 0);
     draw_set_halign(fa_left);
@@ -142,18 +142,28 @@ if (estado == 3 || estado == 4) {
     draw_set_alpha(_final_suave);
     draw_set_halign(fa_center);
     draw_set_color(final_vitoria ? make_color_rgb(91, 238, 255) : make_color_rgb(255, 92, 112));
-    draw_text_transformed(480, 142 + _final_offset, final_vitoria ? "POSTAGEM PROTEGIDA" : "PRESSAO DIGITAL", 1.12, 1.12, 0);
+    draw_text_transformed(480, 142 + _final_offset, final_vitoria ? "POSTAGEM PROTEGIDA" : "PRESSÃO DIGITAL", 1.12, 1.12, 0);
     draw_set_color(make_color_rgb(144, 163, 196));
     draw_text(480, 164 + _final_offset, final_vitoria ? "ataques contidos com responsabilidade" : "a rede precisa de uma nova tentativa");
     draw_set_halign(fa_left);
+    draw_set_color(make_color_rgb(8, 22, 39));
+    draw_roundrect(270, 222 + _final_offset, 506, 254 + _final_offset, false);
+    draw_roundrect(270, 262 + _final_offset, 506, 294 + _final_offset, false);
+    draw_roundrect(270, 302 + _final_offset, 506, 334 + _final_offset, false);
+    draw_roundrect(548, 208 + _final_offset, 668, 334 + _final_offset, false);
+    draw_set_color(make_color_rgb(39, 117, 151));
+    draw_roundrect(270, 222 + _final_offset, 506, 254 + _final_offset, true);
+    draw_roundrect(270, 262 + _final_offset, 506, 294 + _final_offset, true);
+    draw_roundrect(270, 302 + _final_offset, 506, 334 + _final_offset, true);
+    draw_roundrect(548, 208 + _final_offset, 668, 334 + _final_offset, true);
     draw_set_color(make_color_rgb(116, 231, 255));
-    draw_text(286, 238 + _final_offset, "TEMPO");
-    draw_text(286, 276 + _final_offset, "ATAQUES");
-    draw_text(286, 314 + _final_offset, "VIDAS");
+    draw_text(286, 230 + _final_offset, "TEMPO");
+    draw_text(286, 270 + _final_offset, "ATAQUES");
+    draw_text(286, 310 + _final_offset, "VIDAS");
     draw_set_color(c_white);
-    draw_text(396, 238 + _final_offset, _tempo_txt);
-    draw_text(396, 276 + _final_offset, string(ataques_cortados) + "/" + string(objetivo));
-    draw_text(396, 314 + _final_offset, string(vidas_final) + "/" + string(vidas_max));
+    draw_text(430, 230 + _final_offset, _tempo_txt);
+    draw_text(430, 270 + _final_offset, string(ataques_cortados) + "/" + string(objetivo));
+    draw_text(430, 310 + _final_offset, string(vidas_final) + "/" + string(vidas_max));
     draw_set_halign(fa_center);
     draw_set_color(make_color_rgb(116, 231, 255));
     draw_text(606, 214 + _final_offset, "NOTA");
@@ -167,7 +177,7 @@ if (estado == 3 || estado == 4) {
     draw_rectangle(506, 375 + _final_offset, 648, 411 + _final_offset, false);
     draw_set_alpha(_final_suave);
     draw_set_color(_hover_acao ? make_color_rgb(255, 246, 152) : c_white);
-    draw_text(383, 384 + _final_offset, final_vitoria ? "FASE 2" : "TENTAR");
+    draw_text(383, 384 + _final_offset, "MENU");
     draw_set_color(_hover_reiniciar ? make_color_rgb(255, 246, 152) : c_white);
     draw_text(577, 384 + _final_offset, "REINICIAR");
     draw_set_halign(fa_left);

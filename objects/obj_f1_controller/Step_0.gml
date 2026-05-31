@@ -25,7 +25,7 @@ if (estado >= 3) {
     if (saida_tipo != 0) {
         saida_transition = min(1, saida_transition + 0.06);
         if (saida_transition >= 1) {
-            if (saida_tipo == 1) transicao(rm_fase2);
+            if (saida_tipo == 1) game_end();
             else room_restart();
         }
     }
@@ -41,7 +41,7 @@ if (estado >= 3) {
     if (final_painel && mouse_check_button_pressed(mb_left)) {
         if (_hover_acao) {
             audio_play_sound(snd_f2_botao, 4, false, 0.62);
-            saida_tipo = final_vitoria ? 1 : 2;
+            saida_tipo = 1;
         }
         if (_hover_reiniciar) {
             audio_play_sound(snd_f2_botao, 4, false, 0.62);
@@ -142,11 +142,11 @@ if (estado == 2) {
     }
 
     var _dist_mouse = point_distance(mouse_anterior_x, mouse_anterior_y, mouse_x, mouse_y);
-    if (mouse_check_button(mb_left) && _dist_mouse > 3) {
+    if (mouse_check_button(mb_left) && _dist_mouse > 2) {
         array_push(rastros, { x1 : mouse_anterior_x, y1 : mouse_anterior_y, x2 : mouse_x, y2 : mouse_y, vida : 11 });
         for (var _i = array_length(mensagens) - 1; _i >= 0; _i--) {
             var _m = mensagens[_i];
-            if (_m.invul <= 0 && distancia_segmento(_m.x, _m.y, mouse_anterior_x, mouse_anterior_y, mouse_x, mouse_y) < _m.altura * 0.68) {
+            if (_m.invul <= 0 && cartao_atingido(_m, mouse_anterior_x, mouse_anterior_y, mouse_x, mouse_y)) {
                 criar_particulas(_m.x, _m.y, _m.tipo);
                 if (_m.tipo == 0) {
                     _m.hp--;

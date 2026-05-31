@@ -43,20 +43,20 @@ cursor_draw_y = cursor_cutscene_y;
 cursor_click_fx = 0;
 
 dialogo_textos = [
-    "Voce abre a rede social e encontra a postagem de Luna: um desenho que ela fez enquanto aprendia.",
-    "O cursor desce ate os comentarios. Primeiro aparece uma critica. Depois chegam ataques pessoais.",
-    "Uma mensagem de apoio surge no meio da onda. Leia antes de agir: apoio nao deve ser removido.",
-    "Ao abrir as ferramentas de moderacao, voce encontra a opcao DENUNCIAR PERFIL.",
-    "Denunciar protege a postagem. Compartilhar um ataque faz o oposto: aumenta o alcance da agressao.",
-    "Agora assuma o controle. Comece pelos ataques simples. Novas situacoes aparecem aos poucos."
+    "Você abre a rede social e encontra a postagem de Luna: um desenho que ela fez enquanto aprendia.",
+    "O cursor desce até os comentários. Primeiro aparece uma crítica. Depois chegam ataques pessoais.",
+    "Uma mensagem de apoio surge no meio da onda. Leia antes de agir: apoio não deve ser removido.",
+    "Ao abrir as ferramentas de moderação, você encontra a opção DENUNCIAR PERFIL.",
+    "Denunciar protege a postagem. Compartilhar um ataque faz o oposto: aumenta o alcance da agressão.",
+    "Agora assuma o controle. Comece pelos ataques simples. Novas situações aparecem aos poucos."
 ];
 
 dialogo_titulos = [
     "Uma postagem comum",
-    "Os comentarios chegam",
+    "Os comentários chegam",
     "Leia antes de agir",
-    "Ferramentas de moderacao",
-    "Denuncie, nao espalhe",
+    "Ferramentas de moderação",
+    "Denuncie, não espalhe",
     "Seu objetivo"
 ];
 
@@ -214,6 +214,14 @@ distancia_segmento = function(_px, _py, _x1, _y1, _x2, _y2) {
     var _t = ((_px - _x1) * _dx + (_py - _y1) * _dy) / (_dx * _dx + _dy * _dy);
     _t = clamp(_t, 0, 1);
     return point_distance(_px, _py, _x1 + _t * _dx, _y1 + _t * _dy);
+};
+
+cartao_atingido = function(_m, _x1, _y1, _x2, _y2) {
+    var _meia_largura = _m.largura * 0.38;
+    var _limite = _m.altura * 0.72;
+    return distancia_segmento(_m.x, _m.y, _x1, _y1, _x2, _y2) < _limite
+        || distancia_segmento(_m.x - _meia_largura, _m.y, _x1, _y1, _x2, _y2) < _limite
+        || distancia_segmento(_m.x + _meia_largura, _m.y, _x1, _y1, _x2, _y2) < _limite;
 };
 
 finalizar_fase = function(_venceu) {
