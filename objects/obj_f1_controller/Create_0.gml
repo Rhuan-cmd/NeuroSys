@@ -142,7 +142,10 @@ criar_mensagem = function() {
     if (ataques_cortados >= 5 && _roll > 0.84) _tipo = 1;
     if (ataques_cortados >= 9 && _roll > 0.92) _tipo = 2;
     if (ataques_cortados >= 13 && _roll > 0.97) _tipo = 3;
-    var _forte = _tipo == 0 && ataques_cortados >= 14 && random(1) < 0.22;
+    var _hp = 1;
+    if (_tipo == 0 && ataques_cortados >= 7 && random(1) < 0.34) _hp++;
+    if (_tipo == 0 && ataques_cortados >= 16 && random(1) < 0.34) _hp++;
+    var _forte = _hp > 1;
     var _texto = textos_ruins[irandom(array_length(textos_ruins) - 1)];
     if (_tipo == 1) _texto = textos_bons[irandom(array_length(textos_bons) - 1)];
     if (_tipo == 2) _texto = "DENUNCIAR PERFIL";
@@ -150,7 +153,10 @@ criar_mensagem = function() {
     var _lado = 0; // 0: baixo, 1: cima, 2: esquerda, 3: direita
     if (ataques_cortados >= 6 && random(1) < 0.34) _lado = 1;
     if (ataques_cortados >= 12 && random(1) < 0.42) _lado = choose(2, 3);
-    var _x = random_range(236, 786);
+    var _largura = clamp(84 + string_length(_texto) * 8, 190, 316);
+    var _altura = _forte ? 62 : 52;
+    if (_forte) _largura = min(336, _largura + 24);
+    var _x = random_range(260 + _largura * 0.5, 646 - _largura * 0.5);
     var _y = room_height + 42;
     var _vx = random_range(-2.3, 2.3);
     var _vy = random_range(-10.4, -8.2);
@@ -161,14 +167,14 @@ criar_mensagem = function() {
         _grav = random_range(0.025, 0.055);
     }
     if (_lado == 2) {
-        _x = -150;
+        _x = 236 - _largura * 0.5;
         _y = random_range(186, 388);
         _vx = random_range(5.4, 7.0);
         _vy = random_range(-3.8, -1.8);
         _grav = random_range(0.08, 0.13);
     }
     if (_lado == 3) {
-        _x = room_width + 150;
+        _x = 666 + _largura * 0.5;
         _y = random_range(186, 388);
         _vx = random_range(-7.0, -5.4);
         _vy = random_range(-3.8, -1.8);
@@ -182,19 +188,21 @@ criar_mensagem = function() {
         grav : _grav,
         tipo : _tipo,
         texto : _texto,
-        largura : clamp(118 + string_length(_texto) * 4.1, 168, 252),
-        altura : 48,
+        largura : _largura,
+        altura : _altura,
         fase : random(100),
         rot : random_range(-7, 7),
-        hp : _forte ? 2 : 1,
+        hp : _hp,
         forte : _forte,
-        invul : 0
+        invul : 0,
+        corte_fx : 0,
+        corte_angulo : 0
     });
 };
 
-criar_particulas = function(_x, _y, _tipo) {
+criar_particulas = function(_x, _y, _tipo, _angulo) {
     for (var _i = 0; _i < 12; _i++) {
-        var _dir = random(360);
+        var _dir = _angulo + choose(-90, 90) + random_range(-24, 24);
         var _vel = random_range(1.5, 5.5);
         array_push(particulas, {
             x : _x, y : _y,

@@ -134,11 +134,10 @@ if (estado == 1) {
 if (estado == 2) {
     tempo--;
     spawn_timer--;
-    var _max_mensagens = clamp(1 + floor(ataques_cortados / 5), 1, 5);
+    var _max_mensagens = clamp(1 + floor(ataques_cortados / 10), 1, 3);
     if (spawn_timer <= 0 && array_length(mensagens) < _max_mensagens) {
         criar_mensagem();
-        if (ataques_cortados >= 15 && random(1) < 0.18) criar_mensagem();
-        spawn_timer = max(14, 38 - ataques_cortados);
+        spawn_timer = max(20, 46 - floor(ataques_cortados * 0.7));
     }
 
     var _dist_mouse = point_distance(mouse_anterior_x, mouse_anterior_y, mouse_x, mouse_y);
@@ -146,12 +145,16 @@ if (estado == 2) {
         array_push(rastros, { x1 : mouse_anterior_x, y1 : mouse_anterior_y, x2 : mouse_x, y2 : mouse_y, vida : 11 });
         for (var _i = array_length(mensagens) - 1; _i >= 0; _i--) {
             var _m = mensagens[_i];
-            if (_m.invul <= 0 && cartao_atingido(_m, mouse_anterior_x, mouse_anterior_y, mouse_x, mouse_y)) {
-                criar_particulas(_m.x, _m.y, _m.tipo);
+            var _visivel = _m.x - _m.largura * 0.5 >= 236 && _m.x + _m.largura * 0.5 <= 666;
+            if (_visivel && _m.invul <= 0 && cartao_atingido(_m, mouse_anterior_x, mouse_anterior_y, mouse_x, mouse_y)) {
+                var _angulo_corte = point_direction(mouse_anterior_x, mouse_anterior_y, mouse_x, mouse_y);
+                criar_particulas(_m.x, _m.y, _m.tipo, _angulo_corte);
                 if (_m.tipo == 0) {
                     _m.hp--;
                     if (_m.hp > 0) {
                         _m.invul = 10;
+                        _m.corte_fx = 12;
+                        _m.corte_angulo = _angulo_corte;
                         _m.vx *= -1.15;
                         _m.vy -= 1.6;
                         shake = 4;
@@ -189,9 +192,38 @@ if (estado == 2) {
         _m.vy += _m.grav;
         _m.rot += _m.vx * 0.045;
         _m.invul = max(0, _m.invul - 1);
+        _m.corte_fx = max(0, _m.corte_fx - 1);
+        if (_m.x - _m.largura * 0.5 < 236 && _m.vx < 0) {
+            _m.x = 236 + _m.largura * 0.5;
+            _m.vx = abs(_m.vx);
+        }
+        if (_m.x + _m.largura * 0.5 > 666 && _m.vx > 0) {
+            _m.x = 666 - _m.largura * 0.5;
+            _m.vx = -abs(_m.vx);
+        }
         if (_m.y > room_height + 100 || _m.x < -320 || _m.x > room_width + 320) {
             if (_m.tipo == 0) aplicar_dano();
             array_delete(mensagens, _i, 1);
+        }
+    }
+
+    // Cartões dividem o espaço do feed: quando se encontram, ricocheteiam.
+    for (var _i = 0; _i < array_length(mensagens); _i++) {
+        var _a = mensagens[_i];
+        for (var _j = _i + 1; _j < array_length(mensagens); _j++) {
+            var _b = mensagens[_j];
+            var _sobrepoe_x = abs(_a.x - _b.x) < (_a.largura + _b.largura) * 0.5;
+            var _sobrepoe_y = abs(_a.y - _b.y) < (_a.altura + _b.altura) * 0.5;
+            if (_sobrepoe_x && _sobrepoe_y) {
+                var _empurra = (_a.x <= _b.x) ? -1 : 1;
+                _a.x += _empurra * 3;
+                _b.x -= _empurra * 3;
+                var _troca_vx = _a.vx;
+                _a.vx = _b.vx;
+                _b.vx = _troca_vx;
+                _a.vy -= 0.35;
+                _b.vy += 0.35;
+            }
         }
     }
 

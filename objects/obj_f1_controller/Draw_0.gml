@@ -50,10 +50,11 @@ draw_text(618 + _sx, 68 + _sy, "SEGURANÇA");
 draw_set_color(make_color_rgb(81, 224, 240));
 draw_rectangle(388 + _sx, 98 + _sy, 436 + _sx, 101 + _sy, false);
 draw_set_halign(fa_left);
-draw_set_color(make_color_rgb(131, 166, 201));
-draw_text(739 + _sx, 68 + _sy, "rede segura");
+draw_set_color(make_color_rgb(17, 69, 77));
+draw_roundrect(794 + _sx, 62 + _sy, 846 + _sx, 96 + _sy, false);
 draw_set_color(make_color_rgb(80, 232, 187));
-draw_circle(718 + _sx, 79 + _sy, 5 + _pulso, false);
+draw_roundrect(794 + _sx, 62 + _sy, 846 + _sx, 96 + _sy, true);
+draw_sprite_ext(spr_escudo_bloqueio, 0, 820 + _sx, 79 + _sy, 0.4 + _pulso * 0.015, 0.4 + _pulso * 0.015, 0, make_color_rgb(117, 255, 206), 1);
 
 // ===== BARRA LATERAL =====
 draw_set_color(make_color_rgb(16, 35, 61));
@@ -91,16 +92,16 @@ draw_text(291 + _sx, 239 + _sy, "CURTIR    COMENTAR    APOIAR");
 
 // ===== PAINEL DE MODERAÇÃO =====
 draw_set_color(make_color_rgb(12, 29, 51));
-draw_roundrect(676 + _sx, 126 + _sy, 846 + _sx, 408 + _sy, false);
+draw_roundrect(676 + _sx, 126 + _sy, 846 + _sx, 432 + _sy, false);
 draw_set_color(make_color_rgb(52, 202, 225));
 draw_rectangle(676 + _sx, 126 + _sy, 846 + _sx, 131 + _sy, false);
 draw_set_color(make_color_rgb(130, 232, 248));
 draw_text(694 + _sx, 148 + _sy, estado == 2 ? "STATUS DA REDE" : "MODERAÇÃO");
 if (estado == 2) {
     draw_set_color(make_color_rgb(28, 59, 88));
-    draw_rectangle(690 + _sx, 190 + _sy, 832 + _sx, 193 + _sy, false);
-    draw_rectangle(690 + _sx, 264 + _sy, 832 + _sx, 267 + _sy, false);
-    draw_rectangle(690 + _sx, 338 + _sy, 832 + _sx, 341 + _sy, false);
+    draw_rectangle(690 + _sx, 216 + _sy, 832 + _sx, 219 + _sy, false);
+    draw_rectangle(690 + _sx, 288 + _sy, 832 + _sx, 291 + _sy, false);
+    draw_rectangle(690 + _sx, 360 + _sy, 832 + _sx, 363 + _sy, false);
 } else {
     draw_set_color(make_color_rgb(151, 180, 205));
     draw_text(694 + _sx, 183 + _sy, "Leia antes");
@@ -143,6 +144,7 @@ if (estado == 0 && dialogo_index >= 4) {
 // ===== CARTÕES LANÇADOS =====
 for (var _i = 0; _i < array_length(mensagens); _i++) {
     var _m = mensagens[_i];
+    if (_m.x - _m.largura * 0.5 < 236 || _m.x + _m.largura * 0.5 > 666) continue;
     var _onda = sin(visual_timer * 0.22 + _m.fase) * 2.5;
     var _cor = make_color_rgb(191, 52, 78);
     var _borda = make_color_rgb(255, 122, 143);
@@ -152,24 +154,39 @@ for (var _i = 0; _i < array_length(mensagens); _i++) {
     if (_m.tipo == 3) { _cor = make_color_rgb(42, 42, 59); _borda = make_color_rgb(255, 183, 83); _icone = "C"; }
     if (_m.forte) { _cor = make_color_rgb(137, 39, 103); _borda = make_color_rgb(255, 126, 213); }
     var _yy = _m.y + _onda;
+    var _meia_altura = _m.altura * 0.5;
     draw_set_alpha(0.2);
     draw_set_color(_borda);
-    draw_roundrect(_m.x - _m.largura * 0.5 - 5, _yy - 29, _m.x + _m.largura * 0.5 + 5, _yy + 29, false);
+    draw_roundrect(_m.x - _m.largura * 0.5 - 5, _yy - _meia_altura - 5, _m.x + _m.largura * 0.5 + 5, _yy + _meia_altura + 5, false);
     draw_set_alpha(1);
     draw_set_color(_cor);
-    draw_roundrect(_m.x - _m.largura * 0.5, _yy - 24, _m.x + _m.largura * 0.5, _yy + 24, false);
+    draw_roundrect(_m.x - _m.largura * 0.5, _yy - _meia_altura, _m.x + _m.largura * 0.5, _yy + _meia_altura, false);
     draw_set_color(_borda);
-    draw_roundrect(_m.x - _m.largura * 0.5 + 3, _yy - 21, _m.x + _m.largura * 0.5 - 3, _yy + 21, true);
+    draw_roundrect(_m.x - _m.largura * 0.5 + 3, _yy - _meia_altura + 3, _m.x + _m.largura * 0.5 - 3, _yy + _meia_altura - 3, true);
     draw_circle(_m.x - _m.largura * 0.5 + 25, _yy, 13, false);
     draw_set_color(_cor);
     draw_set_halign(fa_center);
     draw_text(_m.x - _m.largura * 0.5 + 25, _yy - 11, _icone);
     draw_set_halign(fa_left);
     draw_set_color(c_white);
-    draw_text(_m.x - _m.largura * 0.5 + 48, _yy - 11, _m.texto);
+    draw_text_ext(_m.x - _m.largura * 0.5 + 48, _yy - 11, _m.texto, 18, _m.largura - (_m.forte ? 104 : 64));
     if (_m.forte) {
         draw_set_color(make_color_rgb(255, 214, 238));
         draw_text(_m.x + _m.largura * 0.5 - 38, _yy - 11, "x" + string(_m.hp));
+    }
+    if (_m.corte_fx > 0) {
+        var _corte_len = _m.largura * 0.42;
+        var _corte_alpha = _m.corte_fx / 12;
+        draw_set_alpha(_corte_alpha);
+        draw_set_color(c_white);
+        draw_line_width(
+            _m.x - lengthdir_x(_corte_len, _m.corte_angulo),
+            _yy - lengthdir_y(_corte_len, _m.corte_angulo),
+            _m.x + lengthdir_x(_corte_len, _m.corte_angulo),
+            _yy + lengthdir_y(_corte_len, _m.corte_angulo),
+            3
+        );
+        draw_set_alpha(1);
     }
 }
 

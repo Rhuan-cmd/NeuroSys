@@ -8,13 +8,13 @@ draw_set_color(c_white);
 if (estado == 2) {
     var _pulse = 1 + sin(visual_timer * 0.14) * 0.018;
     // Cada informacao usa um sprite proprio da fase 1, integrado ao CONECTA.
-    draw_sprite_ext(spr_f1_status_lives, 0, 756, 182, 0.72 * _pulse, 0.72 * _pulse, 0, c_white, 1);
-    draw_sprite_ext(spr_f1_status_timer, 0, 756, 256, 0.72 * _pulse, 0.72 * _pulse, 0, c_white, 1);
-    draw_sprite_ext(spr_f1_status_progress, 0, 756, 330, 0.72 * _pulse, 0.72 * _pulse, 0, c_white, 1);
+    draw_sprite_ext(spr_f1_status_lives, 0, 756, 204, 0.72 * _pulse, 0.72 * _pulse, 0, c_white, 1);
+    draw_sprite_ext(spr_f1_status_timer, 0, 756, 276, 0.72 * _pulse, 0.72 * _pulse, 0, c_white, 1);
+    draw_sprite_ext(spr_f1_status_progress, 0, 756, 348, 0.72 * _pulse, 0.72 * _pulse, 0, c_white, 1);
     draw_set_color(c_white);
-    draw_text(784, 179, string(vidas) + "/" + string(vidas_max));
-    draw_text(784, 253, string(ceil(tempo / room_speed)) + "s");
-    draw_text(784, 327, string(ataques_cortados) + "/" + string(objetivo));
+    draw_text_transformed(784, 201, string(vidas) + "/" + string(vidas_max), _pulse, _pulse, 0);
+    draw_text_transformed(784, 273, string(ceil(tempo / room_speed)) + "s", _pulse, _pulse, 0);
+    draw_text_transformed(784, 345, string(ataques_cortados) + "/" + string(objetivo), _pulse, _pulse, 0);
 
     // Barra principal posicionada no rodape central.
     draw_set_alpha(0.94);
@@ -34,10 +34,10 @@ if (estado == 2) {
     if (escudo > 0) {
         draw_set_alpha(0.24 + sin(visual_timer * 0.2) * 0.08);
         draw_set_color(make_color_rgb(87, 226, 255));
-        draw_circle(756, 182, 52, true);
+        draw_circle(756, 204, 52, true);
         draw_set_alpha(1);
         draw_set_color(make_color_rgb(126, 237, 255));
-        draw_text(688, 376, "ESCUDO ATIVO");
+        draw_text_transformed(688, 392, "ESCUDO ATIVO", _pulse, _pulse, 0);
     }
 }
 
@@ -146,16 +146,6 @@ if (estado == 3 || estado == 4) {
     draw_set_color(make_color_rgb(144, 163, 196));
     draw_text(480, 164 + _final_offset, final_vitoria ? "ataques contidos com responsabilidade" : "a rede precisa de uma nova tentativa");
     draw_set_halign(fa_left);
-    draw_set_color(make_color_rgb(8, 22, 39));
-    draw_roundrect(270, 222 + _final_offset, 506, 254 + _final_offset, false);
-    draw_roundrect(270, 262 + _final_offset, 506, 294 + _final_offset, false);
-    draw_roundrect(270, 302 + _final_offset, 506, 334 + _final_offset, false);
-    draw_roundrect(548, 208 + _final_offset, 668, 334 + _final_offset, false);
-    draw_set_color(make_color_rgb(39, 117, 151));
-    draw_roundrect(270, 222 + _final_offset, 506, 254 + _final_offset, true);
-    draw_roundrect(270, 262 + _final_offset, 506, 294 + _final_offset, true);
-    draw_roundrect(270, 302 + _final_offset, 506, 334 + _final_offset, true);
-    draw_roundrect(548, 208 + _final_offset, 668, 334 + _final_offset, true);
     draw_set_color(make_color_rgb(116, 231, 255));
     draw_text(286, 230 + _final_offset, "TEMPO");
     draw_text(286, 270 + _final_offset, "ATAQUES");
