@@ -2,7 +2,7 @@ var _pulso = 0.5 + sin(visual_timer * 0.12) * 0.5;
 var _sx = shake > 0 ? random_range(-shake, shake) : 0;
 var _sy = shake > 0 ? random_range(-shake * 0.5, shake * 0.5) : 0;
 
-draw_set_font(fnt_f2_dialogo);
+draw_set_font(fnt_dialogo);
 draw_set_halign(fa_left);
 draw_set_valign(fa_top);
 
@@ -142,9 +142,9 @@ if (estado == 0 && dialogo_index >= 4) {
 }
 
 // ===== CARTÕES LANÇADOS =====
+gpu_set_scissor(236, 104, 430, 328);
 for (var _i = 0; _i < array_length(mensagens); _i++) {
     var _m = mensagens[_i];
-    if (_m.x - _m.largura * 0.5 < 236 || _m.x + _m.largura * 0.5 > 666) continue;
     var _onda = sin(visual_timer * 0.22 + _m.fase) * 2.5;
     var _cor = make_color_rgb(191, 52, 78);
     var _borda = make_color_rgb(255, 122, 143);
@@ -155,6 +155,7 @@ for (var _i = 0; _i < array_length(mensagens); _i++) {
     if (_m.forte) { _cor = make_color_rgb(137, 39, 103); _borda = make_color_rgb(255, 126, 213); }
     var _yy = _m.y + _onda;
     var _meia_altura = _m.altura * 0.5;
+    if (_m.x + _m.largura * 0.5 < 236 || _m.x - _m.largura * 0.5 > 666 || _yy + _meia_altura < 104 || _yy - _meia_altura > 432) continue;
     draw_set_alpha(0.2);
     draw_set_color(_borda);
     draw_roundrect(_m.x - _m.largura * 0.5 - 5, _yy - _meia_altura - 5, _m.x + _m.largura * 0.5 + 5, _yy + _meia_altura + 5, false);
@@ -189,6 +190,36 @@ for (var _i = 0; _i < array_length(mensagens); _i++) {
         draw_set_alpha(1);
     }
 }
+
+// ===== FRAGMENTOS DAS CAIXAS CORTADAS =====
+for (var _i = 0; _i < array_length(fragmentos); _i++) {
+    var _f = fragmentos[_i];
+    var _alpha_f = _f.vida / _f.maxvida;
+    var _ang_f = _f.angulo + _f.rot;
+    var _hw_f = _f.largura * 0.5;
+    var _hh_f = _f.altura * 0.5;
+    var _x1_f = _f.x + lengthdir_x(_hw_f, _ang_f) + lengthdir_x(_hh_f, _ang_f + 90);
+    var _y1_f = _f.y + lengthdir_y(_hw_f, _ang_f) + lengthdir_y(_hh_f, _ang_f + 90);
+    var _x2_f = _f.x - lengthdir_x(_hw_f, _ang_f) + lengthdir_x(_hh_f, _ang_f + 90);
+    var _y2_f = _f.y - lengthdir_y(_hw_f, _ang_f) + lengthdir_y(_hh_f, _ang_f + 90);
+    var _x3_f = _f.x - lengthdir_x(_hw_f, _ang_f) - lengthdir_x(_hh_f, _ang_f + 90);
+    var _y3_f = _f.y - lengthdir_y(_hw_f, _ang_f) - lengthdir_y(_hh_f, _ang_f + 90);
+    var _x4_f = _f.x + lengthdir_x(_hw_f, _ang_f) - lengthdir_x(_hh_f, _ang_f + 90);
+    var _y4_f = _f.y + lengthdir_y(_hw_f, _ang_f) - lengthdir_y(_hh_f, _ang_f + 90);
+    draw_set_alpha(_alpha_f);
+    draw_primitive_begin(pr_trianglefan);
+    draw_vertex_color(_x1_f, _y1_f, _f.cor, _alpha_f);
+    draw_vertex_color(_x2_f, _y2_f, _f.cor, _alpha_f);
+    draw_vertex_color(_x3_f, _y3_f, _f.cor, _alpha_f);
+    draw_vertex_color(_x4_f, _y4_f, _f.cor, _alpha_f);
+    draw_primitive_end();
+    draw_set_color(_f.borda);
+    draw_line_width(_x1_f, _y1_f, _x2_f, _y2_f, 2);
+    draw_line_width(_x2_f, _y2_f, _x3_f, _y3_f, 2);
+    draw_line_width(_x3_f, _y3_f, _x4_f, _y4_f, 2);
+    draw_line_width(_x4_f, _y4_f, _x1_f, _y1_f, 2);
+}
+gpu_set_scissor(0, 0, room_width, room_height);
 
 // ===== RASTRO DO CORTE E PARTÍCULAS =====
 for (var _i = 0; _i < array_length(rastros); _i++) {

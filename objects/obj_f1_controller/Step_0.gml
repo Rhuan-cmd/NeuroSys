@@ -159,6 +159,7 @@ if (estado == 2) {
                         _m.vy -= 1.6;
                         shake = 4;
                     } else {
+                        criar_fragmentos_cartao(_m, _angulo_corte);
                         ataques_cortados++;
                         combo++;
                         melhor_combo = max(melhor_combo, combo);
@@ -167,9 +168,11 @@ if (estado == 2) {
                         array_delete(mensagens, _i, 1);
                     }
                 } else if (_m.tipo == 1) {
+                    criar_fragmentos_cartao(_m, _angulo_corte);
                     aplicar_dano();
                     array_delete(mensagens, _i, 1);
                 } else if (_m.tipo == 2) {
+                    criar_fragmentos_cartao(_m, _angulo_corte);
                     escudo = 1;
                     tempo = min(tempo_total, tempo + room_speed * 3);
                     bonus_flash = 1;
@@ -177,6 +180,7 @@ if (estado == 2) {
                     audio_play_sound(snd_f2_repelir, 3, false, 0.62);
                     array_delete(mensagens, _i, 1);
                 } else {
+                    criar_fragmentos_cartao(_m, _angulo_corte);
                     aplicar_dano();
                     shake = 18;
                     array_delete(mensagens, _i, 1);
@@ -243,6 +247,16 @@ for (var _i = array_length(particulas) - 1; _i >= 0; _i--) {
 for (var _i = array_length(rastros) - 1; _i >= 0; _i--) {
     rastros[_i].vida--;
     if (rastros[_i].vida <= 0) array_delete(rastros, _i, 1);
+}
+
+for (var _i = array_length(fragmentos) - 1; _i >= 0; _i--) {
+    var _f = fragmentos[_i];
+    _f.x += _f.vx;
+    _f.y += _f.vy;
+    _f.vy += _f.grav;
+    _f.rot += _f.vrot;
+    _f.vida--;
+    if (_f.vida <= 0) array_delete(fragmentos, _i, 1);
 }
 
 mouse_anterior_x = mouse_x;
