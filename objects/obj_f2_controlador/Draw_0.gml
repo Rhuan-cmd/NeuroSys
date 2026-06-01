@@ -143,7 +143,7 @@ draw_sprite_ext(spr_f2_status_vidas, vidas, 831, 99, s_lives, s_lives, 0, c_whit
 
 var frame_tempo = 10;
 if (ativo) {
-    frame_tempo = max(0, min(10, ceil((limite_clique_atual - timer_clique) / room_speed)));
+    frame_tempo = floor(clamp((limite_clique_atual - timer_clique) / limite_clique_atual, 0, 1) * 10);
 }
 draw_sprite_ext(spr_f2_status_tempo, frame_tempo, 831, 274, s_timer, s_timer, 0, c_white, clamp((status_intro_timer - 8) / 38, 0, 1));
 
@@ -416,7 +416,7 @@ if (estado_final != 0) {
     
     draw_set_halign(fa_center);
     draw_set_valign(fa_middle);
-    draw_text_transformed(606, 270 + final_offset, nota_final, 1.22 * escala_texto_f2, 1.22 * escala_texto_f2, 0);
+    draw_text_transformed(606, 286 + final_offset, nota_final, 1.22 * escala_texto_f2, 1.22 * escala_texto_f2, 0);
     draw_set_valign(fa_top);
     
     draw_set_alpha(final_suave * (hover_menu ? 0.34 : 0));

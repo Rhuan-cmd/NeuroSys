@@ -22,7 +22,7 @@ if (estado == 2) {
     draw_text_transformed(733, 351, string(ataques_cortados) + "/" + string(objetivo), 0.94 * _pulse, 0.94 * _pulse, 0);
     draw_set_halign(fa_center);
     draw_set_color(make_color_rgb(120, 232, 250));
-    draw_text_transformed(761, 392, "COMBO  x" + string(combo), _pulse, _pulse, 0);
+    draw_text_transformed(761 + tremor_x, 392 + tremor_y, "COMBO  x" + string(combo), _pulse, _pulse, 0);
     draw_set_halign(fa_left);
 
     // Conteúdo da aba de objetivo integrada ao fundo do CONECTA.

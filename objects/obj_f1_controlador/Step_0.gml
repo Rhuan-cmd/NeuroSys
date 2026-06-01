@@ -16,12 +16,11 @@ if (estado == 2 && audio_mix_timer <= 0) {
     if (ambiente_audio == -1 || !audio_is_playing(ambiente_audio)) ambiente_audio = audio_play_sound(snd_f1_musica, 1, true, 0.46);
     var _ganho_corrupcao = clamp(_corrupcao_tremor * 0.72, 0, 0.72);
     audio_sound_gain(ambiente_audio, 0.46 * (1 - _ganho_corrupcao * 0.38), 180);
-    if (_ganho_corrupcao > 0) {
-        if (ambiente_corrupto_audio == -1 || !audio_is_playing(ambiente_corrupto_audio)) ambiente_corrupto_audio = audio_play_sound(snd_f1_tensao, 1, true, 0);
-        audio_sound_gain(ambiente_corrupto_audio, _ganho_corrupcao, 180);
-    } else if (ambiente_corrupto_audio != -1 && audio_is_playing(ambiente_corrupto_audio)) {
-        audio_sound_gain(ambiente_corrupto_audio, 0, 180);
+    if (ambiente_corrupto_audio == -1 || !audio_is_playing(ambiente_corrupto_audio)) {
+        audio_stop_sound(snd_f1_tensao);
+        ambiente_corrupto_audio = audio_play_sound(snd_f1_tensao, 1, true, 0);
     }
+    audio_sound_gain(ambiente_corrupto_audio, _ganho_corrupcao, 180);
     audio_mix_timer = 12;
 }
 
