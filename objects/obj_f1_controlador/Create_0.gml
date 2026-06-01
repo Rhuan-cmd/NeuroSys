@@ -42,7 +42,7 @@ tremor_x = 0;
 tremor_y = 0;
 audio_stop_sound(snd_f1_musica);
 audio_stop_sound(snd_f1_tensao);
-ambiente_audio = audio_play_sound(snd_f1_musica, 1, true, 0.46);
+ambiente_audio = audio_play_sound(snd_f1_musica, 1, true, 0.52);
 ambiente_corrupto_audio = audio_play_sound(snd_f1_tensao, 1, true, 0);
 audio_mix_timer = 0;
 cursor_cutscene_x = 480;

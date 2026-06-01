@@ -1,19 +1,27 @@
-if (keyboard_check_pressed(vk_space) && !excluir){
-	instance_create_layer(0, 0, layer, obj_f3_controlador_msg);
-	excluir = true;
+entrada_fade = max(0, entrada_fade - 0.025);
+
+if (introducao_ativa && entrada_fade <= 0.72) {
+    var _texto = dialogo_textos[dialogo_index];
+    if (dialogo_chars < string_length(_texto)) {
+        dialogo_chars = min(string_length(_texto), dialogo_chars + dialogo_velocidade);
+    }
+
+    if (keyboard_check_pressed(vk_space) || keyboard_check_pressed(vk_enter)) {
+        if (dialogo_chars < string_length(_texto)) {
+            dialogo_chars = string_length(_texto);
+        } else {
+            dialogo_index++;
+            dialogo_chars = 0;
+            if (dialogo_index >= array_length(dialogo_textos)) {
+                instance_create_layer(0, 0, layer, obj_f3_controlador_msg);
+                introducao_ativa = false;
+                excluir = true;
+            }
+        }
+    }
 }
 
-tempo_oscilacao += frequencia;
-
-y_instrucao1 = y_ancora + dsin(tempo_oscilacao) * amplitude_instrucao1;
-
-var oscilacao_suave = (dsin(tempo_oscilacao) + 1) / 2;
-scale_intrucao2 = 2 + (oscilacao_suave * amplitude_instrucao2);
-
-if (excluir){
-	alpha = lerp(alpha, 0, 0.1);
-	
-	if (alpha <= 0.1){
-		instance_destroy();
-	}
+if (excluir) {
+    alpha = lerp(alpha, 0, 0.1);
+    if (alpha <= 0.1) instance_destroy();
 }
