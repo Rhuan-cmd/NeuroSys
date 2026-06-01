@@ -11,7 +11,7 @@
   "overriddenProperties":[],
   "parent":{
     "name":"ControllersJogo",
-    "path":"folders/Objetos/ControllersJogo.yy",
+    "path":"folders/Objetos/ControladoresJogo.yy",
   },
   "parentObjectId":null,
   "persistent":true,

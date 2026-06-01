@@ -1,1 +1,0 @@
-transicao(rm_cutscene_inicial);

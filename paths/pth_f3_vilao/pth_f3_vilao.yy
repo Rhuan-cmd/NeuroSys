@@ -1,0 +1,20 @@
+{
+  "$GMPath":"",
+  "%Name":"pth_f3_vilao",
+  "closed":true,
+  "kind":1,
+  "name":"pth_f3_vilao",
+  "parent":{
+    "name":"Fase3",
+    "path":"folders/Objetos/F3.yy",
+  },
+  "points":[
+    {"speed":100.0,"x":50.499023,"y":482.17615,},
+    {"speed":100.0,"x":902.37787,"y":475.5701,},
+    {"speed":100.0,"x":901.2264,"y":13.782196,},
+    {"speed":100.0,"x":49.802063,"y":25.357971,},
+  ],
+  "precision":4,
+  "resourceType":"GMPath",
+  "resourceVersion":"2.0",
+}

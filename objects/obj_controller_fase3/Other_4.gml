@@ -1,1 +1,0 @@
-audio_play_sound(snd_music_fase3, 1, 1);

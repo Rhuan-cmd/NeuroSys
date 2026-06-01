@@ -31,7 +31,7 @@
   "origin":1,
   "parent":{
     "name":"Fase2",
-    "path":"folders/Sprites/Fase2.yy",
+    "path":"folders/Sprites/F2.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

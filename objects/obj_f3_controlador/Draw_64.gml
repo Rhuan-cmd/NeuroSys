@@ -1,0 +1,23 @@
+draw_sprite_ext(
+	spr_f3_instrucao1,
+	0,
+	display_get_gui_width()/2,
+	y_instrucao1,
+	2,
+	2,
+	0,
+	c_white,
+	alpha
+);
+
+draw_sprite_ext(
+	spr_f3_instrucao2,
+	0,
+	display_get_gui_width()/2,
+	display_get_gui_height()-50,
+	scale_intrucao2,
+	scale_intrucao2,
+	0,
+	c_white,
+	alpha
+);

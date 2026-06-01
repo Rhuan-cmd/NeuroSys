@@ -15,7 +15,7 @@
   "name":"snd_f2_ambiente",
   "parent":{
     "name":"Fase2",
-    "path":"folders/Sons/Fase2.yy",
+    "path":"folders/Sons/F2.yy",
   },
   "preload":false,
   "resourceType":"GMSound",

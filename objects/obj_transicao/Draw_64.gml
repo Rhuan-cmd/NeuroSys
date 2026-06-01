@@ -62,9 +62,9 @@ for (var r = -1; r < linhas; r++) {
         }
         
         // 4. Desenha o quadrado em animação
-        if (sprite_exists(spr_quadrado_transicao)) {
+        if (sprite_exists(spr_ui_transicao)) {
             // Usa o sprite já no tamanho correto. Note que a escala agora é _escala direto, e não multiplicada.
-            draw_sprite_ext(spr_quadrado_transicao, 0, _px, _py, _escala, _escala, _rotacao, c_black, 1);
+            draw_sprite_ext(spr_ui_transicao, 0, _px, _py, _escala, _escala, _rotacao, c_black, 1);
         } else {
             // Fallback caso esqueça de criar o sprite
             var _metade = (quadrado_tamanho * _escala) / 2;

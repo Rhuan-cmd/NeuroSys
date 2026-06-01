@@ -10,7 +10,7 @@
   "overriddenProperties":[],
   "parent":{
     "name":"Apps",
-    "path":"folders/Objetos/Apps.yy",
+    "path":"folders/Objetos/Aplicativos.yy",
   },
   "parentObjectId":null,
   "persistent":false,
@@ -31,8 +31,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"spr_rede_social",
-    "path":"sprites/spr_rede_social/spr_rede_social.yy",
+    "name":"spr_app_rede_social",
+    "path":"sprites/spr_app_rede_social/spr_app_rede_social.yy",
   },
   "spriteMaskId":null,
   "visible":true,
