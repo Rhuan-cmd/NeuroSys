@@ -137,7 +137,8 @@ if (estado == 2) {
     spawn_timer--;
     if (spawn_timer <= 0) {
         criar_mensagem();
-        spawn_timer = max(16, 46 - floor(ataques_cortados * 0.7));
+        spawn_timer = max(22, 48 - floor(ataques_cortados * 0.55));
+        if (ataques_cortados >= 34) spawn_timer += 8;
     }
 
     var _dist_mouse = point_distance(mouse_anterior_x, mouse_anterior_y, mouse_x, mouse_y);

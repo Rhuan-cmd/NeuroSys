@@ -1,6 +1,6 @@
 var _pulso = 0.5 + sin(visual_timer * 0.12) * 0.5;
-var _corrupcao = estado == 2 ? nivel_corrupcao / vidas_max : 0;
-var _tremor_base = _corrupcao * 5;
+var _corrupcao = estado == 2 ? clamp(nivel_corrupcao / vidas_max + (vidas <= 2 ? (3 - vidas) * 0.2 : 0), 0, 1) : 0;
+var _tremor_base = _corrupcao * 9;
 var _sx = (shake > 0 || _tremor_base > 0) ? random_range(-shake - _tremor_base, shake + _tremor_base) : 0;
 var _sy = (shake > 0 || _tremor_base > 0) ? random_range(-shake * 0.5 - _tremor_base, shake * 0.5 + _tremor_base) : 0;
 

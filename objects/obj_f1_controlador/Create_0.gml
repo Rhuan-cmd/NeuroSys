@@ -158,8 +158,12 @@ criar_mensagem = function() {
     var _roll = random(1);
     var _tipo = 0; // 0: ataque, 1: apoio, 2: denúncia, 3: compartilhar
     if (ataques_cortados >= 4 && _roll > 0.70) _tipo = 1;
-    if (ataques_cortados >= 8 && _roll > 0.88) _tipo = 2;
     if (ataques_cortados >= 12 && _roll > 0.95) _tipo = 3;
+    var _precisa_recuperar = vidas < vidas_max || nivel_corrupcao > 0;
+    if (_precisa_recuperar && ataques_cortados >= 8) {
+        var _chance_azul = vidas <= 2 ? 0.58 : 0.86;
+        if (_roll > _chance_azul) _tipo = 2;
+    }
     var _hp = 1;
     if (_tipo == 0 && ataques_cortados >= 7 && random(1) < 0.34) _hp++;
     if (_tipo == 0 && ataques_cortados >= 16 && random(1) < 0.34) _hp++;
