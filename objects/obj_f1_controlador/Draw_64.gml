@@ -157,13 +157,13 @@ if (estado == 3 || estado == 4) {
     draw_set_color(final_vitoria ? make_color_rgb(91, 238, 255) : make_color_rgb(255, 92, 112));
     draw_text_transformed(480, 142 + _final_offset, final_vitoria ? "POSTAGEM PROTEGIDA" : "PRESSÃO DIGITAL", 1.12, 1.12, 0);
     draw_set_color(make_color_rgb(144, 163, 196));
-    draw_text(480, 164 + _final_offset, final_vitoria ? "ataques contidos com responsabilidade" : "a rede precisa de uma nova tentativa");
+    draw_text(480, 160 + _final_offset, final_vitoria ? "ataques contidos com responsabilidade" : "a rede precisa de uma nova tentativa");
     draw_set_halign(fa_center);
     draw_set_color(make_color_rgb(116, 231, 255));
     draw_set_halign(fa_left);
-    draw_text(282, 224 + _final_offset, "TEMPO  " + _tempo_txt);
-    draw_text(282, 272 + _final_offset, "ATAQUES  " + string(ataques_cortados) + "/" + string(objetivo));
-    draw_text(282, 330 + _final_offset, "VIDAS  " + string(vidas_final) + "/" + string(vidas_max));
+    draw_text(282, 232 + _final_offset, "TEMPO  " + _tempo_txt);
+    draw_text(282, 278 + _final_offset, "ATAQUES  " + string(ataques_cortados) + "/" + string(objetivo));
+    draw_text(282, 326 + _final_offset, "VIDAS  " + string(vidas_final) + "/" + string(vidas_max));
     draw_set_halign(fa_center);
     draw_set_color(make_color_rgb(116, 231, 255));
     draw_text(606, 214 + _final_offset, "NOTA");
