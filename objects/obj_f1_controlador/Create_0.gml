@@ -36,6 +36,7 @@ damage_flash = 0;
 bonus_flash = 0;
 shake = 0;
 corrupt_flash = 0;
+nivel_corrupcao = 0;
 visual_timer = 0;
 cursor_cutscene_x = 480;
 cursor_cutscene_y = 270;
@@ -115,6 +116,7 @@ aplicar_dano = function() {
         bonus_flash = 1;
     } else {
         vidas--;
+        nivel_corrupcao = min(vidas_max, nivel_corrupcao + 1);
         damage_flash = 1;
         corrupt_flash = min(1, corrupt_flash + 0.24);
         shake = 12 + (vidas_max - vidas) * 4;
@@ -132,6 +134,7 @@ reiniciar_fase = function() {
     melhor_combo = 0;
     escudo = 0;
     corrupt_flash = 0;
+    nivel_corrupcao = 0;
     tempo = tempo_total;
     spawn_timer = 10;
     fim_timer = 0;

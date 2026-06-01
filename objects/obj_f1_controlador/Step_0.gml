@@ -173,7 +173,9 @@ if (estado == 2) {
                     array_delete(mensagens, _i, 1);
                 } else if (_m.tipo == 2) {
                     criar_fragmentos_cartao(_m, _angulo_corte);
-                    escudo = 1;
+                    vidas = min(vidas_max, vidas + 1);
+                    nivel_corrupcao = max(0, nivel_corrupcao - 1);
+                    corrupt_flash = max(0, corrupt_flash - 0.24);
                     tempo = min(tempo_total, tempo + room_speed * 3);
                     bonus_flash = 1;
                     pontuacao += 180;
