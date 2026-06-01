@@ -13,10 +13,12 @@ if (estado == 2) {
     draw_sprite_ext(spr_f1_status_progress, 0, 756, 348, 0.72 * _pulse, 0.72 * _pulse, 0, c_white, 1);
     draw_set_color(c_white);
     draw_set_halign(fa_center);
-    draw_text_transformed(796, 201, string(vidas) + "/" + string(vidas_max), _pulse, _pulse, 0);
-    draw_text_transformed(796, 273, string(ceil(tempo / room_speed)) + "s", _pulse, _pulse, 0);
-    draw_text_transformed(796, 345, string(ataques_cortados) + "/" + string(objetivo), _pulse, _pulse, 0);
-    draw_set_color(make_color_rgb(255, 220, 113));
+    draw_set_halign(fa_right);
+    draw_text_transformed(818, 207, string(vidas) + "/" + string(vidas_max), 0.88 * _pulse, 0.88 * _pulse, 0);
+    draw_text_transformed(818, 279, string(ceil(tempo / room_speed)) + "s", 0.88 * _pulse, 0.88 * _pulse, 0);
+    draw_text_transformed(818, 351, string(ataques_cortados) + "/" + string(objetivo), 0.88 * _pulse, 0.88 * _pulse, 0);
+    draw_set_halign(fa_center);
+    draw_set_color(make_color_rgb(120, 232, 250));
     draw_text_transformed(761, 392, "COMBO  x" + string(combo), _pulse, _pulse, 0);
     draw_set_halign(fa_left);
 
@@ -155,9 +157,9 @@ if (estado == 3 || estado == 4) {
     draw_text(480, 164 + _final_offset, final_vitoria ? "ataques contidos com responsabilidade" : "a rede precisa de uma nova tentativa");
     draw_set_halign(fa_center);
     draw_set_color(make_color_rgb(116, 231, 255));
-    draw_text(316, 230 + _final_offset, "TEMPO  " + _tempo_txt);
+    draw_text(344, 242 + _final_offset, "TEMPO  " + _tempo_txt);
     draw_text(334, 282 + _final_offset, "ATAQUES  " + string(ataques_cortados) + "/" + string(objetivo));
-    draw_text(316, 334 + _final_offset, "VIDAS  " + string(vidas_final) + "/" + string(vidas_max));
+    draw_text(330, 344 + _final_offset, "VIDAS  " + string(vidas_final) + "/" + string(vidas_max));
     draw_set_color(make_color_rgb(116, 231, 255));
     draw_text(606, 214 + _final_offset, "NOTA");
     draw_set_color(c_white);

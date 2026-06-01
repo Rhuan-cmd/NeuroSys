@@ -20,7 +20,6 @@ if (estado >= 3) {
         final_transition = min(1, final_transition + 0.06);
     }
     if (final_painel && !final_limpeza_feita) {
-        with (obj_controller_jogo) instance_destroy();
         final_limpeza_feita = true;
     }
     if (saida_tipo != 0) {
@@ -136,10 +135,9 @@ if (estado == 1) {
 if (estado == 2) {
     tempo--;
     spawn_timer--;
-    var _max_mensagens = clamp(1 + floor(ataques_cortados / 10), 1, 3);
-    if (spawn_timer <= 0 && array_length(mensagens) < _max_mensagens) {
+    if (spawn_timer <= 0) {
         criar_mensagem();
-        spawn_timer = max(20, 46 - floor(ataques_cortados * 0.7));
+        spawn_timer = max(16, 46 - floor(ataques_cortados * 0.7));
     }
 
     var _dist_mouse = point_distance(mouse_anterior_x, mouse_anterior_y, mouse_x, mouse_y);
@@ -200,9 +198,9 @@ if (estado == 2) {
         _m.invul = max(0, _m.invul - 1);
         _m.corte_fx = max(0, _m.corte_fx - 1);
         var _sobrepoe_feed = _m.x + _m.largura * 0.5 >= 236
-            && _m.x - _m.largura * 0.5 <= 666
+            && _m.x - _m.largura * 0.5 <= 676
             && _m.y + _m.altura * 0.5 >= 104
-            && _m.y - _m.altura * 0.5 <= 432;
+            && _m.y - _m.altura * 0.5 <= 484;
         if (_sobrepoe_feed) {
             _m.entrou_feed = true;
             _m.frames_feed++;
@@ -211,12 +209,12 @@ if (estado == 2) {
             _m.x = 236 + _m.largura * 0.5;
             _m.vx = abs(_m.vx);
         }
-        if (_m.x + _m.largura * 0.5 > 666 && _m.vx > 0) {
-            _m.x = 666 - _m.largura * 0.5;
+        if (_m.x + _m.largura * 0.5 > 676 && _m.vx > 0) {
+            _m.x = 676 - _m.largura * 0.5;
             _m.vx = -abs(_m.vx);
         }
         var _limite_topo = 116 + _m.altura * 0.5;
-        var _limite_base = 420 - _m.altura * 0.5;
+        var _limite_base = 472 - _m.altura * 0.5;
         if (_m.entrou_feed && _m.frames_feed < 78 && _m.y < _limite_topo && _m.vy < 0) {
             _m.y = _limite_topo;
             _m.vy = abs(_m.vy) * 0.78;
@@ -225,7 +223,7 @@ if (estado == 2) {
             _m.y = _limite_base;
             _m.vy = -abs(_m.vy) * 0.78;
         }
-        if (_m.entrou_feed && _m.frames_feed >= 78 && (_m.y > 454 || _m.y < 82 || _m.x < -320 || _m.x > room_width + 320)) {
+        if (_m.entrou_feed && _m.frames_feed >= 78 && (_m.y > 510 || _m.y < 82 || _m.x < -320 || _m.x > room_width + 320)) {
             if (_m.tipo == 0) aplicar_dano();
             array_delete(mensagens, _i, 1);
         }

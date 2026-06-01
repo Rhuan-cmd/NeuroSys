@@ -164,27 +164,27 @@ criar_mensagem = function() {
     var _largura = clamp(84 + string_length(_texto) * 8, 190, 316);
     var _altura = _forte ? 62 : 52;
     if (_forte) _largura = min(336, _largura + 24);
-    var _x = random_range(260 + _largura * 0.5, 646 - _largura * 0.5);
+    var _x = random_range(260 + _largura * 0.5, 656 - _largura * 0.5);
     // Nasce além dos limites da room; o feed apenas revela a entrada gradual.
-    var _y = room_height + _altura + 64;
+    var _y = 484 + _altura * 0.5 + 26;
     var _vx = random_range(-2.3, 2.3);
     var _vy = random_range(-10.4, -8.2);
     var _grav = random_range(0.12, 0.17);
     if (_lado == 1) {
-        _y = -_altura - 64;
+        _y = 104 - _altura * 0.5 - 26;
         _vy = random_range(3.2, 5.0);
         _grav = random_range(0.025, 0.055);
     }
     if (_lado == 2) {
-        _x = -_largura - 64;
-        _y = random_range(186, 388);
+        _x = 236 - _largura * 0.5 - 26;
+        _y = random_range(186, 438);
         _vx = random_range(5.4, 7.0);
         _vy = random_range(-3.8, -1.8);
         _grav = random_range(0.08, 0.13);
     }
     if (_lado == 3) {
-        _x = room_width + _largura + 64;
-        _y = random_range(186, 388);
+        _x = 676 + _largura * 0.5 + 26;
+        _y = random_range(186, 438);
         _vx = random_range(-7.0, -5.4);
         _vy = random_range(-3.8, -1.8);
         _grav = random_range(0.08, 0.13);

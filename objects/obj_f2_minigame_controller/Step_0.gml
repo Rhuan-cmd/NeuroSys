@@ -190,7 +190,6 @@ if (estado_final != 0) {
         final_transition = min(1, final_transition + 0.055);
     }
     if (final_painel && !final_limpeza_feita) {
-        with (obj_controller_jogo) instance_destroy();
         audio_stop_sound(snd_f2_chiado);
         audio_stop_sound(snd_f2_tremor_loop);
         final_limpeza_feita = true;

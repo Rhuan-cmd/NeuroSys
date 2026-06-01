@@ -106,7 +106,7 @@ if (estado == 2) {
     draw_rectangle(690 + _sx, 360 + _sy, 832 + _sx, 363 + _sy, false);
     draw_set_color(make_color_rgb(19, 47, 74));
     draw_roundrect(690 + _sx, 380 + _sy, 832 + _sx, 420 + _sy, false);
-    draw_set_color(make_color_rgb(255, 207, 102));
+    draw_set_color(make_color_rgb(52, 202, 225));
     draw_roundrect(690 + _sx, 380 + _sy, 832 + _sx, 420 + _sy, true);
 } else {
     draw_set_color(make_color_rgb(151, 180, 205));
@@ -160,7 +160,7 @@ if (estado <= 1 && dialogo_index >= 4 && cutscene_post_alpha > 0) {
 draw_set_alpha(1);
 
 // ===== CARTÕES LANÇADOS =====
-gpu_set_scissor(236, 104, 430, 328);
+gpu_set_scissor(236, 104, 440, 380);
 for (var _i = 0; _i < array_length(mensagens); _i++) {
     var _m = mensagens[_i];
     var _onda = sin(visual_timer * 0.22 + _m.fase) * 2.5;
@@ -173,7 +173,7 @@ for (var _i = 0; _i < array_length(mensagens); _i++) {
     if (_m.forte) { _cor = make_color_rgb(137, 39, 103); _borda = make_color_rgb(255, 126, 213); }
     var _yy = _m.y + _onda;
     var _meia_altura = _m.altura * 0.5;
-    if (_m.x + _m.largura * 0.5 < 236 || _m.x - _m.largura * 0.5 > 666 || _yy + _meia_altura < 104 || _yy - _meia_altura > 432) continue;
+    if (_m.x + _m.largura * 0.5 < 236 || _m.x - _m.largura * 0.5 > 676 || _yy + _meia_altura < 104 || _yy - _meia_altura > 484) continue;
     draw_set_alpha(0.2);
     draw_set_color(_borda);
     draw_roundrect(_m.x - _m.largura * 0.5 - 5, _yy - _meia_altura - 5, _m.x + _m.largura * 0.5 + 5, _yy + _meia_altura + 5, false);
