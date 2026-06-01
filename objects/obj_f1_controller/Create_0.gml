@@ -41,6 +41,7 @@ cursor_cutscene_y = 270;
 cursor_draw_x = cursor_cutscene_x;
 cursor_draw_y = cursor_cutscene_y;
 cursor_click_fx = 0;
+cutscene_post_alpha = 1;
 
 dialogo_textos = [
     "Você abre a rede social e encontra a postagem de Luna: um desenho que ela fez enquanto aprendia.",
@@ -201,7 +202,8 @@ criar_mensagem = function() {
         forte : _forte,
         invul : 0,
         corte_fx : 0,
-        corte_angulo : 0
+        corte_angulo : 0,
+        entrou_feed : false
     });
 };
 

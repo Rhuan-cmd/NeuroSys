@@ -115,20 +115,22 @@ if (estado == 2) {
 }
 
 // ===== CUTSCENE: COMENTARIOS E INTERACOES NA TELA =====
-if (estado == 0 && dialogo_index >= 1) {
-    draw_set_alpha(0.96);
+if (estado <= 1 && dialogo_index >= 1 && cutscene_post_alpha > 0) {
+    draw_set_alpha(0.96 * cutscene_post_alpha);
     draw_set_color(make_color_rgb(163, 48, 73));
     draw_roundrect(286 + _sx, 304 + _sy, 600 + _sx, 344 + _sy, false);
     draw_set_color(c_white);
     draw_text(306 + _sx, 314 + _sy, "anônimo: apaga isso agora");
 }
-if (estado == 0 && dialogo_index >= 2) {
+if (estado <= 1 && dialogo_index >= 2 && cutscene_post_alpha > 0) {
+    draw_set_alpha(cutscene_post_alpha);
     draw_set_color(make_color_rgb(32, 139, 121));
     draw_roundrect(322 + _sx, 354 + _sy, 640 + _sx, 394 + _sy, false);
     draw_set_color(c_white);
     draw_text(342 + _sx, 364 + _sy, "bia: seu desenho ficou ótimo!");
 }
-if (estado == 0 && dialogo_index >= 3) {
+if (estado <= 1 && dialogo_index >= 3 && cutscene_post_alpha > 0) {
+    draw_set_alpha(cutscene_post_alpha);
     draw_set_color(make_color_rgb(17, 40, 68));
     draw_roundrect(688 + _sx, 218 + _sy, 834 + _sx, 314 + _sy, false);
     draw_set_color(make_color_rgb(103, 225, 248));
@@ -138,12 +140,14 @@ if (estado == 0 && dialogo_index >= 3) {
     draw_set_color(c_white);
     draw_text(712 + _sx, 267 + _sy, "DENUNCIAR");
 }
-if (estado == 0 && dialogo_index >= 4) {
+if (estado <= 1 && dialogo_index >= 4 && cutscene_post_alpha > 0) {
+    draw_set_alpha(cutscene_post_alpha);
     draw_set_color(make_color_rgb(53, 46, 54));
     draw_roundrect(688 + _sx, 322 + _sy, 834 + _sx, 358 + _sy, false);
     draw_set_color(make_color_rgb(255, 196, 92));
     draw_text(702 + _sx, 329 + _sy, "COMPARTILHAR");
 }
+draw_set_alpha(1);
 
 // ===== CARTÕES LANÇADOS =====
 gpu_set_scissor(236, 104, 430, 328);

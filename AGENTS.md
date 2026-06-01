@@ -23,19 +23,6 @@
 
 - For the GitHub repository `Cyberbullying Game 2.0`, use the existing `origin/Hugo` local branch, which tracks `origin/origin/Hugo`, instead of creating a new branch.
 
-## GameMaker Validation With Computer Use
-
-Use Computer Use to control GameMaker.
-
-Open the project in GameMaker, run the game, observe the screen with a screenshot, and check for visual errors or console errors. If a problem is found, explain the error, edit the necessary code, and run again to confirm.
-
-1. Open GameMaker.
-2. Run the project.
-3. Take a screenshot of the game window.
-4. Check for visual errors or console errors.
-5. Fix the code.
-6. Run again.
-
 ## Demand Completion Report
 
 When finishing a demand, always provide a concise report with these sections:

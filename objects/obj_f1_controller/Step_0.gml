@@ -117,12 +117,13 @@ if (estado == 0) {
 // ===== CARTÃO DE OBJETIVO ANTES DO JOGO =====
 if (estado == 1) {
     objetivo_timer++;
-    if (!objetivo_saida && objetivo_timer >= objetivo_minimo && (objetivo_timer >= objetivo_duracao || keyboard_check_pressed(vk_enter) || mouse_check_button_pressed(mb_left))) {
+    if (!objetivo_saida && objetivo_timer >= objetivo_minimo && (keyboard_check_pressed(vk_enter) || mouse_check_button_pressed(mb_left))) {
         objetivo_saida = true;
         audio_play_sound(snd_f2_enter, 3, false, 0.5);
     }
     if (objetivo_saida) {
         objetivo_saida_alpha = min(1, objetivo_saida_alpha + 0.055);
+        cutscene_post_alpha = max(0, cutscene_post_alpha - 0.055);
     }
     if (objetivo_saida_alpha >= 1) {
         reiniciar_fase();
@@ -197,6 +198,11 @@ if (estado == 2) {
         _m.rot += _m.vx * 0.045;
         _m.invul = max(0, _m.invul - 1);
         _m.corte_fx = max(0, _m.corte_fx - 1);
+        var _sobrepoe_feed = _m.x + _m.largura * 0.5 >= 236
+            && _m.x - _m.largura * 0.5 <= 666
+            && _m.y + _m.altura * 0.5 >= 104
+            && _m.y - _m.altura * 0.5 <= 432;
+        if (_sobrepoe_feed) _m.entrou_feed = true;
         if (_m.x - _m.largura * 0.5 < 236 && _m.vx < 0) {
             _m.x = 236 + _m.largura * 0.5;
             _m.vx = abs(_m.vx);
@@ -205,7 +211,7 @@ if (estado == 2) {
             _m.x = 666 - _m.largura * 0.5;
             _m.vx = -abs(_m.vx);
         }
-        if (_m.y > room_height + 100 || _m.x < -320 || _m.x > room_width + 320) {
+        if (_m.entrou_feed && (_m.y > room_height + 100 || _m.y < -100 || _m.x < -320 || _m.x > room_width + 320)) {
             if (_m.tipo == 0) aplicar_dano();
             array_delete(mensagens, _i, 1);
         }
