@@ -46,21 +46,21 @@ cursor_click_fx = 0;
 cutscene_post_alpha = 1;
 
 dialogo_textos = [
-    "Você abre a rede social e encontra a postagem de Luna: um desenho que ela fez enquanto aprendia.",
-    "O cursor desce até os comentários. Primeiro aparece uma crítica. Depois chegam ataques pessoais.",
-    "Uma mensagem de apoio surge no meio da onda. Leia antes de agir: apoio não deve ser removido.",
-    "Ao abrir as ferramentas de moderação, você encontra a opção DENUNCIAR PERFIL.",
-    "Denunciar protege a postagem. Compartilhar um ataque faz o oposto: aumenta o alcance da agressão.",
-    "Agora assuma o controle. Comece pelos ataques simples. Novas situações aparecem aos poucos."
+    "Você abre a rede social e encontra a postagem de Luna: um desenho feito enquanto ela ainda aprendia.",
+    "Os comentários chegam aos poucos. Corte apenas ataques pessoais: mensagens de apoio não devem ser removidas.",
+    "Cada erro aumenta a pressão digital. A tela se corrompe e fica mais instável conforme suas vidas diminuem.",
+    "Ao restarem duas vidas, uma denúncia azul pode surgir às vezes. Corte-a para recuperar uma vida e reduzir a corrupção.",
+    "Novos ataques passam a vir de outros lados e alguns exigem mais de um corte. Leia com atenção e contenha 50 ataques.",
+    "Proteja esta postagem sem espalhar agressões. Depois, siga para o chat da próxima etapa e enfrente uma nova forma de ataque."
 ];
 
 dialogo_titulos = [
     "Uma postagem comum",
-    "Os comentários chegam",
-    "Leia antes de agir",
-    "Ferramentas de moderação",
-    "Denuncie, não espalhe",
-    "Seu objetivo"
+    "Leia antes de cortar",
+    "A pressão aumenta",
+    "Denúncia de emergência",
+    "Seu objetivo",
+    "Próxima conexão"
 ];
 
 // ===== REGRAS DO MINIJOGO =====
@@ -159,7 +159,7 @@ criar_mensagem = function() {
     var _tipo = 0; // 0: ataque, 1: apoio, 2: denúncia, 3: compartilhar
     if (ataques_cortados >= 4 && _roll > 0.70) _tipo = 1;
     if (ataques_cortados >= 12 && _roll > 0.95) _tipo = 3;
-    if (vidas == 2 && ataques_cortados >= 8 && _roll > 0.72) _tipo = 2;
+    if (vidas == 2 && ataques_cortados >= 8 && _roll > 0.84) _tipo = 2;
     var _hp = 1;
     if (_tipo == 0 && ataques_cortados >= 7 && random(1) < 0.34) _hp++;
     if (_tipo == 0 && ataques_cortados >= 16 && random(1) < 0.34) _hp++;
