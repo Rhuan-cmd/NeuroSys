@@ -82,6 +82,13 @@ rastros = [];
 fragmentos = [];
 ecos_cartao = [];
 
+formatar_tempo = function(_frames) {
+    var _segundos = max(0, ceil(_frames / room_speed));
+    var _minutos = floor(_segundos / 60);
+    var _resto = _segundos mod 60;
+    return string(_minutos) + ":" + (_resto < 10 ? "0" : "") + string(_resto);
+};
+
 textos_ruins = [
     "ninguém gosta de você",
     "some daqui",
@@ -161,9 +168,9 @@ criar_mensagem = function() {
     var _lado = 0; // 0: baixo, 1: cima, 2: esquerda, 3: direita
     if (ataques_cortados >= 6 && random(1) < 0.34) _lado = 1;
     if (ataques_cortados >= 12 && random(1) < 0.42) _lado = choose(2, 3);
-    var _largura = clamp(84 + string_length(_texto) * 8, 190, 316);
-    var _altura = _forte ? 62 : 52;
-    if (_forte) _largura = min(336, _largura + 24);
+    var _largura = clamp(72 + string_length(_texto) * 6, 150, 248);
+    var _altura = _forte ? 54 : 44;
+    if (_forte) _largura = min(270, _largura + 18);
     var _x = random_range(260 + _largura * 0.5, 656 - _largura * 0.5);
     // Nasce além dos limites da room; o feed apenas revela a entrada gradual.
     var _y = 484 + _altura * 0.5 + 26;
