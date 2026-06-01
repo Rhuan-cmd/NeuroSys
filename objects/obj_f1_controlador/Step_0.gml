@@ -13,10 +13,11 @@ tremor_x = sin(visual_timer * 0.31) * _forca_tremor;
 tremor_y = cos(visual_timer * 0.27) * _forca_tremor * 0.55;
 audio_mix_timer--;
 if (estado == 2 && audio_mix_timer <= 0) {
-    if (ambiente_audio == -1 || !audio_is_playing(ambiente_audio)) ambiente_audio = audio_play_sound(snd_f2_ambiente, 1, true, 0.34);
-    var _ganho_corrupcao = clamp(_corrupcao_tremor * 0.42, 0, 0.42);
+    if (ambiente_audio == -1 || !audio_is_playing(ambiente_audio)) ambiente_audio = audio_play_sound(snd_f1_musica, 1, true, 0.46);
+    var _ganho_corrupcao = clamp(_corrupcao_tremor * 0.72, 0, 0.72);
+    audio_sound_gain(ambiente_audio, 0.46 * (1 - _ganho_corrupcao * 0.38), 180);
     if (_ganho_corrupcao > 0) {
-        if (ambiente_corrupto_audio == -1 || !audio_is_playing(ambiente_corrupto_audio)) ambiente_corrupto_audio = audio_play_sound(snd_f2_ambiente_corrupto, 1, true, 0);
+        if (ambiente_corrupto_audio == -1 || !audio_is_playing(ambiente_corrupto_audio)) ambiente_corrupto_audio = audio_play_sound(snd_f1_tensao, 1, true, 0);
         audio_sound_gain(ambiente_corrupto_audio, _ganho_corrupcao, 180);
     } else if (ambiente_corrupto_audio != -1 && audio_is_playing(ambiente_corrupto_audio)) {
         audio_sound_gain(ambiente_corrupto_audio, 0, 180);
@@ -166,6 +167,7 @@ if (estado == 2) {
             if (_visivel && _m.invul <= 0 && cartao_atingido(_m, mouse_anterior_x, mouse_anterior_y, mouse_x, mouse_y)) {
                 var _angulo_corte = point_direction(mouse_anterior_x, mouse_anterior_y, mouse_x, mouse_y);
                 criar_particulas(_m.x, _m.y, _m.tipo, _angulo_corte);
+                audio_play_sound(snd_f1_corte, 3, false, 0.58, 0, random_range(0.94, 1.08));
                 if (_m.tipo == 0) {
                     _m.hp--;
                     if (_m.hp > 0) {
@@ -186,6 +188,7 @@ if (estado == 2) {
                     }
                 } else if (_m.tipo == 1) {
                     criar_fragmentos_cartao(_m, _angulo_corte);
+                    audio_play_sound(snd_f1_erro, 4, false, 0.72);
                     aplicar_dano();
                     array_delete(mensagens, _i, 1);
                 } else if (_m.tipo == 2) {
@@ -200,6 +203,7 @@ if (estado == 2) {
                     array_delete(mensagens, _i, 1);
                 } else {
                     criar_fragmentos_cartao(_m, _angulo_corte);
+                    audio_play_sound(snd_f1_erro, 4, false, 0.76);
                     aplicar_dano();
                     shake = 18;
                     array_delete(mensagens, _i, 1);

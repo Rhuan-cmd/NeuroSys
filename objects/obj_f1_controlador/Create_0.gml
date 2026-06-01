@@ -40,7 +40,7 @@ nivel_corrupcao = 0;
 visual_timer = 0;
 tremor_x = 0;
 tremor_y = 0;
-ambiente_audio = audio_play_sound(snd_f2_ambiente, 1, true, 0.34);
+ambiente_audio = audio_play_sound(snd_f1_musica, 1, true, 0.46);
 ambiente_corrupto_audio = -1;
 audio_mix_timer = 0;
 cursor_cutscene_x = 480;
@@ -346,7 +346,7 @@ finalizar_fase = function(_venceu) {
     } else {
         nota_final = string(clamp(round((ataques_cortados / objetivo) * 5), 0, 5)) + "/10";
     }
-    audio_stop_sound(snd_f2_ambiente);
-    audio_stop_sound(snd_f2_ambiente_corrupto);
+    audio_stop_sound(snd_f1_musica);
+    audio_stop_sound(snd_f1_tensao);
     audio_play_sound(_venceu ? snd_f2_vitoria : snd_f2_derrota, 4, false, 0.78);
 };

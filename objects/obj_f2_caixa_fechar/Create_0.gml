@@ -57,12 +57,19 @@ configurar = function(_dificuldade) {
         raio_fuga = 128 + dificil * 5;
         forca_fuga = 0.56 + dificil * 0.035;
     }
+    if (dificuldade >= 8) {
+        velocidade = 7.15;
+        precisao = 0.14;
+        raio_fuga = 172;
+        forca_fuga = 0.86;
+        margem = 46;
+    }
     if (dificuldade >= 9) {
-        velocidade = 6.65;
-        precisao = 0.11;
-        raio_fuga = 154;
-        forca_fuga = 0.72;
-        margem = 42;
+        velocidade = 8.25;
+        precisao = 0.18;
+        raio_fuga = 198;
+        forca_fuga = 1.08;
+        margem = 52;
     }
     imortal_timer = dificuldade > 0 ? 18 : 0;
     image_xscale = escala_padrao;
@@ -73,7 +80,7 @@ configurar = function(_dificuldade) {
 novo_alvo = function() {
     alvo_x = random_range(margem, room_width - margem);
     alvo_y = random_range(margem, room_height - margem);
-    trocar_alvo_timer = irandom_range(14, 32);
+    trocar_alvo_timer = dificuldade >= 8 ? irandom_range(8, 18) : irandom_range(14, 32);
 };
 
 reposicionar = function() {

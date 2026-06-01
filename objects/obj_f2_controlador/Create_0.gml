@@ -85,6 +85,7 @@ hover_reiniciar_anterior = false;
 
 // ===== MINIGAME, CURSOR E BOTAO FIXO =====
 limite_clique = room_speed * 12;
+limite_clique_atual = limite_clique;
 timer_clique = 0;
 respawn_timer = 0;
 ativo = false;
@@ -143,6 +144,7 @@ iniciar_minigame = function() {
     transicao_caixa = true;
     transicao_timer = 0;
     timer_clique = 0;
+    sino_audio_timer = 1;
     cutscene_clickou = true;
     cascata_fluxo = 0;
     window_set_cursor(cr_none);
@@ -247,6 +249,11 @@ criar_caixa = function(_x, _y, _reposicionar) {
         obj_f2_caixa_fechar
     );
     caixa.configurar(cliques);
+    limite_clique_atual = limite_clique;
+    if (cliques >= 8) limite_clique_atual = room_speed * 8;
+    if (cliques >= 9) limite_clique_atual = room_speed * 6;
+    timer_clique = 0;
+    sino_audio_timer = 1;
     
     if (_reposicionar) {
         audio_play_sound(snd_f2_fuga, 2, false, 0.34, 0, random_range(0.96, 1.08));

@@ -279,9 +279,10 @@ if (ativo) {
     if (repel_fx_timer > 0) {
         repel_fx_timer--;
     }
+    if (instance_exists(caixa)) {
     sino_audio_timer--;
     if (sino_audio_timer <= 0) {
-        var sino_segundos = max(0, ceil((limite_clique - timer_clique) / room_speed));
+        var sino_segundos = max(0, ceil((limite_clique_atual - timer_clique) / room_speed));
         var sino_intervalo = room_speed * 0.82;
         var sino_volume = 0.28;
         var sino_pitch = 0.92;
@@ -297,6 +298,7 @@ if (ativo) {
         }
         audio_play_sound(snd_f2_sino, 2, false, sino_volume, 0, sino_pitch);
         sino_audio_timer = max(5, sino_intervalo);
+    }
     }
 }
 
@@ -363,9 +365,7 @@ if (!ativo && !transicao_caixa) {
             criar_caixa(random_range(64, room_width - 64), random_range(64, room_height - 64), true);
         }
     } else {
-        if (!caixa.modo_intro) {
-            timer_clique++;
-        }
+        timer_clique++;
         
         var caixa_clicavel = !caixa.modo_intro && caixa.imortal_timer <= 0 && congelado_timer <= 0;
         var acertou_caixa = caixa_clicavel && point_in_rectangle(mouse_x, mouse_y, caixa.bbox_left - 12, caixa.bbox_top - 12, caixa.bbox_right + 12, caixa.bbox_bottom + 12);
@@ -386,7 +386,7 @@ if (!ativo && !transicao_caixa) {
             } else {
                 respawn_timer = max(5, 18 - cliques);
             }
-        } else if (timer_clique >= limite_clique) {
+        } else if (timer_clique >= limite_clique_atual) {
             perder_vida();
         }
     }
