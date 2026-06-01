@@ -21,19 +21,15 @@ if (estado == 2) {
     draw_text_transformed(816, 392, "x" + string(combo), _pulse, _pulse, 0);
     draw_set_halign(fa_left);
 
-    // Barra principal posicionada no rodape central.
-    draw_set_alpha(0.94);
-    draw_set_color(make_color_rgb(6, 18, 34));
-    draw_roundrect(164, 438, 796, 504, false);
-    draw_set_color(make_color_rgb(37, 203, 225));
-    draw_rectangle(164, 438, 796, 443, false);
-    draw_set_alpha(1);
+    // Conteúdo da aba de objetivo integrada ao fundo do CONECTA.
     draw_set_color(make_color_rgb(120, 232, 250));
-    draw_text(186, 454, "OBJETIVO PRINCIPAL");
+    draw_text(278, 449, "OBJETIVO PRINCIPAL");
     draw_set_color(c_white);
-    draw_text(186, 478, "CORTE OS ATAQUES: " + string(ataques_cortados) + "/" + string(objetivo));
+    draw_text(278, 469, "CORTE OS ATAQUES: " + string(ataques_cortados) + "/" + string(objetivo));
     draw_set_color(make_color_rgb(158, 220, 239));
-    draw_text(490, 466, "TEMPO: " + string(ceil(tempo / room_speed)) + "s");
+    draw_set_halign(fa_right);
+    draw_text(634, 459, "TEMPO: " + string(ceil(tempo / room_speed)) + "s");
+    draw_set_halign(fa_left);
     if (escudo > 0) {
         draw_set_alpha(0.24 + sin(visual_timer * 0.2) * 0.08);
         draw_set_color(make_color_rgb(87, 226, 255));
@@ -45,6 +41,20 @@ if (estado == 2) {
 }
 
 // ===== FLASHES DE FEEDBACK =====
+var _corrupcao = estado == 2 ? (vidas_max - vidas) / vidas_max : 0;
+if (_corrupcao > 0 || corrupt_flash > 0) {
+    var _ruido = clamp(_corrupcao + corrupt_flash * 0.72, 0, 1);
+    draw_set_alpha(0.045 + _ruido * 0.08);
+    draw_set_color(make_color_rgb(255, 37, 89));
+    draw_rectangle(0, 0, room_width, room_height, false);
+    for (var _linha_glitch = 0; _linha_glitch < 4 + floor(_ruido * 13); _linha_glitch++) {
+        var _glitch_y = irandom(room_height);
+        var _glitch_x = irandom_range(-28, 28);
+        draw_set_alpha(random_range(0.04, 0.12) + _ruido * 0.11);
+        draw_set_color(choose(make_color_rgb(255, 49, 93), make_color_rgb(66, 224, 255)));
+        draw_rectangle(_glitch_x, _glitch_y, room_width + _glitch_x, _glitch_y + irandom_range(1, 3), false);
+    }
+}
 if (damage_flash > 0) {
     draw_set_alpha(damage_flash * 0.34);
     draw_set_color(make_color_rgb(255, 49, 83));
@@ -150,9 +160,9 @@ if (estado == 3 || estado == 4) {
     draw_text(480, 164 + _final_offset, final_vitoria ? "ataques contidos com responsabilidade" : "a rede precisa de uma nova tentativa");
     draw_set_halign(fa_center);
     draw_set_color(make_color_rgb(116, 231, 255));
-    draw_text(367, 230 + _final_offset, "TEMPO  " + _tempo_txt);
-    draw_text(367, 270 + _final_offset, "ATAQUES  " + string(ataques_cortados) + "/" + string(objetivo));
-    draw_text(367, 310 + _final_offset, "VIDAS  " + string(vidas_final) + "/" + string(vidas_max));
+    draw_text(345, 244 + _final_offset, "TEMPO  " + _tempo_txt);
+    draw_text(345, 282 + _final_offset, "ATAQUES  " + string(ataques_cortados) + "/" + string(objetivo));
+    draw_text(345, 320 + _final_offset, "VIDAS  " + string(vidas_final) + "/" + string(vidas_max));
     draw_set_color(make_color_rgb(116, 231, 255));
     draw_text(606, 214 + _final_offset, "NOTA");
     draw_set_color(c_white);

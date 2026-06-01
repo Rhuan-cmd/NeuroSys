@@ -4,6 +4,7 @@ cutscene_timer++;
 if (estado < 3) visual_timer++;
 damage_flash = max(0, damage_flash - 0.05);
 bonus_flash = max(0, bonus_flash - 0.04);
+corrupt_flash = max(0, corrupt_flash - 0.009);
 shake = max(0, shake - 0.7);
 cursor_click_fx = max(0, cursor_click_fx - 1);
 
@@ -202,7 +203,10 @@ if (estado == 2) {
             && _m.x - _m.largura * 0.5 <= 666
             && _m.y + _m.altura * 0.5 >= 104
             && _m.y - _m.altura * 0.5 <= 432;
-        if (_sobrepoe_feed) _m.entrou_feed = true;
+        if (_sobrepoe_feed) {
+            _m.entrou_feed = true;
+            _m.frames_feed++;
+        }
         if (_m.x - _m.largura * 0.5 < 236 && _m.vx < 0) {
             _m.x = 236 + _m.largura * 0.5;
             _m.vx = abs(_m.vx);
@@ -211,7 +215,17 @@ if (estado == 2) {
             _m.x = 666 - _m.largura * 0.5;
             _m.vx = -abs(_m.vx);
         }
-        if (_m.entrou_feed && (_m.y > room_height + 100 || _m.y < -100 || _m.x < -320 || _m.x > room_width + 320)) {
+        var _limite_topo = 116 + _m.altura * 0.5;
+        var _limite_base = 420 - _m.altura * 0.5;
+        if (_m.entrou_feed && _m.frames_feed < 78 && _m.y < _limite_topo && _m.vy < 0) {
+            _m.y = _limite_topo;
+            _m.vy = abs(_m.vy) * 0.78;
+        }
+        if (_m.entrou_feed && _m.frames_feed < 78 && _m.y > _limite_base && _m.vy > 0) {
+            _m.y = _limite_base;
+            _m.vy = -abs(_m.vy) * 0.78;
+        }
+        if (_m.entrou_feed && _m.frames_feed >= 78 && (_m.y > 454 || _m.y < 82 || _m.x < -320 || _m.x > room_width + 320)) {
             if (_m.tipo == 0) aplicar_dano();
             array_delete(mensagens, _i, 1);
         }
@@ -257,19 +271,25 @@ for (var _i = array_length(rastros) - 1; _i >= 0; _i--) {
 
 for (var _i = array_length(fragmentos) - 1; _i >= 0; _i--) {
     var _f = fragmentos[_i];
-    _f.x += _f.vx;
-    _f.y += _f.vy;
-    _f.vy += _f.grav;
-    _f.rot += _f.vrot;
+    _f.espera--;
+    if (_f.espera <= 0) {
+        _f.x += _f.vx;
+        _f.y += _f.vy;
+        _f.vy += _f.grav;
+        _f.rot += _f.vrot;
+    }
     _f.vida--;
     if (_f.vida <= 0) array_delete(fragmentos, _i, 1);
 }
 
 for (var _i = array_length(ecos_cartao) - 1; _i >= 0; _i--) {
     var _e = ecos_cartao[_i];
-    _e.x += _e.vx;
-    _e.y += _e.vy;
-    _e.vy += _e.grav;
+    _e.espera--;
+    if (_e.espera <= 0) {
+        _e.x += _e.vx;
+        _e.y += _e.vy;
+        _e.vy += _e.grav;
+    }
     _e.vida--;
     if (_e.vida <= 0) array_delete(ecos_cartao, _i, 1);
 }

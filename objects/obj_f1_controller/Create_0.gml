@@ -35,6 +35,7 @@ hover_reiniciar_anterior = false;
 damage_flash = 0;
 bonus_flash = 0;
 shake = 0;
+corrupt_flash = 0;
 visual_timer = 0;
 cursor_cutscene_x = 480;
 cursor_cutscene_y = 270;
@@ -108,7 +109,8 @@ aplicar_dano = function() {
     } else {
         vidas--;
         damage_flash = 1;
-        shake = 12;
+        corrupt_flash = min(1, corrupt_flash + 0.24);
+        shake = 12 + (vidas_max - vidas) * 4;
         audio_play_sound(snd_f2_damage, 3, false, 0.62);
     }
     combo = 0;
@@ -122,6 +124,7 @@ reiniciar_fase = function() {
     combo = 0;
     melhor_combo = 0;
     escudo = 0;
+    corrupt_flash = 0;
     tempo = tempo_total;
     spawn_timer = 10;
     fim_timer = 0;
@@ -203,7 +206,8 @@ criar_mensagem = function() {
         invul : 0,
         corte_fx : 0,
         corte_angulo : 0,
-        entrou_feed : false
+        entrou_feed : false,
+        frames_feed : 0
     });
 };
 
@@ -222,9 +226,10 @@ criar_fragmentos_cartao = function(_m, _angulo) {
     array_push(ecos_cartao, {
         x : _m.x,
         y : _m.y,
-        vx : _m.vx * 0.32,
-        vy : _m.vy * 0.18 - 0.8,
+        vx : 0,
+        vy : 0,
         grav : 0.08,
+        espera : 4,
         vida : 18,
         maxvida : 18,
         largura : _m.largura,
@@ -239,13 +244,13 @@ criar_fragmentos_cartao = function(_m, _angulo) {
     });
     for (var _i = 0; _i < _partes; _i++) {
         var _faixa = (_i - (_partes - 1) * 0.5) / _partes;
-        var _afasta = _faixa * _m.altura + (_i - (_partes - 1) * 0.5) * 2.4;
         array_push(fragmentos, {
-            x : _m.x + lengthdir_x(_afasta, _angulo + 90),
-            y : _m.y + lengthdir_y(_afasta, _angulo + 90),
+            x : _m.x,
+            y : _m.y,
             vx : _m.vx * 0.45 + lengthdir_x((_i - (_partes - 1) * 0.5) * 4.2, _angulo + 90),
             vy : _m.vy * 0.25 + lengthdir_y((_i - (_partes - 1) * 0.5) * 4.2, _angulo + 90) - 1.4,
             grav : 0.14,
+            espera : 4,
             vida : 24,
             maxvida : 24,
             largura : _m.largura,

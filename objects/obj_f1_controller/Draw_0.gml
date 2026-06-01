@@ -1,6 +1,8 @@
 var _pulso = 0.5 + sin(visual_timer * 0.12) * 0.5;
-var _sx = shake > 0 ? random_range(-shake, shake) : 0;
-var _sy = shake > 0 ? random_range(-shake * 0.5, shake * 0.5) : 0;
+var _corrupcao = estado == 2 ? (vidas_max - vidas) / vidas_max : 0;
+var _tremor_base = _corrupcao * 5;
+var _sx = (shake > 0 || _tremor_base > 0) ? random_range(-shake - _tremor_base, shake + _tremor_base) : 0;
+var _sy = (shake > 0 || _tremor_base > 0) ? random_range(-shake * 0.5 - _tremor_base, shake * 0.5 + _tremor_base) : 0;
 
 draw_set_font(fnt_dialogo);
 draw_set_halign(fa_left);
@@ -112,6 +114,14 @@ if (estado == 2) {
     draw_text(694 + _sx, 204 + _sy, "de cortar.");
     draw_set_color(make_color_rgb(85, 232, 185));
     draw_text(694 + _sx, 243 + _sy, "DENÚNCIA = ESCUDO");
+}
+
+// ===== ABA INTEGRADA DO OBJETIVO =====
+if (estado == 2) {
+    draw_set_color(make_color_rgb(12, 29, 51));
+    draw_roundrect(260 + _sx, 438 + _sy, 652 + _sx, 484 + _sy, false);
+    draw_set_color(make_color_rgb(52, 202, 225));
+    draw_rectangle(260 + _sx, 438 + _sy, 652 + _sx, 443 + _sy, false);
 }
 
 // ===== CUTSCENE: COMENTARIOS E INTERACOES NA TELA =====
