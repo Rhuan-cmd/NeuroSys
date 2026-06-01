@@ -76,7 +76,6 @@ repel_fx_y = 0;
 poder_ataque_tipo = 0;
 poder_ataque_timer = 0;
 poder_ataque_total = 28;
-poder_ataque_trava = 11;
 poder_ataque_x0 = 0;
 poder_ataque_y0 = 0;
 poder_ataque_x1 = 0;

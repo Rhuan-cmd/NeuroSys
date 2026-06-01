@@ -1,6 +1,7 @@
 // ===== CENARIO PRINCIPAL DA REDE SOCIAL =====
+draw_set_font(fnt_f2_dialogo);
 var desenhar_fase = !(estado_final != 0 && final_painel);
-var escala_texto_f2 = 0.86;
+var escala_texto_f2 = 1;
 if (desenhar_fase) {
 draw_sprite(spr_f2_fundo_chat, 0, 0, 0);
 
