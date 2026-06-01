@@ -156,7 +156,7 @@ if (estado == 3 || estado == 4) {
     draw_set_color(make_color_rgb(116, 231, 255));
     draw_text(606, 214 + _final_offset, "NOTA");
     draw_set_color(c_white);
-    draw_text_transformed(606, 264 + _final_offset, nota_final, 1.22, 1.22, 0);
+    draw_text_transformed(606, 270 + _final_offset, nota_final, 1.22, 1.22, 0);
 
     draw_set_alpha(_final_suave * (_hover_acao ? 0.34 : 0));
     draw_set_color(make_color_rgb(54, 222, 246));

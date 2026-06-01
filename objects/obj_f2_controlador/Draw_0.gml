@@ -1,5 +1,6 @@
 // ===== CENARIO PRINCIPAL DA REDE SOCIAL =====
 var desenhar_fase = !(estado_final != 0 && final_painel);
+var escala_texto_f2 = 0.86;
 if (desenhar_fase) {
 draw_sprite(spr_f2_fundo_chat, 0, 0, 0);
 
@@ -64,9 +65,9 @@ if (contatos_visiveis > 0) {
             draw_set_halign(fa_left);
             draw_set_valign(fa_top);
             draw_set_color(make_color_rgb(210, 232, 255));
-            draw_text_transformed(92, y_contato + 12, "ANÔNIMO", 0.74, 0.74, 0);
+            draw_text_transformed(92, y_contato + 12, "ANÔNIMO", 0.74 * escala_texto_f2, 0.74 * escala_texto_f2, 0);
             draw_set_color(make_color_rgb(118, 137, 170));
-            draw_text_transformed(92, y_contato + 35, "perfil oculto", 0.66, 0.66, 0);
+            draw_text_transformed(92, y_contato + 35, "perfil oculto", 0.66 * escala_texto_f2, 0.66 * escala_texto_f2, 0);
             draw_set_alpha(1);
             draw_set_color(c_white);
         }
@@ -121,10 +122,10 @@ if (mensagens_visiveis > 0) {
             draw_set_halign(fa_left);
             draw_set_valign(fa_top);
             draw_set_color(make_color_rgb(162, 198, 238));
-            draw_text_transformed(x_msg + 58, y_msg + 12, "ANÔNIMO", 0.72, 0.72, 0);
+            draw_text_transformed(x_msg + 58, y_msg + 12, "ANÔNIMO", 0.72 * escala_texto_f2, 0.72 * escala_texto_f2, 0);
             draw_set_color(make_color_rgb(225, 234, 255));
-            draw_text_transformed(x_msg + 58, y_msg + 36, msg_linha1, 0.68, 0.68, 0);
-            draw_text_transformed(x_msg + 58, y_msg + 59, msg_linha2, 0.68, 0.68, 0);
+            draw_text_transformed(x_msg + 58, y_msg + 36, msg_linha1, 0.68 * escala_texto_f2, 0.68 * escala_texto_f2, 0);
+            draw_text_transformed(x_msg + 58, y_msg + 59, msg_linha2, 0.68 * escala_texto_f2, 0.68 * escala_texto_f2, 0);
             draw_set_alpha(1);
             draw_set_color(c_white);
         }
@@ -272,16 +273,16 @@ if (!historia_finalizada && cutscene_timer >= fade_duracao && !ativo && !transic
     draw_set_alpha(h_suave * h_alpha);
     draw_set_font(fnt_f2_dialogo);
     draw_set_color(make_color_rgb(115, 230, 255));
-    draw_text(h_x1 + 26, h_y1 + 22, historia_titulo);
+    draw_text_transformed(h_x1 + 26, h_y1 + 22, historia_titulo, escala_texto_f2, escala_texto_f2, 0);
     draw_set_color(c_white);
-    draw_text_ext(h_x1 + 26, h_y1 + 58, texto_visivel, 26, h_x2 - h_x1 - 52);
+    draw_text_ext_transformed(h_x1 + 26, h_y1 + 58, texto_visivel, 26, h_x2 - h_x1 - 52, escala_texto_f2, escala_texto_f2, 0);
     
     if (completo) {
         var enter_alpha = 0.45 + sin(current_time * 0.008) * 0.35;
         draw_set_alpha(enter_alpha * h_alpha);
         draw_set_color(make_color_rgb(255, 232, 122));
         draw_set_halign(fa_right);
-        draw_text(h_x2 - 24, h_y2 - 48, "ENTER");
+        draw_text_transformed(h_x2 - 24, h_y2 - 48, "ENTER", escala_texto_f2, escala_texto_f2, 0);
         draw_set_halign(fa_left);
     }
     draw_set_alpha(1);
@@ -301,7 +302,7 @@ if (aviso_x_timer > 0 && estado_final == 0) {
     draw_set_halign(fa_center);
     draw_set_valign(fa_middle);
     draw_set_color(make_color_rgb(255, 228, 132));
-    draw_text_transformed(room_width / 2, room_height / 2, "PEGUE O X...", aviso_escala * 1.6, aviso_escala * 1.6, 0);
+    draw_text_transformed(room_width / 2, room_height / 2, "PEGUE O X...", aviso_escala * 1.6 * escala_texto_f2, aviso_escala * 1.6 * escala_texto_f2, 0);
     draw_set_halign(fa_left);
     draw_set_valign(fa_top);
 }
@@ -321,8 +322,8 @@ if (fade_alpha > 0) {
     draw_set_font(fnt_f2_dialogo);
     draw_set_halign(fa_center);
     draw_set_valign(fa_middle);
-    draw_text_transformed(room_width / 2, room_height / 2 - 28, "FASE 2", titulo_escala * 1.8, titulo_escala * 1.8, 0);
-    draw_text_transformed(room_width / 2, room_height / 2 + 18, "CHAT EM SOBRECARGA", 1.1, 1.1, 0);
+    draw_text_transformed(room_width / 2, room_height / 2 - 28, "FASE 2", titulo_escala * 1.8 * escala_texto_f2, titulo_escala * 1.8 * escala_texto_f2, 0);
+    draw_text_transformed(room_width / 2, room_height / 2 + 18, "CHAT EM SOBRECARGA", 1.1 * escala_texto_f2, 1.1 * escala_texto_f2, 0);
     draw_set_halign(fa_left);
     draw_set_valign(fa_top);
 }
@@ -395,26 +396,26 @@ if (estado_final != 0) {
     var hover_reiniciar = point_in_rectangle(mouse_x, mouse_y, 506, 375 + final_offset, 648, 411 + final_offset);
     draw_set_halign(fa_center);
     draw_set_color(final_vitoria ? make_color_rgb(91, 238, 255) : make_color_rgb(255, 92, 112));
-    draw_text_transformed(room_width / 2, 142 + final_offset, final_vitoria ? "CONEXÃO RETOMADA" : "SOBRECARGA SOCIAL", 1.12, 1.12, 0);
+    draw_text_transformed(room_width / 2, 142 + final_offset, final_vitoria ? "CONEXÃO RETOMADA" : "SOBRECARGA SOCIAL", 1.12 * escala_texto_f2, 1.12 * escala_texto_f2, 0);
     draw_set_color(make_color_rgb(144, 163, 196));
-    draw_text_transformed(room_width / 2, 158 + final_offset, final_vitoria ? "controle do chat recuperado" : "mensagens no limite", 1.0, 1.0, 0);
+    draw_text_transformed(room_width / 2, 158 + final_offset, final_vitoria ? "controle do chat recuperado" : "mensagens no limite", escala_texto_f2, escala_texto_f2, 0);
     
     draw_set_halign(fa_left);
     draw_set_color(make_color_rgb(116, 231, 255));
-    draw_text_transformed(286, 238 + final_offset, "TEMPO", 0.92, 0.92, 0);
-    draw_text_transformed(286, 282 + final_offset, "ACERTOS", 0.92, 0.92, 0);
-    draw_text_transformed(286, 326 + final_offset, "VIDAS", 0.92, 0.92, 0);
+    draw_text_transformed(286, 238 + final_offset, "TEMPO", 0.92 * escala_texto_f2, 0.92 * escala_texto_f2, 0);
+    draw_text_transformed(286, 282 + final_offset, "ACERTOS", 0.92 * escala_texto_f2, 0.92 * escala_texto_f2, 0);
+    draw_text_transformed(286, 326 + final_offset, "VIDAS", 0.92 * escala_texto_f2, 0.92 * escala_texto_f2, 0);
     draw_set_halign(fa_center);
-    draw_text_transformed(606, 214 + final_offset, "NOTA", 1.0, 1.0, 0);
+    draw_text_transformed(606, 214 + final_offset, "NOTA", escala_texto_f2, escala_texto_f2, 0);
     draw_set_halign(fa_left);
     draw_set_color(c_white);
-    draw_text_transformed(396, 238 + final_offset, tempo_txt_resultado, 1.05, 1.05, 0);
-    draw_text_transformed(396, 282 + final_offset, string(cliques) + "/" + string(cliques_necessarios), 1.05, 1.05, 0);
-    draw_text_transformed(396, 326 + final_offset, string(vidas_final) + "/" + string(vidas_max), 1.05, 1.05, 0);
+    draw_text_transformed(396, 238 + final_offset, tempo_txt_resultado, 1.05 * escala_texto_f2, 1.05 * escala_texto_f2, 0);
+    draw_text_transformed(396, 282 + final_offset, string(cliques) + "/" + string(cliques_necessarios), 1.05 * escala_texto_f2, 1.05 * escala_texto_f2, 0);
+    draw_text_transformed(396, 326 + final_offset, string(vidas_final) + "/" + string(vidas_max), 1.05 * escala_texto_f2, 1.05 * escala_texto_f2, 0);
     
     draw_set_halign(fa_center);
     draw_set_valign(fa_middle);
-    draw_text_transformed(606, 286 + final_offset, nota_final, 1.22, 1.22, 0);
+    draw_text_transformed(606, 292 + final_offset, nota_final, 1.22 * escala_texto_f2, 1.22 * escala_texto_f2, 0);
     draw_set_valign(fa_top);
     
     draw_set_alpha(final_suave * (hover_menu ? 0.34 : 0));
@@ -426,9 +427,9 @@ if (estado_final != 0) {
     
     draw_set_halign(fa_center);
     draw_set_color(hover_menu ? make_color_rgb(255, 246, 152) : c_white);
-    draw_text_transformed(383, 384 + final_offset, "MENU", hover_menu ? 1.08 : 1.0, hover_menu ? 1.08 : 1.0, 0);
+    draw_text_transformed(383, 384 + final_offset, "MENU", (hover_menu ? 1.08 : 1.0) * escala_texto_f2, (hover_menu ? 1.08 : 1.0) * escala_texto_f2, 0);
     draw_set_color(hover_reiniciar ? make_color_rgb(255, 246, 152) : c_white);
-    draw_text_transformed(577, 384 + final_offset, "REINICIAR", hover_reiniciar ? 1.0 : 0.92, hover_reiniciar ? 1.0 : 0.92, 0);
+    draw_text_transformed(577, 384 + final_offset, "REINICIAR", (hover_reiniciar ? 1.0 : 0.92) * escala_texto_f2, (hover_reiniciar ? 1.0 : 0.92) * escala_texto_f2, 0);
     draw_set_halign(fa_left);
     draw_set_color(c_white);
     draw_set_alpha(1);

@@ -76,6 +76,7 @@ repel_fx_y = 0;
 poder_ataque_tipo = 0;
 poder_ataque_timer = 0;
 poder_ataque_total = 28;
+poder_ataque_trava = 11;
 poder_ataque_x0 = 0;
 poder_ataque_y0 = 0;
 poder_ataque_x1 = 0;
@@ -210,8 +211,8 @@ iniciar_ataque_cursor = function(_tipo) {
         poder_ataque_x0 = caixa.x;
         poder_ataque_y0 = caixa.y;
     }
-    poder_ataque_x1 = clamp(mouse_x + random_range(-48, 48), 28, room_width - 28);
-    poder_ataque_y1 = clamp(mouse_y + random_range(-48, 48), 28, room_height - 28);
+    poder_ataque_x1 = mouse_x;
+    poder_ataque_y1 = mouse_y;
     audio_play_sound(snd_f2_fuga, 3, false, 0.5, 0, _tipo == 1 ? 1.08 : 0.9);
 };
 

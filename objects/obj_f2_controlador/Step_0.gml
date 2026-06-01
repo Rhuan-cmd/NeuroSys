@@ -243,6 +243,10 @@ if (ativo) {
     tempo_jogo++;
     poder_cooldown--;
     if (poder_ataque_timer > 0) {
+        if (poder_ataque_timer > poder_ataque_trava) {
+            poder_ataque_x1 = mouse_x;
+            poder_ataque_y1 = mouse_y;
+        }
         poder_ataque_timer--;
         if (poder_ataque_timer <= 0) {
             var acertou_poder = point_distance(mouse_x, mouse_y, poder_ataque_x1, poder_ataque_y1) < 62;
