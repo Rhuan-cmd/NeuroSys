@@ -5,7 +5,7 @@
   "kind":1,
   "name":"pth_f3_vilao",
   "parent":{
-    "name":"Fase3",
+    "name":"F3",
     "path":"folders/Objetos/F3.yy",
   },
   "points":[

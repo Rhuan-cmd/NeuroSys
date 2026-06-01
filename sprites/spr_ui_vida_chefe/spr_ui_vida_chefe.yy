@@ -44,7 +44,7 @@
   },
   "origin":0,
   "parent":{
-    "name":"Barra Vida Boss",
+    "name":"BarraVidaChefe",
     "path":"folders/Sprites/Interface/BarraVidaChefe.yy",
   },
   "preMultiplyAlpha":false,

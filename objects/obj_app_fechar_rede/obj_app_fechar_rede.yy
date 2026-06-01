@@ -8,7 +8,7 @@
   "name":"obj_app_fechar_rede",
   "overriddenProperties":[],
   "parent":{
-    "name":"Apps",
+    "name":"Aplicativos",
     "path":"folders/Objetos/Aplicativos.yy",
   },
   "parentObjectId":null,

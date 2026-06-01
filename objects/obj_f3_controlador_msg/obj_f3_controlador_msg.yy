@@ -10,7 +10,7 @@
   "name":"obj_f3_controlador_msg",
   "overriddenProperties":[],
   "parent":{
-    "name":"Fase3",
+    "name":"F3",
     "path":"folders/Objetos/F3.yy",
   },
   "parentObjectId":null,

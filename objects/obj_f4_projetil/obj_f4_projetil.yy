@@ -12,7 +12,7 @@
   "name":"obj_f4_projetil",
   "overriddenProperties":[],
   "parent":{
-    "name":"Fase4",
+    "name":"F4",
     "path":"folders/Objetos/F4.yy",
   },
   "parentObjectId":null,

@@ -11,7 +11,7 @@
   "name":"obj_f3_controlador",
   "overriddenProperties":[],
   "parent":{
-    "name":"Fase3",
+    "name":"F3",
     "path":"folders/Objetos/F3.yy",
   },
   "parentObjectId":null,

@@ -14,7 +14,7 @@
   "exportDir":"",
   "name":"snd_f3_dano",
   "parent":{
-    "name":"Fase3",
+    "name":"F3",
     "path":"folders/Sons/F3.yy",
   },
   "preload":false,

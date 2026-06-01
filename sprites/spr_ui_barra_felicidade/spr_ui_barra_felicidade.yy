@@ -27,7 +27,7 @@
   "nineSlice":null,
   "origin":1,
   "parent":{
-    "name":"UI",
+    "name":"Interface",
     "path":"folders/Sprites/Interface.yy",
   },
   "preMultiplyAlpha":false,

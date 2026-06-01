@@ -25,7 +25,7 @@
   "nineSlice":null,
   "origin":0,
   "parent":{
-    "name":"PC",
+    "name":"Computador",
     "path":"folders/Sprites/Computador.yy",
   },
   "preMultiplyAlpha":false,

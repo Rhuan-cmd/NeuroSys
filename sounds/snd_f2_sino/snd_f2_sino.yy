@@ -4,7 +4,7 @@
   "audioGroupId":{"name":"audiogroup_default","path":"audiogroups/audiogroup_default",},
   "bitDepth":1,"channelFormat":0,"compression":0,"compressionQuality":4,"conversionMode":0,
   "duration":0.62,"exportDir":"","name":"snd_f2_sino",
-  "parent":{"name":"F2 - Fase 2","path":"folders/Sons/F2.yy",},"preload":false,
+  "parent":{"name":"F2","path":"folders/Sons/F2.yy",},"preload":false,
   "resourceType":"GMSound","resourceVersion":"2.0","sampleRate":44100,
   "soundFile":"snd_f2_sino.wav","volume":1.0,
 }

@@ -26,7 +26,7 @@
   "nineSlice":null,
   "origin":4,
   "parent":{
-    "name":"Fase4",
+    "name":"F4",
     "path":"folders/Sprites/F4.yy",
   },
   "preMultiplyAlpha":false,

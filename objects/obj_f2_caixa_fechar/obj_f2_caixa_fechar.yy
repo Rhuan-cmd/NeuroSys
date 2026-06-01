@@ -10,7 +10,7 @@
   "name":"obj_f2_caixa_fechar",
   "overriddenProperties":[],
   "parent":{
-    "name":"Fase2",
+    "name":"F2",
     "path":"folders/Objetos/F2.yy",
   },
   "parentObjectId":null,

@@ -14,7 +14,7 @@
   "exportDir":"",
   "name":"snd_f3_fim_jogo",
   "parent":{
-    "name":"Fase3",
+    "name":"F3",
     "path":"folders/Sons/F3.yy",
   },
   "preload":false,

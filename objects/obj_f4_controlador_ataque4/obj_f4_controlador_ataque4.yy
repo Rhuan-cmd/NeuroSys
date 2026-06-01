@@ -9,7 +9,7 @@
   "name":"obj_f4_controlador_ataque4",
   "overriddenProperties":[],
   "parent":{
-    "name":"Controllers",
+    "name":"Controladores",
     "path":"folders/Objetos/F4/Controladores.yy",
   },
   "parentObjectId":null,

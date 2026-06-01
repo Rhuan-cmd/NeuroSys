@@ -14,7 +14,7 @@
   "exportDir":"",
   "name":"snd_f2_ambiente",
   "parent":{
-    "name":"Fase2",
+    "name":"F2",
     "path":"folders/Sons/F2.yy",
   },
   "preload":false,

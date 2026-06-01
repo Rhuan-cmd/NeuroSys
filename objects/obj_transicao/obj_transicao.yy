@@ -10,7 +10,7 @@
   "name":"obj_transicao",
   "overriddenProperties":[],
   "parent":{
-    "name":"ControllersJogo",
+    "name":"ControladoresJogo",
     "path":"folders/Objetos/ControladoresJogo.yy",
   },
   "parentObjectId":null,

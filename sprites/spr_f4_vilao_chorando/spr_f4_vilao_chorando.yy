@@ -25,7 +25,7 @@
   "nineSlice":null,
   "origin":4,
   "parent":{
-    "name":"Npcs",
+    "name":"Personagens",
     "path":"folders/Sprites/Personagens.yy",
   },
   "preMultiplyAlpha":false,

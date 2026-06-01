@@ -10,7 +10,7 @@
   "name":"obj_f4_barra_vida_chefe",
   "overriddenProperties":[],
   "parent":{
-    "name":"Fase4",
+    "name":"F4",
     "path":"folders/Objetos/F4.yy",
   },
   "parentObjectId":null,

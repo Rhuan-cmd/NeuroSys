@@ -25,7 +25,7 @@
   "nineSlice":null,
   "origin":0,
   "parent":{
-    "name":"Apps",
+    "name":"Aplicativos",
     "path":"folders/Sprites/Aplicativos.yy",
   },
   "preMultiplyAlpha":false,

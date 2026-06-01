@@ -11,7 +11,7 @@
   "managed":true,
   "name":"obj_f1_controlador",
   "overriddenProperties":[],
-  "parent":{"name":"F1 - Fase 1","path":"folders/Objetos/F1.yy",},
+  "parent":{"name":"F1","path":"folders/Objetos/F1.yy",},
   "parentObjectId":null,
   "persistent":false,
   "physicsAngularDamping":0.1,

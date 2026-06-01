@@ -14,7 +14,7 @@
   "exportDir":"",
   "name":"snd_f4_musica_chefe",
   "parent":{
-    "name":"Fase4",
+    "name":"F4",
     "path":"folders/Sons/F4.yy",
   },
   "preload":false,

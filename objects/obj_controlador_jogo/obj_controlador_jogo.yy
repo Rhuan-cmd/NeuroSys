@@ -10,7 +10,7 @@
   "name":"obj_controlador_jogo",
   "overriddenProperties":[],
   "parent":{
-    "name":"ControllersJogo",
+    "name":"ControladoresJogo",
     "path":"folders/Objetos/ControladoresJogo.yy",
   },
   "parentObjectId":null,

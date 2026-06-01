@@ -10,7 +10,7 @@
   "name":"obj_f3_vilao",
   "overriddenProperties":[],
   "parent":{
-    "name":"Fase3",
+    "name":"F3",
     "path":"folders/Objetos/F3.yy",
   },
   "parentObjectId":null,

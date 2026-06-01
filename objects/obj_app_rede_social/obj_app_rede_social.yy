@@ -9,7 +9,7 @@
   "name":"obj_app_rede_social",
   "overriddenProperties":[],
   "parent":{
-    "name":"Apps",
+    "name":"Aplicativos",
     "path":"folders/Objetos/Aplicativos.yy",
   },
   "parentObjectId":null,
