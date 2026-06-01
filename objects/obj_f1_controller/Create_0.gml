@@ -78,6 +78,7 @@ mensagens = [];
 particulas = [];
 rastros = [];
 fragmentos = [];
+ecos_cartao = [];
 
 textos_ruins = [
     "ninguém gosta de você",
@@ -136,6 +137,7 @@ reiniciar_fase = function() {
     particulas = [];
     rastros = [];
     fragmentos = [];
+    ecos_cartao = [];
 };
 
 criar_mensagem = function() {
@@ -159,24 +161,25 @@ criar_mensagem = function() {
     var _altura = _forte ? 62 : 52;
     if (_forte) _largura = min(336, _largura + 24);
     var _x = random_range(260 + _largura * 0.5, 646 - _largura * 0.5);
-    var _y = room_height + _altura * 0.5 + 18;
+    // Nasce além dos limites da room; o feed apenas revela a entrada gradual.
+    var _y = room_height + _altura + 64;
     var _vx = random_range(-2.3, 2.3);
     var _vy = random_range(-10.4, -8.2);
     var _grav = random_range(0.12, 0.17);
     if (_lado == 1) {
-        _y = -_altura * 0.5 - 18;
+        _y = -_altura - 64;
         _vy = random_range(3.2, 5.0);
         _grav = random_range(0.025, 0.055);
     }
     if (_lado == 2) {
-        _x = -_largura * 0.5 - 18;
+        _x = -_largura - 64;
         _y = random_range(186, 388);
         _vx = random_range(5.4, 7.0);
         _vy = random_range(-3.8, -1.8);
         _grav = random_range(0.08, 0.13);
     }
     if (_lado == 3) {
-        _x = room_width + _largura * 0.5 + 18;
+        _x = room_width + _largura + 64;
         _y = random_range(186, 388);
         _vx = random_range(-7.0, -5.4);
         _vy = random_range(-3.8, -1.8);
@@ -210,6 +213,28 @@ criar_fragmentos_cartao = function(_m, _angulo) {
     if (_m.tipo == 2) { _cor = make_color_rgb(30, 129, 183); _borda = make_color_rgb(118, 224, 255); }
     if (_m.tipo == 3) { _cor = make_color_rgb(42, 42, 59); _borda = make_color_rgb(255, 183, 83); }
     if (_m.forte) { _cor = make_color_rgb(137, 39, 103); _borda = make_color_rgb(255, 126, 213); }
+    var _icone = "!";
+    if (_m.tipo == 1) _icone = "+";
+    if (_m.tipo == 2) _icone = "D";
+    if (_m.tipo == 3) _icone = "C";
+    array_push(ecos_cartao, {
+        x : _m.x,
+        y : _m.y,
+        vx : _m.vx * 0.32,
+        vy : _m.vy * 0.18 - 0.8,
+        grav : 0.08,
+        vida : 18,
+        maxvida : 18,
+        largura : _m.largura,
+        altura : _m.altura,
+        texto : _m.texto,
+        icone : _icone,
+        hp : _m.hp,
+        forte : _m.forte,
+        angulo : _angulo,
+        cor : _cor,
+        borda : _borda
+    });
     for (var _i = 0; _i < _partes; _i++) {
         var _faixa = (_i - (_partes - 1) * 0.5) / _partes;
         var _afasta = _faixa * _m.altura + (_i - (_partes - 1) * 0.5) * 2.4;

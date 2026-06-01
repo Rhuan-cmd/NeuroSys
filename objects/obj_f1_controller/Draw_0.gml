@@ -102,6 +102,10 @@ if (estado == 2) {
     draw_rectangle(690 + _sx, 216 + _sy, 832 + _sx, 219 + _sy, false);
     draw_rectangle(690 + _sx, 288 + _sy, 832 + _sx, 291 + _sy, false);
     draw_rectangle(690 + _sx, 360 + _sy, 832 + _sx, 363 + _sy, false);
+    draw_set_color(make_color_rgb(19, 47, 74));
+    draw_roundrect(690 + _sx, 380 + _sy, 832 + _sx, 420 + _sy, false);
+    draw_set_color(make_color_rgb(255, 207, 102));
+    draw_roundrect(690 + _sx, 380 + _sy, 832 + _sx, 420 + _sy, true);
 } else {
     draw_set_color(make_color_rgb(151, 180, 205));
     draw_text(694 + _sx, 183 + _sy, "Leia antes");
@@ -218,6 +222,41 @@ for (var _i = 0; _i < array_length(fragmentos); _i++) {
     draw_line_width(_x2_f, _y2_f, _x3_f, _y3_f, 2);
     draw_line_width(_x3_f, _y3_f, _x4_f, _y4_f, 2);
     draw_line_width(_x4_f, _y4_f, _x1_f, _y1_f, 2);
+}
+
+// A caixa original permanece por alguns quadros para o corte parecer contínuo.
+for (var _i = 0; _i < array_length(ecos_cartao); _i++) {
+    var _e = ecos_cartao[_i];
+    var _alpha_e = (_e.vida / _e.maxvida) * 0.82;
+    var _meia_altura_e = _e.altura * 0.5;
+    draw_set_alpha(_alpha_e * 0.4);
+    draw_set_color(_e.borda);
+    draw_roundrect(_e.x - _e.largura * 0.5 - 4, _e.y - _meia_altura_e - 4, _e.x + _e.largura * 0.5 + 4, _e.y + _meia_altura_e + 4, false);
+    draw_set_alpha(_alpha_e);
+    draw_set_color(_e.cor);
+    draw_roundrect(_e.x - _e.largura * 0.5, _e.y - _meia_altura_e, _e.x + _e.largura * 0.5, _e.y + _meia_altura_e, false);
+    draw_set_color(_e.borda);
+    draw_roundrect(_e.x - _e.largura * 0.5 + 3, _e.y - _meia_altura_e + 3, _e.x + _e.largura * 0.5 - 3, _e.y + _meia_altura_e - 3, true);
+    draw_circle(_e.x - _e.largura * 0.5 + 25, _e.y, 13, false);
+    draw_set_halign(fa_center);
+    draw_set_color(_e.cor);
+    draw_text(_e.x - _e.largura * 0.5 + 25, _e.y - 11, _e.icone);
+    draw_set_halign(fa_left);
+    draw_set_color(c_white);
+    draw_text_ext(_e.x - _e.largura * 0.5 + 48, _e.y - 11, _e.texto, 18, _e.largura - (_e.forte ? 104 : 64));
+    if (_e.forte) {
+        draw_set_color(make_color_rgb(255, 214, 238));
+        draw_text(_e.x + _e.largura * 0.5 - 38, _e.y - 11, "x" + string(_e.hp));
+    }
+    var _corte_len_e = _e.largura * 0.48;
+    draw_set_color(c_white);
+    draw_line_width(
+        _e.x - lengthdir_x(_corte_len_e, _e.angulo),
+        _e.y - lengthdir_y(_corte_len_e, _e.angulo),
+        _e.x + lengthdir_x(_corte_len_e, _e.angulo),
+        _e.y + lengthdir_y(_corte_len_e, _e.angulo),
+        3
+    );
 }
 gpu_set_scissor(0, 0, room_width, room_height);
 

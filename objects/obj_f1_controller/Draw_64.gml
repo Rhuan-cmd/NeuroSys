@@ -15,6 +15,11 @@ if (estado == 2) {
     draw_text_transformed(784, 201, string(vidas) + "/" + string(vidas_max), _pulse, _pulse, 0);
     draw_text_transformed(784, 273, string(ceil(tempo / room_speed)) + "s", _pulse, _pulse, 0);
     draw_text_transformed(784, 345, string(ataques_cortados) + "/" + string(objetivo), _pulse, _pulse, 0);
+    draw_set_color(make_color_rgb(255, 220, 113));
+    draw_text_transformed(706, 392, "COMBO", _pulse, _pulse, 0);
+    draw_set_halign(fa_right);
+    draw_text_transformed(816, 392, "x" + string(combo), _pulse, _pulse, 0);
+    draw_set_halign(fa_left);
 
     // Barra principal posicionada no rodape central.
     draw_set_alpha(0.94);
@@ -27,17 +32,15 @@ if (estado == 2) {
     draw_text(186, 454, "OBJETIVO PRINCIPAL");
     draw_set_color(c_white);
     draw_text(186, 478, "CORTE OS ATAQUES: " + string(ataques_cortados) + "/" + string(objetivo));
-    draw_set_color(make_color_rgb(255, 220, 113));
-    draw_text(490, 454, "COMBO x" + string(combo));
     draw_set_color(make_color_rgb(158, 220, 239));
-    draw_text(490, 478, "TEMPO: " + string(ceil(tempo / room_speed)) + "s");
+    draw_text(490, 466, "TEMPO: " + string(ceil(tempo / room_speed)) + "s");
     if (escudo > 0) {
         draw_set_alpha(0.24 + sin(visual_timer * 0.2) * 0.08);
         draw_set_color(make_color_rgb(87, 226, 255));
         draw_circle(756, 204, 52, true);
         draw_set_alpha(1);
         draw_set_color(make_color_rgb(126, 237, 255));
-        draw_text_transformed(688, 392, "ESCUDO ATIVO", _pulse, _pulse, 0);
+        draw_text_transformed(688, 418, "ESCUDO ATIVO", _pulse, _pulse, 0);
     }
 }
 

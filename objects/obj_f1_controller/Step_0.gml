@@ -259,5 +259,14 @@ for (var _i = array_length(fragmentos) - 1; _i >= 0; _i--) {
     if (_f.vida <= 0) array_delete(fragmentos, _i, 1);
 }
 
+for (var _i = array_length(ecos_cartao) - 1; _i >= 0; _i--) {
+    var _e = ecos_cartao[_i];
+    _e.x += _e.vx;
+    _e.y += _e.vy;
+    _e.vy += _e.grav;
+    _e.vida--;
+    if (_e.vida <= 0) array_delete(ecos_cartao, _i, 1);
+}
+
 mouse_anterior_x = mouse_x;
 mouse_anterior_y = mouse_y;
