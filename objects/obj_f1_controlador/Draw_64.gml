@@ -162,7 +162,7 @@ if (estado == 3 || estado == 4) {
     draw_set_color(make_color_rgb(116, 231, 255));
     draw_set_halign(fa_left);
     draw_text(282, 238 + _final_offset, "TEMPO  " + _tempo_txt);
-    draw_text(282, 284 + _final_offset, "ATAQUES  " + string(ataques_cortados) + "/" + string(objetivo));
+    draw_text(282, 281 + _final_offset, "ATAQUES  " + string(ataques_cortados) + "/" + string(objetivo));
     draw_text(282, 326 + _final_offset, "VIDAS  " + string(vidas_final) + "/" + string(vidas_max));
     draw_set_halign(fa_center);
     draw_set_color(make_color_rgb(116, 231, 255));

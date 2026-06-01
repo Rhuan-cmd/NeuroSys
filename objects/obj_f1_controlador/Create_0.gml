@@ -46,12 +46,12 @@ cursor_click_fx = 0;
 cutscene_post_alpha = 1;
 
 dialogo_textos = [
-    "Você abre a rede social e encontra a postagem de Luna: um desenho feito enquanto ela ainda aprendia.",
+    "Você abre a rede social e encontra a postagem de Luna: ela publica algo novo enquanto ainda está aprendendo.",
     "Os comentários chegam aos poucos. Corte apenas ataques pessoais: mensagens de apoio não devem ser removidas.",
     "Cada erro aumenta a pressão digital. A tela se corrompe e fica mais instável conforme suas vidas diminuem.",
-    "Ao restarem duas vidas, uma denúncia azul pode surgir às vezes. Corte-a para recuperar uma vida e reduzir a corrupção.",
-    "Novos ataques passam a vir de outros lados e alguns exigem mais de um corte. Leia com atenção e contenha 50 ataques.",
-    "Proteja esta postagem sem espalhar agressões. Depois, siga para o chat da próxima etapa e enfrente uma nova forma de ataque."
+    "Com poucas vidas, uma denúncia azul pode surgir às vezes. Corte-a para recuperar uma vida e reduzir a corrupção.",
+    "Novos ataques vêm de outros lados. Alguns exigem mais de um corte. Não corte NÃO COMPARTILHE: espalhar agressões também causa dano.",
+    "Leia com atenção e contenha 50 ataques para proteger a postagem. Depois, siga para o chat da próxima etapa."
 ];
 
 dialogo_titulos = [
@@ -107,7 +107,7 @@ textos_bons = [
     "você não está só",
     "vamos conversar",
     "respeito sempre",
-    "seu desenho ficou ótimo"
+    "sua postagem ficou ótima"
 ];
 
 aplicar_dano = function() {
@@ -159,7 +159,11 @@ criar_mensagem = function() {
     var _tipo = 0; // 0: ataque, 1: apoio, 2: denúncia, 3: compartilhar
     if (ataques_cortados >= 4 && _roll > 0.70) _tipo = 1;
     if (ataques_cortados >= 12 && _roll > 0.95) _tipo = 3;
-    if (vidas == 2 && ataques_cortados >= 8 && _roll > 0.84) _tipo = 2;
+    var _chance_denuncia = 0;
+    if (vidas == 3) _chance_denuncia = 0.08;
+    if (vidas == 2) _chance_denuncia = 0.05;
+    if (vidas == 1) _chance_denuncia = 0.14;
+    if (ataques_cortados >= 8 && random(1) < _chance_denuncia) _tipo = 2;
     var _hp = 1;
     if (_tipo == 0 && ataques_cortados >= 7 && random(1) < 0.34) _hp++;
     if (_tipo == 0 && ataques_cortados >= 16 && random(1) < 0.34) _hp++;
