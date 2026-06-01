@@ -65,7 +65,7 @@ dialogo_titulos = [
 // ===== REGRAS DO MINIJOGO =====
 vidas_max = 5;
 vidas = vidas_max;
-objetivo = 26;
+objetivo = 50;
 ataques_cortados = 0;
 pontuacao = 0;
 combo = 0;
@@ -94,16 +94,16 @@ textos_ruins = [
     "some daqui",
     "que vergonha",
     "para de postar",
-    "todo mundo ri de você",
+    "estão rindo de você",
     "você não pertence aqui",
     "apaga isso agora",
-    "ninguém pediu sua opinião"
+    "ninguém pediu opinião"
 ];
 
 textos_bons = [
     "estamos com você",
     "não ligue para isso",
-    "você não está sozinho",
+    "você não está só",
     "vamos conversar",
     "respeito sempre",
     "seu desenho ficou ótimo"
@@ -154,9 +154,9 @@ reiniciar_fase = function() {
 criar_mensagem = function() {
     var _roll = random(1);
     var _tipo = 0; // 0: ataque, 1: apoio, 2: denúncia, 3: compartilhar
-    if (ataques_cortados >= 5 && _roll > 0.84) _tipo = 1;
-    if (ataques_cortados >= 9 && _roll > 0.92) _tipo = 2;
-    if (ataques_cortados >= 13 && _roll > 0.97) _tipo = 3;
+    if (ataques_cortados >= 4 && _roll > 0.70) _tipo = 1;
+    if (ataques_cortados >= 8 && _roll > 0.88) _tipo = 2;
+    if (ataques_cortados >= 12 && _roll > 0.95) _tipo = 3;
     var _hp = 1;
     if (_tipo == 0 && ataques_cortados >= 7 && random(1) < 0.34) _hp++;
     if (_tipo == 0 && ataques_cortados >= 16 && random(1) < 0.34) _hp++;
@@ -164,7 +164,7 @@ criar_mensagem = function() {
     var _texto = textos_ruins[irandom(array_length(textos_ruins) - 1)];
     if (_tipo == 1) _texto = textos_bons[irandom(array_length(textos_bons) - 1)];
     if (_tipo == 2) _texto = "DENUNCIAR PERFIL";
-    if (_tipo == 3) _texto = "COMPARTILHAR ATAQUE";
+    if (_tipo == 3) _texto = "NÃO COMPARTILHE";
     var _lado = 0; // 0: baixo, 1: cima, 2: esquerda, 3: direita
     if (ataques_cortados >= 6 && random(1) < 0.34) _lado = 1;
     if (ataques_cortados >= 12 && random(1) < 0.42) _lado = choose(2, 3);

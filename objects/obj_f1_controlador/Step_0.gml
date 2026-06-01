@@ -229,27 +229,8 @@ if (estado == 2) {
         }
     }
 
-    // Cartões dividem o espaço do feed: quando se encontram, ricocheteiam.
-    for (var _i = 0; _i < array_length(mensagens); _i++) {
-        var _a = mensagens[_i];
-        for (var _j = _i + 1; _j < array_length(mensagens); _j++) {
-            var _b = mensagens[_j];
-            var _sobrepoe_x = abs(_a.x - _b.x) < (_a.largura + _b.largura) * 0.5;
-            var _sobrepoe_y = abs(_a.y - _b.y) < (_a.altura + _b.altura) * 0.5;
-            if (_sobrepoe_x && _sobrepoe_y) {
-                var _empurra = (_a.x <= _b.x) ? -1 : 1;
-                _a.x += _empurra * 3;
-                _b.x -= _empurra * 3;
-                var _troca_vx = _a.vx;
-                _a.vx = _b.vx;
-                _b.vx = _troca_vx;
-                _a.vy -= 0.35;
-                _b.vy += 0.35;
-            }
-        }
-    }
-
-    if (vidas <= 0) finalizar_fase(false);
+    if (ataques_cortados >= objetivo) finalizar_fase(true);
+    else if (vidas <= 0) finalizar_fase(false);
     else if (tempo <= 0) finalizar_fase(ataques_cortados >= objetivo);
 }
 

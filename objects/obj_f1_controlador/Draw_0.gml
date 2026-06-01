@@ -43,7 +43,7 @@ draw_circle(119 + _sx, 83 + _sy, 3, false);
 draw_circle(127 + _sx, 72 + _sy, 3, false);
 draw_circle(136 + _sx, 83 + _sy, 3, false);
 draw_set_color(c_white);
-draw_text_transformed(154 + _sx, 66 + _sy, "CONECTA", 1.04, 1.04, 0);
+draw_text_transformed(154 + _sx, 71 + _sy, "CONECTA", 1.04, 1.04, 0);
 draw_set_halign(fa_center);
 draw_set_color(make_color_rgb(131, 166, 201));
 draw_text(412 + _sx, 68 + _sy, "INÍCIO");
@@ -142,20 +142,20 @@ if (estado <= 1 && dialogo_index >= 2 && cutscene_post_alpha > 0) {
 if (estado <= 1 && dialogo_index >= 3 && cutscene_post_alpha > 0) {
     draw_set_alpha(cutscene_post_alpha);
     draw_set_color(make_color_rgb(17, 40, 68));
-    draw_roundrect(688 + _sx, 218 + _sy, 834 + _sx, 314 + _sy, false);
+    draw_roundrect(688 + _sx, 232 + _sy, 834 + _sx, 328 + _sy, false);
     draw_set_color(make_color_rgb(103, 225, 248));
-    draw_text(704 + _sx, 232 + _sy, "AÇÕES");
+    draw_text(704 + _sx, 246 + _sy, "AÇÕES");
     draw_set_color(make_color_rgb(41, 132, 177));
-    draw_roundrect(702 + _sx, 260 + _sy, 820 + _sx, 292 + _sy, false);
+    draw_roundrect(702 + _sx, 274 + _sy, 820 + _sx, 306 + _sy, false);
     draw_set_color(c_white);
-    draw_text(712 + _sx, 267 + _sy, "DENUNCIAR");
+    draw_text(712 + _sx, 281 + _sy, "DENUNCIAR");
 }
 if (estado <= 1 && dialogo_index >= 4 && cutscene_post_alpha > 0) {
     draw_set_alpha(cutscene_post_alpha);
     draw_set_color(make_color_rgb(53, 46, 54));
-    draw_roundrect(688 + _sx, 322 + _sy, 834 + _sx, 358 + _sy, false);
+    draw_roundrect(688 + _sx, 340 + _sy, 834 + _sx, 376 + _sy, false);
     draw_set_color(make_color_rgb(255, 196, 92));
-    draw_text(702 + _sx, 329 + _sy, "COMPARTILHAR");
+    draw_text(702 + _sx, 347 + _sy, "COMPARTILHAR");
 }
 draw_set_alpha(1);
 
@@ -188,7 +188,9 @@ for (var _i = 0; _i < array_length(mensagens); _i++) {
     draw_text(_m.x - _m.largura * 0.5 + 25, _yy - 11, _icone);
     draw_set_halign(fa_left);
     draw_set_color(c_white);
-    draw_text_ext(_m.x - _m.largura * 0.5 + 48, _yy - 11, _m.texto, 18, _m.largura - (_m.forte ? 104 : 64));
+    var _texto_espaco = _m.largura - (_m.forte ? 112 : 62);
+    var _texto_escala = min(0.82, _texto_espaco / max(1, string_width(_m.texto)));
+    draw_text_transformed(_m.x - _m.largura * 0.5 + 48, _yy - 9, _m.texto, _texto_escala, _texto_escala, 0);
     if (_m.forte) {
         draw_set_color(make_color_rgb(255, 214, 238));
         draw_text(_m.x + _m.largura * 0.5 - 38, _yy - 11, "x" + string(_m.hp));
@@ -257,7 +259,9 @@ for (var _i = 0; _i < array_length(ecos_cartao); _i++) {
     draw_text(_e.x - _e.largura * 0.5 + 25, _e.y - 11, _e.icone);
     draw_set_halign(fa_left);
     draw_set_color(c_white);
-    draw_text_ext(_e.x - _e.largura * 0.5 + 48, _e.y - 11, _e.texto, 18, _e.largura - (_e.forte ? 104 : 64));
+    var _texto_espaco_e = _e.largura - (_e.forte ? 112 : 62);
+    var _texto_escala_e = min(0.82, _texto_espaco_e / max(1, string_width(_e.texto)));
+    draw_text_transformed(_e.x - _e.largura * 0.5 + 48, _e.y - 9, _e.texto, _texto_escala_e, _texto_escala_e, 0);
     if (_e.forte) {
         draw_set_color(make_color_rgb(255, 214, 238));
         draw_text(_e.x + _e.largura * 0.5 - 38, _e.y - 11, "x" + string(_e.hp));
