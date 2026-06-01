@@ -1,4 +1,5 @@
 ﻿cutscene_timer++;
+// ===== CUTSCENE E AVANCO DOS DIALOGOS =====
 if (cutscene_timer >= fade_duracao) {
     if (!historia_finalizada && !ativo && !transicao_caixa) {
         if (dialogo_encerrando) {
@@ -43,6 +44,7 @@ if (cutscene_timer >= fade_duracao) {
         cutscene_ativo_timer++;
     }
 }
+// ===== ENTRADA ANIMADA DOS PAINEIS DE STATUS =====
 cascata_ativa = cutscene_ativo_timer >= tempo_ate_cascata;
 if (cutscene_timer >= fade_duracao) {
     status_intro_timer++;
@@ -59,9 +61,11 @@ if (status_intro_timer >= 17 && aparicao_audio_etapa == 2) {
     audio_play_sound(snd_f2_aparecer, 2, false, 0.46, 0, 1.08);
     aparicao_audio_etapa = 3;
 }
+// ===== VELOCIDADE PROGRESSIVA DA CASCATA =====
 if (estado_final == 0) {
     cascata_fluxo += 1.35 + (cliques + (vidas_max - vidas) * 2 + corrupt_flash * 4) * 0.13;
 }
+// ===== LOOPS DE AUDIO AMBIENTE, CORRUPCAO E TREMOR =====
 window_set_cursor(cr_none);
 cursor_sprite = cr_none;
 audio_mix_timer--;
@@ -108,6 +112,7 @@ if (ativo && mouse_check_button_pressed(mb_left)) {
 if (aviso_x_timer > 0) {
     aviso_x_timer--;
 }
+// ===== SONS INDIVIDUAIS DE CONTATOS E MENSAGENS =====
 if (estado_final == 0) {
     var notif_fase = cutscene_ativo_timer / room_speed;
     var notif_contatos = 0;
@@ -154,6 +159,7 @@ if (estado_final == 0) {
         notificacao_audio_timer = ativo ? 4 : 6;
     }
 }
+// ===== POSICAO DO CURSOR CUSTOMIZADO =====
 var cursor_destino_x = cursor_cutscene_x;
 var cursor_destino_y = cursor_cutscene_y;
 if (ativo || estado_final != 0) {
@@ -164,12 +170,14 @@ if (ativo || estado_final != 0) {
     cursor_draw_y = lerp(cursor_draw_y, cursor_destino_y, 0.18);
 }
 
+// ===== ATUALIZACAO DAS PARTICULAS DE EXPLOSAO =====
 for (var fx_i = 0; fx_i < array_length(fx_timer); fx_i++) {
     if (fx_timer[fx_i] > 0) {
         fx_timer[fx_i]--;
     }
 }
 
+// ===== TELA DE RESULTADO, BOTOES E SAIDA =====
 if (estado_final != 0) {
     final_timer++;
     if (saida_tipo != 0) {
@@ -230,17 +238,17 @@ if (estado_final != 0) {
     exit;
 }
 
+// ===== CONTAGEM REGRESSIVA, SINO E PODERES DO X =====
 if (ativo) {
     tempo_jogo++;
     poder_cooldown--;
     if (poder_ataque_timer > 0) {
-        poder_ataque_x1 = mouse_x;
-        poder_ataque_y1 = mouse_y;
         poder_ataque_timer--;
         if (poder_ataque_timer <= 0) {
-            if (poder_ataque_tipo == 1) {
+            var acertou_poder = point_distance(mouse_x, mouse_y, poder_ataque_x1, poder_ataque_y1) < 62;
+            if (acertou_poder && poder_ataque_tipo == 1) {
                 congelar_cursor();
-            } else if (poder_ataque_tipo == 2) {
+            } else if (acertou_poder && poder_ataque_tipo == 2) {
                 repelir_cursor();
             }
             poder_ataque_tipo = 0;
@@ -255,14 +263,14 @@ if (ativo) {
             gelo_quebra_timer = 18;
             audio_play_sound(snd_f2_gelo_quebra, 4, false, 0.78);
         }
-    } else if (poder_ataque_timer <= 0 && instance_exists(caixa) && !caixa.modo_intro && poder_cooldown <= 0 && cliques >= 5) {
-        var usar_repulsao = cliques >= 7 && irandom(1) == 1;
+    } else if (poder_ataque_timer <= 0 && instance_exists(caixa) && !caixa.modo_intro && poder_cooldown <= 0 && cliques >= 6) {
+        var usar_repulsao = cliques >= 8 && irandom(2) == 2;
         if (usar_repulsao) {
             iniciar_ataque_cursor(2);
         } else {
             iniciar_ataque_cursor(1);
         }
-        poder_cooldown = irandom_range(room_speed * 3, room_speed * 4);
+        poder_cooldown = irandom_range(room_speed * 4, room_speed * 6);
     }
     if (gelo_quebra_timer > 0) {
         gelo_quebra_timer--;
@@ -291,6 +299,7 @@ if (ativo) {
     }
 }
 
+// ===== TRANSICAO DO X FIXO PARA O CENTRO DA TELA =====
 if (transicao_caixa) {
     transicao_timer++;
     cursor_cutscene_x = lerp(cursor_cutscene_x, room_width * 0.5 + 28, 0.055);
@@ -308,6 +317,7 @@ if (transicao_caixa) {
     }
 }
 
+// ===== MOVIMENTO AUTOMATICO DO CURSOR NA CUTSCENE =====
 if (historia_finalizada && cutscene_timer >= fade_duracao && !ativo && !transicao_caixa) {
     cursor_troca_timer--;
     if (cursor_troca_timer <= 0 || point_distance(cursor_cutscene_x, cursor_cutscene_y, cursor_alvo_x, cursor_alvo_y) < 12) {
@@ -327,6 +337,7 @@ if (historia_finalizada && cutscene_timer >= fade_duracao && !ativo && !transica
     }
 }
 
+// ===== CLIQUES, REAPARECIMENTO E PERDA DE VIDA =====
 if (!ativo && !transicao_caixa) {
     if (false && cascata_ativa && mouse_check_button_pressed(mb_left)) {
         var tentou_fechar = point_in_rectangle(
@@ -356,7 +367,7 @@ if (!ativo && !transicao_caixa) {
         }
         
         var caixa_clicavel = !caixa.modo_intro && caixa.imortal_timer <= 0 && congelado_timer <= 0;
-        var acertou_caixa = caixa_clicavel && point_in_rectangle(mouse_x, mouse_y, caixa.bbox_left, caixa.bbox_top, caixa.bbox_right, caixa.bbox_bottom);
+        var acertou_caixa = caixa_clicavel && point_in_rectangle(mouse_x, mouse_y, caixa.bbox_left - 12, caixa.bbox_top - 12, caixa.bbox_right + 12, caixa.bbox_bottom + 12);
         
         if (mouse_check_button_pressed(mb_left) && acertou_caixa) {
             registrar_explosao(caixa.x, caixa.y);
@@ -380,13 +391,14 @@ if (!ativo && !transicao_caixa) {
     }
 }
 
+// ===== TREMOR PROGRESSIVO DA CAMERA =====
 var vidas_perdidas = vidas_max - vidas;
 var tremor_constante = 0;
 if (ativo) {
-    tremor_constante = shake_inicio + vidas_perdidas * 1.25;
+    tremor_constante = shake_inicio + vidas_perdidas * 0.72;
 }
 if (ativo && vidas == 1) {
-    tremor_constante = 10.5;
+    tremor_constante = 5.8;
 }
 
 var intensidade = tremor_constante + shake_impacto;
@@ -394,8 +406,8 @@ if (view_camera[0] != -1) {
     if (intensidade > 0) {
         camera_set_view_pos(
             view_camera[0],
-            view_base_x + random_range(-intensidade, intensidade),
-            view_base_y + random_range(-intensidade, intensidade)
+            view_base_x + sin(current_time * 0.024) * intensidade,
+            view_base_y + cos(current_time * 0.021) * intensidade * 0.62
         );
     } else {
         camera_set_view_pos(view_camera[0], view_base_x, view_base_y);

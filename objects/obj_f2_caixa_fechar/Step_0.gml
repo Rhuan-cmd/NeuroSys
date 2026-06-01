@@ -1,3 +1,4 @@
+// ===== ENTRADA ANIMADA E IMORTALIDADE DE REAPARECIMENTO =====
 if (modo_intro) {
     intro_timer++;
     var t_intro = clamp(intro_timer / intro_duracao, 0, 1);
@@ -20,16 +21,17 @@ if (imortal_timer > 0) {
     imortal_timer--;
 }
 
+// ===== ATUALIZACAO DO RASTRO E TROCA DE DESTINO =====
 trocar_alvo_timer--;
 rastro_tick++;
-if (rastro_tick >= 2) {
+if (rastro_tick >= 3) {
     rastro_tick = 0;
-    rastro_indice = (rastro_indice + 1) mod 8;
+    rastro_indice = (rastro_indice + 1) mod 5;
     rastro_x[rastro_indice] = x;
     rastro_y[rastro_indice] = y;
     rastro_alpha[rastro_indice] = 1;
 }
-for (var rastro_i = 0; rastro_i < 8; rastro_i++) {
+for (var rastro_i = 0; rastro_i < 5; rastro_i++) {
     rastro_alpha[rastro_i] = max(0, rastro_alpha[rastro_i] - 0.085);
 }
 
@@ -37,6 +39,7 @@ if (trocar_alvo_timer <= 0 || point_distance(x, y, alvo_x, alvo_y) < 40) {
     novo_alvo();
 }
 
+// ===== FUGA DO CURSOR E MOVIMENTO SUAVE =====
 var dir_alvo = point_direction(x, y, alvo_x, alvo_y);
 var desejado_x = lengthdir_x(velocidade, dir_alvo);
 var desejado_y = lengthdir_y(velocidade, dir_alvo);
@@ -55,6 +58,7 @@ vy = lerp(vy, desejado_y, precisao);
 x += vx;
 y += vy;
 
+// ===== LIMITES DA ROOM =====
 if (x < margem) {
     x = margem;
     vx = abs(vx);

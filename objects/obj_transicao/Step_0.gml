@@ -1,17 +1,14 @@
-// Avança o timer
 timer += velocidade;
 
 if (estado == "indo") {
-    // Se a animação "indo" terminou
-    if (timer >= tempo_maximo) {
-        timer = 0; // Reseta o timer para a próxima fase
+    if (timer >= 1) {
+        timer = 0;
         estado = "voltando";
-        room_goto(proxima_room); // Muda de sala
+        room_goto(proxima_room);
         audio_stop_all();
     }
 } else if (estado == "voltando") {
-    // Se a animação "voltando" terminou
-    if (timer >= tempo_maximo) {
-        instance_destroy(); // Destrói o objeto, fim da transição
+    if (timer >= 1) {
+        instance_destroy();
     }
 }

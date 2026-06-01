@@ -1,9 +1,11 @@
+// ===== REGRAS PRINCIPAIS DA FASE =====
 vidas_max = 5;
 vidas = vidas_max;
 cliques = 0;
 cliques_necessarios = 10;
 randomize();
 
+// ===== CUTSCENE, DIALOGOS E TRANSICOES =====
 cutscene_timer = 0;
 cutscene_ativo_timer = 0;
 fade_duracao = room_speed * 2.4;
@@ -32,16 +34,18 @@ final_limpeza_feita = false;
 saida_transition = 0;
 saida_tipo = 0;
 final_vitoria = false;
+// ===== ESTATISTICAS E EFEITOS VISUAIS =====
 damage_flash = 0;
 corrupt_flash = 0;
 tempo_jogo = 0;
 tempo_final = 0;
 vidas_final = 0;
-nota_final = "D";
+nota_final = "0/10";
 fx_x = [];
 fx_y = [];
 fx_timer = [];
 fx_total = 0;
+// ===== AUDIO AMBIENTE E EFEITOS SONOROS =====
 sino_audio_timer = room_speed;
 ambiente_audio = audio_play_sound(snd_f2_ambiente, 2, true, 0.62);
 ambiente_corrupto_audio = -1;
@@ -59,9 +63,10 @@ notificacao_contato_ciclo = 0;
 notificacao_mensagem_ciclo = 0;
 aviso_x_timer = 0;
 aviso_x_duracao = room_speed * 1.8;
+// ===== PODERES DO X: GELO E REPELAO =====
 poder_cooldown = room_speed * 3;
 congelado_timer = 0;
-congelado_total = room_speed * 0.82;
+congelado_total = room_speed * 0.52;
 gelo_x = 0;
 gelo_y = 0;
 gelo_quebra_timer = 0;
@@ -70,7 +75,7 @@ repel_fx_x = 0;
 repel_fx_y = 0;
 poder_ataque_tipo = 0;
 poder_ataque_timer = 0;
-poder_ataque_total = 22;
+poder_ataque_total = 28;
 poder_ataque_x0 = 0;
 poder_ataque_y0 = 0;
 poder_ataque_x1 = 0;
@@ -78,7 +83,8 @@ poder_ataque_y1 = 0;
 hover_menu_anterior = false;
 hover_reiniciar_anterior = false;
 
-limite_clique = room_speed * 10;
+// ===== MINIGAME, CURSOR E BOTAO FIXO =====
+limite_clique = room_speed * 12;
 timer_clique = 0;
 respawn_timer = 0;
 ativo = false;
@@ -95,6 +101,7 @@ cursor_troca_timer = 1;
 window_set_cursor(cr_none);
 cursor_sprite = cr_none;
 
+// ===== TREMOR DA CAMERA =====
 shake_impacto = 0;
 shake_inicio = 0;
 view_base_x = 0;
@@ -105,10 +112,24 @@ if (view_camera[0] != -1) {
     view_base_y = camera_get_view_y(view_camera[0]);
 }
 
+// ===== FUNCOES AUXILIARES DO CURSOR E EFEITOS =====
 novo_alvo_cursor = function() {
     cursor_alvo_x = random_range(300, 635);
     cursor_alvo_y = random_range(140, 390);
     cursor_troca_timer = irandom_range(28, 58);
+};
+
+desenhar_corrupcao_otimizada = function(_forca, _flash) {
+    var _nivel = clamp(_forca + _flash * 0.72, 0, 1);
+    if (_nivel <= 0) return;
+    var _pulso = 0.72 + sin(current_time * 0.014) * 0.16;
+    draw_sprite_ext(spr_ui_pixel, 0, room_width * 0.5, room_height * 0.5, room_width * 0.5, room_height * 0.5, 0, make_color_rgb(179, 20, 63), (0.035 + _nivel * 0.085) * _pulso);
+    for (var _faixa = 0; _faixa < 3; _faixa++) {
+        var _y = (current_time * (0.055 + _faixa * 0.012) + _faixa * 173) mod room_height;
+        var _altura = 1 + floor(_nivel * 3);
+        var _cor = (_faixa mod 2 == 0) ? make_color_rgb(255, 49, 93) : make_color_rgb(66, 224, 255);
+        draw_sprite_ext(spr_ui_pixel, 0, room_width * 0.5, _y, room_width * 0.5, _altura, 0, _cor, 0.06 + _nivel * 0.14);
+    }
 };
 
 registrar_explosao = function(_x, _y) {
@@ -117,11 +138,12 @@ registrar_explosao = function(_x, _y) {
     fx_y[i] = _y;
     fx_timer[i] = 18;
     fx_total++;
-    if (fx_total > 24) {
+    if (fx_total > 12) {
         fx_total = 0;
     }
 };
 
+// ===== INICIO DO MINIGAME APOS A CUTSCENE =====
 iniciar_minigame = function() {
     transicao_caixa = true;
     transicao_timer = 0;
@@ -146,6 +168,7 @@ iniciar_minigame = function() {
     }
 };
 
+// ===== PODERES ESPECIAIS USADOS PELO X =====
 congelar_cursor = function() {
     gelo_x = mouse_x;
     gelo_y = mouse_y;
@@ -187,11 +210,12 @@ iniciar_ataque_cursor = function(_tipo) {
         poder_ataque_x0 = caixa.x;
         poder_ataque_y0 = caixa.y;
     }
-    poder_ataque_x1 = mouse_x;
-    poder_ataque_y1 = mouse_y;
+    poder_ataque_x1 = clamp(mouse_x + random_range(-48, 48), 28, room_width - 28);
+    poder_ataque_y1 = clamp(mouse_y + random_range(-48, 48), 28, room_height - 28);
     audio_play_sound(snd_f2_fuga, 3, false, 0.5, 0, _tipo == 1 ? 1.08 : 0.9);
 };
 
+// ===== ATIVACAO, CRIACAO E REAPARECIMENTO DO X =====
 ativar_minigame = function() {
     transicao_caixa = false;
     ativo = true;
@@ -207,8 +231,8 @@ ativar_minigame = function() {
         caixa.image_yscale = caixa.escala_padrao;
         caixa.novo_alvo();
     }
-    shake_impacto = 42;
-    shake_inicio = 3.2;
+    shake_impacto = 22;
+    shake_inicio = 1.8;
     audio_play_sound(snd_f2_fuga, 2, false, 0.52);
     audio_play_sound(snd_f2_tremor, 3, false, 0.36);
 };
@@ -245,12 +269,13 @@ criar_caixa = function(_x, _y, _reposicionar) {
     }
 };
 
+// ===== PERDA DE VIDA E ENCERRAMENTO DA FASE =====
 perder_vida = function() {
     vidas--;
     audio_play_sound(snd_f2_dano, 3, false, 0.72);
     audio_play_sound(snd_f2_tremor, 3, false, min(0.82, 0.42 + (vidas_max - vidas) * 0.08));
     timer_clique = 0;
-    shake_impacto = 56 + (vidas_max - vidas) * 18;
+    shake_impacto = 32 + (vidas_max - vidas) * 9;
     damage_flash = 1;
     corrupt_flash = min(1, corrupt_flash + 0.28);
     
@@ -282,19 +307,18 @@ finalizar_jogo = function(_vitoria) {
     poder_ataque_tipo = 0;
     tempo_final = tempo_jogo;
     vidas_final = vidas;
-    shake_impacto = _vitoria ? 36 : 78;
+    shake_impacto = _vitoria ? 20 : 46;
     damage_flash = _vitoria ? 0.35 : 1;
     audio_stop_sound(snd_f2_ambiente);
     audio_stop_sound(snd_f2_ambiente_corrupto);
     audio_play_sound(snd_f2_saida, 4, false, 0.56);
     audio_play_sound(_vitoria ? snd_f2_vitoria : snd_f2_derrota, 4, false, _vitoria ? 0.96 : 0.82);
     
-    var nota_pontos = cliques * 8 + vidas * 4 - floor(tempo_final / room_speed);
-    if (nota_pontos >= 85) nota_final = "S";
-    else if (nota_pontos >= 70) nota_final = "A";
-    else if (nota_pontos >= 55) nota_final = "B";
-    else if (nota_pontos >= 35) nota_final = "C";
-    else nota_final = "D";
+    if (_vitoria) {
+        nota_final = string(clamp(round(6 + vidas * 0.62 - min(1.25, tempo_final / (room_speed * 95))), 6, 10)) + "/10";
+    } else {
+        nota_final = string(clamp(round((cliques / cliques_necessarios) * 5), 0, 5)) + "/10";
+    }
     
     if (instance_exists(caixa)) {
         with (caixa) instance_destroy();

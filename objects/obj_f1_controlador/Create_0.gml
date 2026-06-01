@@ -29,7 +29,7 @@ saida_tipo = 0;
 final_vitoria = false;
 tempo_final = 0;
 vidas_final = 0;
-nota_final = "D";
+nota_final = "0/10";
 hover_acao_anterior = false;
 hover_reiniciar_anterior = false;
 damage_flash = 0;
@@ -38,6 +38,11 @@ shake = 0;
 corrupt_flash = 0;
 nivel_corrupcao = 0;
 visual_timer = 0;
+tremor_x = 0;
+tremor_y = 0;
+ambiente_audio = audio_play_sound(snd_f2_ambiente, 1, true, 0.34);
+ambiente_corrupto_audio = -1;
+audio_mix_timer = 0;
 cursor_cutscene_x = 480;
 cursor_cutscene_y = 270;
 cursor_draw_x = cursor_cutscene_x;
@@ -51,7 +56,7 @@ dialogo_textos = [
     "Cada erro aumenta a pressão digital. A tela se corrompe e fica mais instável conforme suas vidas diminuem.",
     "Com poucas vidas, uma denúncia azul pode surgir às vezes. Corte-a para recuperar uma vida e reduzir a corrupção.",
     "Novos ataques vêm de outros lados. Alguns exigem mais de um corte. Não corte NÃO COMPARTILHE: espalhar agressões também causa dano.",
-    "Leia com atenção e contenha 50 ataques para proteger a postagem. Depois, siga para o chat da próxima etapa."
+    "Leia com atenção e contenha 35 ataques para proteger a postagem. Depois, siga para o chat da próxima etapa."
 ];
 
 dialogo_titulos = [
@@ -66,7 +71,7 @@ dialogo_titulos = [
 // ===== REGRAS DO MINIJOGO =====
 vidas_max = 5;
 vidas = vidas_max;
-objetivo = 50;
+objetivo = 35;
 ataques_cortados = 0;
 pontuacao = 0;
 combo = 0;
@@ -82,6 +87,20 @@ particulas = [];
 rastros = [];
 fragmentos = [];
 ecos_cartao = [];
+sequencia_tipo = 0;
+
+desenhar_corrupcao_otimizada = function(_forca, _flash) {
+    var _nivel = clamp(_forca + _flash * 0.72, 0, 1);
+    if (_nivel <= 0) return;
+    var _pulso = 0.72 + sin(current_time * 0.014) * 0.16;
+    draw_sprite_ext(spr_ui_pixel, 0, room_width * 0.5, room_height * 0.5, room_width * 0.5, room_height * 0.5, 0, make_color_rgb(179, 20, 63), (0.035 + _nivel * 0.085) * _pulso);
+    for (var _faixa = 0; _faixa < 3; _faixa++) {
+        var _y = (current_time * (0.055 + _faixa * 0.012) + _faixa * 173) mod room_height;
+        var _altura = 1 + floor(_nivel * 3);
+        var _cor = (_faixa mod 2 == 0) ? make_color_rgb(255, 49, 93) : make_color_rgb(66, 224, 255);
+        draw_sprite_ext(spr_ui_pixel, 0, room_width * 0.5, _y, room_width * 0.5, _altura, 0, _cor, 0.06 + _nivel * 0.14);
+    }
+};
 
 formatar_tempo = function(_frames) {
     var _segundos = max(0, ceil(_frames / room_speed));
@@ -152,13 +171,13 @@ reiniciar_fase = function() {
     rastros = [];
     fragmentos = [];
     ecos_cartao = [];
+    sequencia_tipo = 0;
 };
 
 criar_mensagem = function() {
-    var _roll = random(1);
-    var _tipo = 0; // 0: ataque, 1: apoio, 2: denúncia, 3: compartilhar
-    if (ataques_cortados >= 4 && _roll > 0.70) _tipo = 1;
-    if (ataques_cortados >= 12 && _roll > 0.95) _tipo = 3;
+    var _tipo = (sequencia_tipo mod 4) < 2 ? 0 : 1; // Padrao leve: 2 ataques e 2 apoios.
+    sequencia_tipo++;
+    if (ataques_cortados >= 12 && random(1) < 0.06) _tipo = 3;
     var _chance_denuncia = 0;
     if (vidas == 3) _chance_denuncia = 0.08;
     if (vidas == 2) _chance_denuncia = 0.05;
@@ -237,7 +256,7 @@ criar_fragmentos_cartao = function(_m, _angulo) {
     if (_m.tipo == 1) _icone = "+";
     if (_m.tipo == 2) _icone = "D";
     if (_m.tipo == 3) _icone = "C";
-    array_push(ecos_cartao, {
+    if (array_length(ecos_cartao) < 4) array_push(ecos_cartao, {
         x : _m.x,
         y : _m.y,
         vx : 0,
@@ -258,7 +277,7 @@ criar_fragmentos_cartao = function(_m, _angulo) {
     });
     for (var _i = 0; _i < _partes; _i++) {
         var _faixa = (_i - (_partes - 1) * 0.5) / _partes;
-        array_push(fragmentos, {
+        if (array_length(fragmentos) < 12) array_push(fragmentos, {
             x : _m.x,
             y : _m.y,
             vx : _m.vx * 0.45 + lengthdir_x((_i - (_partes - 1) * 0.5) * 4.2, _angulo + 90),
@@ -280,7 +299,8 @@ criar_fragmentos_cartao = function(_m, _angulo) {
 };
 
 criar_particulas = function(_x, _y, _tipo, _angulo) {
-    for (var _i = 0; _i < 12; _i++) {
+    for (var _i = 0; _i < 6; _i++) {
+        if (array_length(particulas) >= 36) break;
         var _dir = _angulo + choose(-90, 90) + random_range(-24, 24);
         var _vel = random_range(1.5, 5.5);
         array_push(particulas, {
@@ -326,11 +346,12 @@ finalizar_fase = function(_venceu) {
     vidas_final = vidas;
     mensagens = [];
     combo = 0;
-    var _nota_pontos = ataques_cortados * 4 + vidas * 6 + melhor_combo * 2;
-    if (_nota_pontos >= 130) nota_final = "S";
-    else if (_nota_pontos >= 105) nota_final = "A";
-    else if (_nota_pontos >= 82) nota_final = "B";
-    else if (_nota_pontos >= 58) nota_final = "C";
-    else nota_final = "D";
+    if (_venceu) {
+        nota_final = string(clamp(round(6 + vidas * 0.55 + min(1.25, melhor_combo * 0.06)), 6, 10)) + "/10";
+    } else {
+        nota_final = string(clamp(round((ataques_cortados / objetivo) * 5), 0, 5)) + "/10";
+    }
+    audio_stop_sound(snd_f2_ambiente);
+    audio_stop_sound(snd_f2_ambiente_corrupto);
     audio_play_sound(_venceu ? snd_f2_vitoria : snd_f2_derrota, 4, false, 0.78);
 };

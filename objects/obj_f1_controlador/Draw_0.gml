@@ -1,8 +1,6 @@
 var _pulso = 0.5 + sin(visual_timer * 0.12) * 0.5;
-var _corrupcao = estado == 2 ? clamp(nivel_corrupcao / vidas_max + (vidas <= 2 ? (3 - vidas) * 0.2 : 0), 0, 1) : 0;
-var _tremor_base = _corrupcao * 9;
-var _sx = (shake > 0 || _tremor_base > 0) ? random_range(-shake - _tremor_base, shake + _tremor_base) : 0;
-var _sy = (shake > 0 || _tremor_base > 0) ? random_range(-shake * 0.5 - _tremor_base, shake * 0.5 + _tremor_base) : 0;
+var _sx = tremor_x;
+var _sy = tremor_y;
 
 draw_set_font(fnt_dialogo);
 draw_set_halign(fa_left);
@@ -14,7 +12,7 @@ draw_set_color(make_color_rgb(8, 20, 38));
 draw_rectangle(0, 0, room_width, room_height, false);
 draw_set_alpha(0.12);
 draw_set_color(make_color_rgb(70, 191, 234));
-for (var _linha = 0; _linha < room_height; _linha += 10) draw_line(0, _linha, room_width, _linha);
+for (var _linha = 0; _linha < room_height; _linha += 20) draw_line(0, _linha, room_width, _linha);
 draw_set_alpha(1);
 
 draw_set_color(make_color_rgb(3, 8, 17));
@@ -85,7 +83,7 @@ draw_roundrect(287 + _sx, 175 + _sy, 315 + _sx, 186 + _sy, false);
 draw_set_color(make_color_rgb(34, 65, 96));
 draw_text(337 + _sx, 145 + _sy, "@luna_online");
 draw_set_color(make_color_rgb(94, 119, 145));
-draw_text(337 + _sx, 174 + _sy, "Meu desenho novo.");
+draw_text(337 + _sx, 174 + _sy, "Compartilhei algo novo.");
 draw_text(337 + _sx, 194 + _sy, "Ainda estou aprendendo :)");
 draw_set_color(make_color_rgb(226, 236, 245));
 draw_rectangle(282 + _sx, 216 + _sy, 630 + _sx, 219 + _sy, false);
@@ -137,7 +135,7 @@ if (estado <= 1 && dialogo_index >= 2 && cutscene_post_alpha > 0) {
     draw_set_color(make_color_rgb(32, 139, 121));
     draw_roundrect(322 + _sx, 354 + _sy, 640 + _sx, 394 + _sy, false);
     draw_set_color(c_white);
-    draw_text(342 + _sx, 364 + _sy, "bia: seu desenho ficou ótimo!");
+    draw_text(342 + _sx, 364 + _sy, "bia: sua postagem ficou ótima!");
 }
 if (estado <= 1 && dialogo_index >= 3 && cutscene_post_alpha > 0) {
     draw_set_alpha(cutscene_post_alpha);
@@ -281,10 +279,10 @@ gpu_set_scissor(0, 0, room_width, room_height);
 // ===== RASTRO DO CORTE E PARTÍCULAS =====
 for (var _i = 0; _i < array_length(rastros); _i++) {
     var _r = rastros[_i];
-    draw_set_alpha(_r.vida / 11 * 0.28);
+    draw_set_alpha(_r.vida / 8 * 0.28);
     draw_set_color(make_color_rgb(118, 231, 255));
     draw_line_width(_r.x1, _r.y1, _r.x2, _r.y2, 7 + _r.vida * 0.36);
-    draw_set_alpha(_r.vida / 11);
+    draw_set_alpha(_r.vida / 8);
     draw_set_color(c_white);
     draw_line_width(_r.x1, _r.y1, _r.x2, _r.y2, 2 + _r.vida * 0.24);
 }

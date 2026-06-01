@@ -7,6 +7,22 @@ bonus_flash = max(0, bonus_flash - 0.04);
 corrupt_flash = max(0, corrupt_flash - 0.009);
 shake = max(0, shake - 0.7);
 cursor_click_fx = max(0, cursor_click_fx - 1);
+var _corrupcao_tremor = estado == 2 ? clamp(nivel_corrupcao / vidas_max + (vidas <= 2 ? (3 - vidas) * 0.2 : 0), 0, 1) : 0;
+var _forca_tremor = shake + _corrupcao_tremor * 7;
+tremor_x = sin(visual_timer * 0.31) * _forca_tremor;
+tremor_y = cos(visual_timer * 0.27) * _forca_tremor * 0.55;
+audio_mix_timer--;
+if (estado == 2 && audio_mix_timer <= 0) {
+    if (ambiente_audio == -1 || !audio_is_playing(ambiente_audio)) ambiente_audio = audio_play_sound(snd_f2_ambiente, 1, true, 0.34);
+    var _ganho_corrupcao = clamp(_corrupcao_tremor * 0.42, 0, 0.42);
+    if (_ganho_corrupcao > 0) {
+        if (ambiente_corrupto_audio == -1 || !audio_is_playing(ambiente_corrupto_audio)) ambiente_corrupto_audio = audio_play_sound(snd_f2_ambiente_corrupto, 1, true, 0);
+        audio_sound_gain(ambiente_corrupto_audio, _ganho_corrupcao, 180);
+    } else if (ambiente_corrupto_audio != -1 && audio_is_playing(ambiente_corrupto_audio)) {
+        audio_sound_gain(ambiente_corrupto_audio, 0, 180);
+    }
+    audio_mix_timer = 12;
+}
 
 // ===== TELA FINAL: CONGELA O JOGO E LIMPA O FUNDO =====
 if (estado >= 3) {
@@ -135,15 +151,15 @@ if (estado == 1) {
 if (estado == 2) {
     tempo--;
     spawn_timer--;
-    if (spawn_timer <= 0) {
+    if (spawn_timer <= 0 && array_length(mensagens) < 4) {
         criar_mensagem();
-        spawn_timer = max(22, 48 - floor(ataques_cortados * 0.55));
-        if (ataques_cortados >= 34) spawn_timer += 8;
+        audio_play_sound(snd_f2_notificacao, 1, false, 0.16, 0, random_range(0.94, 1.05));
+        spawn_timer = max(28, 54 - floor(ataques_cortados * 0.45));
     }
 
     var _dist_mouse = point_distance(mouse_anterior_x, mouse_anterior_y, mouse_x, mouse_y);
     if (mouse_check_button(mb_left) && _dist_mouse > 2) {
-        array_push(rastros, { x1 : mouse_anterior_x, y1 : mouse_anterior_y, x2 : mouse_x, y2 : mouse_y, vida : 11 });
+        if (array_length(rastros) < 7) array_push(rastros, { x1 : mouse_anterior_x, y1 : mouse_anterior_y, x2 : mouse_x, y2 : mouse_y, vida : 8 });
         for (var _i = array_length(mensagens) - 1; _i >= 0; _i--) {
             var _m = mensagens[_i];
             var _visivel = _m.x - _m.largura * 0.5 >= 236 && _m.x + _m.largura * 0.5 <= 666;

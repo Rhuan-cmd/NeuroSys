@@ -27,11 +27,11 @@ if (estado == 2) {
 
     // Conteúdo da aba de objetivo integrada ao fundo do CONECTA.
     draw_set_color(make_color_rgb(120, 232, 250));
-    draw_text_transformed(112, 399, "OBJETIVO", 0.72, 0.72, 0);
+    draw_text_transformed(112 + tremor_x, 399 + tremor_y, "OBJETIVO", 0.72, 0.72, 0);
     draw_set_color(c_white);
-    draw_text_transformed(112, 423, "ATAQUES: " + string(ataques_cortados) + "/" + string(objetivo), 0.72, 0.72, 0);
+    draw_text_transformed(112 + tremor_x, 423 + tremor_y, "ATAQUES: " + string(ataques_cortados) + "/" + string(objetivo), 0.72, 0.72, 0);
     draw_set_color(make_color_rgb(158, 220, 239));
-    draw_text_transformed(112, 447, "TEMPO: " + formatar_tempo(tempo), 0.72, 0.72, 0);
+    draw_text_transformed(112 + tremor_x, 447 + tremor_y, "TEMPO: " + formatar_tempo(tempo), 0.72, 0.72, 0);
     if (escudo > 0) {
         draw_set_alpha(0.24 + sin(visual_timer * 0.2) * 0.08);
         draw_set_color(make_color_rgb(87, 226, 255));
@@ -42,19 +42,7 @@ if (estado == 2) {
 
 // ===== FLASHES DE FEEDBACK =====
 var _corrupcao = estado == 2 ? clamp(nivel_corrupcao / vidas_max + (vidas <= 2 ? (3 - vidas) * 0.2 : 0), 0, 1) : 0;
-if (_corrupcao > 0 || corrupt_flash > 0) {
-    var _ruido = clamp(_corrupcao + corrupt_flash * 0.72, 0, 1);
-    draw_set_alpha(0.045 + _ruido * 0.08);
-    draw_set_color(make_color_rgb(255, 37, 89));
-    draw_rectangle(0, 0, room_width, room_height, false);
-    for (var _linha_glitch = 0; _linha_glitch < 4 + floor(_ruido * 19); _linha_glitch++) {
-        var _glitch_y = irandom(room_height);
-        var _glitch_x = irandom_range(-28, 28);
-        draw_set_alpha(random_range(0.04, 0.12) + _ruido * 0.11);
-        draw_set_color(choose(make_color_rgb(255, 49, 93), make_color_rgb(66, 224, 255)));
-        draw_rectangle(_glitch_x, _glitch_y, room_width + _glitch_x, _glitch_y + irandom_range(1, 3), false);
-    }
-}
+desenhar_corrupcao_otimizada(_corrupcao, corrupt_flash);
 if (damage_flash > 0) {
     draw_set_alpha(damage_flash * 0.34);
     draw_set_color(make_color_rgb(255, 49, 83));
@@ -119,7 +107,7 @@ if (estado == 1) {
     draw_set_color(make_color_rgb(255, 226, 128));
     draw_text_transformed(480, 236, "PROTEJA A POSTAGEM", 1.42 * _pop, 1.42 * _pop, 0);
     draw_set_color(make_color_rgb(164, 229, 245));
-    draw_text_transformed(480, 282, "CORTE 50 ATAQUES  |  LEIA ANTES DE AGIR", 0.9, 0.9, 0);
+    draw_text_transformed(480, 282, "CORTE 35 ATAQUES  |  LEIA ANTES DE AGIR", 0.9, 0.9, 0);
     draw_set_color(make_color_rgb(255, 224, 123));
     draw_text_transformed(480, 310, "ENTER OU CLIQUE", 0.78, 0.78, 0);
     draw_set_halign(fa_left);
@@ -168,7 +156,7 @@ if (estado == 3 || estado == 4) {
     draw_set_color(make_color_rgb(116, 231, 255));
     draw_text(606, 214 + _final_offset, "NOTA");
     draw_set_color(c_white);
-    draw_text_transformed(606, 264 + _final_offset, nota_final, 1.8, 1.8, 0);
+    draw_text_transformed(606, 264 + _final_offset, nota_final, 1.22, 1.22, 0);
 
     draw_set_alpha(_final_suave * (_hover_acao ? 0.34 : 0));
     draw_set_color(make_color_rgb(54, 222, 246));

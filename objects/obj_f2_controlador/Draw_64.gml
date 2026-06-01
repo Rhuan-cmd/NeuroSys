@@ -1,3 +1,4 @@
+// ===== CURSOR CUSTOMIZADO DESENHADO ACIMA DA INTERFACE =====
 draw_set_alpha(1);
 
 var cursor_visivel = estado_final == 0 || final_painel;
@@ -22,10 +23,11 @@ if (cursor_visivel) {
         cursor_y += cos(current_time * 0.017) * (0.9 + cursor_forca * 0.14);
     }
     if (estado_final == 0 && cursor_forca > 0) {
-        cursor_x += random_range(-cursor_forca, cursor_forca);
-        cursor_y += random_range(-cursor_forca, cursor_forca);
+        cursor_x += sin(current_time * 0.028) * cursor_forca;
+        cursor_y += cos(current_time * 0.025) * cursor_forca;
     }
 
+    // ===== IMPACTO VISUAL DO PODER DE REPELAO =====
     if (repel_fx_timer > 0) {
         var repel_t = 1 - repel_fx_timer / 20;
         draw_set_alpha((1 - repel_t) * 0.72);
@@ -35,6 +37,7 @@ if (cursor_visivel) {
         draw_set_color(c_white);
     }
 
+    // ===== INVESTIDA DO X ATE O CURSOR =====
     if (poder_ataque_timer > 0) {
         var ataque_t = 1 - poder_ataque_timer / poder_ataque_total;
         var ataque_suave = ataque_t * ataque_t * (3 - 2 * ataque_t);
@@ -42,7 +45,7 @@ if (cursor_visivel) {
         var ataque_y = lerp(poder_ataque_y0, poder_ataque_y1, ataque_suave);
         var ataque_cor = poder_ataque_tipo == 1 ? make_color_rgb(92, 218, 255) : make_color_rgb(255, 104, 118);
         draw_set_color(ataque_cor);
-        for (var ataque_i = 1; ataque_i <= 4; ataque_i++) {
+        for (var ataque_i = 1; ataque_i <= 2; ataque_i++) {
             var ataque_rastro_t = max(0, ataque_suave - ataque_i * 0.075);
             draw_set_alpha(0.18 - ataque_i * 0.025);
             draw_sprite_ext(
@@ -64,14 +67,15 @@ if (cursor_visivel) {
         draw_set_color(c_white);
     }
 
+    // ===== CONTORNO E PREENCHIMENTO DO CURSOR CONGELADO =====
     var cursor_cor = congelado_timer > 0 ? make_color_rgb(166, 239, 255) : c_white;
     var cursor_escala = congelado_timer > 0 ? 1 + sin(current_time * 0.018) * 0.035 : 1;
     var cursor_rotacao = sin(current_time * 0.012) * min(7, cursor_forca);
     if (congelado_timer > 0) {
         var contorno_cor = make_color_rgb(12, 62, 116);
         draw_set_alpha(cursor_alpha * 0.96);
-        for (var contorno_i = 0; contorno_i < 8; contorno_i++) {
-            var contorno_dir = contorno_i * 45;
+        for (var contorno_i = 0; contorno_i < 4; contorno_i++) {
+            var contorno_dir = contorno_i * 90;
             draw_sprite_ext(
                 spr_f2_cursor,
                 0,
@@ -112,6 +116,7 @@ if (cursor_visivel) {
         draw_circle(cursor_x + 19, cursor_y + 27, 2.0, false);
     }
 
+    // ===== ESTILHACOS AO QUEBRAR O GELO =====
     if (gelo_quebra_timer > 0) {
         var quebra_t = 1 - gelo_quebra_timer / 18;
         draw_set_alpha(1 - quebra_t);

@@ -1,3 +1,4 @@
+// ===== CENARIO PRINCIPAL DA REDE SOCIAL =====
 var desenhar_fase = !(estado_final != 0 && final_painel);
 if (desenhar_fase) {
 draw_sprite(spr_f2_fundo_chat, 0, 0, 0);
@@ -13,6 +14,7 @@ if (cutscene_clickou || transicao_caixa || ativo || estado_final != 0) {
     draw_sprite_ext(spr_f2_fechar, 0, botao_fixo_x, botao_fixo_y, 0.78, 0.78, 0, c_white, 1);
 }
 
+// ===== CASCATA DE CONTATOS E MENSAGENS =====
 var fluxo_cascata = cascata_fluxo;
 var fase_entrada = cutscene_ativo_timer / room_speed;
 var modo_cascata = ativo || transicao_caixa;
@@ -24,19 +26,19 @@ if (fase_entrada >= 5.8) contatos_visiveis = 2;
 if (fase_entrada >= 6.6) contatos_visiveis = 3;
 if (fase_entrada >= 7.3) contatos_visiveis = 4;
 if (fase_entrada >= 8.2) contatos_visiveis = 6;
-if (modo_cascata) contatos_visiveis = 10;
+if (modo_cascata) contatos_visiveis = 7;
 if (fase_entrada >= 5.6) mensagens_visiveis = 1;
 if (fase_entrada >= 6.8) mensagens_visiveis = 2;
 if (fase_entrada >= 7.8) mensagens_visiveis = 3;
 if (fase_entrada >= 8.7) mensagens_visiveis = 4;
-if (modo_cascata) mensagens_visiveis = 8;
+if (modo_cascata) mensagens_visiveis = 5;
 
 if (contatos_visiveis > 0) {
     
     for (var c = 0; c < contatos_visiveis; c++) {
         var y_contato;
         if (modo_cascata) {
-            y_contato = 66 + (((78 + c * 70) + fluxo_cascata - 66) mod (10 * 70));
+            y_contato = 66 + (((78 + c * 70) + fluxo_cascata - 66) mod (7 * 70));
         } else {
             y_contato = 78 + c * 70;
         }
@@ -75,7 +77,7 @@ if (mensagens_visiveis > 0) {
     for (var m = 0; m < mensagens_visiveis; m++) {
         var y_msg;
         if (modo_cascata) {
-            y_msg = 74 + (((88 + m * 108) + fluxo_cascata * 0.82 - 74) mod (8 * 108));
+            y_msg = 74 + (((88 + m * 108) + fluxo_cascata * 0.82 - 74) mod (5 * 108));
         } else {
             y_msg = 88 + m * 108;
         }
@@ -129,6 +131,7 @@ if (mensagens_visiveis > 0) {
     }
 }
 
+// ===== PAINEIS DE VIDA, SINO, TEMPO E PONTUACAO =====
 var intro = clamp(status_intro_timer / 38, 0, 1);
 var pulse = 1 + sin(current_time * 0.004) * 0.015;
 var s_lives = lerp(0.12, pulse, intro);
@@ -176,8 +179,8 @@ if (ativo && frame_tempo <= 7) {
     draw_sprite_ext(
         spr_f2_sino,
         floor(current_time / 80) mod 4,
-        775 + random_range(-sino_forca, sino_forca),
-        266 + random_range(-sino_forca, sino_forca),
+        775 + sin(current_time * 0.032) * sino_forca,
+        266 + cos(current_time * 0.029) * sino_forca,
         0.78 * pulse,
         0.78 * pulse,
         sin(current_time * 0.05) * 3.6 * sino_forca,
@@ -188,6 +191,7 @@ if (ativo && frame_tempo <= 7) {
 
 draw_sprite_ext(spr_f2_status_pontos, min(cliques, cliques_necessarios), 831, 445, s_score, s_score, 0, c_white, clamp((status_intro_timer - 16) / 38, 0, 1));
 
+// ===== EXPLOSAO VISUAL AO CLICAR NO X =====
 for (var fx_i = 0; fx_i < array_length(fx_timer); fx_i++) {
     if (fx_timer[fx_i] > 0) {
         var fx_t = 1 - fx_timer[fx_i] / 18;
@@ -197,8 +201,8 @@ for (var fx_i = 0; fx_i < array_length(fx_timer); fx_i++) {
         draw_set_color(make_color_rgb(255, 80, 96));
         draw_circle(fx_x[fx_i], fx_y[fx_i], fx_raio * 0.38, false);
         draw_set_color(make_color_rgb(255, 224, 116));
-        for (var fx_p = 0; fx_p < 6; fx_p++) {
-            var fx_dir = fx_p * 60 + fx_t * 80;
+        for (var fx_p = 0; fx_p < 4; fx_p++) {
+            var fx_dir = fx_p * 90 + fx_t * 80;
             draw_line_width(
                 fx_x[fx_i] + lengthdir_x(fx_raio * 0.25, fx_dir),
                 fx_y[fx_i] + lengthdir_y(fx_raio * 0.25, fx_dir),
@@ -212,6 +216,7 @@ for (var fx_i = 0; fx_i < array_length(fx_timer); fx_i++) {
     }
 }
 
+// ===== CAIXA DE DIALOGO DA CUTSCENE =====
 if (!historia_finalizada && cutscene_timer >= fade_duracao && !ativo && !transicao_caixa) {
     var historia_texto = "";
     var historia_titulo = "Registro do chat";
@@ -283,6 +288,7 @@ if (!historia_finalizada && cutscene_timer >= fade_duracao && !ativo && !transic
     draw_set_color(c_white);
 }
 
+// ===== AVISO DE INICIO DO MINIGAME =====
 if (aviso_x_timer > 0 && estado_final == 0) {
     var aviso_t = 1 - aviso_x_timer / aviso_x_duracao;
     var aviso_alpha = min(clamp(aviso_t / 0.22, 0, 1), clamp((1 - aviso_t) / 0.34, 0, 1));
@@ -300,6 +306,7 @@ if (aviso_x_timer > 0 && estado_final == 0) {
     draw_set_valign(fa_top);
 }
 
+// ===== FADE-IN E TITULO DA FASE =====
 var fade_alpha = max(0, 1 - cutscene_timer / fade_duracao);
 if (fade_alpha > 0) {
     draw_set_alpha(fade_alpha);
@@ -323,25 +330,11 @@ if (fade_alpha > 0) {
 draw_set_alpha(1);
 draw_set_color(c_white);
 
+// ===== CORRUPCAO VISUAL APOS PERDER VIDAS =====
 var vidas_perdidas_fx = vidas_max - vidas;
 if (damage_flash > 0 || vidas_perdidas_fx > 0) {
     var ruido_forca = clamp(vidas_perdidas_fx / vidas_max + corrupt_flash * 0.8, 0, 1);
-    draw_set_alpha(damage_flash * 0.42 + ruido_forca * 0.08);
-    draw_set_color(c_red);
-    draw_rectangle(0, 0, room_width, room_height, false);
-    
-    draw_set_alpha(0.16 + ruido_forca * 0.22);
-    for (var r = 0; r < 10 + vidas_perdidas_fx * 5; r++) {
-        var ry = irandom(room_height);
-        var rx = irandom_range(-24, 24);
-        if (irandom(1) == 0) {
-            draw_set_color(make_color_rgb(255, 44, 65));
-        } else {
-            draw_set_color(make_color_rgb(32, 205, 232));
-        }
-        draw_rectangle(rx, ry, room_width + rx, ry + irandom_range(1, 3), false);
-    }
-    
+    desenhar_corrupcao_otimizada(ruido_forca, damage_flash);
     draw_set_alpha(damage_flash * 0.55);
     draw_set_color(c_red);
     draw_rectangle(0, 0, room_width, 14, false);
@@ -353,6 +346,7 @@ if (damage_flash > 0 || vidas_perdidas_fx > 0) {
 }
 }
 
+// ===== TELA FINAL DE VITORIA OU DERROTA =====
 if (estado_final != 0) {
     var final_suave = final_transition * final_transition * (3 - 2 * final_transition);
     var final_offset = lerp(38, 0, final_suave);
@@ -420,7 +414,7 @@ if (estado_final != 0) {
     
     draw_set_halign(fa_center);
     draw_set_valign(fa_middle);
-    draw_text_transformed(606, 286 + final_offset, nota_final, 1.8, 1.8, 0);
+    draw_text_transformed(606, 286 + final_offset, nota_final, 1.22, 1.22, 0);
     draw_set_valign(fa_top);
     
     draw_set_alpha(final_suave * (hover_menu ? 0.34 : 0));

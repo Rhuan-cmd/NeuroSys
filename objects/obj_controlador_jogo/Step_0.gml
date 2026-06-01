@@ -7,3 +7,8 @@ if (keyboard_check_pressed(vk_f11)) {
         window_set_fullscreen(true);
     }
 }
+
+// Mantem o custo interno igual em janela e tela cheia.
+if (surface_exists(application_surface) && (surface_get_width(application_surface) != 960 || surface_get_height(application_surface) != 540)) {
+    surface_resize(application_surface, 960, 540);
+}
