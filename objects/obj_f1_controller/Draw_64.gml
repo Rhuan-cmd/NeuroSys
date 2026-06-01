@@ -12,31 +12,26 @@ if (estado == 2) {
     draw_sprite_ext(spr_f1_status_timer, 0, 756, 276, 0.72 * _pulse, 0.72 * _pulse, 0, c_white, 1);
     draw_sprite_ext(spr_f1_status_progress, 0, 756, 348, 0.72 * _pulse, 0.72 * _pulse, 0, c_white, 1);
     draw_set_color(c_white);
-    draw_text_transformed(784, 201, string(vidas) + "/" + string(vidas_max), _pulse, _pulse, 0);
-    draw_text_transformed(784, 273, string(ceil(tempo / room_speed)) + "s", _pulse, _pulse, 0);
-    draw_text_transformed(784, 345, string(ataques_cortados) + "/" + string(objetivo), _pulse, _pulse, 0);
+    draw_set_halign(fa_center);
+    draw_text_transformed(796, 201, string(vidas) + "/" + string(vidas_max), _pulse, _pulse, 0);
+    draw_text_transformed(796, 273, string(ceil(tempo / room_speed)) + "s", _pulse, _pulse, 0);
+    draw_text_transformed(796, 345, string(ataques_cortados) + "/" + string(objetivo), _pulse, _pulse, 0);
     draw_set_color(make_color_rgb(255, 220, 113));
-    draw_text_transformed(706, 392, "COMBO", _pulse, _pulse, 0);
-    draw_set_halign(fa_right);
-    draw_text_transformed(816, 392, "x" + string(combo), _pulse, _pulse, 0);
+    draw_text_transformed(761, 392, "COMBO  x" + string(combo), _pulse, _pulse, 0);
     draw_set_halign(fa_left);
 
     // Conteúdo da aba de objetivo integrada ao fundo do CONECTA.
     draw_set_color(make_color_rgb(120, 232, 250));
-    draw_text(278, 449, "OBJETIVO PRINCIPAL");
+    draw_text_transformed(112, 399, "OBJETIVO", 0.72, 0.72, 0);
     draw_set_color(c_white);
-    draw_text(278, 469, "CORTE OS ATAQUES: " + string(ataques_cortados) + "/" + string(objetivo));
+    draw_text_transformed(112, 423, "ATAQUES: " + string(ataques_cortados) + "/" + string(objetivo), 0.72, 0.72, 0);
     draw_set_color(make_color_rgb(158, 220, 239));
-    draw_set_halign(fa_right);
-    draw_text(634, 459, "TEMPO: " + string(ceil(tempo / room_speed)) + "s");
-    draw_set_halign(fa_left);
+    draw_text_transformed(112, 447, "TEMPO: " + string(ceil(tempo / room_speed)) + "s", 0.72, 0.72, 0);
     if (escudo > 0) {
         draw_set_alpha(0.24 + sin(visual_timer * 0.2) * 0.08);
         draw_set_color(make_color_rgb(87, 226, 255));
         draw_circle(756, 204, 52, true);
         draw_set_alpha(1);
-        draw_set_color(make_color_rgb(126, 237, 255));
-        draw_text_transformed(688, 418, "ESCUDO ATIVO", _pulse, _pulse, 0);
     }
 }
 
@@ -160,9 +155,9 @@ if (estado == 3 || estado == 4) {
     draw_text(480, 164 + _final_offset, final_vitoria ? "ataques contidos com responsabilidade" : "a rede precisa de uma nova tentativa");
     draw_set_halign(fa_center);
     draw_set_color(make_color_rgb(116, 231, 255));
-    draw_text(345, 244 + _final_offset, "TEMPO  " + _tempo_txt);
-    draw_text(345, 282 + _final_offset, "ATAQUES  " + string(ataques_cortados) + "/" + string(objetivo));
-    draw_text(345, 320 + _final_offset, "VIDAS  " + string(vidas_final) + "/" + string(vidas_max));
+    draw_text(316, 230 + _final_offset, "TEMPO  " + _tempo_txt);
+    draw_text(334, 282 + _final_offset, "ATAQUES  " + string(ataques_cortados) + "/" + string(objetivo));
+    draw_text(316, 334 + _final_offset, "VIDAS  " + string(vidas_final) + "/" + string(vidas_max));
     draw_set_color(make_color_rgb(116, 231, 255));
     draw_text(606, 214 + _final_offset, "NOTA");
     draw_set_color(c_white);

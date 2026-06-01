@@ -251,8 +251,8 @@ if (estado == 2) {
         }
     }
 
-    if (ataques_cortados >= objetivo) finalizar_fase(true);
-    if (vidas <= 0 || tempo <= 0) finalizar_fase(false);
+    if (vidas <= 0) finalizar_fase(false);
+    else if (tempo <= 0) finalizar_fase(ataques_cortados >= objetivo);
 }
 
 for (var _i = array_length(particulas) - 1; _i >= 0; _i--) {

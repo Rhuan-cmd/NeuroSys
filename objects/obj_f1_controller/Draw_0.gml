@@ -119,9 +119,9 @@ if (estado == 2) {
 // ===== ABA INTEGRADA DO OBJETIVO =====
 if (estado == 2) {
     draw_set_color(make_color_rgb(12, 29, 51));
-    draw_roundrect(260 + _sx, 438 + _sy, 652 + _sx, 484 + _sy, false);
+    draw_roundrect(102 + _sx, 386 + _sy, 225 + _sx, 474 + _sy, false);
     draw_set_color(make_color_rgb(52, 202, 225));
-    draw_rectangle(260 + _sx, 438 + _sy, 652 + _sx, 443 + _sy, false);
+    draw_rectangle(102 + _sx, 386 + _sy, 225 + _sx, 391 + _sy, false);
 }
 
 // ===== CUTSCENE: COMENTARIOS E INTERACOES NA TELA =====
