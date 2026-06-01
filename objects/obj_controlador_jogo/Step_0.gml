@@ -19,11 +19,6 @@ if (keyboard_check_pressed(vk_f11)) {
     }
 }
 
-// Mantem o custo interno igual em janela e tela cheia.
-if (surface_exists(application_surface) && (surface_get_width(application_surface) != 960 || surface_get_height(application_surface) != 540)) {
-    surface_resize(application_surface, 960, 540);
-}
-
 global.perf_step_us = get_timer() - _perf_step_inicio;
 global.perf_frame_us = get_timer() - global.perf_frame_inicio;
 global.perf_frame_inicio = get_timer();

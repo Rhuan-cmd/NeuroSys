@@ -45,7 +45,7 @@ if (cursor_visivel) {
         var ataque_y = lerp(poder_ataque_y0, poder_ataque_y1, ataque_suave);
         var ataque_cor = poder_ataque_tipo == 1 ? make_color_rgb(92, 218, 255) : make_color_rgb(255, 104, 118);
         draw_set_color(ataque_cor);
-        for (var ataque_i = 1; ataque_i <= 2; ataque_i++) {
+        for (var ataque_i = 1; ataque_i <= 4; ataque_i++) {
             var ataque_rastro_t = max(0, ataque_suave - ataque_i * 0.075);
             draw_set_alpha(0.18 - ataque_i * 0.025);
             draw_sprite_ext(
@@ -74,8 +74,8 @@ if (cursor_visivel) {
     if (congelado_timer > 0) {
         var contorno_cor = make_color_rgb(12, 62, 116);
         draw_set_alpha(cursor_alpha * 0.96);
-        for (var contorno_i = 0; contorno_i < 4; contorno_i++) {
-            var contorno_dir = contorno_i * 90;
+        for (var contorno_i = 0; contorno_i < 8; contorno_i++) {
+            var contorno_dir = contorno_i * 45;
             draw_sprite_ext(
                 spr_f2_cursor,
                 0,

@@ -193,6 +193,7 @@
     {"id":{"name":"spr_ui_transicao","path":"sprites/spr_ui_transicao/spr_ui_transicao.yy",},},
     {"id":{"name":"spr_f4_raivoso","path":"sprites/spr_f4_raivoso/spr_f4_raivoso.yy",},},
     {"id":{"name":"spr_app_rede_social","path":"sprites/spr_app_rede_social/spr_app_rede_social.yy",},},
+    {"id":{"name":"spr_fx_corrupcao","path":"sprites/spr_fx_corrupcao/spr_fx_corrupcao.yy",},},
     {"id":{"name":"spr_f4_silhueta","path":"sprites/spr_f4_silhueta/spr_f4_silhueta.yy",},},
     {"id":{"name":"spr_f4_vilao_chorando","path":"sprites/spr_f4_vilao_chorando/spr_f4_vilao_chorando.yy",},},
     {"id":{"name":"spr_f4_vilao","path":"sprites/spr_f4_vilao/spr_f4_vilao.yy",},},

@@ -1,5 +1,5 @@
 // ===== CENARIO PRINCIPAL DA REDE SOCIAL =====
-draw_set_font(fnt_f2_dialogo);
+draw_set_font(fnt_dialogo);
 var desenhar_fase = !(estado_final != 0 && final_painel);
 var escala_texto_f2 = 1;
 if (desenhar_fase) {
@@ -62,7 +62,7 @@ if (contatos_visiveis > 0) {
                 alpha_contato
             );
             draw_set_alpha(alpha_contato);
-            draw_set_font(fnt_f2_dialogo);
+            draw_set_font(fnt_dialogo);
             draw_set_halign(fa_left);
             draw_set_valign(fa_top);
             draw_set_color(make_color_rgb(210, 232, 255));
@@ -119,7 +119,7 @@ if (mensagens_visiveis > 0) {
                     break;
             }
             draw_set_alpha(0.78);
-            draw_set_font(fnt_f2_dialogo);
+            draw_set_font(fnt_dialogo);
             draw_set_halign(fa_left);
             draw_set_valign(fa_top);
             draw_set_color(make_color_rgb(162, 198, 238));
@@ -272,7 +272,7 @@ if (!historia_finalizada && cutscene_timer >= fade_duracao && !ativo && !transic
     draw_rectangle(h_x1 + 12, h_y2 - 22, h_x2 - 12, h_y2 - 18, false);
     
     draw_set_alpha(h_suave * h_alpha);
-    draw_set_font(fnt_f2_dialogo);
+    draw_set_font(fnt_dialogo);
     draw_set_color(make_color_rgb(115, 230, 255));
     draw_text_transformed(h_x1 + 26, h_y1 + 22, historia_titulo, escala_texto_f2, escala_texto_f2, 0);
     draw_set_color(c_white);
@@ -299,7 +299,7 @@ if (aviso_x_timer > 0 && estado_final == 0) {
     draw_set_color(c_black);
     draw_rectangle(0, room_height / 2 - 54, room_width, room_height / 2 + 54, false);
     draw_set_alpha(aviso_alpha);
-    draw_set_font(fnt_f2_dialogo);
+    draw_set_font(fnt_dialogo);
     draw_set_halign(fa_center);
     draw_set_valign(fa_middle);
     draw_set_color(make_color_rgb(255, 228, 132));
@@ -320,7 +320,7 @@ if (fade_alpha > 0) {
     var titulo_escala = lerp(0.82, 1.12, titulo_t);
     draw_set_alpha(titulo_alpha);
     draw_set_color(c_white);
-    draw_set_font(fnt_f2_dialogo);
+    draw_set_font(fnt_dialogo);
     draw_set_halign(fa_center);
     draw_set_valign(fa_middle);
     draw_text_transformed(room_width / 2, room_height / 2 - 28, "FASE 2", titulo_escala * 1.8 * escala_texto_f2, titulo_escala * 1.8 * escala_texto_f2, 0);
@@ -381,7 +381,7 @@ if (estado_final != 0) {
         final_suave
     );
     
-    draw_set_font(fnt_f2_dialogo);
+    draw_set_font(fnt_dialogo);
     draw_set_halign(fa_left);
     draw_set_valign(fa_top);
     draw_set_alpha(final_suave);

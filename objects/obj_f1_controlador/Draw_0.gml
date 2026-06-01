@@ -12,7 +12,7 @@ draw_set_color(make_color_rgb(8, 20, 38));
 draw_rectangle(0, 0, room_width, room_height, false);
 draw_set_alpha(0.12);
 draw_set_color(make_color_rgb(70, 191, 234));
-for (var _linha = 0; _linha < room_height; _linha += 20) draw_line(0, _linha, room_width, _linha);
+for (var _linha = 0; _linha < room_height; _linha += 10) draw_line(0, _linha, room_width, _linha);
 draw_set_alpha(1);
 
 draw_set_color(make_color_rgb(3, 8, 17));
@@ -187,7 +187,7 @@ for (var _i = 0; _i < array_length(mensagens); _i++) {
     draw_set_halign(fa_left);
     draw_set_color(c_white);
     var _texto_espaco = _m.largura - (_m.forte ? 112 : 62);
-    var _texto_escala = min(0.82, _texto_espaco / max(1, string_width(_m.texto)));
+    var _texto_escala = min(0.88, _texto_espaco / max(1, string_width(_m.texto)));
     draw_text_transformed(_m.x - _m.largura * 0.5 + 48, _yy - 9, _m.texto, _texto_escala, _texto_escala, 0);
     if (_m.forte) {
         draw_set_color(make_color_rgb(255, 214, 238));
@@ -258,7 +258,7 @@ for (var _i = 0; _i < array_length(ecos_cartao); _i++) {
     draw_set_halign(fa_left);
     draw_set_color(c_white);
     var _texto_espaco_e = _e.largura - (_e.forte ? 112 : 62);
-    var _texto_escala_e = min(0.82, _texto_espaco_e / max(1, string_width(_e.texto)));
+    var _texto_escala_e = min(0.88, _texto_espaco_e / max(1, string_width(_e.texto)));
     draw_text_transformed(_e.x - _e.largura * 0.5 + 48, _e.y - 9, _e.texto, _texto_escala_e, _texto_escala_e, 0);
     if (_e.forte) {
         draw_set_color(make_color_rgb(255, 214, 238));

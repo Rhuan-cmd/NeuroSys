@@ -4,15 +4,15 @@ if (room == rm_fase4){
 	cursor_sprite = spr_ui_cursor;
 }
 window_set_cursor(cr_none);
-gpu_set_texfilter(true);
+gpu_set_texfilter(false);
 
 // ===== MONITOR GLOBAL DE PERFORMANCE =====
 // O overlay nativo separa visualmente o custo de CPU (Step) e GPU (Draw).
 // Use F6 no GameMaker para abrir o Debugger e capturar o Profiler da room atual.
-show_debug_overlay(true);
+show_debug_overlay(false);
 
 global.perf_room = room_get_name(room);
-global.perf_overlay_ativo = true;
+global.perf_overlay_ativo = false;
 global.perf_limite_step_us = 2000;
 global.perf_limite_draw_us = 4000;
 global.perf_limite_frame_us = 16667;

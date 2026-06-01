@@ -17,9 +17,9 @@ if (estado == 2) {
     draw_rectangle(731, 346, 824, 366, false);
     draw_set_color(c_white);
     draw_set_halign(fa_left);
-    draw_text_transformed(733, 207, string(vidas) + "/" + string(vidas_max), 0.88 * _pulse, 0.88 * _pulse, 0);
-    draw_text_transformed(733, 279, formatar_tempo(tempo), 0.88 * _pulse, 0.88 * _pulse, 0);
-    draw_text_transformed(733, 351, string(ataques_cortados) + "/" + string(objetivo), 0.88 * _pulse, 0.88 * _pulse, 0);
+    draw_text_transformed(733, 207, string(vidas) + "/" + string(vidas_max), 0.94 * _pulse, 0.94 * _pulse, 0);
+    draw_text_transformed(733, 279, formatar_tempo(tempo), 0.94 * _pulse, 0.94 * _pulse, 0);
+    draw_text_transformed(733, 351, string(ataques_cortados) + "/" + string(objetivo), 0.94 * _pulse, 0.94 * _pulse, 0);
     draw_set_halign(fa_center);
     draw_set_color(make_color_rgb(120, 232, 250));
     draw_text_transformed(761, 392, "COMBO  x" + string(combo), _pulse, _pulse, 0);
@@ -27,11 +27,11 @@ if (estado == 2) {
 
     // Conteúdo da aba de objetivo integrada ao fundo do CONECTA.
     draw_set_color(make_color_rgb(120, 232, 250));
-    draw_text_transformed(112 + tremor_x, 399 + tremor_y, "OBJETIVO", 0.72, 0.72, 0);
+    draw_text_transformed(112 + tremor_x, 399 + tremor_y, "OBJETIVO", 0.78, 0.78, 0);
     draw_set_color(c_white);
-    draw_text_transformed(112 + tremor_x, 423 + tremor_y, "ATAQUES: " + string(ataques_cortados) + "/" + string(objetivo), 0.72, 0.72, 0);
+    draw_text_transformed(112 + tremor_x, 423 + tremor_y, "ATAQUES: " + string(ataques_cortados) + "/" + string(objetivo), 0.78, 0.78, 0);
     draw_set_color(make_color_rgb(158, 220, 239));
-    draw_text_transformed(112 + tremor_x, 447 + tremor_y, "TEMPO: " + formatar_tempo(tempo), 0.72, 0.72, 0);
+    draw_text_transformed(112 + tremor_x, 447 + tremor_y, "TEMPO: " + formatar_tempo(tempo), 0.78, 0.78, 0);
     if (escudo > 0) {
         draw_set_alpha(0.24 + sin(visual_timer * 0.2) * 0.08);
         draw_set_color(make_color_rgb(87, 226, 255));
@@ -81,14 +81,14 @@ if (estado == 0 && cutscene_timer >= fade_duracao) {
     draw_rectangle(_x1 + 6, _y1 + 6, _x2 - 6, _y1 + 10, false);
     draw_set_alpha(_suave * (1 - dialogo_saida));
     draw_set_color(make_color_rgb(116, 231, 255));
-    draw_text(_x1 + 24, _y1 + 22, _titulo);
+    draw_text_transformed(_x1 + 24, _y1 + 22, _titulo, 1.06, 1.06, 0);
     draw_set_color(c_white);
-    draw_text_ext(_x1 + 24, _y1 + 58, _visivel, dialogo_layout > 0.5 ? 20 : 24, _x2 - _x1 - 48);
+    draw_text_ext_transformed(_x1 + 24, _y1 + 58, _visivel, dialogo_layout > 0.5 ? 20 : 24, (_x2 - _x1 - 48) / 1.06, 1.06, 1.06, 0);
     if (_completo) {
         draw_set_alpha((0.48 + sin(visual_timer * 0.18) * 0.34) * (1 - dialogo_saida));
         draw_set_halign(fa_right);
         draw_set_color(make_color_rgb(255, 230, 118));
-        draw_text(_x2 - 22, _y2 - 38, "ENTER");
+        draw_text_transformed(_x2 - 22, _y2 - 38, "ENTER", 1.06, 1.06, 0);
         draw_set_halign(fa_left);
     }
 }

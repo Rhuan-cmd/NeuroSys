@@ -123,13 +123,8 @@ desenhar_corrupcao_otimizada = function(_forca, _flash) {
     var _nivel = clamp(_forca + _flash * 0.72, 0, 1);
     if (_nivel <= 0) return;
     var _pulso = 0.72 + sin(current_time * 0.014) * 0.16;
-    draw_sprite_ext(spr_ui_pixel, 0, room_width * 0.5, room_height * 0.5, room_width * 0.5, room_height * 0.5, 0, make_color_rgb(179, 20, 63), (0.035 + _nivel * 0.085) * _pulso);
-    for (var _faixa = 0; _faixa < 3; _faixa++) {
-        var _y = (current_time * (0.055 + _faixa * 0.012) + _faixa * 173) mod room_height;
-        var _altura = 1 + floor(_nivel * 3);
-        var _cor = (_faixa mod 2 == 0) ? make_color_rgb(255, 49, 93) : make_color_rgb(66, 224, 255);
-        draw_sprite_ext(spr_ui_pixel, 0, room_width * 0.5, _y, room_width * 0.5, _altura, 0, _cor, 0.06 + _nivel * 0.14);
-    }
+    var _frame = floor(current_time / 95) mod sprite_get_number(spr_fx_corrupcao);
+    draw_sprite_ext(spr_fx_corrupcao, _frame, 0, 0, room_width / sprite_get_width(spr_fx_corrupcao), room_height / sprite_get_height(spr_fx_corrupcao), 0, c_white, (0.16 + _nivel * 0.34) * _pulso);
 };
 
 registrar_explosao = function(_x, _y) {
