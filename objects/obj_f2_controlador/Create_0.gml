@@ -257,6 +257,7 @@ criar_caixa = function(_x, _y, _reposicionar) {
     
     if (_reposicionar) {
         audio_play_sound(snd_f2_fuga, 2, false, 0.34, 0, random_range(0.96, 1.08));
+        caixa.imortal_timer = ceil(room_speed * 0.5);
         caixa.modo_intro = true;
         caixa.intro_timer = 0;
         caixa.intro_duracao = 22;

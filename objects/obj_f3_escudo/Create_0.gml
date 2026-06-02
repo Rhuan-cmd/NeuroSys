@@ -10,3 +10,23 @@ destruidos = 0;
 
 ganhou = false;
 umavez = false;
+resultado_ativo = false;
+resultado_vitoria = false;
+resultado_timer = 0;
+resultado_transicao = 0;
+resultado_saida = 0;
+resultado_felicidade = 0;
+
+exibir_resultado = function(_vitoria) {
+	if (resultado_ativo) return;
+	resultado_ativo = true;
+	resultado_vitoria = _vitoria;
+	resultado_timer = 0;
+	resultado_transicao = 0;
+	resultado_saida = 0;
+	resultado_felicidade = instance_exists(obj_f3_npc) ? max(0, round(obj_f3_npc.total_felicidade)) : 0;
+	with (obj_f3_msg_negativa) instance_destroy();
+	audio_stop_sound(snd_f3_musica);
+	instance_deactivate_all(true);
+	instance_activate_object(obj_controlador_jogo);
+};

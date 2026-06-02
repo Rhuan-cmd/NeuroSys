@@ -416,7 +416,7 @@ if (estado_final != 0) {
     
     draw_set_halign(fa_center);
     draw_set_valign(fa_middle);
-    draw_text_transformed(606, 278 + final_offset, nota_final, 1.22 * escala_texto_f2, 1.22 * escala_texto_f2, 0);
+    draw_text_transformed(606, 284 + final_offset, nota_final, 1.22 * escala_texto_f2, 1.22 * escala_texto_f2, 0);
     draw_set_valign(fa_top);
     
     draw_set_alpha(final_suave * (hover_menu ? 0.34 : 0));

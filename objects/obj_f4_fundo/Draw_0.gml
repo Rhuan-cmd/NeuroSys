@@ -67,3 +67,46 @@ draw_set_color(c_white);
 draw_set_alpha(0.8);
 draw_line_width(0, horizon_y, room_width, horizon_y, 2);
 draw_set_alpha(1);
+
+if (resultado_ativo) {
+    var _suave = resultado_transicao * resultado_transicao * (3 - 2 * resultado_transicao);
+    var _offset = lerp(36, 0, _suave);
+    var _cor = resultado_vitoria ? make_color_rgb(55, 222, 242) : make_color_rgb(255, 78, 105);
+    var _hover_menu = point_in_rectangle(mouse_x, mouse_y, 302, 382 + _offset, 458, 420 + _offset);
+    var _hover_reiniciar = point_in_rectangle(mouse_x, mouse_y, 502, 382 + _offset, 658, 420 + _offset);
+
+    draw_set_alpha(0.86);
+    draw_set_color(c_black);
+    draw_rectangle(0, 0, room_width, room_height, false);
+    draw_set_alpha(_suave);
+    draw_set_color(make_color_rgb(6, 17, 33));
+    draw_rectangle(204, 116 + _offset, 756, 438 + _offset, false);
+    draw_set_color(_cor);
+    draw_rectangle(204, 116 + _offset, 756, 120 + _offset, false);
+    draw_rectangle(204, 434 + _offset, 756, 438 + _offset, false);
+    draw_set_font(fnt_dialogo);
+    draw_set_halign(fa_center);
+    draw_set_color(_cor);
+    draw_text_transformed(480, 148 + _offset, resultado_vitoria ? "CICLO INTERROMPIDO" : "CONEXÃO PERDIDA", 1.24, 1.24, 0);
+    draw_set_color(make_color_rgb(167, 192, 224));
+    draw_text(480, 180 + _offset, resultado_vitoria ? "a rede pode respirar novamente" : "a pressão digital venceu esta tentativa");
+    draw_set_halign(fa_left);
+    draw_set_color(make_color_rgb(105, 224, 246));
+    draw_text(278, 232 + _offset, "VIDAS RESTANTES");
+    draw_text(278, 270 + _offset, "AMEAÇA RESTANTE");
+    draw_text(278, 308 + _offset, "NOTA");
+    draw_set_color(c_white);
+    draw_text(512, 232 + _offset, string(resultado_vidas) + "/4");
+    draw_text(512, 270 + _offset, string(resultado_chefe) + "%");
+    draw_text(512, 308 + _offset, resultado_nota);
+    draw_set_color(_hover_menu ? make_color_rgb(255, 241, 145) : c_white);
+    draw_rectangle(302, 382 + _offset, 458, 420 + _offset, true);
+    draw_set_halign(fa_center);
+    draw_text(380, 394 + _offset, "MENU");
+    draw_set_color(_hover_reiniciar ? make_color_rgb(255, 241, 145) : c_white);
+    draw_rectangle(502, 382 + _offset, 658, 420 + _offset, true);
+    draw_text(580, 394 + _offset, "REINICIAR");
+    draw_set_halign(fa_left);
+    draw_set_alpha(1);
+    draw_set_color(c_white);
+}
