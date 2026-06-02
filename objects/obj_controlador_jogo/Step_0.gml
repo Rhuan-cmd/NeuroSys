@@ -14,12 +14,12 @@ if (keyboard_check_pressed(vk_f11) && global.perf_fullscreen_cooldown <= 0) {
     }
 
     display_set_gui_size(960, 540);
-    if (surface_exists(application_surface)) application_surface_resize(960, 540);
+    if (surface_exists(application_surface)) surface_resize(application_surface, 960, 540);
     global.perf_fullscreen_cooldown = room_speed;
 }
 
 if (surface_exists(application_surface)) {
     if (surface_get_width(application_surface) != 960 || surface_get_height(application_surface) != 540) {
-        application_surface_resize(960, 540);
+        surface_resize(application_surface, 960, 540);
     }
 }
