@@ -39,16 +39,12 @@
     {"$GMFolder":"","%Name":"Interface","folderPath":"folders/Sprites/Interface.yy","name":"Interface","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"BarraVidaChefe","folderPath":"folders/Sprites/Interface/BarraVidaChefe.yy","name":"BarraVidaChefe","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Personagens","folderPath":"folders/Sprites/Personagens.yy","name":"Personagens","resourceType":"GMFolder","resourceVersion":"2.0",},
-    {"$GMFolder":"","%Name":"Videos","folderPath":"folders/Videos.yy","name":"Videos","resourceType":"GMFolder","resourceVersion":"2.0",},
   ],
   "ForcedPrefabProjectReferences":[
     {"link":"io.gamemaker.gmparticlepresets-1.0.0","name":"io.gamemaker.gmparticlepresets-1.0.0","path":"io.gamemaker.gmparticlepresets-1.0.0.yyp",},
     {"link":"io.gamemaker.sdfshaders-1.0.0","name":"io.gamemaker.sdfshaders-1.0.0","path":"io.gamemaker.sdfshaders-1.0.0.yyp",},
   ],
-  "IncludedFiles":[
-    {"$GMIncludedFile":"","%Name":"f2_fundo_loop.mp4","CopyToMask":-1,"filePath":"datafiles","name":"f2_fundo_loop.mp4","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
-    {"$GMIncludedFile":"","%Name":"f2_fundo.mp4","CopyToMask":-1,"filePath":"datafiles","name":"f2_fundo.mp4","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
-  ],
+  "IncludedFiles":[],
   "isEcma":false,
   "LibraryEmitters":[
     {"name":"Emitter1","path":"particlelib/Emitter1/Emitter1.yy",},
