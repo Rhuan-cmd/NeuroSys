@@ -1,6 +1,12 @@
-if (keyboard_check_pressed(vk_f10)) {
+if (keyboard_check_pressed(vk_f3)) {
     global.perf_overlay_ativo = !global.perf_overlay_ativo;
     show_debug_overlay(global.perf_overlay_ativo);
+
+    if (global.perf_overlay_ativo) {
+        window_set_cursor(cr_default);
+    } else {
+        window_set_cursor(cr_none);
+    }
 }
 
 global.perf_fullscreen_cooldown = max(0, global.perf_fullscreen_cooldown - 1);
