@@ -25,7 +25,9 @@ if (tremer){
 }
 
 // Se ainda houver tremor para processar
-if (shake_remain > 0) {
+if (instance_exists(obj_f4_controlador_morte)) {
+    shake_remain = 0;
+} else if (shake_remain > 0) {
     // Escolhe um valor aleatório entre -shake_remain e +shake_remain
     var _x_shake = random_range(-shake_remain, shake_remain);
     var _y_shake = random_range(-shake_remain, shake_remain);

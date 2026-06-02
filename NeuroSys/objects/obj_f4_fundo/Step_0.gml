@@ -28,7 +28,9 @@ if (instance_exists(obj_f4_nave)) {
     camera_offset_x = lerp(camera_offset_x, diff, 0.1); 
 }
 
-if (view_camera[0] != -1 && shake_fx > 0) {
+if (instance_exists(obj_f4_controlador_morte)) {
+    shake_fx = 0;
+} else if (view_camera[0] != -1 && shake_fx > 0) {
     camera_set_view_pos(view_camera[0], sin(current_time * 0.031) * shake_fx, cos(current_time * 0.027) * shake_fx * 0.62);
 } else if (view_camera[0] != -1) {
     camera_set_view_pos(view_camera[0], 0, 0);

@@ -1,12 +1,14 @@
-if (zoom) {
+if (zoom && camera_morte != -1) {
     zoom_atual = lerp(zoom_atual, zoom_alvo, velocidade_zoom);
     var _nova_largura = largura_base * zoom_atual;
     var _nova_altura = altura_base * zoom_atual;
-    camera_set_view_size(view_camera[0], _nova_largura, _nova_altura);
+    var _camera_x = clamp(camera_alvo_x - _nova_largura / 2, 0, room_width - _nova_largura);
+    var _camera_y = clamp(camera_alvo_y - _nova_altura * 0.28, 0, room_height - _nova_altura);
+    camera_set_view_size(camera_morte, _nova_largura, _nova_altura);
     camera_set_view_pos(
-        view_camera[0],
-        clamp(room_width / 2 - _nova_largura / 2, 0, room_width - _nova_largura),
-        clamp(foco_y - _nova_altura * 0.36, 0, room_height - _nova_altura)
+        camera_morte,
+        _camera_x,
+        _camera_y
     );
 }
 
