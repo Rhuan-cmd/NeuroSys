@@ -3,8 +3,8 @@ if (resultado_ativo) {
 	resultado_fade = min(1, resultado_fade + 0.06);
 	if (resultado_fade >= 1 && resultado_timer > 18) resultado_transicao = min(1, resultado_transicao + 0.055);
 	var _offset = lerp(36, 0, resultado_transicao);
-	var _hover_acao = point_in_rectangle(mouse_x, mouse_y, 302, 382 + _offset, 458, 420 + _offset);
-	var _hover_reiniciar = point_in_rectangle(mouse_x, mouse_y, 502, 382 + _offset, 658, 420 + _offset);
+	var _hover_acao = point_in_rectangle(mouse_x, mouse_y, 312, 375 + _offset, 454, 411 + _offset);
+	var _hover_reiniciar = point_in_rectangle(mouse_x, mouse_y, 506, 375 + _offset, 648, 411 + _offset);
 	if (resultado_saida == 0 && mouse_check_button_pressed(mb_left)) {
 		if (_hover_acao) resultado_saida = 1;
 		if (_hover_reiniciar) resultado_saida = 2;
@@ -17,6 +17,8 @@ if (resultado_ativo) {
 	if (resultado_saida == 2) transicao(rm_fase3);
 	return;
 }
+
+tempo_fase++;
 
 var objeto_centro = obj_f3_npc;
 var raio = 96;

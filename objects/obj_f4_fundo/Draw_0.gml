@@ -81,6 +81,8 @@ if (resultado_ativo) {
     var _cor = resultado_vitoria ? make_color_rgb(55, 222, 242) : make_color_rgb(255, 78, 105);
     var _hover_menu = point_in_rectangle(mouse_x, mouse_y, 312, 375 + _offset, 454, 411 + _offset);
     var _hover_reiniciar = point_in_rectangle(mouse_x, mouse_y, 506, 375 + _offset, 648, 411 + _offset);
+    var _segundos = max(0, floor(resultado_tempo / room_speed));
+    var _tempo_txt = string(floor(_segundos / 60)) + ":" + ((_segundos mod 60) < 10 ? "0" : "") + string(_segundos mod 60);
 
     draw_set_alpha(0.86);
     draw_set_color(c_black);
@@ -91,28 +93,29 @@ if (resultado_ativo) {
         draw_rectangle(0, _scan + _offset * 0.25, room_width, _scan + 2 + _offset * 0.25, false);
     }
     draw_set_alpha(_suave);
-    draw_sprite_ext(spr_f2_painel_resultado, resultado_vitoria ? 0 : 1, 480, 270 + _offset, 1, 1, 0, c_white, _suave);
+    draw_sprite_ext(spr_f2_painel_resultado, 1, 480, 270 + _offset, 1, 1, 0, c_white, _suave);
     draw_set_font(fnt_dialogo);
     draw_set_halign(fa_center);
     draw_set_color(_cor);
-    draw_text_transformed(480, 142 + _offset, resultado_vitoria ? "CICLO INTERROMPIDO" : "CONEXÃO PERDIDA", 1.12, 1.12, 0);
+    draw_text_transformed(480, 142 + _offset, "CONEXÃO PERDIDA", 1.12, 1.12, 0);
     draw_set_color(make_color_rgb(167, 192, 224));
-    draw_text(480, 158 + _offset, resultado_vitoria ? "a rede pode respirar novamente" : "a pressão digital venceu esta tentativa");
+    draw_text(480, 158 + _offset, "a pressão digital venceu esta tentativa");
     draw_set_halign(fa_left);
     draw_set_color(make_color_rgb(105, 224, 246));
-    draw_text(286, 226 + _offset, "VIDAS");
-    draw_text(286, 270 + _offset, "AMEAÇA");
-    draw_text(286, 314 + _offset, "NOTA");
+    draw_text(286, 226 + _offset, "NOTA");
+    draw_text(286, 270 + _offset, "ACERTOS");
+    draw_text(286, 314 + _offset, "TEMPO");
     draw_set_color(c_white);
-    draw_text(396, 226 + _offset, string(resultado_vidas) + "/4");
-    draw_text(396, 270 + _offset, string(resultado_chefe) + "%");
-    draw_text(396, 314 + _offset, resultado_nota);
+    draw_text(396, 226 + _offset, resultado_nota);
+    draw_text(396, 270 + _offset, string(resultado_acertos) + "/500");
+    draw_text(396, 314 + _offset, _tempo_txt);
     draw_set_color(_hover_menu ? make_color_rgb(255, 241, 145) : c_white);
     draw_set_halign(fa_center);
-    draw_text(383, 384 + _offset, resultado_vitoria ? "CONTINUAR" : "MENU");
+    draw_text(383, 384 + _offset, "MENU");
     draw_set_color(_hover_reiniciar ? make_color_rgb(255, 241, 145) : c_white);
     draw_text(577, 384 + _offset, "REINICIAR");
     draw_set_halign(fa_left);
     draw_set_alpha(1);
+    draw_sprite(spr_ui_cursor, 0, mouse_x, mouse_y);
     draw_set_color(c_white);
 }

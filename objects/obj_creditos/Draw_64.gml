@@ -27,47 +27,27 @@ draw_set_font(fnt_dialogo);
 draw_set_halign(fa_center);
 draw_set_valign(fa_middle);
 
-if (timer < creditos_inicio) {
-    var _abre = clamp(timer / (room_speed * 0.9), 0, 1);
-    var _some = clamp((creditos_inicio - timer) / (room_speed * 0.85), 0, 1);
-    var _alpha_parabens = min(_abre, _some);
-    draw_set_alpha(_alpha_parabens);
-    draw_set_color(make_color_rgb(94, 238, 255));
-    draw_text_transformed(_w / 2, 214, "PARABÉNS!", 2.1, 2.1, 0);
-    draw_set_color(c_white);
-    draw_text_transformed(_w / 2, 276, "Você interrompeu o ciclo de cyberbullying.", 1.08, 1.08, 0);
-    draw_set_color(make_color_rgb(172, 199, 230));
-    draw_text(_w / 2, 314, "Cada atitude responsável ajuda a tornar a rede mais segura.");
-} else {
-    var _entrada = clamp((timer - creditos_inicio) / (room_speed * 0.8), 0, 1);
-    var _scroll = max(0, (timer - creditos_inicio) * 0.34);
-    draw_set_alpha(_entrada);
-    draw_set_color(make_color_rgb(94, 238, 255));
-    draw_text_transformed(_w / 2, 92 - _scroll * 0.08, "CYBERBULLYING GAME 2.0", 1.45, 1.45, 0);
-    draw_set_color(c_white);
-    draw_text(_w / 2, 160 - _scroll * 0.08, "Uma experiência sobre respeito, apoio e responsabilidade digital.");
-
-    draw_set_color(make_color_rgb(255, 232, 138));
-    draw_text(_w / 2, 242 - _scroll * 0.18, "AGRADECIMENTOS");
-    draw_set_color(c_white);
-    draw_text(_w / 2, 282 - _scroll * 0.18, "IFMA Campus Açailândia");
-    draw_text(_w / 2, 316 - _scroll * 0.18, "Orientador: Valter dos Santos Mendonça Neto");
-
-    draw_set_color(make_color_rgb(255, 232, 138));
-    draw_text(_w / 2, 404 - _scroll * 0.28, "CRIADORES");
-    draw_set_color(c_white);
-    draw_text(_w / 2, 444 - _scroll * 0.28, "Hugo Oliveira Silva");
-    draw_text(_w / 2, 478 - _scroll * 0.28, "Rhuan Gabriel Moura Brasilino");
-
-    if (timer > room_speed * 18) {
-        draw_set_alpha(clamp((timer - room_speed * 18) / (room_speed * 1.2), 0, 1));
-        draw_set_color(make_color_rgb(94, 238, 255));
-        draw_text_transformed(_w / 2, 214, "OBRIGADO POR JOGAR", 1.6, 1.6, 0);
-        draw_set_color(c_white);
-        draw_text(_w / 2, 268, "Leve essa mensagem para além da tela.");
+if (!etapa_final) {
+    var _scroll = max(0, timer - creditos_inicio) * rolagem_velocidade;
+    var _cy = _h + 80 - _scroll;
+    for (var _c = 0; _c < array_length(creditos); _c++) {
+        var _credito = creditos[_c];
+        if (_cy > -180 && _cy < _h + 180) {
+            draw_set_alpha(clamp((timer - creditos_inicio) / (room_speed * 0.8), 0, 1));
+            draw_set_color(_credito.cor);
+            draw_text_ext_transformed(_w / 2, _cy, _credito.texto, 22, 720, _credito.escala, _credito.escala, 0);
+        }
+        _cy += _credito.espaco;
     }
-    if (timer > room_speed * 22) {
-        draw_set_alpha(0.46 + sin(current_time * 0.008) * 0.34);
+} else {
+    var _alpha_final = clamp(timer_final / (room_speed * 1.2), 0, 1);
+    draw_set_alpha(_alpha_final);
+    draw_set_color(make_color_rgb(94, 238, 255));
+    draw_text_transformed(_w / 2, 230, "OBRIGADO POR JOGAR", 1.75, 1.75, 0);
+    draw_set_color(c_white);
+    draw_text(_w / 2, 286, "Leve essa mensagem para alem da tela.");
+    if (timer_final > room_speed * 3 && !encerrando) {
+        draw_set_alpha(_alpha_final * (0.46 + sin(current_time * 0.008) * 0.34));
         draw_set_color(make_color_rgb(255, 232, 138));
         draw_text(_w / 2, 492, "ENTER ou clique para encerrar");
     }

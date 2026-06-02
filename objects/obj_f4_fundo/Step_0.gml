@@ -16,6 +16,8 @@ if (resultado_ativo) {
     return;
 }
 
+tempo_fase++;
+
 corrupt_flash = max(0, corrupt_flash - 0.025);
 shake_fx = max(0, shake_fx - 0.55);
 

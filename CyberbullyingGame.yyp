@@ -192,6 +192,7 @@
     {"id":{"name":"spr_ui_cursor","path":"sprites/spr_ui_cursor/spr_ui_cursor.yy",},},
     {"id":{"name":"spr_f4_nave","path":"sprites/spr_f4_nave/spr_f4_nave.yy",},},
     {"id":{"name":"spr_f3_npc","path":"sprites/spr_f3_npc/spr_f3_npc.yy",},},
+    {"id":{"name":"spr_f3_painel_resultado","path":"sprites/spr_f3_painel_resultado/spr_f3_painel_resultado.yy",},},
     {"id":{"name":"spr_f4_perigo","path":"sprites/spr_f4_perigo/spr_f4_perigo.yy",},},
     {"id":{"name":"spr_ui_pixel","path":"sprites/spr_ui_pixel/spr_ui_pixel.yy",},},
     {"id":{"name":"spr_pc_cartazes","path":"sprites/spr_pc_cartazes/spr_pc_cartazes.yy",},},

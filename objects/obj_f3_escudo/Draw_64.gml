@@ -6,11 +6,17 @@ if (resultado_ativo) {
 	var _cor = resultado_vitoria ? make_color_rgb(55, 222, 242) : make_color_rgb(255, 78, 105);
 	var _hover_acao = point_in_rectangle(mouse_x, mouse_y, 312, 375 + _offset, 454, 411 + _offset);
 	var _hover_reiniciar = point_in_rectangle(mouse_x, mouse_y, 506, 375 + _offset, 648, 411 + _offset);
+	var _segundos = max(0, floor(resultado_tempo / room_speed));
+	var _tempo_txt = string(floor(_segundos / 60)) + ":" + ((_segundos mod 60) < 10 ? "0" : "") + string(_segundos mod 60);
 
 	draw_set_alpha(resultado_fade);
 	draw_set_color(c_black);
 	draw_rectangle(0, 0, _gui_w, _gui_h, false);
-	if (resultado_transicao <= 0) exit;
+	if (resultado_transicao <= 0) {
+		draw_set_alpha(1);
+		draw_sprite(spr_ui_cursor, 0, mouse_x, mouse_y);
+		exit;
+	}
 
 	draw_set_alpha(0.22 * _suave);
 	draw_set_color(_cor);
@@ -18,7 +24,7 @@ if (resultado_ativo) {
 		draw_rectangle(0, _scan + _offset * 0.25, _gui_w, _scan + 2 + _offset * 0.25, false);
 	}
 	draw_set_alpha(_suave);
-	draw_sprite_ext(spr_f2_painel_resultado, resultado_vitoria ? 0 : 1, 480, 270 + _offset, 1, 1, 0, c_white, _suave);
+	draw_sprite_ext(spr_f3_painel_resultado, resultado_vitoria ? 0 : 1, 480, 270 + _offset, 1, 1, 0, c_white, _suave);
 	draw_set_font(fnt_dialogo);
 	draw_set_halign(fa_center);
 	draw_set_color(_cor);
@@ -27,11 +33,13 @@ if (resultado_ativo) {
 	draw_text(480, 158 + _offset, resultado_vitoria ? "a origem dos ataques foi localizada" : "a pessoa precisa de uma nova tentativa");
 	draw_set_halign(fa_left);
 	draw_set_color(make_color_rgb(116, 231, 255));
-	draw_text(286, 246 + _offset, "ATAQUES");
-	draw_text(286, 302 + _offset, "CONFIANÇA");
+	draw_text(286, 226 + _offset, "ACERTOS");
+	draw_text(286, 270 + _offset, "TEMPO");
+	draw_text(286, 314 + _offset, "NOTA");
 	draw_set_color(c_white);
-	draw_text(396, 246 + _offset, string(destruidos) + "/50");
-	draw_text(396, 302 + _offset, string(resultado_felicidade) + "/5");
+	draw_text(396, 226 + _offset, string(destruidos) + "/50");
+	draw_text(396, 270 + _offset, _tempo_txt);
+	draw_text(396, 314 + _offset, resultado_nota);
 	draw_set_halign(fa_center);
 	draw_set_color(_hover_acao ? make_color_rgb(255, 246, 152) : c_white);
 	draw_text(383, 384 + _offset, resultado_vitoria ? "CONTINUAR" : "MENU");
@@ -39,6 +47,7 @@ if (resultado_ativo) {
 	draw_text(577, 384 + _offset, "REINICIAR");
 	draw_set_halign(fa_left);
 	draw_set_alpha(1);
+	draw_sprite(spr_ui_cursor, 0, mouse_x, mouse_y);
 	draw_set_color(c_white);
 	exit;
 }
