@@ -1,4 +1,4 @@
-entrada_fade = max(0, entrada_fade - 0.025);
+entrada_fade = max(0, entrada_fade - 1 / (room_speed * 2.3));
 
 if (introducao_ativa && entrada_fade <= 0.72) {
     var _texto = dialogo_textos[dialogo_index];

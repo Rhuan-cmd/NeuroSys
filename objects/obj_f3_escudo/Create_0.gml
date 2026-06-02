@@ -29,7 +29,8 @@ exibir_resultado = function(_vitoria) {
 	resultado_transicao = 0;
 	resultado_saida = 0;
 	resultado_tempo = tempo_fase;
-	resultado_nota = string(clamp(round((destruidos / 50) * 10), 0, 10)) + "/10";
+	var _nota_limite = _vitoria ? 10 : 9;
+	resultado_nota = string(clamp(round((destruidos / 50) * 10), 0, _nota_limite)) + "/10";
 	with (obj_f3_msg_negativa) instance_destroy();
 	audio_stop_all();
 	audio_play_sound(_vitoria ? snd_f2_vitoria : snd_f2_derrota, 4, false, _vitoria ? 0.95 : 0.86);

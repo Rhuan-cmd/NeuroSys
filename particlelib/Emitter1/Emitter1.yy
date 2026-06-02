@@ -35,8 +35,8 @@
   "orientationRelative":false,
   "orientationWiggle":0.0,
   "parent":{
-    "name":"CyberbullyingGame",
-    "path":"CyberbullyingGame.yyp",
+    "name":"NeuroSys",
+    "path":"NeuroSys.yyp",
   },
   "regionH":64.0,
   "regionW":64.0,

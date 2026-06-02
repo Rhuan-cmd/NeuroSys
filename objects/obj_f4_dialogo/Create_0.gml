@@ -23,4 +23,4 @@ pontos_borda = 14;
 offsets_borda = array_create(pontos_borda, 0); 
 intensidade_glitch = 4;
 
-alarm[0] = 72;
+alarm[0] = ceil(room_speed * 2.4);

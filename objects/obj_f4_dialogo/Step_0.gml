@@ -1,4 +1,4 @@
-entrada_fade = max(0, entrada_fade - 0.025);
+entrada_fade = max(0, entrada_fade - 1 / (room_speed * 2.4));
 
 // 1. Lógica de animação de entrada e saída
 if (estado == "abrindo") {

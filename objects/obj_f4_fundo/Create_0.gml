@@ -41,7 +41,7 @@ exibir_resultado = function(_vitoria) {
     resultado_saida = 0;
     resultado_acertos = instance_exists(obj_f4_chefe) ? max(0, round((obj_f4_chefe.vidaMax - obj_f4_chefe.vida) / 2)) : 0;
     resultado_tempo = tempo_fase;
-    resultado_nota = string(clamp(round((resultado_acertos / 500) * 10), 0, 10)) + "/10";
+    resultado_nota = string(clamp(round((resultado_acertos / 500) * 10), 0, 9)) + "/10";
     with (obj_controlador_jogo) cursor_sprite = spr_ui_cursor;
     if (view_camera[0] != -1) {
         camera_set_view_size(view_camera[0], room_width, room_height);

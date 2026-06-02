@@ -39,23 +39,27 @@ if (!etapa_final) {
         _cy += _credito.espaco;
     }
 
-    var _hint_alpha = 0.72 + sin(current_time * 0.008) * 0.18;
-    var _hint_x1 = _w - 260;
-    var _hint_y1 = _h - 72;
-    draw_set_alpha(0.72);
-    draw_set_color(make_color_rgb(5, 18, 34));
+    var _hint_alpha = 0.74 + sin(current_time * 0.006) * 0.12;
+    var _hint_x1 = _w - 278;
+    var _hint_y1 = _h - 92;
+    draw_set_alpha(0.78);
+    draw_set_color(make_color_rgb(4, 15, 30));
     draw_roundrect(_hint_x1, _hint_y1, _w - 18, _h - 18, false);
+    draw_set_alpha(0.48);
+    draw_set_color(make_color_rgb(31, 109, 142));
+    draw_roundrect(_hint_x1 + 5, _hint_y1 + 5, _w - 23, _h - 23, true);
     draw_set_alpha(_hint_alpha);
     draw_set_color(make_color_rgb(94, 238, 255));
     draw_roundrect(_hint_x1 + 2, _hint_y1 + 2, _w - 20, _h - 20, true);
+    draw_set_alpha(0.9);
+    draw_set_color(make_color_rgb(94, 238, 255));
+    draw_rectangle(_hint_x1 + 14, _hint_y1 + 18, _hint_x1 + 18, _h - 36, false);
     draw_set_halign(fa_left);
     draw_set_color(c_white);
-    draw_text(_hint_x1 + 18, _hint_y1 + 14, "SEGURE ENTER");
+    draw_text(_hint_x1 + 30, _hint_y1 + 20, "SEGURE ENTER");
     draw_set_color(make_color_rgb(172, 224, 255));
-    draw_text(_hint_x1 + 18, _hint_y1 + 34, "para acelerar os créditos");
+    draw_text(_hint_x1 + 30, _hint_y1 + 48, "para acelerar os créditos");
     draw_set_halign(fa_center);
-    draw_set_color(make_color_rgb(255, 232, 138));
-    draw_text(_w - 40, _hint_y1 + 22 + sin(current_time * 0.012) * 5, ">>");
 } else {
     var _alpha_final = clamp(timer_final / (room_speed * 1.2), 0, 1);
     draw_set_alpha(_alpha_final);
