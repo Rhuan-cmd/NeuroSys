@@ -1,8 +1,10 @@
 if (resultado_ativo) {
     resultado_transicao = min(1, resultado_transicao + 0.055);
     var _offset = lerp(36, 0, resultado_transicao);
-    var _hover_menu = point_in_rectangle(mouse_x, mouse_y, 312, 375 + _offset, 454, 411 + _offset);
-    var _hover_reiniciar = point_in_rectangle(mouse_x, mouse_y, 506, 375 + _offset, 648, 411 + _offset);
+    var _mouse_gui_x = device_mouse_x_to_gui(0);
+    var _mouse_gui_y = device_mouse_y_to_gui(0);
+    var _hover_menu = point_in_rectangle(_mouse_gui_x, _mouse_gui_y, 312, 375 + _offset, 454, 411 + _offset);
+    var _hover_reiniciar = point_in_rectangle(_mouse_gui_x, _mouse_gui_y, 506, 375 + _offset, 648, 411 + _offset);
     if (resultado_saida == 0 && mouse_check_button_pressed(mb_left)) {
         if (_hover_menu) resultado_saida = 1;
         if (_hover_reiniciar) resultado_saida = 2;
