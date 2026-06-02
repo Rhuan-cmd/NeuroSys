@@ -2,8 +2,10 @@ timer++;
 fade_entrada = max(0, fade_entrada - 0.025);
 
 if (!etapa_final) {
-    var _scroll = max(0, timer - creditos_inicio) * rolagem_velocidade;
-    if (_scroll > creditos_altura + display_get_gui_height() + 80) {
+    if (timer > creditos_inicio) {
+        creditos_scroll += rolagem_velocidade * (keyboard_check(vk_enter) ? 3.6 : 1);
+    }
+    if (creditos_scroll > creditos_altura + display_get_gui_height() + 80) {
         etapa_final = true;
         timer_final = 0;
     }

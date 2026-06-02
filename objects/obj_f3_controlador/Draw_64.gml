@@ -27,6 +27,18 @@ if (entrada_fade > 0) {
     draw_set_alpha(entrada_fade);
     draw_set_color(c_black);
     draw_rectangle(0, 0, _gui_w, _gui_h, false);
+
+    var _titulo_t = 1 - entrada_fade;
+    draw_set_alpha(sin(_titulo_t * pi));
+    draw_set_halign(fa_center);
+    draw_set_valign(fa_middle);
+    draw_set_font(fnt_dialogo);
+    draw_set_color(c_white);
+    draw_text_transformed(_gui_w / 2, _gui_h / 2 - 28, "FASE 3", 1.9, 1.9, 0);
+    draw_set_color(make_color_rgb(112, 230, 250));
+    draw_text_transformed(_gui_w / 2, _gui_h / 2 + 18, "REDE DE APOIO", 1.12, 1.12, 0);
+    draw_set_halign(fa_left);
+    draw_set_valign(fa_top);
     draw_set_alpha(1);
 }
 

@@ -25,8 +25,14 @@ function retornar_sorteaveis(){
 function sortear_celula(){
 	var array = retornar_sorteaveis();
 	
-	if (ds_list_size(array) <= 1){
-		return false;
+	if (ds_list_size(array) <= 0){
+		ds_list_destroy(array);
+		for (var i = 0; i < 2; i++){
+			for (var e = 0; e < 4; e++){
+				matriz[i][e] = 0;
+			}
+		}
+		array = retornar_sorteaveis();
 	}
 	
 	
@@ -38,10 +44,12 @@ function sortear_celula(){
 	var linha = real(itensArray[0]);
 	var coluna = real(itensArray[1]);
 	
-	return {
+	var resultado = {
 		linha: linha,
 		coluna: coluna
-		}
+	};
+	ds_list_destroy(array);
+	return resultado;
 }
 
 function spawnar_ataque(){

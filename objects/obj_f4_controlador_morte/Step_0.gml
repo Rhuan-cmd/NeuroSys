@@ -6,7 +6,7 @@ if (zoom) {
     camera_set_view_pos(
         view_camera[0],
         clamp(foco_x - _nova_largura / 2, 0, room_width - _nova_largura),
-        clamp(foco_y - _nova_altura / 2, 0, room_height - _nova_altura)
+        clamp(foco_y - _nova_altura * 0.36, 0, room_height - _nova_altura)
     );
 }
 
@@ -21,7 +21,12 @@ if (mover) {
 }
 
 if (encerrando) {
+    if (!audio_fade_iniciado) {
+        audio_sound_gain(snd_f4_chefe_derrotado, 0, 3600);
+        audio_sound_gain(snd_f4_musica_chefe, 0, 3600);
+        audio_fade_iniciado = true;
+    }
     timer_encerramento++;
-    fade_saida = min(1, fade_saida + 1 / (room_speed * 1.35));
-    if (timer_encerramento >= room_speed * 3) room_goto(rm_creditos);
+    fade_saida = min(1, fade_saida + 1 / (room_speed * 3.6));
+    if (timer_encerramento >= room_speed * 4) room_goto(rm_creditos);
 }
