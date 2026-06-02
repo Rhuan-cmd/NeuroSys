@@ -1,6 +1,7 @@
 entrada_fade = max(0, entrada_fade - 1 / (room_speed * 2.3));
 
 if (introducao_ativa && entrada_fade <= 0.72) {
+    dialogo_abertura = lerp(dialogo_abertura, 1, 0.14);
     var _texto = dialogo_textos[dialogo_index];
     if (dialogo_chars < string_length(_texto)) {
         dialogo_chars = min(string_length(_texto), dialogo_chars + dialogo_velocidade);

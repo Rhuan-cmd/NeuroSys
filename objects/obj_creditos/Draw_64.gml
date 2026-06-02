@@ -56,9 +56,7 @@ if (!etapa_final) {
     draw_rectangle(_hint_x1 + 14, _hint_y1 + 18, _hint_x1 + 18, _h - 36, false);
     draw_set_halign(fa_left);
     draw_set_color(c_white);
-    draw_text(_hint_x1 + 30, _hint_y1 + 20, "SEGURE ENTER");
-    draw_set_color(make_color_rgb(172, 224, 255));
-    draw_text(_hint_x1 + 30, _hint_y1 + 48, "para acelerar os créditos");
+    draw_text_ext(_hint_x1 + 30, _hint_y1 + 18, "SEGURE ENTER\npara acelerar os créditos", 20, 240);
     draw_set_halign(fa_center);
 } else {
     var _alpha_final = clamp(timer_final / (room_speed * 1.2), 0, 1);

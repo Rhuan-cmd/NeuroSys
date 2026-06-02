@@ -3,6 +3,7 @@ introducao_ativa = true;
 dialogo_index = 0;
 dialogo_chars = 0;
 dialogo_velocidade = 0.62;
+dialogo_abertura = 0;
 dialogo_textos = [
     "Depois de conter os ataques na postagem e no chat, você percebe que o problema não termina quando uma janela é fechada.",
     "Uma pessoa está cercada por mensagens hostis. Agora você precisa agir antes que a pressão digital chegue até ela.",

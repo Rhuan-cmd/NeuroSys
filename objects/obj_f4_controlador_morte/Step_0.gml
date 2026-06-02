@@ -5,7 +5,7 @@ if (zoom) {
     camera_set_view_size(view_camera[0], _nova_largura, _nova_altura);
     camera_set_view_pos(
         view_camera[0],
-        clamp(foco_camera_x - _nova_largura / 2, 0, room_width - _nova_largura),
+        clamp(room_width / 2 - _nova_largura / 2, 0, room_width - _nova_largura),
         clamp(foco_y - _nova_altura * 0.36, 0, room_height - _nova_altura)
     );
 }
@@ -30,5 +30,8 @@ if (encerrando) {
     if (timer_encerramento > espera_fade) {
         fade_saida = min(1, fade_saida + 1 / duracao_fade);
     }
-    if (fade_saida >= 1) room_goto(rm_creditos);
+    if (fade_saida >= 1) {
+        timer_preto++;
+        if (timer_preto >= room_speed * 3) room_goto(rm_creditos);
+    }
 }

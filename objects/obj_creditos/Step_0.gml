@@ -1,5 +1,5 @@
 timer++;
-fade_entrada = max(0, fade_entrada - 0.025);
+fade_entrada = max(0, fade_entrada - 1 / (room_speed * 2));
 
 if (!etapa_final) {
     if (timer > creditos_inicio) {
