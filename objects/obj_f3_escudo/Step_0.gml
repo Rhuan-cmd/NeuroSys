@@ -1,6 +1,7 @@
 if (resultado_ativo) {
 	resultado_timer++;
-	resultado_transicao = min(1, resultado_transicao + 0.055);
+	resultado_fade = min(1, resultado_fade + 0.06);
+	if (resultado_fade >= 1 && resultado_timer > 18) resultado_transicao = min(1, resultado_transicao + 0.055);
 	var _offset = lerp(36, 0, resultado_transicao);
 	var _hover_acao = point_in_rectangle(mouse_x, mouse_y, 302, 382 + _offset, 458, 420 + _offset);
 	var _hover_reiniciar = point_in_rectangle(mouse_x, mouse_y, 502, 382 + _offset, 658, 420 + _offset);

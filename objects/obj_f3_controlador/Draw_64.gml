@@ -6,6 +6,7 @@ if (introducao_ativa && entrada_fade < 0.86) {
     var _visivel = string_copy(_texto, 1, floor(dialogo_chars));
     var _pulso = 0.62 + sin(current_time * 0.008) * 0.22;
 
+    draw_sprite_ext(spr_f3_instrucao1, 0, _gui_w / 2, 112 + sin(current_time * 0.004) * 4, 2, 2, 0, c_white, 0.82);
     draw_set_alpha(0.78);
     draw_set_color(make_color_rgb(5, 13, 28));
     draw_rectangle(88, 324, _gui_w - 88, 486, false);

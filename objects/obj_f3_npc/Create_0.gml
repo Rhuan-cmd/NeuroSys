@@ -11,6 +11,7 @@ atualizar_felicidade = total_felicidade;
 cor_barra =  make_color_rgb(3, 255, 0);
 
 perdeu = false;
+corrupt_flash = 0;
 
 image_speed = 0;
 

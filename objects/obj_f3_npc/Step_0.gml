@@ -1,3 +1,5 @@
+corrupt_flash = max(0, corrupt_flash - 0.025);
+
 if (zoom){
 	// 2. Suavização do valor do Zoom
 	// O lerp faz o zoom_atual "caminhar" até o zoom_alvo aos poucos

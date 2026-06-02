@@ -24,6 +24,8 @@ resultado_saida = 0;
 resultado_vidas = 0;
 resultado_chefe = 0;
 resultado_nota = "0/10";
+corrupt_flash = 0;
+shake_fx = 0;
 
 exibir_resultado = function(_vitoria) {
     if (resultado_ativo) return;

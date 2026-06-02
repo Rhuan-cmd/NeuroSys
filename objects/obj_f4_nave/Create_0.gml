@@ -43,6 +43,10 @@ function tomar_dano(){
 	
 	vida--;
 	flash_vermelho = 1;
+	if (instance_exists(obj_f4_fundo)) {
+		obj_f4_fundo.corrupt_flash = 1;
+		obj_f4_fundo.shake_fx = 12 + (4 - vida) * 4;
+	}
 	imune = true;
 	alarm[1] = 60;
 	if (instance_exists(obj_f4_barra_vida_jogador)){
