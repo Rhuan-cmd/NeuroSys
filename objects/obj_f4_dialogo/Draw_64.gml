@@ -24,10 +24,10 @@ if (abertura > 0) {
     var _foto_y = _y1 + (_altura / 2) - 45;
 
     if (abertura > 0.5) {
-        for (var j = 0; j < 5; j++) {
-            var _yy = j * 18;
+        for (var j = 0; j < 3; j++) {
+            var _yy = j * 30;
             var _sh = random_range(-intensidade_glitch / 2, intensidade_glitch / 2);
-            draw_sprite_part_ext(sprite_rosto, 0, 0, _yy, 100, 18, _foto_x + _sh, _foto_y + _yy, 0.9, 0.9, c_white, 1);
+            draw_sprite_part_ext(sprite_rosto, 0, 0, _yy, 100, 30, _foto_x + _sh, _foto_y + _yy, 0.9, 0.9, c_white, 1);
         }
     }
 

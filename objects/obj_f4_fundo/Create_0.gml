@@ -4,7 +4,7 @@ horizon_y = room_height / 2;
 camera_offset_x = 0; 
 
 // --- 1. Poeiras/Partículas 3D ---
-num_poeiras = 80;
+num_poeiras = 42;
 for (var i = 0; i < num_poeiras; i++) {
     // Espalhamos a poeira por uma área bem grande
     poeira_x[i] = random_range(-room_width, room_width * 2);
@@ -13,7 +13,7 @@ for (var i = 0; i < num_poeiras; i++) {
 }
 
 // --- 2. Equalizador de Áudio (Ondas) ---
-num_barras = 80; // Quantidade de barras (quanto mais, mais grudadas)
+num_barras = 48; // Mantém a onda legível com menos cálculos por quadro.
 // A largura total da onda vai ser o DOBRO da tela, para termos sobra nas laterais
 barra_w = (room_width * 2) / num_barras;
 
@@ -48,6 +48,7 @@ exibir_resultado = function(_vitoria) {
         camera_set_view_pos(view_camera[0], 0, 0);
     }
     audio_stop_all();
+    audio_play_sound(snd_f2_derrota, 4, false, 0.86);
     instance_deactivate_all(true);
     instance_activate_object(obj_controlador_jogo);
 };

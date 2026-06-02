@@ -1,6 +1,6 @@
 // ===== RASTRO DO X DURANTE A FUGA =====
 if (!modo_intro) {
-    for (var rastro_i = 0; rastro_i < 5; rastro_i++) {
+    for (var rastro_i = 0; rastro_i < 3; rastro_i++) {
         if (rastro_alpha[rastro_i] > 0) {
             var rastro_escala = image_xscale * (0.78 + rastro_alpha[rastro_i] * 0.12);
             draw_sprite_ext(

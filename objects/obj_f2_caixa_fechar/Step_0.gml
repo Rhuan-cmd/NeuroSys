@@ -26,12 +26,12 @@ trocar_alvo_timer--;
 rastro_tick++;
 if (rastro_tick >= 3) {
     rastro_tick = 0;
-    rastro_indice = (rastro_indice + 1) mod 5;
+    rastro_indice = (rastro_indice + 1) mod 3;
     rastro_x[rastro_indice] = x;
     rastro_y[rastro_indice] = y;
     rastro_alpha[rastro_indice] = 1;
 }
-for (var rastro_i = 0; rastro_i < 5; rastro_i++) {
+for (var rastro_i = 0; rastro_i < 3; rastro_i++) {
     rastro_alpha[rastro_i] = max(0, rastro_alpha[rastro_i] - 0.085);
 }
 

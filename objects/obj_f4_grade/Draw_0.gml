@@ -13,7 +13,7 @@ draw_set_alpha(0.15 * abertura);
 draw_set_color(c_black);
 draw_rectangle(_x1, _y1, _x2, _y2, false);
 
-for (var i = 0; i < 30; i++) {
+for (var i = 0; i < 12; i++) {
     draw_set_color(choose(c_white, cor_base, c_red));
     draw_point(random_range(_x1, _x2), random_range(_y1, _y2));
 }

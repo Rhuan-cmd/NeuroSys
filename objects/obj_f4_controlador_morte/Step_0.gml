@@ -1,26 +1,27 @@
-if (zoom){
-	// 2. Suavização do valor do Zoom
-	// O lerp faz o zoom_atual "caminhar" até o zoom_alvo aos poucos
-	zoom_atual = lerp(zoom_atual, zoom_alvo, velocidade_zoom);
+if (zoom) {
+    zoom_atual = lerp(zoom_atual, zoom_alvo, velocidade_zoom);
+    var _nova_largura = largura_base * zoom_atual;
+    var _nova_altura = altura_base * zoom_atual;
+    camera_set_view_size(view_camera[0], _nova_largura, _nova_altura);
+    camera_set_view_pos(
+        view_camera[0],
+        clamp(foco_x - _nova_largura / 2, 0, room_width - _nova_largura),
+        clamp(foco_y - _nova_altura / 2, 0, room_height - _nova_altura)
+    );
+}
 
-	// 3. Calcular o novo tamanho da visão
-	var nova_largura = largura_base * zoom_atual;
-	var nova_altura = altura_base * zoom_atual;
+if (mover) {
+    yboss = lerp(yboss, yvilaodestino, 0.1);
+    if (yboss >= yvilaodestino - 2 && !ajeitar) {
+        mover = false;
+        yboss = yvilaodestino;
+        alarm[2] = 60;
+        ajeitar = true;
+    }
+}
 
-	// 4. Aplicar o novo tamanho à câmera
-	camera_set_view_size(view_camera[0], nova_largura, nova_altura);
-
-	// 5. Reposicionar a câmera para centralizar no alvo
-	if (instance_exists(obj_f4_chefe)) {
-	    // Calculamos onde o X e Y devem estar para o alvo ficar no CENTRO
-	    var vx = obj_f4_chefe.x - (nova_largura / 2);
-	    var vy = obj_f4_chefe.y - (nova_altura / 2);
-
-	    // Opcional: Impedir que a câmera mostre o "vazio" fora da sala (bordas)
-	    vx = clamp(vx, 0, room_width - nova_largura);
-	    vy = clamp(vy, 0, room_height - nova_altura);
-
-	    // Aplica a nova posição
-	    camera_set_view_pos(view_camera[0], vx, vy);
-	}
+if (encerrando) {
+    timer_encerramento++;
+    fade_saida = min(1, fade_saida + 1 / (room_speed * 1.35));
+    if (timer_encerramento >= room_speed * 3) room_goto(rm_creditos);
 }

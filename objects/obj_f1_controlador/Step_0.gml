@@ -13,14 +13,14 @@ tremor_x = sin(visual_timer * 0.31) * _forca_tremor;
 tremor_y = cos(visual_timer * 0.27) * _forca_tremor * 0.55;
 audio_mix_timer--;
 if (estado < 3 && audio_mix_timer <= 0) {
-    if (ambiente_audio == -1 || !audio_is_playing(ambiente_audio)) ambiente_audio = audio_play_sound(snd_f1_musica, 1, true, 0.52);
+    if (ambiente_audio == -1 || !audio_is_playing(ambiente_audio)) ambiente_audio = audio_play_sound(snd_f1_musica, 1, true, 0.68);
     var _mix_corrupcao = estado == 2 ? clamp(_corrupcao_tremor, 0, 1) : 0;
     var _mix_suave = _mix_corrupcao * _mix_corrupcao * (3 - 2 * _mix_corrupcao);
     if (ambiente_corrupto_audio == -1 || !audio_is_playing(ambiente_corrupto_audio)) {
         audio_stop_sound(snd_f1_tensao);
         ambiente_corrupto_audio = audio_play_sound(snd_f1_tensao, 1, true, 0);
     }
-    audio_sound_gain(ambiente_audio, lerp(0.52, 0.16, _mix_suave), 180);
+    audio_sound_gain(ambiente_audio, lerp(0.68, 0.2, _mix_suave), 180);
     audio_sound_gain(ambiente_corrupto_audio, lerp(0, 0.78, _mix_suave), 180);
     audio_mix_timer = 12;
 }

@@ -23,5 +23,5 @@ function criar_explosao_particulas(_x, _y, _cor, _qtd, _escala){
     part_type_color1(global.pt_universal, _cor);
     
     // Cria as partículas
-    part_particles_create(global.ps, _x, _y, global.pt_universal, _qtd);
+    part_particles_create(global.ps, _x, _y, global.pt_universal, min(_qtd, 24));
 }

@@ -12,7 +12,7 @@ draw_set_color(make_color_rgb(8, 20, 38));
 draw_rectangle(0, 0, room_width, room_height, false);
 draw_set_alpha(0.12);
 draw_set_color(make_color_rgb(70, 191, 234));
-for (var _linha = 0; _linha < room_height; _linha += 10) draw_line(0, _linha, room_width, _linha);
+for (var _linha = 0; _linha < room_height; _linha += 20) draw_line(0, _linha, room_width, _linha);
 draw_set_alpha(1);
 
 draw_set_color(make_color_rgb(3, 8, 17));

@@ -74,8 +74,8 @@ if (cursor_visivel) {
     if (congelado_timer > 0) {
         var contorno_cor = make_color_rgb(12, 62, 116);
         draw_set_alpha(cursor_alpha * 0.96);
-        for (var contorno_i = 0; contorno_i < 8; contorno_i++) {
-            var contorno_dir = contorno_i * 45;
+        for (var contorno_i = 0; contorno_i < 4; contorno_i++) {
+            var contorno_dir = contorno_i * 90;
             draw_sprite_ext(
                 spr_f2_cursor,
                 0,
@@ -121,8 +121,8 @@ if (cursor_visivel) {
         var quebra_t = 1 - gelo_quebra_timer / 18;
         draw_set_alpha(1 - quebra_t);
         draw_set_color(make_color_rgb(164, 239, 255));
-        for (var gelo_i = 0; gelo_i < 8; gelo_i++) {
-            var gelo_dir = gelo_i * 45 + 18;
+        for (var gelo_i = 0; gelo_i < 5; gelo_i++) {
+            var gelo_dir = gelo_i * 72 + 18;
             var gelo_dist = lerp(8, 42, quebra_t);
             var pedaco_x = cursor_x + lengthdir_x(gelo_dist, gelo_dir);
             var pedaco_y = cursor_y + lengthdir_y(gelo_dist, gelo_dir);

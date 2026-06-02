@@ -31,7 +31,8 @@ exibir_resultado = function(_vitoria) {
 	resultado_tempo = tempo_fase;
 	resultado_nota = string(clamp(round((destruidos / 50) * 10), 0, 10)) + "/10";
 	with (obj_f3_msg_negativa) instance_destroy();
-	audio_stop_sound(snd_f3_musica);
+	audio_stop_all();
+	audio_play_sound(_vitoria ? snd_f2_vitoria : snd_f2_derrota, 4, false, _vitoria ? 0.95 : 0.86);
 	instance_deactivate_all(true);
 	instance_activate_object(obj_controlador_jogo);
 };

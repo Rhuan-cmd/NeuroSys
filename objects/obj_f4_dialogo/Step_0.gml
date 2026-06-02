@@ -9,7 +9,8 @@ if (estado == "abrindo") {
     }
 } else if (estado == "fechando") {
     abertura = lerp(abertura, 0, 0.2);
-    if (abertura < 0.05) instance_destroy();
+    troca_audio_timer = max(0, troca_audio_timer - 1);
+    if (abertura < 0.05 && troca_audio_timer <= 0) instance_destroy();
 }
 
 // 2. Máquina de escrever e avanço do diálogo
@@ -29,7 +30,10 @@ if (estado == "ativo") {
             tamanho_texto = 0;
             if (pagina_atual >= array_length(textos)) {
                 estado = "fechando";
-                audio_play_sound(snd_f4_musica_chefe, 1, 1);
+                audio_sound_gain(cutscene_audio, 0, 900);
+                var _musica_fase = audio_play_sound(snd_f4_musica_chefe, 1, true, 0);
+                audio_sound_gain(_musica_fase, 0.82, 900);
+                troca_audio_timer = ceil(room_speed * 0.9);
             } else {
                 audio_play_sound(snd_f4_dialogo, 1, 0);
             }
@@ -38,6 +42,9 @@ if (estado == "ativo") {
 }
 
 // 3. Movimento sutil das bordas irregulares
-for (var i = 0; i < pontos_borda; i++) {
-    offsets_borda[i] = random_range(-intensidade_glitch, intensidade_glitch); 
+glitch_timer++;
+if (glitch_timer mod 3 == 0) {
+    for (var i = 0; i < pontos_borda; i++) {
+        offsets_borda[i] = random_range(-intensidade_glitch, intensidade_glitch);
+    }
 }

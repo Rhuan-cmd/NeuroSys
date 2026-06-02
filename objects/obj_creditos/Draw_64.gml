@@ -5,7 +5,7 @@ var _t = timer / room_speed;
 draw_set_color(make_color_rgb(3, 9, 22));
 draw_rectangle(0, 0, _w, _h, false);
 
-for (var _i = 0; _i < 34; _i++) {
+for (var _i = 0; _i < 18; _i++) {
     var _sx = (_i * 83 + timer * (0.24 + (_i mod 3) * 0.08)) mod (_w + 80) - 40;
     var _sy = 40 + ((_i * 47) mod (_h - 80));
     draw_set_alpha(0.12 + ((_i mod 4) * 0.035));

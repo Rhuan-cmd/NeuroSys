@@ -2,6 +2,11 @@ var centro_x = obj_f3_npc.x;
 var centro_y = obj_f3_npc.y;
 var margem = 100;
 
+if (instance_number(obj_f3_msg_negativa) >= 30) {
+    alarm[0] = 8;
+    exit;
+}
+
 // 1. Sorteia de onde ele vai vir (Seu código original)
 var lado = irandom(3);
 var spawn_x, spawn_y;

@@ -42,7 +42,7 @@ tremor_x = 0;
 tremor_y = 0;
 audio_stop_sound(snd_f1_musica);
 audio_stop_sound(snd_f1_tensao);
-ambiente_audio = audio_play_sound(snd_f1_musica, 1, true, 0.52);
+ambiente_audio = audio_play_sound(snd_f1_musica, 1, true, 0.68);
 ambiente_corrupto_audio = audio_play_sound(snd_f1_tensao, 1, true, 0);
 audio_mix_timer = 0;
 cursor_cutscene_x = 480;
@@ -95,7 +95,7 @@ desenhar_corrupcao_otimizada = function(_forca, _flash) {
     var _nivel = clamp(_forca + _flash * 0.72, 0, 1);
     if (_nivel <= 0) return;
     var _pulso = 0.72 + sin(current_time * 0.014) * 0.16;
-    var _frame = floor(current_time / 95) mod sprite_get_number(spr_fx_corrupcao);
+    var _frame = floor(current_time / 140) mod sprite_get_number(spr_fx_corrupcao);
     draw_sprite_ext(spr_fx_corrupcao, _frame, 0, 0, room_width / sprite_get_width(spr_fx_corrupcao), room_height / sprite_get_height(spr_fx_corrupcao), 0, c_white, (0.16 + _nivel * 0.34) * _pulso);
 };
 
