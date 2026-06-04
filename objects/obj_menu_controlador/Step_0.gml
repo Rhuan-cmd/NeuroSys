@@ -3,8 +3,20 @@ menu_timer += 1;
 
 var mx = device_mouse_x_to_gui(0);
 var my = device_mouse_y_to_gui(0);
-var em_monitor = mx >= monitor_left && mx <= monitor_right && my >= monitor_top && my <= monitor_bottom;
-monitor_hover = lerp(monitor_hover, em_monitor ? 1 : 0, 0.18);
+botao_hover = -1;
+
+for (var i = 0; i < array_length(botao_sprite); i += 1) {
+    var spr = botao_sprite[i];
+    var bw = sprite_get_width(spr);
+    var bh = sprite_get_height(spr);
+    var bx = botao_x;
+    var by = botao_y[i];
+
+    if (mx >= bx - bw * 0.5 && mx <= bx + bw * 0.5 && my >= by - bh * 0.5 && my <= by + bh * 0.5) {
+        botao_hover = i;
+        break;
+    }
+}
 
 if (menu_bg_layer != -1) {
     layer_x(menu_bg_layer, sin(menu_timer * 0.018) * 1.5);
@@ -24,9 +36,11 @@ if (clique_iniciado) {
 }
 
 if (!clique_iniciado && entrada_bloqueada <= 0) {
-    if (em_monitor && mouse_check_button_pressed(mb_left)) {
+    if (botao_hover != -1 && mouse_check_button_pressed(mb_left)) {
         clique_iniciado = true;
         menu_saida_timer = round(room_speed * 0.45);
+        menu_destino = botao_room[botao_hover];
+        global.menu_destino_room = menu_destino;
         audio_sound_gain(som_luz_id, 0, 650);
         audio_sound_gain(som_natureza_id, 0, 650);
         audio_play_sound(snd_menu_succao, 1, false);
