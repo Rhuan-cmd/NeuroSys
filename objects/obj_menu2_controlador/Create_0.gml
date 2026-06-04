@@ -1,5 +1,5 @@
 timer = 0;
-duracao = room_speed * 2.2;
+duracao = room_speed * 2.8;
 monitor_x = 443;
 monitor_y = 271;
 proxima_room = rm_fase1;

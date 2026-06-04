@@ -38,11 +38,11 @@ if (clique_iniciado) {
 if (!clique_iniciado && entrada_bloqueada <= 0) {
     if (botao_hover != -1 && mouse_check_button_pressed(mb_left)) {
         clique_iniciado = true;
-        menu_saida_timer = round(room_speed * 0.45);
+        menu_saida_timer = round(room_speed * 0.82);
         menu_destino = botao_room[botao_hover];
         global.menu_destino_room = menu_destino;
-        audio_sound_gain(som_luz_id, 0, 650);
-        audio_sound_gain(som_natureza_id, 0, 650);
+        audio_sound_gain(som_luz_id, 0, 950);
+        audio_sound_gain(som_natureza_id, 0, 950);
         audio_play_sound(snd_menu_succao, 1, false);
     }
 }
