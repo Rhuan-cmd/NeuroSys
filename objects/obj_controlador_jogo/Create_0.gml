@@ -21,3 +21,8 @@ if (!window_get_fullscreen()) {
 
 global.perf_overlay_ativo = false;
 global.perf_fullscreen_cooldown = 0;
+
+menu_fade_alpha = 0;
+if (room == rm_menu) {
+    menu_fade_alpha = 1;
+}

@@ -29,3 +29,7 @@ if (surface_exists(application_surface)) {
         surface_resize(application_surface, 960, 540);
     }
 }
+
+if (room == rm_menu && menu_fade_alpha > 0) {
+    menu_fade_alpha = max(0, menu_fade_alpha - 1 / room_speed);
+}
