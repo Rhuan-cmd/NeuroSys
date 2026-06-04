@@ -1,18 +1,8 @@
 var gui_w = display_get_gui_width();
 var pulse = 0.5 + 0.5 * sin(menu_timer * 0.08);
-var glow = 0.32 + pulse * 0.22 + monitor_hover * 0.28;
 var cx = (monitor_left + monitor_right) * 0.5;
-var cy = (monitor_top + monitor_bottom) * 0.5;
 
-draw_set_alpha(glow);
-draw_set_color(make_color_rgb(115, 196, 255));
-draw_roundrect(monitor_left - 8, monitor_top - 8, monitor_right + 8, monitor_bottom + 8, false);
-
-draw_set_alpha(0.12 + pulse * 0.08);
-draw_set_color(c_white);
-draw_roundrect(monitor_left - 2, monitor_top - 2, monitor_right + 2, monitor_bottom + 2, false);
-
-draw_set_alpha(0.78 + pulse * 0.18);
+draw_set_alpha(0.82 + pulse * 0.14 + monitor_hover * 0.04);
 draw_set_color(make_color_rgb(231, 246, 255));
 draw_set_font(fnt_f2_dialogo);
 draw_set_halign(fa_center);
