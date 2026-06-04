@@ -10,8 +10,8 @@
   "name":"obj_c_credit_intro",
   "overriddenProperties":[],
   "parent":{
-    "name":"Controladores Jogo",
-    "path":"folders/Objetos/Controladores Jogo.yy",
+    "name":"Cenário",
+    "path":"folders/Objetos/Cenário.yy",
   },
   "parentObjectId":null,
   "persistent":false,

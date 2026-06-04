@@ -8,7 +8,7 @@ draw_set_alpha(1);
 draw_set_color(c_black);
 draw_rectangle(0, 0, gui_w, gui_h, false);
 
-if (global.intro_phase == 1 || global.intro_phase == 2) {
+if (global.intro_phase >= 0 && global.intro_phase <= 2) {
     draw_set_color(make_color_rgb(4, 8, 14));
     draw_rectangle(0, 0, gui_w, gui_h, false);
 
@@ -20,6 +20,7 @@ if (global.intro_phase == 1 || global.intro_phase == 2) {
     }
 }
 
+draw_set_font(fnt_f2_dialogo);
 draw_set_halign(fa_center);
 draw_set_valign(fa_middle);
 
@@ -32,9 +33,12 @@ if (global.intro_phase == 0) {
     draw_set_alpha(phase_alpha);
     draw_sprite_ext(spr_c_ifma_logo, 0, logo_x, logo_y, logo_scale, logo_scale, 0, c_white, phase_alpha);
 
-    draw_set_font(fnt_f2_dialogo);
+    draw_set_color(c_white);
+    draw_text_transformed(cx, cy + 34, "INSTITUTO FEDERAL", 2, 2, 0);
+    draw_set_color(make_color_rgb(31, 214, 181));
+    draw_text_transformed(cx, cy + 88, "Maranhão", 2, 2, 0);
     draw_set_color(make_color_rgb(195, 232, 236));
-    draw_text(cx, cy + 100, "Instituto Federal Maranhão - Campus Açailândia");
+    draw_text_transformed(cx, cy + 132, "Campus Açailândia", 1, 1, 0);
 }
 
 if (global.intro_phase == 2) {
@@ -54,7 +58,6 @@ if (global.intro_phase == 2) {
         draw_line(px, py - 12, px, py + 12);
     }
 
-    draw_set_font(fnt_f2_dialogo);
     draw_set_alpha(phase_alpha * 0.65);
     draw_set_color(make_color_rgb(242, 74, 124));
     draw_text_transformed(cx + glitch_x + 3, cy - 34, render_title, 3, 3, 0);
@@ -74,15 +77,15 @@ if (global.intro_phase == 2) {
     draw_rectangle(cx - line_width * 0.5, cy + 32, cx + line_width * 0.5, cy + 35, false);
 
     draw_set_color(make_color_rgb(195, 232, 236));
-    draw_text(cx, cy + 74, render_subtitle);
+    draw_text_transformed(cx, cy + 74, render_subtitle, 1, 1, 0);
 
     if (cursor_visible && title_index >= string_length(title_text) && subtitle_index < string_length(subtitle_text)) {
-        draw_text(cx + string_width(render_subtitle) * 0.5 + 12, cy + 74, "_");
+        draw_text_transformed(cx + string_width(render_subtitle) * 0.5 + 12, cy + 74, "_", 1, 1, 0);
     }
 
     draw_set_alpha(phase_alpha * 0.62);
     draw_set_color(make_color_rgb(242, 74, 124));
-    draw_text(cx, cy + 116, render_status);
+    draw_text_transformed(cx, cy + 116, render_status, 1, 1, 0);
 }
 
 if (global.intro_phase == 3) {

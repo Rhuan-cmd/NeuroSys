@@ -19,7 +19,7 @@ if (aparecer && global.intro_phase == 1) {
     draw_set_color(make_color_rgb(195, 232, 236));
     draw_set_halign(fa_center);
     draw_set_valign(fa_top);
-    draw_text(cx, cy + 86, texto_render);
+    draw_text_transformed(cx, cy + 86, texto_render, 1, 1, 0);
 
     draw_set_halign(fa_left);
     draw_set_alpha(1);

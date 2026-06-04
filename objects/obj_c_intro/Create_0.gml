@@ -5,19 +5,21 @@ if (surface_exists(application_surface)) {
 }
 
 intro_timer = 0;
+
 intro_black_start = room_speed;
 intro_ifma_start = intro_black_start;
-intro_ifma_end = intro_ifma_start + room_speed * 6;
+intro_ifma_end = intro_ifma_start + room_speed * 5;
 intro_gm_start = intro_ifma_end;
-intro_gm_end = intro_gm_start + room_speed * 6;
+intro_gm_end = intro_gm_start + room_speed * 5;
 intro_neurosys_start = intro_gm_end;
-intro_neurosys_end = intro_neurosys_start + room_speed * 16;
+intro_neurosys_end = intro_neurosys_start + room_speed * 6;
 intro_fade_out_start = intro_neurosys_end;
-intro_fade_out_end = intro_fade_out_start + room_speed * 2;
+intro_fade_out_end = intro_fade_out_start + round(room_speed * 1.5);
 intro_black_end = intro_fade_out_end + room_speed;
 intro_duration = intro_black_end;
 
-fade_time = room_speed * 2;
+fade_time = room_speed;
+
 title_text = "NeuroSys";
 subtitle_text = "Conecte empatia. Bloqueie o ódio.";
 status_text = "sinais digitais detectados";
@@ -25,7 +27,7 @@ status_text = "sinais digitais detectados";
 title_index = 0;
 subtitle_index = 0;
 status_index = 0;
-typing_speed = 5;
+typing_speed = 4;
 type_pulse = 0;
 
 scan_offset = 0;

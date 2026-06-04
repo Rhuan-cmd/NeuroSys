@@ -1,6 +1,6 @@
 intro_timer += 1;
 scan_offset = (scan_offset + 1) mod 18;
-type_pulse = max(0, type_pulse - 0.04);
+type_pulse = max(0, type_pulse - 0.06);
 
 if (intro_timer < intro_ifma_start) {
     global.intro_phase = -1;
@@ -27,7 +27,7 @@ if (global.intro_phase == 2) {
     glitch_timer -= 1;
 
     if (glitch_timer <= 0) {
-        glitch_timer = irandom_range(18, 42);
+        glitch_timer = irandom_range(14, 34);
         glitch_amount = irandom_range(0, 3);
     } else {
         glitch_amount = max(0, glitch_amount - 1);
@@ -46,7 +46,7 @@ if (global.intro_phase == 2) {
         }
     }
 
-    line_width = lerp(line_width, 440, 0.035);
+    line_width = lerp(line_width, 440, 0.045);
 }
 
 if (!transition_started && intro_timer >= intro_duration) {
