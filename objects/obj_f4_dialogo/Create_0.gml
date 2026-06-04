@@ -1,3 +1,4 @@
+audio_room_enter("fase4");
 textos = [
     "Você bloqueou o enxame de mensagens, mas encontrou a origem dos ataques. Agora a pressão digital tenta ocupar toda a tela.",
     "Nem sei por que você continua tentando... ninguém se importa.",

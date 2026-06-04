@@ -1,4 +1,5 @@
 randomize();
+audio_room_enter("fase1");
 window_set_cursor(cr_none);
 cursor_sprite = cr_none;
 

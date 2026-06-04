@@ -1,5 +1,5 @@
 timer = 0;
-duracao = room_speed * 2.8;
+duracao = room_speed * 1.72;
 monitor_x = 443;
 monitor_y = 271;
 proxima_room = rm_fase1;
@@ -12,7 +12,7 @@ if (variable_global_exists("menu_reverso")) {
     reverso = global.menu_reverso;
 }
 if (reverso) {
-    duracao = room_speed * 2.15;
+    duracao = room_speed * 1.55;
     proxima_room = rm_menu;
     audio_play_sound(snd_menu_succao_reverso, 1, false, 0.9);
 }

@@ -1,4 +1,5 @@
 timer = 0;
+audio_room_enter("creditos");
 fade_entrada = 1;
 fade_saida = 0;
 creditos_inicio = room_speed * 1.8;
@@ -7,7 +8,6 @@ creditos_scroll = 0;
 etapa_final = false;
 timer_final = 0;
 encerrando = false;
-audio_stop_all();
 audio_play_sound(snd_creditos_musica, 4, true, 0.78);
 
 memorias = [

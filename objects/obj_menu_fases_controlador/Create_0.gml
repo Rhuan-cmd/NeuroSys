@@ -5,13 +5,16 @@ voltando_menu = false;
 fade_saida_branco = 0;
 scroll_y = 0;
 scroll_alvo = 0;
-post_x = 248;
-post_w = 464;
-post_h = 178;
-post_gap = 28;
-feed_top = 118;
-feed_bottom = 486;
-feed_altura = 4 * (post_h + post_gap) + 90;
+app_x = 110;
+app_y = 46;
+app_w = 740;
+app_h = 448;
+feed_x = 292;
+feed_w = 376;
+post_h = 154;
+post_gap = 18;
+feed_top = 112;
+feed_bottom = 456;
 
 fase_nome = [
     "Filtro de Respeito",
@@ -33,6 +36,7 @@ fase_desc = [
 ];
 fase_room = [rm_fase1, rm_fase2, rm_fase3, rm_fase4];
 fase_foto = [spr_app_rede_social, spr_f2_fundo_chat, spr_f3_npc, spr_f4_chefe];
+feed_altura = array_length(fase_nome) * (post_h + post_gap) - post_gap;
 
 window_set_cursor(cr_default);
 cursor_sprite = cr_default;

@@ -1,4 +1,5 @@
 gpu_set_texfilter(false);
+audio_room_enter("intro");
 window_set_cursor(cr_none);
 cursor_sprite = cr_none;
 display_set_gui_size(960, 540);

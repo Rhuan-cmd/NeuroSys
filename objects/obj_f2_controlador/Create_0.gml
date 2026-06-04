@@ -1,4 +1,5 @@
 // ===== REGRAS PRINCIPAIS DA FASE =====
+audio_room_enter("fase2");
 vidas_max = 5;
 vidas = vidas_max;
 cliques = 0;

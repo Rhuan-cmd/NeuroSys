@@ -1,1 +1,2 @@
+audio_room_enter("fase3");
 audio_play_sound(snd_f3_musica, 1, 1);
