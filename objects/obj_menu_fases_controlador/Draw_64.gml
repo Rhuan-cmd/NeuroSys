@@ -46,6 +46,12 @@ draw_set_alpha(0.72 + pulse * 0.16);
 draw_set_color(make_color_rgb(145, 204, 230));
 draw_text(gui_w * 0.5, gui_h - 42, "ESC para voltar");
 
+if (fade_saida_branco > 0) {
+    draw_set_alpha(fade_saida_branco);
+    draw_set_color(c_white);
+    draw_rectangle(0, 0, gui_w, gui_h, false);
+}
+
 draw_set_alpha(1);
 draw_set_color(c_white);
 draw_set_halign(fa_left);

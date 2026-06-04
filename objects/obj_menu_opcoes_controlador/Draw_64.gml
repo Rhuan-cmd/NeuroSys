@@ -37,6 +37,12 @@ draw_set_color(c_white);
 draw_text(gui_w * 0.5, 370, "← / → ajusta volume");
 draw_text(gui_w * 0.5, 420, "ESC para voltar");
 
+if (fade_saida_branco > 0) {
+    draw_set_alpha(fade_saida_branco);
+    draw_set_color(c_white);
+    draw_rectangle(0, 0, gui_w, gui_h, false);
+}
+
 draw_set_alpha(1);
 draw_set_color(c_white);
 draw_set_halign(fa_left);

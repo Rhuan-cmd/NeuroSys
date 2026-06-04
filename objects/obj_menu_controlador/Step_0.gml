@@ -34,7 +34,11 @@ if (clique_iniciado) {
     if (menu_saida_timer <= 0) {
         audio_stop_sound(snd_menu_luz);
         audio_stop_sound(snd_menu_natureza);
-        room_goto(rm_menu2);
+        if (menu_saindo_jogo) {
+            game_end();
+        } else {
+            room_goto(rm_menu2);
+        }
     }
 
     exit;
@@ -47,9 +51,12 @@ if (!clique_iniciado && entrada_bloqueada <= 0) {
         menu_destino = botao_room[botao_hover];
         global.menu_destino_room = menu_destino;
         global.menu_reverso = false;
+        menu_saindo_jogo = menu_destino == -1;
         audio_sound_gain(som_luz_id, 0, 950);
         audio_sound_gain(som_natureza_id, 0, 950);
         audio_play_sound(snd_f2_botao, 4, false, 0.62);
-        audio_play_sound(snd_menu_succao, 1, false);
+        if (!menu_saindo_jogo) {
+            audio_play_sound(snd_menu_succao, 1, false);
+        }
     }
 }

@@ -67,9 +67,14 @@ if (!etapa_final) {
     draw_text(_w / 2, 286, "Leve essa mensagem para além da tela.");
 }
 
-draw_set_alpha(max(fade_entrada, fade_saida));
+draw_set_alpha(fade_entrada);
 draw_set_color(c_black);
 draw_rectangle(0, 0, _w, _h, false);
+
+draw_set_alpha(fade_saida);
+draw_set_color(c_white);
+draw_rectangle(0, 0, _w, _h, false);
+
 draw_set_alpha(1);
 draw_set_color(c_white);
 draw_set_halign(fa_left);
