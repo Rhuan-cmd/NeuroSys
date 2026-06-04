@@ -33,12 +33,8 @@ if (global.intro_phase == 0) {
     draw_sprite_ext(spr_c_ifma_logo, 0, logo_x, logo_y, logo_scale, logo_scale, 0, c_white, phase_alpha);
 
     draw_set_font(fnt_f2_dialogo);
-    draw_set_color(c_white);
-    draw_text_transformed(cx, cy + 34, "INSTITUTO FEDERAL", 2, 2, 0);
-    draw_set_color(make_color_rgb(31, 214, 181));
-    draw_text(cx, cy + 88, "Maranhão");
     draw_set_color(make_color_rgb(195, 232, 236));
-    draw_text(cx, cy + 128, "Campus Açailândia");
+    draw_text(cx, cy + 100, "Instituto Federal Maranhão - Campus Açailândia");
 }
 
 if (global.intro_phase == 2) {
