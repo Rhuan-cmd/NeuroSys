@@ -1,2 +1,13 @@
 entrada_bloqueada = room_speed * 0.25;
 clique_iniciado = false;
+menu_saida_timer = -1;
+menu_timer = 0;
+monitor_left = 372;
+monitor_top = 232;
+monitor_right = 518;
+monitor_bottom = 323;
+monitor_hover = 0;
+som_luz_id = audio_play_sound(snd_menu_luz, 0, true);
+som_natureza_id = audio_play_sound(snd_menu_natureza, 0, true);
+audio_sound_gain(som_luz_id, 0.42, 0);
+audio_sound_gain(som_natureza_id, 0.34, 0);

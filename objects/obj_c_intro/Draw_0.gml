@@ -94,6 +94,13 @@ if (global.intro_phase == 3) {
     draw_rectangle(0, 0, gui_w, gui_h, false);
 }
 
+if (intro_timer >= intro_fade_out_start) {
+    var fade_alpha = clamp((intro_timer - intro_fade_out_start) / (intro_fade_out_end - intro_fade_out_start), 0, 1);
+    draw_set_alpha(fade_alpha);
+    draw_set_color(c_black);
+    draw_rectangle(0, 0, gui_w, gui_h, false);
+}
+
 draw_set_alpha(1);
 draw_set_color(c_white);
 draw_set_halign(fa_left);

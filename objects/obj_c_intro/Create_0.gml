@@ -12,10 +12,10 @@ intro_ifma_end = intro_ifma_start + room_speed * 5;
 intro_gm_start = intro_ifma_end;
 intro_gm_end = intro_gm_start + room_speed * 5;
 intro_neurosys_start = intro_gm_end;
-intro_neurosys_end = intro_neurosys_start + room_speed * 6;
+intro_neurosys_end = intro_neurosys_start + room_speed * 8;
 intro_fade_out_start = intro_neurosys_end;
-intro_fade_out_end = intro_fade_out_start + round(room_speed * 1.5);
-intro_black_end = intro_fade_out_end + room_speed;
+intro_fade_out_end = intro_fade_out_start + round(room_speed * 2.5);
+intro_black_end = intro_fade_out_end + round(room_speed * 1.4);
 intro_duration = intro_black_end;
 
 fade_time = room_speed;
@@ -35,6 +35,9 @@ glitch_timer = 0;
 glitch_amount = 0;
 line_width = 0;
 transition_started = false;
+intro_last_phase = -2;
+intro_music_id = audio_play_sound(snd_intro_apresentacao, 0, false);
+audio_sound_gain(intro_music_id, 0.72, 0);
 
 global.intro_phase = -1;
 global.intro_phase_alpha = 0;

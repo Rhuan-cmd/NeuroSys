@@ -23,6 +23,13 @@ if (intro_timer < intro_ifma_start) {
     global.intro_phase_alpha = clamp((intro_fade_out_end - intro_timer) / (intro_fade_out_end - intro_fade_out_start), 0, 1);
 }
 
+if (global.intro_phase != intro_last_phase) {
+    if (global.intro_phase >= 0) {
+        audio_play_sound(snd_intro_transicao, 1, false);
+    }
+    intro_last_phase = global.intro_phase;
+}
+
 if (global.intro_phase == 2) {
     glitch_timer -= 1;
 
@@ -37,12 +44,15 @@ if (global.intro_phase == 2) {
         if (title_index < string_length(title_text)) {
             title_index += 1;
             type_pulse = 1;
+            audio_play_sound(snd_intro_digitacao, 2, false);
         } else if (subtitle_index < string_length(subtitle_text)) {
             subtitle_index += 1;
             type_pulse = 1;
+            audio_play_sound(snd_intro_digitacao, 2, false);
         } else if (status_index < string_length(status_text)) {
             status_index += 1;
             type_pulse = 1;
+            audio_play_sound(snd_intro_digitacao, 2, false);
         }
     }
 
@@ -51,9 +61,11 @@ if (global.intro_phase == 2) {
 
 if (!transition_started && intro_timer >= intro_duration) {
     transition_started = true;
+    audio_sound_gain(intro_music_id, 0, 450);
     room_goto(rm_menu);
 }
 
 if (keyboard_check_pressed(vk_space) || keyboard_check_pressed(vk_enter)) {
+    audio_sound_gain(intro_music_id, 0, 250);
     room_goto(rm_menu);
 }
