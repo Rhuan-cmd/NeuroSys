@@ -11,5 +11,7 @@ if (keyboard_check_pressed(vk_right)) {
 }
 
 if (keyboard_check_pressed(vk_escape) || mouse_check_button_pressed(mb_right)) {
-    room_goto(rm_menu);
+    global.menu_reverso = true;
+    global.menu_destino_room = rm_menu;
+    room_goto(rm_menu2);
 }

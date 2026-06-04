@@ -23,6 +23,11 @@ if (menu_bg_layer != -1) {
     layer_y(menu_bg_layer, cos(menu_timer * 0.015) * 0.9);
 }
 
+if (!clique_iniciado && entrada_bloqueada <= 0 && botao_hover != botao_hover_anterior && botao_hover != -1) {
+    audio_play_sound(snd_f2_selecao, 3, false, 0.42);
+}
+botao_hover_anterior = botao_hover;
+
 if (clique_iniciado) {
     menu_saida_timer -= 1;
 
@@ -41,8 +46,10 @@ if (!clique_iniciado && entrada_bloqueada <= 0) {
         menu_saida_timer = round(room_speed * 0.82);
         menu_destino = botao_room[botao_hover];
         global.menu_destino_room = menu_destino;
+        global.menu_reverso = false;
         audio_sound_gain(som_luz_id, 0, 950);
         audio_sound_gain(som_natureza_id, 0, 950);
+        audio_play_sound(snd_f2_botao, 4, false, 0.62);
         audio_play_sound(snd_menu_succao, 1, false);
     }
 }

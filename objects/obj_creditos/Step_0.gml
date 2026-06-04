@@ -11,13 +11,14 @@ if (!etapa_final) {
     }
 } else {
     timer_final++;
-    if (timer_final > room_speed * 3 && (keyboard_check_pressed(vk_enter) || mouse_check_button_pressed(mb_left))) {
-        encerrando = true;
-    }
     if (timer_final > room_speed * 7) encerrando = true;
 }
 
 if (encerrando) {
     fade_saida = min(1, fade_saida + 0.022);
-    if (fade_saida >= 1) game_end();
+    if (fade_saida >= 1) {
+        global.menu_reverso = true;
+        global.menu_destino_room = rm_menu;
+        room_goto(rm_menu2);
+    }
 }

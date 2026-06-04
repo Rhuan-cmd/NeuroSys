@@ -12,7 +12,7 @@ if (resultado_ativo) {
     if (resultado_saida == 0 && keyboard_check_pressed(vk_enter)) resultado_saida = 1;
     if (resultado_saida == 1) {
         if (resultado_vitoria) transicao(rm_creditos);
-        else game_end();
+        else transicao(rm_menu);
     }
     if (resultado_saida == 2) transicao(rm_fase4);
     return;

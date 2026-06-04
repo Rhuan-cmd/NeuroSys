@@ -11,10 +11,18 @@ for (var i = 0; i < array_length(fase_nome); i += 1) {
     }
 }
 
+if (hover != hover_anterior && hover != -1) {
+    audio_play_sound(snd_f2_selecao, 3, false, 0.42);
+}
+hover_anterior = hover;
+
 if (hover != -1 && mouse_check_button_pressed(mb_left)) {
+    audio_play_sound(snd_f2_botao, 4, false, 0.62);
     room_goto(fase_room[hover]);
 }
 
 if (keyboard_check_pressed(vk_escape)) {
-    room_goto(rm_menu);
+    global.menu_reverso = true;
+    global.menu_destino_room = rm_menu;
+    room_goto(rm_menu2);
 }

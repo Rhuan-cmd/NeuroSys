@@ -184,7 +184,7 @@ if (estado_final != 0) {
         saida_transition = min(1, saida_transition + 0.055);
         if (saida_transition >= 1) {
             if (saida_tipo == 1) {
-                game_end();
+                transicao(rm_menu);
             } else {
                 room_restart();
             }

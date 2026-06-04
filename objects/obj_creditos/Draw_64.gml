@@ -65,11 +65,6 @@ if (!etapa_final) {
     draw_text_transformed(_w / 2, 230, "OBRIGADO POR JOGAR", 1.75, 1.75, 0);
     draw_set_color(c_white);
     draw_text(_w / 2, 286, "Leve essa mensagem para além da tela.");
-    if (timer_final > room_speed * 3 && !encerrando) {
-        draw_set_alpha(_alpha_final * (0.46 + sin(current_time * 0.008) * 0.34));
-        draw_set_color(make_color_rgb(255, 232, 138));
-        draw_text(_w / 2, 492, "ENTER ou clique para encerrar");
-    }
 }
 
 draw_set_alpha(max(fade_entrada, fade_saida));

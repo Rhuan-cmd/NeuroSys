@@ -42,7 +42,7 @@ if (estado >= 3) {
     if (saida_tipo != 0) {
         saida_transition = min(1, saida_transition + 0.06);
         if (saida_transition >= 1) {
-            if (saida_tipo == 1) game_end();
+            if (saida_tipo == 1) transicao(rm_menu);
             else room_restart();
         }
     }
