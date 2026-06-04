@@ -1,3 +1,7 @@
+if (instance_exists(obj_f3_escudo) && obj_f3_escudo.vitoria_cutscene_ativa) {
+    exit;
+}
+
 tremer = false;
 image_blend = c_white;
 speed = 10;

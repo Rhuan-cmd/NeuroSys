@@ -181,10 +181,14 @@ for (var fx_i = 0; fx_i < array_length(fx_timer); fx_i++) {
 if (estado_final != 0) {
     final_timer++;
     if (saida_tipo != 0) {
+        window_set_cursor(cr_none);
+        cursor_sprite = cr_none;
         saida_transition = min(1, saida_transition + 0.055);
         if (saida_transition >= 1) {
             if (saida_tipo == 1) {
-                transicao(rm_menu);
+                global.menu_reverso = true;
+                global.menu_destino_room = rm_menu;
+                room_goto(rm_menu2);
             } else {
                 room_restart();
             }

@@ -351,4 +351,7 @@ finalizar_fase = function(_venceu) {
     audio_stop_sound(snd_f1_musica);
     audio_stop_sound(snd_f1_tensao);
     audio_play_sound(_venceu ? snd_f2_vitoria : snd_f2_derrota, 4, false, 0.78);
+    if (_venceu) {
+        global.fase_liberada = max(variable_global_exists("fase_liberada") ? global.fase_liberada : 1, 2);
+    }
 };

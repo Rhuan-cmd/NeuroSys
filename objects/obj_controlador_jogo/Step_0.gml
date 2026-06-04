@@ -9,6 +9,11 @@ if (keyboard_check_pressed(vk_f3)) {
     }
 }
 
+if (global.transicao_ativa || instance_exists(obj_transicao)) {
+    window_set_cursor(cr_none);
+    cursor_sprite = cr_none;
+}
+
 global.perf_fullscreen_cooldown = max(0, global.perf_fullscreen_cooldown - 1);
 if (keyboard_check_pressed(vk_f11) && global.perf_fullscreen_cooldown <= 0) {
     if (window_get_fullscreen()) {

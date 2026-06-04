@@ -1,3 +1,6 @@
+window_set_cursor(cr_none);
+cursor_sprite = cr_none;
+
 intro_timer += 1;
 scan_offset = (scan_offset + 1) mod 18;
 type_pulse = max(0, type_pulse - 0.06);

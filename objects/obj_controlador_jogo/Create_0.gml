@@ -21,6 +21,10 @@ if (!window_get_fullscreen()) {
 
 global.perf_overlay_ativo = false;
 global.perf_fullscreen_cooldown = 0;
+if (!variable_global_exists("fase_liberada")) {
+    global.fase_liberada = 1;
+}
+global.transicao_ativa = false;
 
 menu_fade_alpha = 0;
 if (room == rm_menu) {

@@ -21,6 +21,7 @@ resultado_ativo = false;
 resultado_vitoria = false;
 resultado_transicao = 0;
 resultado_saida = 0;
+resultado_saida_fade = 0;
 resultado_acertos = 0;
 resultado_tempo = 0;
 resultado_nota = "0/10";
@@ -31,6 +32,7 @@ shake_fx = 0;
 exibir_resultado = function(_vitoria) {
     if (resultado_ativo) return;
     if (_vitoria) {
+        global.fase_liberada = max(variable_global_exists("fase_liberada") ? global.fase_liberada : 1, 4);
         audio_stop_all();
         transicao(rm_creditos);
         return;
@@ -39,6 +41,7 @@ exibir_resultado = function(_vitoria) {
     resultado_vitoria = false;
     resultado_transicao = 0;
     resultado_saida = 0;
+    resultado_saida_fade = 0;
     resultado_acertos = instance_exists(obj_f4_chefe) ? max(0, round((obj_f4_chefe.vidaMax - obj_f4_chefe.vida) / 2)) : 0;
     resultado_tempo = tempo_fase;
     resultado_nota = string(clamp(round((resultado_acertos / 500) * 10), 0, 9)) + "/10";

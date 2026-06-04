@@ -15,6 +15,8 @@ if (!etapa_final) {
 }
 
 if (encerrando) {
+    window_set_cursor(cr_none);
+    cursor_sprite = cr_none;
     fade_saida = min(1, fade_saida + 0.022);
     if (fade_saida >= 1) {
         global.menu_reverso = true;

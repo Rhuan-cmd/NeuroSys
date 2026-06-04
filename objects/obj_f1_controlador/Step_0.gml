@@ -40,10 +40,17 @@ if (estado >= 3) {
         final_limpeza_feita = true;
     }
     if (saida_tipo != 0) {
+        window_set_cursor(cr_none);
+        cursor_sprite = cr_none;
         saida_transition = min(1, saida_transition + 0.06);
         if (saida_transition >= 1) {
-            if (saida_tipo == 1) transicao(rm_menu);
-            else room_restart();
+            if (saida_tipo == 1) {
+                global.menu_reverso = true;
+                global.menu_destino_room = rm_menu;
+                room_goto(rm_menu2);
+            } else {
+                room_restart();
+            }
         }
     }
     var _final_suave = final_transition * final_transition * (3 - 2 * final_transition);
@@ -67,7 +74,7 @@ if (estado >= 3) {
     }
     if (final_painel && keyboard_check_pressed(vk_enter)) {
         audio_play_sound(snd_f2_botao, 4, false, 0.62);
-        saida_tipo = final_vitoria ? 1 : 2;
+        saida_tipo = 1;
     }
     exit;
 }

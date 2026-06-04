@@ -437,7 +437,7 @@ if (estado_final != 0) {
     
     if (saida_tipo != 0) {
         draw_set_alpha(saida_transition);
-        draw_set_color(c_black);
+        draw_set_color(saida_tipo == 1 ? c_white : c_black);
         draw_rectangle(0, 0, room_width, room_height, false);
         draw_set_alpha(1);
         draw_set_color(c_white);

@@ -122,6 +122,11 @@ if (resultado_ativo) {
     draw_text(383, 384 + _offset, "MENU");
     draw_set_color(_hover_reiniciar ? make_color_rgb(255, 241, 145) : c_white);
     draw_text(577, 384 + _offset, "REINICIAR");
+    if (resultado_saida_fade > 0) {
+        draw_set_alpha(resultado_saida_fade);
+        draw_set_color(resultado_saida == 1 ? c_white : c_black);
+        draw_rectangle(0, 0, room_width, room_height, false);
+    }
     draw_set_halign(fa_left);
     draw_set_alpha(1);
     draw_set_color(c_white);

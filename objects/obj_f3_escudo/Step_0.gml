@@ -12,11 +12,32 @@ if (resultado_ativo) {
 		if (_hover_reiniciar) resultado_saida = 2;
 	}
 	if (resultado_saida == 0 && keyboard_check_pressed(vk_enter)) resultado_saida = 1;
-	if (resultado_saida == 1) {
-		if (resultado_vitoria) transicao(rm_fase4);
-		else transicao(rm_menu);
+	if (resultado_saida != 0) {
+		window_set_cursor(cr_none);
+		cursor_sprite = cr_none;
+		resultado_saida_fade = min(1, resultado_saida_fade + 0.065);
+		if (resultado_saida_fade >= 1) {
+			if (resultado_saida == 1) {
+				global.menu_reverso = true;
+				global.menu_destino_room = rm_menu;
+				room_goto(rm_menu2);
+			} else {
+				room_goto(rm_fase3);
+			}
+		}
 	}
-	if (resultado_saida == 2) transicao(rm_fase3);
+	return;
+}
+
+if (vitoria_cutscene_ativa) {
+	vitoria_cutscene_timer++;
+	vitoria_cutscene_fade = clamp((vitoria_cutscene_timer - room_speed * 0.45) / (room_speed * 1.8), 0, 1);
+	if (vitoria_audio_id != -1) {
+		audio_sound_gain(vitoria_audio_id, max(0, 1 - vitoria_cutscene_fade), 120);
+	}
+	if (vitoria_cutscene_timer >= room_speed * 2.6) {
+		exibir_resultado(true);
+	}
 	return;
 }
 
@@ -40,9 +61,12 @@ if (destruidos >= 50 and !umavez) {
 	with (obj_f3_msg_negativa) instance_destroy();
 	ganhou = true;
 	audio_stop_all();
-	audio_play_sound(snd_f3_vilao_raiva, 1, 0);
+	vitoria_audio_id = audio_play_sound(snd_f3_vilao_raiva, 1, false, 1);
 	umavez = true;
 	destruidos = 50;
+	vitoria_cutscene_ativa = true;
+	vitoria_cutscene_timer = 0;
+	vitoria_cutscene_fade = 0;
 }
 
 if (ganhou) {

@@ -1,6 +1,8 @@
 menu_timer += 1;
 
 if (voltando_menu) {
+    window_set_cursor(cr_none);
+    cursor_sprite = cr_none;
     fade_saida_branco = min(1, fade_saida_branco + 0.065);
     if (fade_saida_branco >= 1) {
         global.menu_reverso = true;
@@ -10,13 +12,21 @@ if (voltando_menu) {
     exit;
 }
 
-hover = -1;
+var _max_scroll = max(0, feed_altura - (feed_bottom - feed_top));
+if (mouse_wheel_down()) scroll_alvo = min(_max_scroll, scroll_alvo + 84);
+if (mouse_wheel_up()) scroll_alvo = max(0, scroll_alvo - 84);
+if (keyboard_check(vk_down)) scroll_alvo = min(_max_scroll, scroll_alvo + 8);
+if (keyboard_check(vk_up)) scroll_alvo = max(0, scroll_alvo - 8);
+scroll_y = lerp(scroll_y, scroll_alvo, 0.22);
 
+hover = -1;
 var mx = device_mouse_x_to_gui(0);
 var my = device_mouse_y_to_gui(0);
+var _liberada = variable_global_exists("fase_liberada") ? global.fase_liberada : 1;
 
 for (var i = 0; i < array_length(fase_nome); i += 1) {
-    if (mx >= fase_x - 150 && mx <= fase_x + 150 && my >= fase_y[i] - 26 && my <= fase_y[i] + 26) {
+    var _y = feed_top + i * (post_h + post_gap) - scroll_y;
+    if (i + 1 <= _liberada && mx >= post_x && mx <= post_x + post_w && my >= _y && my <= _y + post_h) {
         hover = i;
         break;
     }
@@ -29,6 +39,8 @@ hover_anterior = hover;
 
 if (hover != -1 && mouse_check_button_pressed(mb_left)) {
     audio_play_sound(snd_f2_botao, 4, false, 0.62);
+    window_set_cursor(cr_none);
+    cursor_sprite = cr_none;
     room_goto(fase_room[hover]);
 }
 

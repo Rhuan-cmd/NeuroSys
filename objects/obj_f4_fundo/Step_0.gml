@@ -10,11 +10,20 @@ if (resultado_ativo) {
         if (_hover_reiniciar) resultado_saida = 2;
     }
     if (resultado_saida == 0 && keyboard_check_pressed(vk_enter)) resultado_saida = 1;
-    if (resultado_saida == 1) {
-        if (resultado_vitoria) transicao(rm_creditos);
-        else transicao(rm_menu);
+    if (resultado_saida != 0) {
+        window_set_cursor(cr_none);
+        cursor_sprite = cr_none;
+        resultado_saida_fade = min(1, resultado_saida_fade + 0.065);
+        if (resultado_saida_fade >= 1) {
+            if (resultado_saida == 1) {
+                global.menu_reverso = true;
+                global.menu_destino_room = rm_menu;
+                room_goto(rm_menu2);
+            } else {
+                room_goto(rm_fase4);
+            }
+        }
     }
-    if (resultado_saida == 2) transicao(rm_fase4);
     return;
 }
 

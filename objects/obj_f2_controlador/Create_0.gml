@@ -316,6 +316,9 @@ finalizar_jogo = function(_vitoria) {
     audio_stop_sound(snd_f2_ambiente_corrupto);
     audio_play_sound(snd_f2_saida, 4, false, 0.56);
     audio_play_sound(_vitoria ? snd_f2_vitoria : snd_f2_derrota, 4, false, _vitoria ? 0.96 : 0.82);
+    if (_vitoria) {
+        global.fase_liberada = max(variable_global_exists("fase_liberada") ? global.fase_liberada : 1, 3);
+    }
     
     if (_vitoria) {
         nota_final = string(clamp(round(6 + vidas * 0.62 - min(1.25, tempo_final / (room_speed * 95))), 6, 10)) + "/10";
