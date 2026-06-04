@@ -18,13 +18,16 @@ if (intro_timer < intro_ifma_start) {
 } else if (intro_timer < intro_fade_out_start) {
     global.intro_phase = 2;
     global.intro_phase_alpha = clamp((intro_timer - intro_neurosys_start) / fade_time, 0, 1);
+} else if (intro_timer < intro_fade_out_end) {
+    global.intro_phase = 2;
+    global.intro_phase_alpha = 1;
 } else {
     global.intro_phase = 3;
-    global.intro_phase_alpha = clamp((intro_fade_out_end - intro_timer) / (intro_fade_out_end - intro_fade_out_start), 0, 1);
+    global.intro_phase_alpha = 0;
 }
 
 if (global.intro_phase != intro_last_phase) {
-    if (global.intro_phase >= 0) {
+    if (global.intro_phase >= 0 && global.intro_phase < 3) {
         audio_play_sound(snd_intro_transicao, 1, false);
     }
     intro_last_phase = global.intro_phase;
@@ -61,7 +64,7 @@ if (global.intro_phase == 2) {
 
 if (!transition_started && intro_timer >= intro_duration) {
     transition_started = true;
-    audio_sound_gain(intro_music_id, 0, 450);
+    audio_sound_gain(intro_music_id, 0, 900);
     room_goto(rm_menu);
 }
 

@@ -162,6 +162,7 @@
     {"id":{"name":"snd_intro_transicao","path":"sounds/snd_intro_transicao/snd_intro_transicao.yy",},},
     {"id":{"name":"snd_menu_luz","path":"sounds/snd_menu_luz/snd_menu_luz.yy",},},
     {"id":{"name":"snd_menu_natureza","path":"sounds/snd_menu_natureza/snd_menu_natureza.yy",},},
+    {"id":{"name":"snd_menu_succao","path":"sounds/snd_menu_succao/snd_menu_succao.yy",},},
     {"id":{"name":"spr_app_fechar_rede","path":"sprites/spr_app_fechar_rede/spr_app_fechar_rede.yy",},},
     {"id":{"name":"spr_app_rede_social","path":"sprites/spr_app_rede_social/spr_app_rede_social.yy",},},
     {"id":{"name":"spr_c_gamemaker_logo","path":"sprites/spr_c_gamemaker_logo/spr_c_gamemaker_logo.yy",},},

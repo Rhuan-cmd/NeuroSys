@@ -36,8 +36,8 @@ glitch_amount = 0;
 line_width = 0;
 transition_started = false;
 intro_last_phase = -2;
-intro_music_id = audio_play_sound(snd_intro_apresentacao, 0, false);
-audio_sound_gain(intro_music_id, 0.72, 0);
+intro_music_id = audio_play_sound(snd_intro_apresentacao, 0, true);
+audio_sound_gain(intro_music_id, 0.62, 0);
 
 global.intro_phase = -1;
 global.intro_phase_alpha = 0;

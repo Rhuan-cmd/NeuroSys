@@ -89,7 +89,7 @@ if (global.intro_phase == 2) {
 }
 
 if (global.intro_phase == 3) {
-    draw_set_alpha(1 - phase_alpha);
+    draw_set_alpha(1);
     draw_set_color(c_black);
     draw_rectangle(0, 0, gui_w, gui_h, false);
 }
