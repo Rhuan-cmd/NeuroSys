@@ -23,18 +23,22 @@ if (negado_timer > 0) negado_timer -= 1;
 if (entrando_fase) {
     window_set_cursor(cr_none);
     cursor_sprite = cr_none;
+    global.transicao_ativa = true;
     transicao_post_timer += 1;
 
     var _marca = -1;
     if (transicao_post_timer >= 1) _marca = 0;
-    if (transicao_post_timer >= 25) _marca = 1;
-    if (transicao_post_timer >= 61) _marca = 2;
-    if (transicao_post_timer >= 85) _marca = 3;
-    if (transicao_post_timer >= 121) _marca = 4;
-    if (transicao_post_timer >= 145) _marca = 5;
+    if (transicao_post_timer >= 23) _marca = 1;
+    if (transicao_post_timer >= 47) _marca = 2;
+    if (transicao_post_timer >= 83) _marca = 3;
+    if (transicao_post_timer >= 107) _marca = 4;
+    if (transicao_post_timer >= 143) _marca = 5;
+    if (transicao_post_timer >= 167) _marca = 6;
     if (_marca != transicao_audio_marca) {
         transicao_audio_marca = _marca;
-        if (_marca == 0 || _marca == 2 || _marca == 4) {
+        if (_marca == 0) {
+            audio_play_sound(snd_f2_sino, 4, false, 0.64, 0, 0.82);
+        } else if (_marca == 2 || _marca == 4 || _marca == 6) {
             audio_play_sound(snd_f2_tremor, 4, false, 0.58, 0, 0.68 + _marca * 0.035);
         } else {
             audio_play_sound(snd_f2_aparecer, 4, false, 0.62, 0, 0.76 + _marca * 0.07);
@@ -42,6 +46,7 @@ if (entrando_fase) {
     }
 
     if (transicao_post_timer >= transicao_post_dur) {
+        global.transicao_ativa = false;
         room_goto(fase_room[fase_escolhida]);
     }
     exit;
@@ -93,6 +98,9 @@ if (hover != -1 && mouse_check_button_pressed(mb_left)) {
         fase_escolhida = hover;
         transicao_post_timer = 0;
         transicao_audio_marca = -1;
+        negado_card = hover;
+        negado_timer = 22;
+        global.transicao_ativa = true;
         entrando_fase = true;
     } else {
         audio_play_sound(snd_f1_erro, 4, false, 0.72, 0, 0.86);

@@ -7,9 +7,9 @@ negado_timer = 0;
 entrando_fase = false;
 fase_escolhida = -1;
 transicao_post_timer = 0;
-transicao_post_dur = 185 + room_speed * 3;
+transicao_post_dur = 207 + ceil(room_speed * 1.5);
 transicao_audio_marca = -1;
-transicao_preto_final = room_speed * 3;
+transicao_preto_final = ceil(room_speed * 1.5);
 voltar_hover = false;
 voltando_menu = false;
 fade_entrada_branco = 1;
@@ -56,3 +56,4 @@ feed_altura = array_length(fase_nome) * (post_h + post_gap) - post_gap;
 
 window_set_cursor(cr_none);
 cursor_sprite = spr_ui_cursor;
+global.transicao_ativa = false;

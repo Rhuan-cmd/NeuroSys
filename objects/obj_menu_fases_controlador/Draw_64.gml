@@ -50,27 +50,29 @@ var _trans_preto_alpha = 0;
 var _trans_zoom_forca = 0;
 if (entrando_fase) {
     var _t_cam = transicao_post_timer;
-    if (_t_cam < 25) {
+    if (_t_cam < 23) {
+        _trans_zoom_forca = 0;
+    } else if (_t_cam < 47) {
         _trans_zoom_forca = 0;
         _trans_preto_alpha = 1;
-    } else if (_t_cam < 61) {
-        var _p_cam1 = (_t_cam - 25) / 36;
+    } else if (_t_cam < 83) {
+        var _p_cam1 = (_t_cam - 47) / 36;
         _p_cam1 = _p_cam1 * _p_cam1 * (3 - 2 * _p_cam1);
-        _trans_zoom_forca = lerp(0.22, 0.38, _p_cam1);
-    } else if (_t_cam < 85) {
-        _trans_zoom_forca = 0.38;
+        _trans_zoom_forca = lerp(0.08, 0.30, _p_cam1);
+    } else if (_t_cam < 107) {
+        _trans_zoom_forca = 0.30;
         _trans_preto_alpha = 1;
-    } else if (_t_cam < 121) {
-        var _p_cam2 = (_t_cam - 85) / 36;
+    } else if (_t_cam < 143) {
+        var _p_cam2 = (_t_cam - 107) / 36;
         _p_cam2 = _p_cam2 * _p_cam2 * (3 - 2 * _p_cam2);
-        _trans_zoom_forca = lerp(0.38, 0.68, _p_cam2);
-    } else if (_t_cam < 145) {
-        _trans_zoom_forca = 0.68;
+        _trans_zoom_forca = lerp(0.30, 0.62, _p_cam2);
+    } else if (_t_cam < 167) {
+        _trans_zoom_forca = 0.62;
         _trans_preto_alpha = 1;
-    } else if (_t_cam < 185) {
-        var _p_cam3 = (_t_cam - 145) / 40;
+    } else if (_t_cam < 207) {
+        var _p_cam3 = (_t_cam - 167) / 40;
         _p_cam3 = _p_cam3 * _p_cam3 * (3 - 2 * _p_cam3);
-        _trans_zoom_forca = lerp(0.68, 1, _p_cam3);
+        _trans_zoom_forca = lerp(0.62, 1, _p_cam3);
     } else {
         _trans_zoom_forca = 1;
         _trans_preto_alpha = 1;
@@ -153,9 +155,9 @@ for (var i = 0; i < array_length(fase_nome); i += 1) {
     var _bloqueado = i + 1 > _liberada;
     var _hover = hover == i;
     var _post_shift = (_hover ? sin(menu_timer * 0.12) * 1.5 : 0);
-    var _trans_t_card = (entrando_fase && fase_escolhida == i) ? clamp(transicao_post_timer / transicao_post_dur, 0, 1) : 0;
-    var _shake_trans = (entrando_fase && fase_escolhida == i && _trans_t_card < 0.36) ? sin(menu_timer * 1.45) * (5.5 * (1 - _trans_t_card / 0.36)) : 0;
-    var _shake_x = (i == negado_card && negado_timer > 0) ? sin(negado_timer * 2.4) * negado_timer * 0.34 : _shake_trans;
+    var _trans_t_card = (entrando_fase && fase_escolhida == i) ? transicao_post_timer : -1;
+    var _shake_trans = (_trans_t_card >= 0 && _trans_t_card < 23) ? sin(menu_timer * 2.1) * (7.5 * (1 - _trans_t_card / 23)) : 0;
+    var _shake_x = (i == negado_card && negado_timer > 0) ? sin(negado_timer * 2.4) * negado_timer * 0.34 + _shake_trans : _shake_trans;
     _y += _post_shift;
     var _card_x = feed_x + _shake_x;
     var _cor_post = _bloqueado ? make_color_rgb(11, 15, 22) : make_color_rgb(11, 25, 42);
