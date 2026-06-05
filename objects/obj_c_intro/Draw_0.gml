@@ -64,8 +64,10 @@ if (global.intro_phase == 4) {
         draw_set_alpha(phase_alpha);
         draw_set_color(make_color_rgb(7, 12, 22));
         draw_rectangle(0, 0, gui_w, gui_h, false);
-        draw_set_color(make_color_rgb(145, 204, 230));
-        draw_text(cx, cy, "carregando video...");
+        if (!intro_video_ready) {
+            draw_set_color(make_color_rgb(145, 204, 230));
+            draw_text(cx, cy, "carregando video...");
+        }
     }
 
     if (intro_video_ready && intro_video_hint_timer < room_speed * 5) {
