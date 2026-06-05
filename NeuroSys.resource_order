@@ -5,5 +5,6 @@
   ],
   "ResourceOrderSettings":[
     {"name":"obj_c_credit_intro","order":1,"path":"objects/obj_c_credit_intro/obj_c_credit_intro.yy",},
+    {"name":"snd_menu_musica","order":8,"path":"sounds/snd_menu_musica/snd_menu_musica.yy",},
   ],
 }

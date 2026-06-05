@@ -9,7 +9,7 @@ var _header_dark = make_color_rgb(3, 10, 20);
 var _cyan = make_color_rgb(93, 233, 255);
 var _cyan_soft = make_color_rgb(39, 120, 158);
 var _magenta = make_color_rgb(193, 61, 145);
-var _side_w = 260;
+var _side_w = 282;
 var _header_h = 70;
 var _feed_panel_x = app_x + _side_w;
 var _feed_panel_y = app_y + _header_h;
@@ -113,25 +113,27 @@ for (var i = 0; i < array_length(fase_nome); i += 1) {
     var _bloqueado = i + 1 > _liberada;
     var _hover = hover == i;
     var _post_shift = (_hover ? sin(menu_timer * 0.12) * 1.5 : 0);
+    var _shake_x = (i == negado_card && negado_timer > 0) ? sin(negado_timer * 2.4) * negado_timer * 0.34 : 0;
     _y += _post_shift;
+    var _card_x = feed_x + _shake_x;
     var _cor_post = _bloqueado ? make_color_rgb(11, 15, 22) : make_color_rgb(11, 25, 42);
     var _cor_borda = _bloqueado ? make_color_rgb(58, 67, 82) : (_hover ? make_color_rgb(130, 230, 255) : make_color_rgb(40, 111, 150));
 
     draw_set_alpha(_bloqueado ? 0.78 : 0.96);
     draw_set_color(_cor_post);
-    draw_roundrect(feed_x, _y, feed_x + feed_w, _y + post_h, false);
+    draw_roundrect(_card_x, _y, _card_x + feed_w, _y + post_h, false);
     draw_set_alpha(_hover ? 0.9 : 0.46);
     draw_set_color(_cor_borda);
-    draw_roundrect(feed_x, _y, feed_x + feed_w, _y + post_h, true);
+    draw_roundrect(_card_x, _y, _card_x + feed_w, _y + post_h, true);
 
     draw_set_alpha(1);
     draw_set_color(_bloqueado ? make_color_rgb(86, 96, 112) : make_color_rgb(94, 238, 255));
-    draw_circle(feed_x + 24, _y + 24, 11, false);
-    _glitch_text(feed_x + 44, _y + 20, fase_tag[i], 0.68, 0.68, _bloqueado ? make_color_rgb(132, 142, 158) : c_white, _glitch);
+    draw_circle(_card_x + 24, _y + 24, 11, false);
+    _glitch_text(_card_x + 44, _y + 20, fase_tag[i], 0.68, 0.68, _bloqueado ? make_color_rgb(132, 142, 158) : c_white, _glitch);
     draw_set_color(make_color_rgb(102, 123, 146));
-    draw_text_transformed(feed_x + 44, _y + 40, "postagem #" + string(i + 1), 0.58, 0.58, 0);
+    draw_text_transformed(_card_x + 44, _y + 40, "postagem #" + string(i + 1), 0.58, 0.58, 0);
 
-    var _foto_x = feed_x + 18;
+    var _foto_x = _card_x + 18;
     var _foto_y = _y + 62;
     var _foto_w = 106;
     var _foto_h = 58;
@@ -141,6 +143,16 @@ for (var i = 0; i < array_length(fase_nome); i += 1) {
     draw_set_alpha(_bloqueado ? 0.18 : 0.42);
     draw_set_color(make_color_rgb(73, 166, 204));
     draw_roundrect(_foto_x, _foto_y, _foto_x + _foto_w, _foto_y + _foto_h, true);
+    if (entrando_fase && fase_escolhida == i) {
+        var _trans_t_img = clamp(transicao_post_timer / transicao_post_dur, 0, 1);
+        var _luz = _trans_t_img * _trans_t_img * (3 - 2 * _trans_t_img);
+        draw_set_alpha(0.22 + _luz * 0.58);
+        draw_set_color(make_color_rgb(92, 222, 255));
+        draw_rectangle(_foto_x - 12 - _luz * 18, _foto_y - 8 - _luz * 10, _foto_x + _foto_w + 12 + _luz * 18, _foto_y + _foto_h + 8 + _luz * 10, false);
+        draw_set_alpha(0.34 + _luz * 0.42);
+        draw_set_color(c_white);
+        draw_rectangle(_foto_x - 4, _foto_y - 2, _foto_x + _foto_w + 4, _foto_y + _foto_h + 2, false);
+    }
     var _spr = fase_foto[i];
     var _sw = sprite_get_width(_spr);
     var _sh = sprite_get_height(_spr);
@@ -151,17 +163,17 @@ for (var i = 0; i < array_length(fase_nome); i += 1) {
     draw_sprite_part_ext(_spr, 0, 0, 0, _sw, _sh, _dx, _dy, _esc, _esc, c_white, _bloqueado ? 0.42 : 1);
 
     draw_set_alpha(1);
-    _glitch_text(feed_x + 142, _y + 64, fase_nome[i], 0.76, 0.76, _bloqueado ? make_color_rgb(132, 142, 158) : c_white, _glitch);
+    _glitch_text(_card_x + 142, _y + 64, fase_nome[i], 0.76, 0.76, _bloqueado ? make_color_rgb(132, 142, 158) : c_white, _glitch);
     draw_set_color(_bloqueado ? make_color_rgb(91, 100, 116) : make_color_rgb(185, 205, 224));
-    draw_text_ext_transformed(feed_x + 142, _y + 89, fase_desc[i], 16, 260, 0.62, 0.62, 0);
+    draw_text_ext_transformed(_card_x + 142, _y + 89, fase_desc[i], 16, 260, 0.62, 0.62, 0);
 
     draw_set_halign(fa_center);
     if (_bloqueado) {
-        draw_sprite_ext(spr_ui_cadeado, 0, feed_x + feed_w - 42, _y + 30, 0.95, 0.95, 0, c_white, 0.9);
+        draw_sprite_ext(spr_ui_cadeado, 0, _card_x + feed_w - 42, _y + 30, 0.95, 0.95, 0, c_white, 0.9);
         draw_set_color(make_color_rgb(142, 153, 171));
-        draw_text_transformed(feed_x + feed_w - 42, _y + 58, "bloqueado", 0.58, 0.58, 0);
+        draw_text_transformed(_card_x + feed_w - 42, _y + 58, "bloqueado", 0.58, 0.58, 0);
     } else {
-        _glitch_text(feed_x + feed_w - 46, _y + 32, "JOGAR", 0.68, 0.68, _hover ? make_color_rgb(255, 246, 152) : make_color_rgb(116, 231, 255), _glitch);
+        _glitch_text(_card_x + feed_w - 46, _y + 32, "JOGAR", 0.68, 0.68, _hover ? make_color_rgb(255, 246, 152) : make_color_rgb(116, 231, 255), _glitch);
     }
     draw_set_halign(fa_left);
 }
@@ -220,8 +232,8 @@ draw_set_halign(fa_left);
 draw_set_valign(fa_top);
 _glitch_text(app_x + 24, app_y + 90, "Painel de casos", 0.78, 0.78, make_color_rgb(124, 221, 248), _glitch);
 
-draw_set_color(make_color_rgb(8, 24, 40));
-draw_rectangle(app_x + 18, app_y + 128, _divider_x - 18, app_y + 244, false);
+draw_set_alpha(1);
+_grad_rect(app_x + 18, app_y + 128, _divider_x - 18, app_y + 244, make_color_rgb(8, 28, 47), make_color_rgb(5, 16, 30), 8);
 draw_set_color(make_color_rgb(32, 108, 145));
 draw_rectangle(app_x + 18, app_y + 128, _divider_x - 18, app_y + 244, true);
 _glitch_text(app_x + 30, app_y + 144, "Progresso", 0.62, 0.62, make_color_rgb(96, 226, 255), _glitch);
@@ -235,8 +247,7 @@ if (_prog_w > 0) {
     draw_rectangle(app_x + 30, app_y + 222, app_x + 30 + _prog_w, app_y + 230, false);
 }
 
-draw_set_color(make_color_rgb(8, 24, 40));
-draw_rectangle(app_x + 18, app_y + 264, _divider_x - 18, app_y + 420, false);
+_grad_rect(app_x + 18, app_y + 264, _divider_x - 18, app_y + 420, make_color_rgb(8, 28, 47), make_color_rgb(4, 13, 25), 10);
 draw_set_color(make_color_rgb(32, 108, 145));
 draw_rectangle(app_x + 18, app_y + 264, _divider_x - 18, app_y + 420, true);
 _glitch_text(app_x + 30, app_y + 280, "Missão", 0.62, 0.62, make_color_rgb(96, 226, 255), _glitch);
@@ -268,6 +279,21 @@ draw_set_color(make_color_rgb(14, 37, 57));
 draw_rectangle(_scroll_x, feed_top + 3, _scroll_x + 9, feed_bottom - 3, false);
 draw_set_color(make_color_rgb(105, 211, 244));
 draw_rectangle(_scroll_x, max(feed_top + 3, _bar_y), _scroll_x + 9, min(feed_bottom - 3, _bar_y + _bar_h), false);
+
+if (entrando_fase) {
+    var _trans_t = clamp(transicao_post_timer / transicao_post_dur, 0, 1);
+    var _soft = _trans_t * _trans_t * (3 - 2 * _trans_t);
+    var _flash = 0.5 + 0.5 * sin(menu_timer * 0.55);
+    draw_set_alpha(_soft * 0.72);
+    draw_set_color(c_black);
+    draw_rectangle(0, 0, gui_w, gui_h, false);
+    draw_set_alpha(clamp((_trans_t - 0.12) / 0.62, 0, 1) * (0.18 + _flash * 0.18));
+    draw_set_color(make_color_rgb(77, 205, 255));
+    draw_rectangle(0, 0, gui_w, gui_h, false);
+    draw_set_alpha(clamp((_trans_t - 0.42) / 0.58, 0, 1) * (0.18 + _flash * 0.16));
+    draw_set_color(c_white);
+    draw_rectangle(0, 0, gui_w, gui_h, false);
+}
 
 if (fade_saida_branco > 0) {
     draw_set_alpha(fade_saida_branco);

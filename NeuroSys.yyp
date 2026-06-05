@@ -165,6 +165,7 @@
     {"id":{"name":"snd_intro_digitacao","path":"sounds/snd_intro_digitacao/snd_intro_digitacao.yy",},},
     {"id":{"name":"snd_intro_transicao","path":"sounds/snd_intro_transicao/snd_intro_transicao.yy",},},
     {"id":{"name":"snd_menu_luz","path":"sounds/snd_menu_luz/snd_menu_luz.yy",},},
+    {"id":{"name":"snd_menu_musica","path":"sounds/snd_menu_musica/snd_menu_musica.yy",},},
     {"id":{"name":"snd_menu_natureza","path":"sounds/snd_menu_natureza/snd_menu_natureza.yy",},},
     {"id":{"name":"snd_menu_succao","path":"sounds/snd_menu_succao/snd_menu_succao.yy",},},
     {"id":{"name":"snd_menu_succao_reverso","path":"sounds/snd_menu_succao_reverso/snd_menu_succao_reverso.yy",},},

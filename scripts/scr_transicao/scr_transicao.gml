@@ -14,5 +14,20 @@ function audio_room_enter(_room_token) {
     }
 
     audio_stop_all();
+    global.audio_menu_musica = -1;
     global.audio_room_token = _room_token;
+}
+
+function audio_menu_iniciar(_ganho) {
+    if (!variable_global_exists("audio_menu_musica")) global.audio_menu_musica = -1;
+    if (global.audio_menu_musica == -1 || !audio_is_playing(global.audio_menu_musica)) {
+        global.audio_menu_musica = audio_play_sound(snd_menu_musica, 0, true, 0);
+    }
+    audio_sound_gain(global.audio_menu_musica, _ganho, 700);
+}
+
+function audio_menu_fade(_ganho, _tempo) {
+    if (variable_global_exists("audio_menu_musica") && global.audio_menu_musica != -1 && audio_is_playing(global.audio_menu_musica)) {
+        audio_sound_gain(global.audio_menu_musica, _ganho, _tempo);
+    }
 }

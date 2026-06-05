@@ -1,5 +1,6 @@
 entrada_bloqueada = room_speed * 0.25;
 audio_room_enter("menu");
+audio_menu_iniciar(0.38);
 clique_iniciado = false;
 menu_saida_timer = -1;
 menu_timer = 0;

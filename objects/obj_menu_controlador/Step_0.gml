@@ -54,6 +54,7 @@ if (!clique_iniciado && entrada_bloqueada <= 0) {
         menu_saindo_jogo = menu_destino == -1;
         audio_sound_gain(som_luz_id, 0, 950);
         audio_sound_gain(som_natureza_id, 0, 950);
+        audio_menu_fade(menu_saindo_jogo ? 0 : 0.24, 950);
         audio_play_sound(snd_f2_botao, 4, false, 0.62);
         if (!menu_saindo_jogo) {
             audio_play_sound(snd_menu_succao, 1, false);
