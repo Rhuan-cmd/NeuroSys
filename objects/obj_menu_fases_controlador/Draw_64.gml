@@ -17,7 +17,7 @@ var _feed_panel_r = app_x + app_w;
 var _feed_panel_b = app_y + app_h;
 var _feed_mask_l = _feed_panel_x;
 var _feed_mask_r = _feed_panel_r;
-var _scroll_x = _feed_mask_r - 18;
+var _scroll_x = _feed_mask_r - 11;
 var _divider_x = _feed_panel_x;
 var _cover = 18;
 var _glitch = true;
@@ -98,7 +98,7 @@ _grad_rect(app_x, app_y + _header_h, _divider_x - 5, app_y + app_h, make_color_r
 _grad_rect(_feed_panel_x + 1, _feed_panel_y, _feed_panel_r, _feed_panel_b, make_color_rgb(5, 14, 26), _panel, 18);
 draw_set_color(make_color_rgb(2, 7, 14));
 draw_rectangle(_feed_mask_l, feed_top - _cover, _feed_mask_r, feed_top, false);
-draw_rectangle(_feed_mask_r - 18, feed_top - _cover, _feed_mask_r, feed_bottom + _cover, false);
+draw_rectangle(_feed_mask_r - 11, feed_top, _feed_mask_r, feed_bottom, false);
 _grad_rect(_feed_mask_l, feed_top, _feed_mask_r, feed_bottom, make_color_rgb(8, 21, 36), make_color_rgb(4, 11, 22), 18);
 draw_set_alpha(0.20 + 0.12 * _anim);
 draw_set_color(make_color_rgb(48, 166, 203));
@@ -169,11 +169,11 @@ for (var i = 0; i < array_length(fase_nome); i += 1) {
 draw_set_alpha(1);
 draw_set_color(_panel);
 draw_rectangle(_feed_panel_x + 1, _feed_panel_y, _feed_panel_r, feed_top - 1, false);
-draw_rectangle(_feed_mask_r - 18, _feed_panel_y, _feed_panel_r, _feed_panel_b, false);
+draw_rectangle(_feed_mask_r - 11, feed_top, _feed_panel_r, feed_bottom, false);
 
 draw_set_color(make_color_rgb(2, 7, 14));
 draw_rectangle(_feed_mask_l, feed_top - _cover, _feed_mask_r, feed_top, false);
-draw_rectangle(_feed_mask_r - 18, feed_top - _cover, _feed_mask_r, feed_bottom + _cover, false);
+draw_rectangle(_feed_mask_r - 11, feed_top, _feed_mask_r, feed_bottom, false);
 draw_set_color(_cyan_soft);
 draw_rectangle(_feed_mask_l - 1, feed_top - 1, _feed_mask_r + 1, feed_top + 2, false);
 draw_rectangle(_feed_mask_l - 1, feed_bottom - 2, _feed_mask_r + 1, feed_bottom, false);
@@ -265,9 +265,9 @@ var _bar_h = max(42, (feed_bottom - feed_top) * ((feed_bottom - feed_top) / max(
 var _bar_y = feed_top + (feed_bottom - feed_top - _bar_h) * clamp(scroll_y / _max_scroll, 0, 1);
 draw_set_alpha(1);
 draw_set_color(make_color_rgb(14, 37, 57));
-draw_rectangle(_scroll_x, feed_top, _scroll_x + 9, feed_bottom, false);
+draw_rectangle(_scroll_x, feed_top + 3, _scroll_x + 9, feed_bottom - 3, false);
 draw_set_color(make_color_rgb(105, 211, 244));
-draw_rectangle(_scroll_x, _bar_y, _scroll_x + 9, _bar_y + _bar_h, false);
+draw_rectangle(_scroll_x, max(feed_top + 3, _bar_y), _scroll_x + 9, min(feed_bottom - 3, _bar_y + _bar_h), false);
 
 if (fade_saida_branco > 0) {
     draw_set_alpha(fade_saida_branco);
