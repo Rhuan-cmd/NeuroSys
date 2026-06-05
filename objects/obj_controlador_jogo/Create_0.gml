@@ -20,6 +20,12 @@ global.perf_fullscreen_cooldown = 0;
 if (!variable_global_exists("op_volume")) {
     global.op_volume = 1;
 }
+if (!variable_global_exists("op_volume_musica")) {
+    global.op_volume_musica = 1;
+}
+if (!variable_global_exists("op_volume_efeitos")) {
+    global.op_volume_efeitos = 1;
+}
 if (!variable_global_exists("op_graficos")) {
     global.op_graficos = 1;
 }

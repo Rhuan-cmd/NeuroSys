@@ -24,14 +24,16 @@ function audio_room_enter(_room_token) {
 
 function audio_menu_iniciar(_ganho) {
     if (!variable_global_exists("audio_menu_musica")) global.audio_menu_musica = -1;
+    if (!variable_global_exists("op_volume_musica")) global.op_volume_musica = 1;
     if (global.audio_menu_musica == -1 || !audio_is_playing(global.audio_menu_musica)) {
         global.audio_menu_musica = audio_play_sound(snd_menu_musica, 0, true, 0);
     }
-    audio_sound_gain(global.audio_menu_musica, _ganho, 700);
+    audio_sound_gain(global.audio_menu_musica, _ganho * global.op_volume_musica, 700);
 }
 
 function audio_menu_fade(_ganho, _tempo) {
+    if (!variable_global_exists("op_volume_musica")) global.op_volume_musica = 1;
     if (variable_global_exists("audio_menu_musica") && global.audio_menu_musica != -1 && audio_is_playing(global.audio_menu_musica)) {
-        audio_sound_gain(global.audio_menu_musica, _ganho, _tempo);
+        audio_sound_gain(global.audio_menu_musica, _ganho * global.op_volume_musica, _tempo);
     }
 }

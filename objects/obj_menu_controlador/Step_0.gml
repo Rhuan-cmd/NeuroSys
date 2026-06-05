@@ -24,7 +24,7 @@ if (menu_bg_layer != -1) {
 }
 
 if (!clique_iniciado && entrada_bloqueada <= 0 && botao_hover != botao_hover_anterior && botao_hover != -1) {
-    audio_play_sound(snd_f2_selecao, 3, false, 0.42);
+    audio_play_sound(snd_f2_selecao, 3, false, 0.42 * (variable_global_exists("op_volume_efeitos") ? global.op_volume_efeitos : 1));
 }
 botao_hover_anterior = botao_hover;
 
@@ -55,7 +55,7 @@ if (!clique_iniciado && entrada_bloqueada <= 0) {
         audio_sound_gain(som_luz_id, 0, 950);
         audio_sound_gain(som_natureza_id, 0, 950);
         audio_menu_fade(menu_saindo_jogo ? 0 : 0.24, 950);
-        audio_play_sound(snd_f2_botao, 4, false, 0.62);
+        audio_play_sound(snd_f2_botao, 4, false, 0.62 * (variable_global_exists("op_volume_efeitos") ? global.op_volume_efeitos : 1));
         if (!menu_saindo_jogo) {
             audio_play_sound(snd_menu_succao, 1, false);
         }

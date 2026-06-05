@@ -2,7 +2,6 @@ var gui_w = display_get_gui_width();
 var gui_h = display_get_gui_height();
 var _cyan = make_color_rgb(92, 226, 255);
 var _cyan_dark = make_color_rgb(34, 112, 150);
-var _panel = make_color_rgb(7, 21, 36);
 var _muted = make_color_rgb(146, 172, 198);
 var _yellow = make_color_rgb(255, 232, 128);
 var _green = make_color_rgb(112, 245, 185);
@@ -52,29 +51,32 @@ function _option_card(_x, _y, _w, _h, _txt, _ativo, _hover) {
 }
 
 function _card_rect(_aba, _idx) {
-    var _cols = 3;
+    var _count = 3;
+    if (_aba == 0) _count = array_length(grafico_opcoes);
+    if (_aba == 1) _count = array_length(som_opcoes);
+    if (_aba == 2) _count = array_length(res_opcoes);
+    if (_aba == 3) _count = array_length(tela_opcoes);
+
     var _w = 174;
     var _h = 54;
-    var _gap = 20;
-    var _x0 = 306;
-    var _y0 = 226;
+    var _gap = 22;
+    var _area_x1 = 306;
+    var _area_x2 = 900;
+    var _y = 226;
 
     if (_aba == 1) {
-        _cols = 4;
         _w = 136;
-        _gap = 16;
     } else if (_aba == 2) {
-        _cols = 2;
-        _w = 258;
-        _gap = 24;
+        _w = 142;
+        _gap = 14;
     } else if (_aba == 3) {
-        _cols = 2;
         _w = 230;
-        _gap = 24;
+        _gap = 28;
     }
 
-    var _x = _x0 + (_idx mod _cols) * (_w + _gap);
-    var _y = _y0 + floor(_idx / _cols) * 76;
+    var _total_w = _count * _w + max(0, _count - 1) * _gap;
+    var _x0 = _area_x1 + ((_area_x2 - _area_x1) - _total_w) * 0.5;
+    var _x = _x0 + _idx * (_w + _gap);
     return [_x, _y, _w, _h];
 }
 
@@ -112,10 +114,10 @@ draw_set_valign(fa_middle);
 
 _glitch_text(24, 37, "CONFIGURAÇÕES", 0.74, 0.74, _cyan, true);
 draw_set_color(make_color_rgb(137, 175, 202));
-draw_text_transformed(_content_x + 24, 37, "painel do sistema // NeuroSys", 0.52, 0.52, 0);
+draw_text_transformed(_content_x + 24, 37, "PAINEL DE CONFIGURAÇÕES // NEUROSYS", 0.52, 0.52, 0);
 draw_set_halign(fa_right);
 draw_set_color(make_color_rgb(130, 206, 232));
-draw_text_transformed(gui_w - 26, 37, "perfil ajustável", 0.52, 0.52, 0);
+draw_text_transformed(gui_w - 26, 37, "PERFIL AJUSTÁVEL", 0.52, 0.52, 0);
 draw_set_halign(fa_left);
 
 for (var _a = 0; _a < array_length(abas); _a += 1) {
@@ -135,14 +137,6 @@ for (var _a = 0; _a < array_length(abas); _a += 1) {
 }
 
 draw_set_valign(fa_top);
-draw_set_alpha(0.78);
-_grad_rect(18, 384, 242, 506, make_color_rgb(5, 23, 40), make_color_rgb(9, 47, 70), 12, true);
-draw_set_alpha(1);
-draw_set_color(_cyan_dark);
-draw_rectangle(18, 384, 242, 506, true);
-draw_set_color(_muted);
-draw_text_ext_transformed(34, 404, "Ajustes aplicados no jogo inteiro. Use F11 em qualquer tela para alternar o modo de tela.", 16, 176, 0.50, 0.50, 0);
-
 draw_set_alpha(0.93);
 _grad_rect(282, 102, gui_w - 36, 204, make_color_rgb(7, 28, 46), make_color_rgb(10, 47, 70), 16, false);
 draw_set_alpha(1);
@@ -157,7 +151,7 @@ _glitch_text(304, 122, abas[aba], 1.0, 1.0, _cyan, true);
 draw_set_color(_muted);
 var _descricao = "";
 if (aba == 0) _descricao = "Escolha a qualidade visual geral. Ela controla densidade de efeitos, brilho e detalhes extras sem trocar a arte dos sprites.";
-if (aba == 1) _descricao = "Ajuste o volume pela barra. O preset MUDO, BAIXO, MÉDIO ou ALTO se atualiza automaticamente conforme o valor.";
+if (aba == 1) _descricao = "Ajuste o volume geral, música e efeitos. O preset MUDO, BAIXO, MÉDIO ou ALTO acompanha o volume geral.";
 if (aba == 2) _descricao = "Selecione a resolução base. Ela também é aplicada antes de entrar em tela cheia.";
 if (aba == 3) _descricao = "Alterne entre janela e tela cheia clicando nos botões ou usando F11.";
 draw_text_ext_transformed(306, 160, _descricao, 18, 590, 0.56, 0.56, 0);
@@ -192,31 +186,36 @@ for (var _i = 0; _i < array_length(_nomes); _i += 1) {
 draw_set_halign(fa_left);
 draw_set_valign(fa_top);
 draw_set_alpha(0.90);
-_grad_rect(282, 394, gui_w - 36, 500, make_color_rgb(5, 21, 37), make_color_rgb(9, 44, 66), 14, false);
+_grad_rect(282, 394, gui_w - 36, 510, make_color_rgb(5, 21, 37), make_color_rgb(9, 44, 66), 14, false);
 draw_set_alpha(1);
 draw_set_color(_cyan_dark);
-draw_roundrect(282, 394, gui_w - 36, 500, true);
+draw_roundrect(282, 394, gui_w - 36, 510, true);
 
 if (aba == 1) {
-    var _slider_x1 = 344;
+    var _slider_x1 = 470;
     var _slider_x2 = 842;
-    var _slider_y = 424;
-    draw_set_color(c_white);
-    draw_text_transformed(312, 412, "VOLUME GERAL", 0.56, 0.56, 0);
-    draw_set_color(make_color_rgb(5, 18, 32));
-    draw_rectangle(_slider_x1, _slider_y, _slider_x2, _slider_y + 10, false);
-    draw_set_color(make_color_rgb(23, 86, 112));
-    draw_rectangle(_slider_x1, _slider_y, _slider_x2, _slider_y + 10, true);
-    draw_set_color(_cyan);
-    draw_rectangle(_slider_x1, _slider_y, _slider_x1 + (_slider_x2 - _slider_x1) * global.op_volume, _slider_y + 10, false);
-    draw_set_color(_yellow);
-    draw_circle(_slider_x1 + (_slider_x2 - _slider_x1) * global.op_volume, _slider_y + 5, 10, false);
-    draw_set_halign(fa_right);
-    draw_set_color(c_white);
-    draw_text_transformed(gui_w - 70, 411, string(round(global.op_volume * 100)) + "%", 0.58, 0.58, 0);
+    var _slider_y0 = 408;
+    var _labels = ["VOLUME GERAL", "MÚSICA", "EFEITOS"];
+    var _values = [global.op_volume, global.op_volume_musica, global.op_volume_efeitos];
+    for (var _s = 0; _s < 3; _s += 1) {
+        var _slider_y = _slider_y0 + _s * 28;
+        draw_set_halign(fa_left);
+        draw_set_color(c_white);
+        draw_text_transformed(312, _slider_y - 1, _labels[_s], 0.52, 0.52, 0);
+        draw_set_color(make_color_rgb(5, 18, 32));
+        draw_rectangle(_slider_x1, _slider_y, _slider_x2, _slider_y + 8, false);
+        draw_set_color(make_color_rgb(23, 86, 112));
+        draw_rectangle(_slider_x1, _slider_y, _slider_x2, _slider_y + 8, true);
+        draw_set_color(_s == 0 ? _cyan : (_s == 1 ? _green : _yellow));
+        draw_rectangle(_slider_x1, _slider_y, _slider_x1 + (_slider_x2 - _slider_x1) * _values[_s], _slider_y + 8, false);
+        draw_circle(_slider_x1 + (_slider_x2 - _slider_x1) * _values[_s], _slider_y + 4, 8, false);
+        draw_set_halign(fa_right);
+        draw_set_color(c_white);
+        draw_text_transformed(gui_w - 70, _slider_y - 2, string(round(_values[_s] * 100)) + "%", 0.52, 0.52, 0);
+    }
     draw_set_halign(fa_left);
     draw_set_color(_muted);
-    draw_text_ext_transformed(312, 452, "Arraste a barra para personalizar. O jogo escolhe o preset mais próximo sozinho.", 16, 560, 0.50, 0.50, 0);
+    draw_text_ext_transformed(312, 488, "Arraste qualquer barra. O preset de som acompanha o volume geral.", 16, 560, 0.46, 0.46, 0);
 } else if (aba == 0) {
     draw_set_color(_muted);
     draw_text_ext_transformed(312, 420, "BAIXO reduz efeitos globais. EQUILIBRADO mantém a proposta visual. ALTO libera a densidade máxima de efeitos.", 18, 590, 0.54, 0.54, 0);
