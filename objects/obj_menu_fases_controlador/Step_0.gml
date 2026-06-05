@@ -118,15 +118,13 @@ if (mouse_check_button_pressed(mb_left)) {
         if (_liberada >= 4 && sino_cliques >= 10) {
             global.fase_liberada = 1;
             sino_cliques = 0;
-            audio_play_sound(snd_f1_erro, 4, false, 0.68, 0, 0.78);
             exit;
         }
         sino_cliques += 1;
-        audio_play_sound(snd_f2_sino, 4, false, 0.44, 0, 0.9 + min(sino_cliques, 10) * 0.025);
         if (sino_cliques >= 10) {
             sino_cliques = 10;
             global.fase_liberada = 4;
-            audio_play_sound(snd_f2_vitoria, 4, false, 0.58);
+            audio_play_sound(snd_f2_confirmar, 4, false, 0.42, 0, 1.22);
         }
         exit;
     }

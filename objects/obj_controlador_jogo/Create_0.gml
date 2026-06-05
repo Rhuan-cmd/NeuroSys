@@ -20,6 +20,9 @@ global.perf_fullscreen_cooldown = 0;
 if (!variable_global_exists("fase_liberada")) {
     global.fase_liberada = 1;
 }
+if (!variable_global_exists("fase_concluida")) {
+    global.fase_concluida = 0;
+}
 if (!variable_global_exists("fase_entrada_bloquear_cursor")) {
     global.fase_entrada_bloquear_cursor = false;
 }

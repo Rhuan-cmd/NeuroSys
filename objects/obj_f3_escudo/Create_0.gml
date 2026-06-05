@@ -47,6 +47,7 @@ exibir_resultado = function(_vitoria) {
 	audio_play_sound(_vitoria ? snd_f2_vitoria : snd_f2_derrota, 4, false, _vitoria ? 0.95 : 0.86);
 	if (_vitoria) {
 		global.fase_liberada = max(variable_global_exists("fase_liberada") ? global.fase_liberada : 1, 4);
+		global.fase_concluida = max(variable_global_exists("fase_concluida") ? global.fase_concluida : 0, 3);
 	}
 	instance_deactivate_all(true);
 	instance_activate_object(obj_controlador_jogo);

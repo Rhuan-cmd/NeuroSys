@@ -35,6 +35,7 @@ exibir_resultado = function(_vitoria) {
     if (resultado_ativo) return;
     if (_vitoria) {
         global.fase_liberada = max(variable_global_exists("fase_liberada") ? global.fase_liberada : 1, 4);
+        global.fase_concluida = max(variable_global_exists("fase_concluida") ? global.fase_concluida : 0, 4);
         audio_stop_all();
         transicao(rm_creditos);
         return;

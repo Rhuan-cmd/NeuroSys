@@ -1,7 +1,7 @@
 var gui_w = display_get_gui_width();
 var gui_h = display_get_gui_height();
 var _liberada = variable_global_exists("fase_liberada") ? global.fase_liberada : 1;
-var _concluidas = clamp(max(0, _liberada - 1), 0, 4);
+var _concluidas = variable_global_exists("fase_concluida") ? clamp(global.fase_concluida, 0, 4) : 0;
 var _app_bg = make_color_rgb(6, 15, 29);
 var _panel = make_color_rgb(4, 10, 19);
 var _side_bg = make_color_rgb(5, 13, 24);
@@ -160,6 +160,7 @@ for (var i = 0; i < array_length(fase_nome); i += 1) {
     if (_y > feed_bottom + 12 || _y + post_h < feed_top - 12) continue;
 
     var _bloqueado = i + 1 > _liberada;
+    var _concluido = i + 1 <= _concluidas;
     var _hover = hover == i;
     var _post_shift = (_hover ? sin(menu_timer * 0.12) * 1.5 : 0);
     var _trans_t_card = (entrando_fase && fase_escolhida == i) ? transicao_post_timer : -1;
@@ -215,6 +216,8 @@ for (var i = 0; i < array_length(fase_nome); i += 1) {
         draw_text_transformed(_card_x + feed_w - 42, _y + 58, "bloqueado", 0.58, 0.58, 0);
     } else {
         _glitch_text(_card_x + feed_w - 46, _y + 32, "JOGAR", 0.68, 0.68, _hover ? make_color_rgb(255, 246, 152) : make_color_rgb(116, 231, 255), _glitch);
+        draw_set_color(_concluido ? make_color_rgb(110, 245, 180) : make_color_rgb(255, 215, 116));
+        draw_text_transformed(_card_x + feed_w - 46, _y + 58, _concluido ? "concluída" : "pendente", 0.54, 0.54, 0);
     }
     draw_set_halign(fa_left);
 }
@@ -278,7 +281,7 @@ draw_set_color(make_color_rgb(32, 108, 145));
 draw_rectangle(app_x + 18, app_y + 128, _divider_x - 18, app_y + 244, true);
 _glitch_text(app_x + 30, app_y + 144, "Progresso", 0.62, 0.62, make_color_rgb(96, 226, 255), _glitch);
 draw_set_color(make_color_rgb(151, 179, 202));
-draw_text_ext_transformed(app_x + 30, app_y + 170, "Complete uma postagem para liberar a próxima.", 20, 190, 0.55, 0.55, 0);
+draw_text_ext_transformed(app_x + 30, app_y + 170, "Progresso real: apenas fases concluídas contam aqui.", 20, 190, 0.55, 0.55, 0);
 draw_set_color(make_color_rgb(2, 8, 17));
 draw_rectangle(app_x + 30, app_y + 222, _divider_x - 30, app_y + 230, false);
 var _prog_w = (_divider_x - app_x - 60) * clamp(_concluidas / 4, 0, 1);
