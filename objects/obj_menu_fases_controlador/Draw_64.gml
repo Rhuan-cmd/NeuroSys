@@ -1,13 +1,13 @@
 var gui_w = display_get_gui_width();
 var gui_h = display_get_gui_height();
 var _liberada = variable_global_exists("fase_liberada") ? global.fase_liberada : 1;
-var _app_bg = make_color_rgb(7, 17, 31);
+var _app_bg = make_color_rgb(6, 15, 29);
 var _panel = make_color_rgb(4, 10, 19);
 var _side_bg = make_color_rgb(5, 13, 24);
-var _header = make_color_rgb(8, 27, 45);
-var _header_dark = make_color_rgb(4, 13, 24);
+var _header_dark = make_color_rgb(3, 10, 20);
 var _cyan = make_color_rgb(93, 233, 255);
 var _cyan_soft = make_color_rgb(39, 120, 158);
+var _magenta = make_color_rgb(193, 61, 145);
 var _side_w = 260;
 var _header_h = 70;
 var _feed_panel_x = app_x + _side_w;
@@ -19,10 +19,33 @@ var _feed_mask_r = _feed_panel_r - 26;
 var _scroll_x = _feed_mask_r - 10;
 var _divider_x = _feed_panel_x;
 var _cover = 18;
+var _glitch = (menu_timer div 9) mod 5 == 0;
+
+function _mix_col(_a, _b, _t) {
+    return merge_color(_a, _b, clamp(_t, 0, 1));
+}
+
+function _grad_rect(_x1, _y1, _x2, _y2, _c1, _c2, _steps) {
+    var _h = (_y2 - _y1) / _steps;
+    for (var _g = 0; _g < _steps; _g += 1) {
+        draw_set_color(_mix_col(_c1, _c2, _g / max(1, _steps - 1)));
+        draw_rectangle(_x1, _y1 + _g * _h, _x2, _y1 + (_g + 1) * _h + 1, false);
+    }
+}
+
+function _glitch_text(_x, _y, _txt, _sx, _sy, _main) {
+    if (_glitch) {
+        draw_set_color(make_color_rgb(203, 62, 151));
+        draw_text_transformed(_x - 1, _y, _txt, _sx, _sy, 0);
+        draw_set_color(make_color_rgb(64, 235, 255));
+        draw_text_transformed(_x + 1, _y + 1, _txt, _sx, _sy, 0);
+    }
+    draw_set_color(_main);
+    draw_text_transformed(_x, _y, _txt, _sx, _sy, 0);
+}
 
 draw_set_alpha(1);
-draw_set_color(_app_bg);
-draw_rectangle(0, 0, gui_w, gui_h, false);
+_grad_rect(0, 0, gui_w, gui_h, make_color_rgb(3, 8, 18), _app_bg, 20);
 draw_set_color(_cyan_soft);
 draw_rectangle(app_x, app_y, app_x + app_w, app_y + app_h, true);
 draw_set_color(make_color_rgb(2, 8, 17));
@@ -32,48 +55,45 @@ draw_set_font(fnt_f2_dialogo);
 draw_set_halign(fa_left);
 draw_set_valign(fa_middle);
 
-draw_set_color(_header_dark);
-draw_rectangle(app_x, app_y, app_x + app_w, app_y + _header_h, false);
-draw_set_color(_header);
-draw_rectangle(app_x, app_y, app_x + app_w, app_y + _header_h - 10, false);
-draw_set_color(make_color_rgb(13, 45, 69));
-draw_rectangle(app_x + 12, app_y + 10, app_x + 150, app_y + 52, false);
-draw_set_color(make_color_rgb(33, 115, 150));
-draw_rectangle(app_x + 12, app_y + 10, app_x + 150, app_y + 52, true);
-draw_set_color(_cyan);
-draw_text_transformed(app_x + 24, app_y + 31, "CONECTA", 0.86, 0.86, 0);
-
-draw_set_color(make_color_rgb(8, 24, 40));
-draw_rectangle(app_x + 174, app_y + 14, app_x + 312, app_y + 50, false);
-draw_set_color(make_color_rgb(89, 225, 255));
-draw_text_transformed(app_x + 194, app_y + 32, "FEED", 0.64, 0.64, 0);
-draw_set_color(make_color_rgb(14, 42, 62));
-draw_rectangle(app_x + 322, app_y + 14, app_x + 500, app_y + 50, false);
-draw_set_color(make_color_rgb(145, 174, 198));
-draw_text_transformed(app_x + 342, app_y + 32, "casos digitais", 0.58, 0.58, 0);
-
-draw_set_halign(fa_right);
-draw_set_color(make_color_rgb(78, 148, 178));
-draw_text_transformed(app_x + app_w - 30, app_y + 22, "NeuroSys // rede social", 0.54, 0.54, 0);
-draw_set_color(make_color_rgb(182, 220, 238));
-draw_text_transformed(app_x + app_w - 30, app_y + 44, "Casos liberados: " + string(_liberada) + "/4", 0.62, 0.62, 0);
-draw_set_halign(fa_left);
+// Navbar dividida pela mesma coluna da lateral e do feed.
+_grad_rect(app_x, app_y, _divider_x, app_y + _header_h, make_color_rgb(7, 24, 42), make_color_rgb(3, 12, 23), 8);
+_grad_rect(_divider_x, app_y, app_x + app_w, app_y + _header_h, make_color_rgb(9, 32, 51), make_color_rgb(4, 13, 25), 8);
+draw_set_color(make_color_rgb(2, 8, 17));
+draw_rectangle(_divider_x - 5, app_y, _divider_x + 5, app_y + app_h, false);
+draw_set_color(make_color_rgb(52, 139, 178));
+draw_rectangle(_divider_x + 4, app_y, _divider_x + 5, app_y + app_h, false);
 draw_set_color(make_color_rgb(28, 91, 128));
 draw_rectangle(app_x, app_y + _header_h - 3, app_x + app_w, app_y + _header_h, false);
 
-draw_set_color(_side_bg);
-draw_rectangle(app_x, app_y + _header_h, _divider_x, app_y + app_h, false);
-draw_set_color(make_color_rgb(2, 8, 17));
-draw_rectangle(_divider_x - 5, app_y + _header_h, _divider_x + 5, app_y + app_h, false);
-draw_set_color(make_color_rgb(52, 139, 178));
-draw_rectangle(_divider_x + 4, app_y + _header_h, _divider_x + 5, app_y + app_h, false);
+draw_set_color(make_color_rgb(13, 45, 69));
+draw_rectangle(app_x + 14, app_y + 10, _divider_x - 18, app_y + 52, false);
+draw_set_color(make_color_rgb(33, 115, 150));
+draw_rectangle(app_x + 14, app_y + 10, _divider_x - 18, app_y + 52, true);
+_glitch_text(app_x + 26, app_y + 31, "CONECTA", 0.86, 0.86, _cyan);
+draw_set_color(make_color_rgb(92, 143, 168));
+draw_text_transformed(app_x + 128, app_y + 31, "rede escolar", 0.46, 0.46, 0);
 
-draw_set_color(_panel);
-draw_rectangle(_feed_panel_x + 1, _feed_panel_y, _feed_panel_r, _feed_panel_b, false);
+draw_set_color(make_color_rgb(8, 24, 40));
+draw_rectangle(_divider_x + 22, app_y + 13, _divider_x + 154, app_y + 51, false);
+draw_set_color(make_color_rgb(89, 225, 255));
+draw_rectangle(_divider_x + 22, app_y + 13, _divider_x + 154, app_y + 51, true);
+_glitch_text(_divider_x + 44, app_y + 32, "FEED", 0.64, 0.64, make_color_rgb(89, 225, 255));
+draw_set_color(make_color_rgb(14, 42, 62));
+draw_rectangle(_divider_x + 166, app_y + 13, _divider_x + 366, app_y + 51, false);
+draw_set_color(make_color_rgb(44, 128, 164));
+draw_rectangle(_divider_x + 166, app_y + 13, _divider_x + 366, app_y + 51, true);
+_glitch_text(_divider_x + 186, app_y + 32, "CASOS DIGITAIS", 0.56, 0.56, make_color_rgb(177, 215, 234));
+
+draw_set_halign(fa_right);
+_glitch_text(app_x + app_w - 30, app_y + 22, "NeuroSys // rede social", 0.54, 0.54, make_color_rgb(78, 148, 178));
+_glitch_text(app_x + app_w - 30, app_y + 44, "Casos liberados: " + string(_liberada) + "/4", 0.62, 0.62, make_color_rgb(182, 220, 238));
+draw_set_halign(fa_left);
+
+_grad_rect(app_x, app_y + _header_h, _divider_x - 5, app_y + app_h, make_color_rgb(5, 16, 30), _side_bg, 16);
+_grad_rect(_feed_panel_x + 1, _feed_panel_y, _feed_panel_r, _feed_panel_b, make_color_rgb(5, 14, 26), _panel, 18);
 draw_set_color(make_color_rgb(2, 7, 14));
 draw_rectangle(_feed_mask_l - _cover, feed_top - _cover, _feed_mask_r + _cover, feed_bottom + _cover, false);
-draw_set_color(make_color_rgb(8, 18, 32));
-draw_rectangle(_feed_mask_l, feed_top, _feed_mask_r, feed_bottom, false);
+_grad_rect(_feed_mask_l, feed_top, _feed_mask_r, feed_bottom, make_color_rgb(8, 21, 36), make_color_rgb(4, 11, 22), 18);
 
 draw_set_halign(fa_left);
 for (var i = 0; i < array_length(fase_nome); i += 1) {
@@ -95,8 +115,7 @@ for (var i = 0; i < array_length(fase_nome); i += 1) {
     draw_set_alpha(1);
     draw_set_color(_bloqueado ? make_color_rgb(86, 96, 112) : make_color_rgb(94, 238, 255));
     draw_circle(feed_x + 24, _y + 24, 11, false);
-    draw_set_color(_bloqueado ? make_color_rgb(132, 142, 158) : c_white);
-    draw_text_transformed(feed_x + 44, _y + 20, fase_tag[i], 0.68, 0.68, 0);
+    _glitch_text(feed_x + 44, _y + 20, fase_tag[i], 0.68, 0.68, _bloqueado ? make_color_rgb(132, 142, 158) : c_white);
     draw_set_color(make_color_rgb(102, 123, 146));
     draw_text_transformed(feed_x + 44, _y + 40, "postagem #" + string(i + 1), 0.58, 0.58, 0);
 
@@ -120,8 +139,7 @@ for (var i = 0; i < array_length(fase_nome); i += 1) {
     draw_sprite_part_ext(_spr, 0, 0, 0, _sw, _sh, _dx, _dy, _esc, _esc, c_white, _bloqueado ? 0.42 : 1);
 
     draw_set_alpha(1);
-    draw_set_color(_bloqueado ? make_color_rgb(132, 142, 158) : c_white);
-    draw_text_transformed(feed_x + 142, _y + 64, fase_nome[i], 0.76, 0.76, 0);
+    _glitch_text(feed_x + 142, _y + 64, fase_nome[i], 0.76, 0.76, _bloqueado ? make_color_rgb(132, 142, 158) : c_white);
     draw_set_color(_bloqueado ? make_color_rgb(91, 100, 116) : make_color_rgb(185, 205, 224));
     draw_text_ext_transformed(feed_x + 142, _y + 89, fase_desc[i], 16, 260, 0.62, 0.62, 0);
 
@@ -131,8 +149,7 @@ for (var i = 0; i < array_length(fase_nome); i += 1) {
         draw_set_color(make_color_rgb(142, 153, 171));
         draw_text_transformed(feed_x + feed_w - 42, _y + 58, "bloqueado", 0.58, 0.58, 0);
     } else {
-        draw_set_color(_hover ? make_color_rgb(255, 246, 152) : make_color_rgb(116, 231, 255));
-        draw_text_transformed(feed_x + feed_w - 46, _y + 32, "JOGAR", 0.68, 0.68, 0);
+        _glitch_text(feed_x + feed_w - 46, _y + 32, "JOGAR", 0.68, 0.68, _hover ? make_color_rgb(255, 246, 152) : make_color_rgb(116, 231, 255));
     }
     draw_set_halign(fa_left);
 }
@@ -155,49 +172,48 @@ draw_rectangle(_feed_mask_l - 1, feed_bottom - 2, _feed_mask_r + 1, feed_bottom 
 draw_rectangle(_feed_mask_l - 1, feed_top - 1, _feed_mask_l + 2, feed_bottom + 1, false);
 draw_rectangle(_feed_mask_r - 2, feed_top - 1, _feed_mask_r + 1, feed_bottom + 1, false);
 
-draw_set_color(_header_dark);
-draw_rectangle(app_x, app_y, app_x + app_w, app_y + _header_h, false);
-draw_set_color(_header);
-draw_rectangle(app_x, app_y, app_x + app_w, app_y + _header_h - 10, false);
+// Reaplica navbar/lateral para encobrir qualquer postagem que role por baixo.
+_grad_rect(app_x, app_y, _divider_x, app_y + _header_h, make_color_rgb(7, 24, 42), make_color_rgb(3, 12, 23), 8);
+_grad_rect(_divider_x, app_y, app_x + app_w, app_y + _header_h, make_color_rgb(9, 32, 51), make_color_rgb(4, 13, 25), 8);
+draw_set_color(make_color_rgb(2, 8, 17));
+draw_rectangle(_divider_x - 5, app_y, _divider_x + 5, app_y + app_h, false);
+draw_set_color(make_color_rgb(52, 139, 178));
+draw_rectangle(_divider_x + 4, app_y, _divider_x + 5, app_y + app_h, false);
+draw_set_color(make_color_rgb(28, 91, 128));
+draw_rectangle(app_x, app_y + _header_h - 3, app_x + app_w, app_y + _header_h, false);
+
 draw_set_color(make_color_rgb(13, 45, 69));
-draw_rectangle(app_x + 12, app_y + 10, app_x + 150, app_y + 52, false);
+draw_rectangle(app_x + 14, app_y + 10, _divider_x - 18, app_y + 52, false);
 draw_set_color(make_color_rgb(33, 115, 150));
-draw_rectangle(app_x + 12, app_y + 10, app_x + 150, app_y + 52, true);
-draw_set_color(_cyan);
-draw_text_transformed(app_x + 24, app_y + 31, "CONECTA", 0.86, 0.86, 0);
+draw_rectangle(app_x + 14, app_y + 10, _divider_x - 18, app_y + 52, true);
+_glitch_text(app_x + 26, app_y + 31, "CONECTA", 0.86, 0.86, _cyan);
+draw_set_color(make_color_rgb(92, 143, 168));
+draw_text_transformed(app_x + 128, app_y + 31, "rede escolar", 0.46, 0.46, 0);
 draw_set_color(make_color_rgb(8, 24, 40));
-draw_rectangle(app_x + 174, app_y + 14, app_x + 312, app_y + 50, false);
+draw_rectangle(_divider_x + 22, app_y + 13, _divider_x + 154, app_y + 51, false);
 draw_set_color(make_color_rgb(89, 225, 255));
-draw_text_transformed(app_x + 194, app_y + 32, "FEED", 0.64, 0.64, 0);
+draw_rectangle(_divider_x + 22, app_y + 13, _divider_x + 154, app_y + 51, true);
+_glitch_text(_divider_x + 44, app_y + 32, "FEED", 0.64, 0.64, make_color_rgb(89, 225, 255));
 draw_set_color(make_color_rgb(14, 42, 62));
-draw_rectangle(app_x + 322, app_y + 14, app_x + 500, app_y + 50, false);
-draw_set_color(make_color_rgb(145, 174, 198));
-draw_text_transformed(app_x + 342, app_y + 32, "casos digitais", 0.58, 0.58, 0);
+draw_rectangle(_divider_x + 166, app_y + 13, _divider_x + 366, app_y + 51, false);
+draw_set_color(make_color_rgb(44, 128, 164));
+draw_rectangle(_divider_x + 166, app_y + 13, _divider_x + 366, app_y + 51, true);
+_glitch_text(_divider_x + 186, app_y + 32, "CASOS DIGITAIS", 0.56, 0.56, make_color_rgb(177, 215, 234));
 draw_set_halign(fa_right);
-draw_set_color(make_color_rgb(78, 148, 178));
-draw_text_transformed(app_x + app_w - 30, app_y + 22, "NeuroSys // rede social", 0.54, 0.54, 0);
-draw_set_color(make_color_rgb(182, 220, 238));
-draw_text_transformed(app_x + app_w - 30, app_y + 44, "Casos liberados: " + string(_liberada) + "/4", 0.62, 0.62, 0);
+_glitch_text(app_x + app_w - 30, app_y + 22, "NeuroSys // rede social", 0.54, 0.54, make_color_rgb(78, 148, 178));
+_glitch_text(app_x + app_w - 30, app_y + 44, "Casos liberados: " + string(_liberada) + "/4", 0.62, 0.62, make_color_rgb(182, 220, 238));
 draw_set_halign(fa_left);
 
-draw_set_color(_side_bg);
-draw_rectangle(app_x, app_y + _header_h, _divider_x, app_y + app_h, false);
-draw_set_color(make_color_rgb(2, 8, 17));
-draw_rectangle(_divider_x - 5, app_y + _header_h, _divider_x + 5, app_y + app_h, false);
-draw_set_color(make_color_rgb(52, 139, 178));
-draw_rectangle(_divider_x + 4, app_y + _header_h, _divider_x + 5, app_y + app_h, false);
-
+_grad_rect(app_x, app_y + _header_h, _divider_x - 5, app_y + app_h, make_color_rgb(5, 16, 30), _side_bg, 16);
 draw_set_halign(fa_left);
 draw_set_valign(fa_top);
-draw_set_color(make_color_rgb(124, 221, 248));
-draw_text_transformed(app_x + 24, app_y + 90, "Painel de casos", 0.78, 0.78, 0);
+_glitch_text(app_x + 24, app_y + 90, "Painel de casos", 0.78, 0.78, make_color_rgb(124, 221, 248));
 
 draw_set_color(make_color_rgb(8, 24, 40));
 draw_rectangle(app_x + 18, app_y + 128, _divider_x - 18, app_y + 244, false);
 draw_set_color(make_color_rgb(32, 108, 145));
 draw_rectangle(app_x + 18, app_y + 128, _divider_x - 18, app_y + 244, true);
-draw_set_color(make_color_rgb(96, 226, 255));
-draw_text_transformed(app_x + 30, app_y + 144, "Progresso", 0.62, 0.62, 0);
+_glitch_text(app_x + 30, app_y + 144, "Progresso", 0.62, 0.62, make_color_rgb(96, 226, 255));
 draw_set_color(make_color_rgb(151, 179, 202));
 draw_text_ext_transformed(app_x + 30, app_y + 170, "Complete uma postagem para liberar a próxima.", 20, 190, 0.55, 0.55, 0);
 draw_set_color(make_color_rgb(2, 8, 17));
@@ -209,22 +225,20 @@ draw_set_color(make_color_rgb(8, 24, 40));
 draw_rectangle(app_x + 18, app_y + 264, _divider_x - 18, app_y + 420, false);
 draw_set_color(make_color_rgb(32, 108, 145));
 draw_rectangle(app_x + 18, app_y + 264, _divider_x - 18, app_y + 420, true);
-draw_set_color(make_color_rgb(96, 226, 255));
-draw_text_transformed(app_x + 30, app_y + 280, "Missão", 0.62, 0.62, 0);
+_glitch_text(app_x + 30, app_y + 280, "Missão", 0.62, 0.62, make_color_rgb(96, 226, 255));
 draw_set_color(make_color_rgb(159, 178, 198));
 draw_text_ext_transformed(app_x + 30, app_y + 306, "Role o feed e escolha o caso disponível. Os cadeados mostram o que ainda falta desbloquear.", 20, 190, 0.55, 0.55, 0);
 draw_set_color(make_color_rgb(76, 143, 173));
 draw_rectangle(app_x + 30, app_y + 392, _divider_x - 30, app_y + 394, false);
-draw_set_color(make_color_rgb(151, 179, 202));
-draw_text_transformed(app_x + 30, app_y + 398, "Clique em JOGAR para iniciar", 0.46, 0.46, 0);
+_glitch_text(app_x + 30, app_y + 398, "Clique em JOGAR para iniciar", 0.46, 0.46, make_color_rgb(151, 179, 202));
 
-draw_set_color(make_color_rgb(5, 18, 31));
-draw_rectangle(app_x + 26, voltar_y - 38, _divider_x - 26, voltar_y + 38, false);
-draw_set_color(make_color_rgb(22, 77, 107));
-draw_rectangle(app_x + 26, voltar_y - 38, _divider_x - 26, voltar_y + 38, true);
-draw_set_color(make_color_rgb(11, 38, 57));
-draw_rectangle(app_x + 42, voltar_y - 24, _divider_x - 42, voltar_y + 24, false);
-var _voltar_scale_sprite = voltar_hover ? 1.18 : 1.12;
+draw_set_color(make_color_rgb(4, 14, 25));
+draw_rectangle(app_x + 34, voltar_y - 34, _divider_x - 34, voltar_y + 34, false);
+draw_set_color(make_color_rgb(18, 68, 96));
+draw_rectangle(app_x + 34, voltar_y - 34, _divider_x - 34, voltar_y + 34, true);
+draw_set_color(make_color_rgb(8, 31, 48));
+draw_rectangle(app_x + 56, voltar_y - 20, _divider_x - 56, voltar_y + 20, false);
+var _voltar_scale_sprite = voltar_hover ? 1.14 : 1.08;
 draw_sprite_ext(voltar_sprite, voltar_hover ? 1 : 0, voltar_x, voltar_y, _voltar_scale_sprite, _voltar_scale_sprite, 0, c_white, 1);
 
 var _max_scroll = max(1, feed_altura - (feed_bottom - feed_top));
