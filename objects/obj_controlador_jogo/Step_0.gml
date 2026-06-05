@@ -17,6 +17,7 @@ if (_room_fase && !global.jogo_pausado && keyboard_check_pressed(vk_escape)) {
     instance_deactivate_all(true);
     window_set_cursor(cr_none);
     cursor_sprite = spr_ui_cursor;
+    exit;
 }
 
 if (keyboard_check_pressed(vk_f3)) {
