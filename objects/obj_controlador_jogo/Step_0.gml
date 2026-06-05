@@ -14,6 +14,7 @@ if (_room_fase && !global.jogo_pausado && keyboard_check_pressed(vk_escape)) {
     pausa_saindo = 0;
     pausa_fade = 0;
     audio_pause_all();
+    pausa_musica_id = audio_play_sound(snd_f2_suspense, 0, true, 0.34, 0, 0.82);
     instance_deactivate_all(true);
     window_set_cursor(cr_none);
     cursor_sprite = spr_ui_cursor;
@@ -78,6 +79,10 @@ if (global.jogo_pausado) {
     if (pausa_saindo == 0 && mouse_check_button_pressed(mb_left) && pausa_hover != -1) {
         audio_play_sound(snd_f2_botao, 4, false, 0.62);
         if (pausa_hover == 0) {
+            if (pausa_musica_id != -1) {
+                audio_stop_sound(pausa_musica_id);
+                pausa_musica_id = -1;
+            }
             audio_resume_all();
             instance_activate_all();
             global.jogo_pausado = false;
@@ -88,6 +93,10 @@ if (global.jogo_pausado) {
     }
 
     if (pausa_saindo == 0 && keyboard_check_pressed(vk_escape)) {
+        if (pausa_musica_id != -1) {
+            audio_stop_sound(pausa_musica_id);
+            pausa_musica_id = -1;
+        }
         audio_resume_all();
         instance_activate_all();
         global.jogo_pausado = false;
@@ -97,6 +106,10 @@ if (global.jogo_pausado) {
     if (pausa_saindo != 0) {
         pausa_fade = min(1, pausa_fade + 0.065);
         if (pausa_fade >= 1) {
+            if (pausa_musica_id != -1) {
+                audio_stop_sound(pausa_musica_id);
+                pausa_musica_id = -1;
+            }
             audio_resume_all();
             instance_activate_all();
             global.jogo_pausado = false;

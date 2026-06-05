@@ -34,6 +34,7 @@ pausa_hover_anterior = -1;
 pausa_botoes = ["Retomar", "Menu", "Reiniciar"];
 pausa_saindo = 0;
 pausa_fade = 0;
+pausa_musica_id = -1;
 
 menu_fade_alpha = 0;
 if (room == rm_menu) {
