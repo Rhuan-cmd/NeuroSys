@@ -20,7 +20,7 @@ voltar_x = 110;
 voltar_y = app_h - 72;
 voltar_w = 112;
 voltar_h = 56;
-voltar_sprite = asset_get_index("spr_menu_btn_voltar");
+voltar_sprite = spr_menu_btn_voltar;
 
 fase_nome = [
     "Filtro de Respeito",

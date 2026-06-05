@@ -5,9 +5,8 @@ var _app_bg = make_color_rgb(7, 17, 31);
 var _panel = make_color_rgb(4, 10, 19);
 var _side_bg = make_color_rgb(5, 13, 24);
 var _header = make_color_rgb(10, 31, 50);
-var _cyan = make_color_rgb(83, 213, 245);
 var _cyan_soft = make_color_rgb(39, 120, 158);
-var _side_w = 220;
+var _side_w = 232;
 var _header_h = 58;
 var _feed_panel_x = app_x + _side_w;
 var _feed_panel_y = app_y + _header_h;
@@ -20,12 +19,8 @@ var _divider_x = _feed_panel_x;
 var _cover = 18;
 
 draw_set_alpha(1);
-draw_set_color(make_color_rgb(2, 6, 14));
-draw_rectangle(0, 0, gui_w, gui_h, false);
-
-draw_set_alpha(1);
 draw_set_color(_app_bg);
-draw_rectangle(app_x, app_y, app_x + app_w, app_y + app_h, false);
+draw_rectangle(0, 0, gui_w, gui_h, false);
 draw_set_color(_cyan_soft);
 draw_rectangle(app_x, app_y, app_x + app_w, app_y + app_h, true);
 draw_set_color(make_color_rgb(2, 8, 17));
@@ -41,6 +36,8 @@ draw_set_color(make_color_rgb(93, 233, 255));
 draw_text_transformed(app_x + 24, app_y + 30, "CONECTA", 0.86, 0.86, 0);
 draw_set_color(make_color_rgb(160, 185, 207));
 draw_text_transformed(app_x + 164, app_y + 31, "Feed de casos", 0.74, 0.74, 0);
+draw_set_color(make_color_rgb(78, 148, 178));
+draw_text_transformed(app_x + app_w - 196, app_y + 31, "Casos liberados: " + string(_liberada) + "/4", 0.62, 0.62, 0);
 draw_set_color(make_color_rgb(28, 91, 128));
 draw_rectangle(app_x, app_y + _header_h - 2, app_x + app_w, app_y + _header_h, false);
 
@@ -127,10 +124,6 @@ draw_rectangle(_feed_panel_x + 1, _feed_panel_y, _feed_panel_r, feed_top - 1, fa
 draw_rectangle(_feed_panel_x + 1, feed_bottom + 1, _feed_panel_r, _feed_panel_b, false);
 draw_rectangle(_feed_panel_x + 1, _feed_panel_y, _feed_mask_l - 1, _feed_panel_b, false);
 draw_rectangle(_feed_mask_r + 1, _feed_panel_y, _feed_panel_r, _feed_panel_b, false);
-draw_rectangle(0, 0, gui_w, app_y - 1, false);
-draw_rectangle(0, app_y + app_h + 1, gui_w, gui_h, false);
-draw_rectangle(0, 0, app_x - 1, gui_h, false);
-draw_rectangle(app_x + app_w + 1, 0, gui_w, gui_h, false);
 
 draw_set_color(make_color_rgb(2, 7, 14));
 draw_rectangle(_feed_mask_l - _cover, feed_top - _cover, _feed_mask_r + _cover, feed_top, false);
@@ -149,6 +142,8 @@ draw_set_color(make_color_rgb(93, 233, 255));
 draw_text_transformed(app_x + 24, app_y + 30, "CONECTA", 0.86, 0.86, 0);
 draw_set_color(make_color_rgb(160, 185, 207));
 draw_text_transformed(app_x + 164, app_y + 31, "Feed de casos", 0.74, 0.74, 0);
+draw_set_color(make_color_rgb(78, 148, 178));
+draw_text_transformed(app_x + app_w - 196, app_y + 31, "Casos liberados: " + string(_liberada) + "/4", 0.62, 0.62, 0);
 
 draw_set_color(_side_bg);
 draw_rectangle(app_x, app_y + _header_h, _divider_x, app_y + app_h, false);
@@ -160,23 +155,39 @@ draw_rectangle(_divider_x + 3, app_y + _header_h, _divider_x + 4, app_y + app_h,
 draw_set_halign(fa_left);
 draw_set_valign(fa_top);
 draw_set_color(make_color_rgb(124, 221, 248));
-draw_text_transformed(app_x + 24, app_y + 116, "Navegação", 0.78, 0.78, 0);
-draw_set_color(make_color_rgb(159, 178, 198));
-draw_text_ext_transformed(app_x + 24, app_y + 156, "Role o feed.\n\nCada post abre uma fase.\n\nCadeados liberam em ordem.", 22, 134, 0.66, 0.66, 0);
+draw_text_transformed(app_x + 24, app_y + 86, "Painel de casos", 0.78, 0.78, 0);
 
-if (voltar_sprite != -1) {
-    var _voltar_scale_sprite = voltar_hover ? 1.18 : 1.14;
-    draw_sprite_ext(voltar_sprite, voltar_hover ? 1 : 0, voltar_x, voltar_y, _voltar_scale_sprite, _voltar_scale_sprite, 0, c_white, 1);
-} else {
-    var _voltar_scale = voltar_hover ? 1.04 : 1;
-    draw_set_alpha(0.95);
-    draw_set_color(voltar_hover ? make_color_rgb(22, 64, 88) : make_color_rgb(8, 25, 42));
-    draw_roundrect(voltar_x - voltar_w * 0.5 * _voltar_scale, voltar_y - voltar_h * 0.5 * _voltar_scale, voltar_x + voltar_w * 0.5 * _voltar_scale, voltar_y + voltar_h * 0.5 * _voltar_scale, false);
-    draw_set_alpha(1);
-    draw_set_color(make_color_rgb(220, 247, 255));
-    draw_triangle(voltar_x - 16, voltar_y, voltar_x + 5, voltar_y - 13, voltar_x + 5, voltar_y + 13, false);
-    draw_rectangle(voltar_x + 2, voltar_y - 5, voltar_x + 22, voltar_y + 5, false);
-}
+draw_set_color(make_color_rgb(8, 24, 40));
+draw_rectangle(app_x + 18, app_y + 126, _divider_x - 18, app_y + 214, false);
+draw_set_color(make_color_rgb(32, 108, 145));
+draw_rectangle(app_x + 18, app_y + 126, _divider_x - 18, app_y + 214, true);
+draw_set_color(make_color_rgb(96, 226, 255));
+draw_text_transformed(app_x + 30, app_y + 142, "Progresso", 0.62, 0.62, 0);
+draw_set_color(make_color_rgb(151, 179, 202));
+draw_text_ext_transformed(app_x + 30, app_y + 166, "Complete uma postagem para liberar a próxima.", 18, 164, 0.55, 0.55, 0);
+draw_set_color(make_color_rgb(2, 8, 17));
+draw_rectangle(app_x + 30, app_y + 196, _divider_x - 30, app_y + 203, false);
+draw_set_color(make_color_rgb(89, 225, 255));
+draw_rectangle(app_x + 30, app_y + 196, app_x + 30 + (_divider_x - app_x - 60) * clamp(_liberada / 4, 0, 1), app_y + 203, false);
+
+draw_set_color(make_color_rgb(8, 24, 40));
+draw_rectangle(app_x + 18, app_y + 234, _divider_x - 18, app_y + 346, false);
+draw_set_color(make_color_rgb(32, 108, 145));
+draw_rectangle(app_x + 18, app_y + 234, _divider_x - 18, app_y + 346, true);
+draw_set_color(make_color_rgb(96, 226, 255));
+draw_text_transformed(app_x + 30, app_y + 250, "Missão", 0.62, 0.62, 0);
+draw_set_color(make_color_rgb(159, 178, 198));
+draw_text_ext_transformed(app_x + 30, app_y + 276, "Role o feed e escolha o caso disponível. Os cadeados mostram o que ainda falta desbloquear.", 18, 164, 0.55, 0.55, 0);
+
+draw_set_color(make_color_rgb(5, 18, 31));
+draw_rectangle(app_x + 18, app_y + 366, _divider_x - 18, app_y + 418, false);
+draw_set_color(make_color_rgb(22, 77, 107));
+draw_rectangle(app_x + 18, app_y + 366, _divider_x - 18, app_y + 418, true);
+draw_set_color(make_color_rgb(151, 179, 202));
+draw_text_transformed(app_x + 30, app_y + 382, "ESC também volta", 0.56, 0.56, 0);
+
+var _voltar_scale_sprite = voltar_hover ? 1.22 : 1.16;
+draw_sprite_ext(voltar_sprite, voltar_hover ? 1 : 0, voltar_x, voltar_y, _voltar_scale_sprite, _voltar_scale_sprite, 0, c_white, 1);
 
 var _max_scroll = max(1, feed_altura - (feed_bottom - feed_top));
 var _bar_h = max(42, (feed_bottom - feed_top) * ((feed_bottom - feed_top) / max(feed_altura, feed_bottom - feed_top)));

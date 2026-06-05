@@ -2,7 +2,7 @@ menu_timer += 1;
 
 var _gui_w = display_get_gui_width();
 var _gui_h = display_get_gui_height();
-var _side_w = 220;
+var _side_w = 232;
 app_x = 0;
 app_y = 0;
 app_w = _gui_w;
