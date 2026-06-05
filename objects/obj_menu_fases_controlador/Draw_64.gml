@@ -49,7 +49,9 @@ function _glitch_text(_x, _y, _txt, _sx, _sy, _main, _ativo) {
 var _trans_preto_alpha = 0;
 var _trans_zoom_forca = 0;
 if (entrando_fase || retornando_fase) {
-    var _t_cam = entrando_fase ? transicao_post_timer : max(0, transicao_post_dur - retorno_timer);
+    var _ret_p_draw = retornando_fase ? clamp(retorno_timer / retorno_dur, 0, 1) : 0;
+    var _ret_s_draw = _ret_p_draw * _ret_p_draw * (3 - 2 * _ret_p_draw);
+    var _t_cam = entrando_fase ? transicao_post_timer : max(0, lerp(transicao_post_dur, 0, _ret_s_draw));
     if (_t_cam < 23) {
         _trans_zoom_forca = 0;
     } else if (_t_cam < 47) {
@@ -85,6 +87,7 @@ if (entrando_fase || retornando_fase) {
     var _cam_x = (_trans_zoom_forca > 0) ? gui_w * 0.5 - _target_x * _cam_scale : 0;
     var _cam_y = (_trans_zoom_forca > 0) ? gui_h * 0.5 - _target_y * _cam_scale : 0;
     var _cam_shake = _trans_zoom_forca * (1 - _trans_zoom_forca) * sin(menu_timer * 1.2) * 1.2;
+    if (retornando_fase) _cam_shake *= (1 - _ret_s_draw);
     matrix_set(matrix_world, matrix_build(_cam_x + _cam_shake, _cam_y - _cam_shake * 0.35, 0, 0, 0, 0, _cam_scale, _cam_scale, 1));
 }
 

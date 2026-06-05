@@ -26,7 +26,9 @@ if (retornando_fase) {
     global.transicao_ativa = true;
     retorno_timer += 1;
 
-    var _tempo_reverso = max(0, transicao_post_dur - retorno_timer);
+    var _ret_p = clamp(retorno_timer / retorno_dur, 0, 1);
+    var _ret_s = _ret_p * _ret_p * (3 - 2 * _ret_p);
+    var _tempo_reverso = max(0, lerp(transicao_post_dur, 0, _ret_s));
     var _marca_reversa = -1;
     if (_tempo_reverso <= 167) _marca_reversa = 6;
     if (_tempo_reverso <= 143) _marca_reversa = 5;
@@ -37,13 +39,13 @@ if (retornando_fase) {
     if (_marca_reversa != transicao_audio_marca) {
         transicao_audio_marca = _marca_reversa;
         if (_marca_reversa == 1 || _marca_reversa == 3 || _marca_reversa == 5) {
-            audio_play_sound(snd_f2_aparecer, 4, false, 0.5, 0, 0.72);
+            audio_play_sound(snd_f2_aparecer, 4, false, 0.38, 0, 0.72);
         } else {
-            audio_play_sound(snd_f2_tremor, 4, false, 0.42, 0, 0.62);
+            audio_play_sound(snd_f2_tremor, 4, false, 0.30, 0, 0.58);
         }
     }
 
-    if (retorno_timer >= transicao_post_dur) {
+    if (retorno_timer >= retorno_dur) {
         retornando_fase = false;
         global.transicao_ativa = false;
         cursor_sprite = spr_ui_cursor;

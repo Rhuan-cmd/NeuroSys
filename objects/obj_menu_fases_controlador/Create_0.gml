@@ -15,6 +15,7 @@ transicao_preto_final = ceil(room_speed * 1.5);
 transicao_alvo_x = 0;
 transicao_alvo_y = 0;
 retorno_timer = 0;
+retorno_dur = 176;
 voltar_hover = false;
 voltando_menu = false;
 fade_entrada_branco = 1;
@@ -73,7 +74,7 @@ if (variable_global_exists("menu_fases_retorno_fase") && global.menu_fases_retor
     transicao_audio_marca = -1;
     fade_entrada_branco = 0;
     global.transicao_ativa = true;
-    audio_play_sound(snd_menu_succao_reverso, 1, false, 0.82);
+    audio_play_sound(snd_f2_aparecer, 4, false, 0.58, 0, 0.68);
 }
 
 window_set_cursor(cr_none);

@@ -1,3 +1,24 @@
+var _room_fase = room == rm_fase1 || room == rm_fase2 || room == rm_fase3 || room == rm_fase4;
+var _resultado_aberto = false;
+if (room == rm_fase1 && instance_exists(obj_f1_controlador) && obj_f1_controlador.estado >= 3) _resultado_aberto = true;
+if (room == rm_fase2 && instance_exists(obj_f2_controlador) && obj_f2_controlador.estado_final != 0) _resultado_aberto = true;
+if (room == rm_fase3 && instance_exists(obj_f3_escudo) && obj_f3_escudo.resultado_ativo) _resultado_aberto = true;
+if (room == rm_fase4 && instance_exists(obj_f4_fundo) && obj_f4_fundo.resultado_ativo) _resultado_aberto = true;
+
+if (_room_fase && !global.jogo_pausado && keyboard_check_pressed(vk_escape)) {
+    global.transicao_ativa = false;
+    global.fase_entrada_bloquear_cursor = false;
+    global.jogo_pausado = true;
+    pausa_hover = -1;
+    pausa_hover_anterior = -1;
+    pausa_saindo = 0;
+    pausa_fade = 0;
+    audio_pause_all();
+    instance_deactivate_all(true);
+    window_set_cursor(cr_none);
+    cursor_sprite = spr_ui_cursor;
+}
+
 if (keyboard_check_pressed(vk_f3)) {
     global.perf_overlay_ativo = !global.perf_overlay_ativo;
     show_debug_overlay(global.perf_overlay_ativo);
@@ -22,28 +43,6 @@ if (global.fase_entrada_bloquear_cursor) {
 if (global.transicao_ativa || global.fase_entrada_bloquear_cursor || instance_exists(obj_transicao)) {
     window_set_cursor(cr_none);
     cursor_sprite = cr_none;
-}
-
-var _room_fase = room == rm_fase1 || room == rm_fase2 || room == rm_fase3 || room == rm_fase4;
-var _resultado_aberto = false;
-if (room == rm_fase1 && instance_exists(obj_f1_controlador) && obj_f1_controlador.estado >= 3) _resultado_aberto = true;
-if (room == rm_fase2 && instance_exists(obj_f2_controlador) && obj_f2_controlador.estado_final != 0) _resultado_aberto = true;
-if (room == rm_fase3 && instance_exists(obj_f3_escudo) && obj_f3_escudo.resultado_ativo) _resultado_aberto = true;
-if (room == rm_fase4 && instance_exists(obj_f4_fundo) && obj_f4_fundo.resultado_ativo) _resultado_aberto = true;
-
-if (_room_fase && !global.fase_entrada_bloquear_cursor && !instance_exists(obj_transicao) && !_resultado_aberto) {
-    if (!global.jogo_pausado && keyboard_check_pressed(vk_escape)) {
-        global.transicao_ativa = false;
-        global.jogo_pausado = true;
-        pausa_hover = -1;
-        pausa_hover_anterior = -1;
-        pausa_saindo = 0;
-        pausa_fade = 0;
-        audio_pause_all();
-        instance_deactivate_all(true);
-        window_set_cursor(cr_none);
-        cursor_sprite = spr_ui_cursor;
-    }
 }
 
 if (global.jogo_pausado) {
