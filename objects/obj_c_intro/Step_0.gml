@@ -55,7 +55,7 @@ if (global.intro_phase == 4) {
         intro_video_hint_timer += 1;
     }
 
-    if (intro_video_ready && !intro_video_encerrando && (intro_video_draw_status == -2 || _video_status == video_status_closed)) {
+    if (intro_video_ready && !intro_video_encerrando && intro_video_draw_status == -2) {
         intro_video_encerrando = true;
         intro_video_fade_timer = 0;
     }
@@ -110,7 +110,7 @@ if (global.intro_phase == 2) {
     line_width = lerp(line_width, 440, 0.045);
 }
 
-if (!transition_started && intro_timer >= intro_duration) {
+if (!transition_started && intro_video_finished && intro_timer >= intro_duration) {
     transition_started = true;
     audio_sound_gain(intro_music_id, 0, 900);
     if (intro_video_started && !intro_video_closed) video_close();

@@ -68,6 +68,12 @@ intro_finalizar_video = function() {
     intro_fade_out_end = intro_fade_out_start + round(room_speed * 2.5);
     intro_black_end = intro_fade_out_end + round(room_speed * 1.4);
     intro_duration = intro_black_end;
+    title_index = 0;
+    subtitle_index = 0;
+    status_index = 0;
+    line_width = 0;
+    glitch_timer = 0;
+    glitch_amount = 0;
 };
 
 global.intro_phase = -1;
