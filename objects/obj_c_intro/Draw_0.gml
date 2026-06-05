@@ -42,38 +42,55 @@ if (global.intro_phase == 0) {
 }
 
 if (global.intro_phase == 4) {
-    draw_set_alpha(phase_alpha);
-    draw_set_color(c_black);
-    draw_rectangle(cx - 292, cy - 168, cx + 292, cy + 168, false);
-    draw_set_color(make_color_rgb(48, 128, 164));
-    draw_roundrect(cx - 304, cy - 180, cx + 304, cy + 180, true);
-
     var _video_frame = video_draw();
+    intro_video_draw_status = -1;
     var _surface = -1;
-    if (is_array(_video_frame)) {
-        _surface = _video_frame[0];
-    } else {
-        _surface = _video_frame;
+    if (is_array(_video_frame) && array_length(_video_frame) > 0) {
+        intro_video_draw_status = _video_frame[0];
+        if (intro_video_draw_status == 0 && array_length(_video_frame) > 1) {
+            _surface = _video_frame[1];
+        }
     }
+
     if (surface_exists(_surface)) {
+        var _surface_w = max(1, surface_get_width(_surface));
+        var _surface_h = max(1, surface_get_height(_surface));
+        var _scale = max(gui_w / _surface_w, gui_h / _surface_h);
+        var _draw_w = _surface_w * _scale;
+        var _draw_h = _surface_h * _scale;
         draw_set_alpha(phase_alpha);
-        draw_surface_stretched(_surface, cx - 288, cy - 162, 576, 324);
+        draw_surface_stretched(_surface, (gui_w - _draw_w) * 0.5, (gui_h - _draw_h) * 0.5, _draw_w, _draw_h);
     } else {
+        draw_set_alpha(phase_alpha);
         draw_set_color(make_color_rgb(7, 12, 22));
-        draw_rectangle(cx - 288, cy - 162, cx + 288, cy + 162, false);
+        draw_rectangle(0, 0, gui_w, gui_h, false);
         draw_set_color(make_color_rgb(145, 204, 230));
         draw_text(cx, cy, "carregando video...");
     }
 
-    draw_set_alpha(phase_alpha * (0.72 + intro_skip_flash * 0.28));
-    draw_set_color(make_color_rgb(5, 12, 22));
-    draw_roundrect(gui_w - 250, cy - 42, gui_w - 42, cy + 42, false);
-    draw_set_color(make_color_rgb(94, 238, 255));
-    draw_roundrect(gui_w - 250, cy - 42, gui_w - 42, cy + 42, true);
-    draw_set_color(c_white);
-    draw_text(gui_w - 146, cy - 11, "ENTER x2");
-    draw_set_color(make_color_rgb(172, 198, 218));
-    draw_text(gui_w - 146, cy + 17, "pular video");
+    if (intro_video_ready && intro_video_hint_timer < room_speed * 5) {
+        var _hint_alpha = phase_alpha * clamp((room_speed * 5 - intro_video_hint_timer) / room_speed, 0, 1);
+        var _hint_bob = abs(sin(intro_video_hint_timer * 0.18)) * 7;
+        var _hint_x1 = gui_w - 238;
+        var _hint_y1 = gui_h - 92 - _hint_bob;
+        var _hint_x2 = gui_w - 30;
+        var _hint_y2 = gui_h - 28 - _hint_bob;
+        draw_set_alpha(_hint_alpha * (0.72 + intro_skip_flash * 0.28));
+        draw_set_color(make_color_rgb(5, 12, 22));
+        draw_roundrect(_hint_x1, _hint_y1, _hint_x2, _hint_y2, false);
+        draw_set_color(make_color_rgb(94, 238, 255));
+        draw_roundrect(_hint_x1, _hint_y1, _hint_x2, _hint_y2, true);
+        draw_set_color(c_white);
+        draw_text(( _hint_x1 + _hint_x2) * 0.5, _hint_y1 + 23, "ENTER x2");
+        draw_set_color(make_color_rgb(172, 198, 218));
+        draw_text(( _hint_x1 + _hint_x2) * 0.5, _hint_y1 + 47, "pular video");
+    }
+
+    if (intro_video_encerrando) {
+        draw_set_alpha(clamp(intro_video_fade_timer / max(1, room_speed * 0.8), 0, 1));
+        draw_set_color(c_black);
+        draw_rectangle(0, 0, gui_w, gui_h, false);
+    }
 }
 
 if (global.intro_phase == 2) {

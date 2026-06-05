@@ -18,11 +18,9 @@ if (intro_timer < intro_ifma_start) {
     var gm_in = clamp((intro_timer - intro_gm_start) / fade_time, 0, 1);
     var gm_out = clamp((intro_gm_end - intro_timer) / fade_time, 0, 1);
     global.intro_phase_alpha = min(gm_in, gm_out);
-} else if (intro_timer < intro_video_end) {
+} else if (!intro_video_finished) {
     global.intro_phase = 4;
-    var video_in = clamp((intro_timer - intro_video_start) / fade_time, 0, 1);
-    var video_out = clamp((intro_video_end - intro_timer) / fade_time, 0, 1);
-    global.intro_phase_alpha = min(video_in, video_out);
+    global.intro_phase_alpha = clamp((intro_timer - intro_video_start) / fade_time, 0, 1);
 } else if (intro_timer < intro_fade_out_start) {
     global.intro_phase = 2;
     global.intro_phase_alpha = clamp((intro_timer - intro_neurosys_start) / fade_time, 0, 1);
@@ -51,19 +49,34 @@ if (global.intro_phase == 4) {
         intro_video_closed = false;
     }
 
+    var _video_status = video_get_status();
+    intro_video_ready = intro_video_ready || (_video_status == video_status_playing && intro_video_draw_status == 0);
+    if (intro_video_ready && !intro_video_encerrando) {
+        intro_video_hint_timer += 1;
+    }
+
+    if (intro_video_ready && !intro_video_encerrando && (intro_video_draw_status == -2 || _video_status == video_status_closed)) {
+        intro_video_encerrando = true;
+        intro_video_fade_timer = 0;
+    }
+
     intro_skip_flash = max(0, intro_skip_flash - 0.05);
-    if (keyboard_check_pressed(vk_enter)) {
+    if (intro_video_ready && !intro_video_encerrando && keyboard_check_pressed(vk_enter)) {
         if (intro_timer - intro_enter_last <= round(room_speed * 0.42)) {
             intro_skip_flash = 1;
-            intro_timer = intro_video_end;
-            if (intro_video_started && !intro_video_closed) {
-                video_close();
-                intro_video_closed = true;
-            }
+            intro_video_encerrando = true;
+            intro_video_fade_timer = 0;
         }
         intro_enter_last = intro_timer;
     }
-} else if (intro_video_started && !intro_video_closed) {
+
+    if (intro_video_encerrando) {
+        intro_video_fade_timer += 1;
+        if (intro_video_fade_timer >= round(room_speed * 0.8)) {
+            intro_finalizar_video();
+        }
+    }
+} else if (intro_video_finished && intro_video_started && !intro_video_closed) {
     video_close();
     intro_video_closed = true;
 }

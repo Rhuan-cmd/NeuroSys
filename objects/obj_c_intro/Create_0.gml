@@ -15,8 +15,8 @@ intro_ifma_end = intro_ifma_start + room_speed * 5;
 intro_gm_start = intro_ifma_end;
 intro_gm_end = intro_gm_start + room_speed * 5;
 intro_video_start = intro_gm_end;
-intro_video_end = intro_video_start + room_speed * 9;
-intro_neurosys_start = intro_video_end;
+intro_video_end = intro_video_start;
+intro_neurosys_start = intro_video_start;
 intro_neurosys_end = intro_neurosys_start + room_speed * 8;
 intro_fade_out_start = intro_neurosys_end;
 intro_fade_out_end = intro_fade_out_start + round(room_speed * 2.5);
@@ -45,8 +45,30 @@ intro_music_id = audio_play_sound(snd_intro_apresentacao, 0, true);
 audio_sound_gain(intro_music_id, 0.62, 0);
 intro_video_started = false;
 intro_video_closed = false;
+intro_video_finished = false;
+intro_video_ready = false;
+intro_video_draw_status = -1;
+intro_video_hint_timer = 0;
+intro_video_encerrando = false;
+intro_video_fade_timer = 0;
 intro_enter_last = -999;
 intro_skip_flash = 0;
+
+intro_finalizar_video = function() {
+    if (intro_video_started && !intro_video_closed) {
+        video_close();
+        intro_video_closed = true;
+    }
+
+    intro_video_finished = true;
+    intro_video_end = intro_timer;
+    intro_neurosys_start = intro_timer + 1;
+    intro_neurosys_end = intro_neurosys_start + room_speed * 8;
+    intro_fade_out_start = intro_neurosys_end;
+    intro_fade_out_end = intro_fade_out_start + round(room_speed * 2.5);
+    intro_black_end = intro_fade_out_end + round(room_speed * 1.4);
+    intro_duration = intro_black_end;
+};
 
 global.intro_phase = -1;
 global.intro_phase_alpha = 0;
