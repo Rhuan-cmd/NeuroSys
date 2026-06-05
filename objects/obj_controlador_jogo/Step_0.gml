@@ -31,8 +31,9 @@ if (room == rm_fase2 && instance_exists(obj_f2_controlador) && obj_f2_controlado
 if (room == rm_fase3 && instance_exists(obj_f3_escudo) && obj_f3_escudo.resultado_ativo) _resultado_aberto = true;
 if (room == rm_fase4 && instance_exists(obj_f4_fundo) && obj_f4_fundo.resultado_ativo) _resultado_aberto = true;
 
-if (_room_fase && !global.transicao_ativa && !global.fase_entrada_bloquear_cursor && !instance_exists(obj_transicao) && !_resultado_aberto) {
+if (_room_fase && !global.fase_entrada_bloquear_cursor && !instance_exists(obj_transicao) && !_resultado_aberto) {
     if (!global.jogo_pausado && keyboard_check_pressed(vk_escape)) {
+        global.transicao_ativa = false;
         global.jogo_pausado = true;
         pausa_hover = -1;
         pausa_hover_anterior = -1;
@@ -100,9 +101,11 @@ if (global.jogo_pausado) {
             instance_activate_all();
             global.jogo_pausado = false;
             if (pausa_saindo == 2) {
-                global.menu_reverso = true;
-                global.menu_destino_room = rm_menu_fases;
-                room_goto(rm_menu2);
+                if (room == rm_fase1) global.menu_fases_retorno_fase = 0;
+                if (room == rm_fase2) global.menu_fases_retorno_fase = 1;
+                if (room == rm_fase3) global.menu_fases_retorno_fase = 2;
+                if (room == rm_fase4) global.menu_fases_retorno_fase = 3;
+                room_goto(rm_menu_fases);
             } else if (pausa_saindo == 3) {
                 room_restart();
             }

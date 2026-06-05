@@ -186,9 +186,8 @@ if (estado_final != 0) {
         saida_transition = min(1, saida_transition + 0.055);
         if (saida_transition >= 1) {
             if (saida_tipo == 1) {
-                global.menu_reverso = true;
-                global.menu_destino_room = rm_menu_fases;
-                room_goto(rm_menu2);
+                global.menu_fases_retorno_fase = 1;
+                room_goto(rm_menu_fases);
             } else {
                 room_restart();
             }

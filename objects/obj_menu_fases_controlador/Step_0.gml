@@ -20,6 +20,37 @@ fade_entrada_branco = max(0, fade_entrada_branco - 0.035);
 
 if (negado_timer > 0) negado_timer -= 1;
 
+if (retornando_fase) {
+    window_set_cursor(cr_none);
+    cursor_sprite = cr_none;
+    global.transicao_ativa = true;
+    retorno_timer += 1;
+
+    var _tempo_reverso = max(0, transicao_post_dur - retorno_timer);
+    var _marca_reversa = -1;
+    if (_tempo_reverso <= 167) _marca_reversa = 6;
+    if (_tempo_reverso <= 143) _marca_reversa = 5;
+    if (_tempo_reverso <= 107) _marca_reversa = 4;
+    if (_tempo_reverso <= 83) _marca_reversa = 3;
+    if (_tempo_reverso <= 47) _marca_reversa = 2;
+    if (_tempo_reverso <= 23) _marca_reversa = 1;
+    if (_marca_reversa != transicao_audio_marca) {
+        transicao_audio_marca = _marca_reversa;
+        if (_marca_reversa == 1 || _marca_reversa == 3 || _marca_reversa == 5) {
+            audio_play_sound(snd_f2_aparecer, 4, false, 0.5, 0, 0.72);
+        } else {
+            audio_play_sound(snd_f2_tremor, 4, false, 0.42, 0, 0.62);
+        }
+    }
+
+    if (retorno_timer >= transicao_post_dur) {
+        retornando_fase = false;
+        global.transicao_ativa = false;
+        cursor_sprite = spr_ui_cursor;
+    }
+    exit;
+}
+
 if (entrando_fase) {
     window_set_cursor(cr_none);
     cursor_sprite = cr_none;

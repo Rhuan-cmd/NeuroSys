@@ -36,9 +36,8 @@ if (resultado_ativo) {
 		resultado_saida_fade = min(1, resultado_saida_fade + 0.065);
 		if (resultado_saida_fade >= 1) {
 			if (resultado_saida == 1) {
-				global.menu_reverso = true;
-				global.menu_destino_room = rm_menu_fases;
-				room_goto(rm_menu2);
+				global.menu_fases_retorno_fase = 2;
+				room_goto(rm_menu_fases);
 			} else {
 				room_goto(rm_fase3);
 			}

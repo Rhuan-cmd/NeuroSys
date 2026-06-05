@@ -6,6 +6,7 @@ hover_anterior = -1;
 negado_card = -1;
 negado_timer = 0;
 entrando_fase = false;
+retornando_fase = false;
 fase_escolhida = -1;
 transicao_post_timer = 0;
 transicao_post_dur = 207 + ceil(room_speed * 1.5);
@@ -13,6 +14,7 @@ transicao_audio_marca = -1;
 transicao_preto_final = ceil(room_speed * 1.5);
 transicao_alvo_x = 0;
 transicao_alvo_y = 0;
+retorno_timer = 0;
 voltar_hover = false;
 voltando_menu = false;
 fade_entrada_branco = 1;
@@ -57,6 +59,23 @@ fase_room = [rm_fase1, rm_fase2, rm_fase3, rm_fase4];
 fase_foto = [spr_f4_perigo, spr_f2_fundo_chat, spr_f3_npc, spr_f4_chefe];
 feed_altura = array_length(fase_nome) * (post_h + post_gap) - post_gap;
 
+if (variable_global_exists("menu_fases_retorno_fase") && global.menu_fases_retorno_fase >= 0) {
+    retornando_fase = true;
+    fase_escolhida = clamp(global.menu_fases_retorno_fase, 0, array_length(fase_nome) - 1);
+    global.menu_fases_retorno_fase = -1;
+    var _max_scroll_retorno = max(0, feed_altura - (feed_bottom - feed_top));
+    scroll_alvo = clamp(fase_escolhida * (post_h + post_gap) - (feed_bottom - feed_top - post_h) * 0.5, 0, _max_scroll_retorno);
+    scroll_y = scroll_alvo;
+    var _card_y_retorno = feed_top + fase_escolhida * (post_h + post_gap) - scroll_y;
+    transicao_alvo_x = feed_x + 18 + 53;
+    transicao_alvo_y = clamp(_card_y_retorno + 62 + 29, feed_top + 29, feed_bottom - 29);
+    retorno_timer = 0;
+    transicao_audio_marca = -1;
+    fade_entrada_branco = 0;
+    global.transicao_ativa = true;
+    audio_play_sound(snd_menu_succao_reverso, 1, false, 0.82);
+}
+
 window_set_cursor(cr_none);
 cursor_sprite = spr_ui_cursor;
-global.transicao_ativa = false;
+if (!retornando_fase) global.transicao_ativa = false;

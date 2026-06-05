@@ -48,17 +48,17 @@ function _glitch_text(_x, _y, _txt, _sx, _sy, _main, _ativo) {
 
 var _trans_preto_alpha = 0;
 var _trans_zoom_forca = 0;
-if (entrando_fase) {
-    var _t_cam = transicao_post_timer;
+if (entrando_fase || retornando_fase) {
+    var _t_cam = entrando_fase ? transicao_post_timer : max(0, transicao_post_dur - retorno_timer);
     if (_t_cam < 23) {
         _trans_zoom_forca = 0;
     } else if (_t_cam < 47) {
-        _trans_zoom_forca = 0;
+        var _p_prezoom1 = (_t_cam - 23) / 24;
+        _p_prezoom1 = _p_prezoom1 * _p_prezoom1 * (3 - 2 * _p_prezoom1);
+        _trans_zoom_forca = lerp(0, 0.30, _p_prezoom1);
         _trans_preto_alpha = sin(((_t_cam - 23) / 24) * pi);
     } else if (_t_cam < 83) {
-        var _p_cam1 = (_t_cam - 47) / 36;
-        _p_cam1 = _p_cam1 * _p_cam1 * (3 - 2 * _p_cam1);
-        _trans_zoom_forca = lerp(0, 0.30, _p_cam1);
+        _trans_zoom_forca = 0.30;
     } else if (_t_cam < 107) {
         _trans_zoom_forca = 0.30;
         _trans_preto_alpha = 1;
@@ -313,14 +313,14 @@ draw_rectangle(_scroll_x, feed_top + 3, _scroll_x + 9, feed_bottom - 3, false);
 draw_set_color(make_color_rgb(105, 211, 244));
 draw_rectangle(_scroll_x, max(feed_top + 3, _bar_y), _scroll_x + 9, min(feed_bottom - 3, _bar_y + _bar_h), false);
 
-if (entrando_fase) {
+if (entrando_fase || retornando_fase) {
     matrix_set(matrix_world, matrix_build(0, 0, 0, 0, 0, 0, 1, 1, 1));
     draw_set_alpha(_trans_preto_alpha);
     draw_set_color(c_black);
     draw_rectangle(0, 0, gui_w, gui_h, false);
 }
 
-if (entrando_fase) {
+if (entrando_fase || retornando_fase) {
     matrix_set(matrix_world, matrix_build(0, 0, 0, 0, 0, 0, 1, 1, 1));
 }
 
