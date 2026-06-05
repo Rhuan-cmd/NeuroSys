@@ -20,6 +20,7 @@ function _glitch_text(_x, _y, _txt, _sx, _sy, _main, _ativo) {
 }
 
 function _option_card(_x, _y, _w, _h, _txt, _ativo, _hover) {
+    var _card_yellow = make_color_rgb(255, 232, 128);
     draw_set_alpha(_ativo ? 0.98 : 0.78);
     draw_set_color(_ativo ? make_color_rgb(12, 55, 78) : make_color_rgb(8, 28, 46));
     draw_roundrect(_x, _y, _x + _w, _y + _h, false);
@@ -28,7 +29,7 @@ function _option_card(_x, _y, _w, _h, _txt, _ativo, _hover) {
     draw_roundrect(_x, _y, _x + _w, _y + _h, true);
     draw_set_alpha(1);
     draw_set_halign(fa_center);
-    _glitch_text(_x + _w * 0.5, _y + _h * 0.5, _txt, 0.58, 0.58, _ativo ? _yellow : c_white, _ativo || _hover);
+    _glitch_text(_x + _w * 0.5, _y + _h * 0.5, _txt, 0.58, 0.58, _ativo ? _card_yellow : c_white, _ativo || _hover);
     draw_set_halign(fa_left);
 }
 
