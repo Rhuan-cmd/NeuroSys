@@ -23,6 +23,7 @@ hover = -1;
 var mx = device_mouse_x_to_gui(0);
 var my = device_mouse_y_to_gui(0);
 var _liberada = variable_global_exists("fase_liberada") ? global.fase_liberada : 1;
+voltar_hover = mx >= voltar_x - voltar_w * 0.5 && mx <= voltar_x + voltar_w * 0.5 && my >= voltar_y - voltar_h * 0.5 && my <= voltar_y + voltar_h * 0.5;
 
 for (var i = 0; i < array_length(fase_nome); i += 1) {
     var _y = feed_top + i * (post_h + post_gap) - scroll_y;
@@ -44,7 +45,7 @@ if (hover != -1 && mouse_check_button_pressed(mb_left)) {
     room_goto(fase_room[hover]);
 }
 
-if (keyboard_check_pressed(vk_escape)) {
+if (keyboard_check_pressed(vk_escape) || (voltar_hover && mouse_check_button_pressed(mb_left))) {
     audio_play_sound(snd_f2_botao, 4, false, 0.62);
     voltando_menu = true;
 }

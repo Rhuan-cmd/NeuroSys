@@ -1,6 +1,7 @@
 menu_timer = 0;
 hover = -1;
 hover_anterior = -1;
+voltar_hover = false;
 voltando_menu = false;
 fade_saida_branco = 0;
 scroll_y = 0;
@@ -15,6 +16,10 @@ post_h = 126;
 post_gap = 14;
 feed_top = 124;
 feed_bottom = 430;
+voltar_x = 136;
+voltar_y = 442;
+voltar_w = 74;
+voltar_h = 38;
 
 fase_nome = [
     "Filtro de Respeito",
@@ -32,10 +37,10 @@ fase_desc = [
     "Corte ataques antes que eles se espalhem pela rede.",
     "Controle o caos do chat e proteja a conversa.",
     "Bloqueie mensagens hostis e preserve a pessoa atacada.",
-    "Enfrente a origem da pressao digital."
+    "Enfrente a origem da pressão digital."
 ];
 fase_room = [rm_fase1, rm_fase2, rm_fase3, rm_fase4];
-fase_foto = [spr_app_rede_social, spr_f2_fundo_chat, spr_f3_npc, spr_f4_chefe];
+fase_foto = [spr_pc_interface_rede, spr_f2_fundo_chat, spr_f3_npc, spr_f4_chefe];
 feed_altura = array_length(fase_nome) * (post_h + post_gap) - post_gap;
 
 window_set_cursor(cr_default);

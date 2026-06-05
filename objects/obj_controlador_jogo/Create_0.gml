@@ -15,10 +15,6 @@ display_set_sleep_margin(10);
 display_set_gui_size(960, 540);
 if (surface_exists(application_surface)) surface_resize(application_surface, 960, 540);
 
-if (!window_get_fullscreen()) {
-    window_set_fullscreen(true);
-}
-
 global.perf_overlay_ativo = false;
 global.perf_fullscreen_cooldown = 0;
 if (!variable_global_exists("fase_liberada")) {
