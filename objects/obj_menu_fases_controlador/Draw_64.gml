@@ -151,7 +151,18 @@ draw_text_transformed(app_x + 20, app_y + 106, "Navegação", 0.78, 0.78, 0);
 draw_set_color(make_color_rgb(159, 178, 198));
 draw_text_ext_transformed(app_x + 20, app_y + 156, "Role o feed.\nCada post abre\numa fase.\n\nCadeados liberam\nem ordem.", 15, 118, 0.66, 0.66, 0);
 
-draw_sprite_ext(spr_menu_btn_voltar, voltar_hover ? 1 : 0, voltar_x, voltar_y, voltar_hover ? 1.04 : 1, voltar_hover ? 1.04 : 1, 0, c_white, 1);
+if (voltar_sprite != -1) {
+    draw_sprite_ext(voltar_sprite, voltar_hover ? 1 : 0, voltar_x, voltar_y, voltar_hover ? 1.04 : 1, voltar_hover ? 1.04 : 1, 0, c_white, 1);
+} else {
+    var _voltar_scale = voltar_hover ? 1.04 : 1;
+    draw_set_alpha(0.95);
+    draw_set_color(voltar_hover ? make_color_rgb(22, 64, 88) : make_color_rgb(8, 25, 42));
+    draw_roundrect(voltar_x - voltar_w * 0.5 * _voltar_scale, voltar_y - voltar_h * 0.5 * _voltar_scale, voltar_x + voltar_w * 0.5 * _voltar_scale, voltar_y + voltar_h * 0.5 * _voltar_scale, false);
+    draw_set_alpha(1);
+    draw_set_color(make_color_rgb(220, 247, 255));
+    draw_triangle(voltar_x - 16, voltar_y, voltar_x + 5, voltar_y - 13, voltar_x + 5, voltar_y + 13, false);
+    draw_rectangle(voltar_x + 2, voltar_y - 5, voltar_x + 22, voltar_y + 5, false);
+}
 
 var _max_scroll = max(1, feed_altura - (feed_bottom - feed_top));
 var _bar_h = max(34, (feed_bottom - feed_top) * ((feed_bottom - feed_top) / max(feed_altura, feed_bottom - feed_top)));
