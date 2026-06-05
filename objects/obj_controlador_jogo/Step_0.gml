@@ -160,6 +160,32 @@ if (variable_global_exists("op_graficos")) {
     display_set_sleep_margin(global.fx_qualidade == 0 ? 6 : 10);
 }
 
+global.save_timer += 1;
+var _save_mudou = false;
+_save_mudou = _save_mudou || save_prev_volume != global.op_volume;
+_save_mudou = _save_mudou || save_prev_volume_musica != global.op_volume_musica;
+_save_mudou = _save_mudou || save_prev_volume_efeitos != global.op_volume_efeitos;
+_save_mudou = _save_mudou || save_prev_som_preset != global.op_som_preset;
+_save_mudou = _save_mudou || save_prev_graficos != global.op_graficos;
+_save_mudou = _save_mudou || save_prev_resolucao != global.op_resolucao;
+_save_mudou = _save_mudou || save_prev_tela != global.op_tela;
+_save_mudou = _save_mudou || save_prev_fase_liberada != global.fase_liberada;
+_save_mudou = _save_mudou || save_prev_fase_concluida != global.fase_concluida;
+
+if (_save_mudou || global.save_timer >= room_speed * 60 || global.save_sujo) {
+    save_escrever();
+    global.save_timer = 0;
+    save_prev_volume = global.op_volume;
+    save_prev_volume_musica = global.op_volume_musica;
+    save_prev_volume_efeitos = global.op_volume_efeitos;
+    save_prev_som_preset = global.op_som_preset;
+    save_prev_graficos = global.op_graficos;
+    save_prev_resolucao = global.op_resolucao;
+    save_prev_tela = global.op_tela;
+    save_prev_fase_liberada = global.fase_liberada;
+    save_prev_fase_concluida = global.fase_concluida;
+}
+
 if (surface_exists(application_surface)) {
     if (surface_get_width(application_surface) != 960 || surface_get_height(application_surface) != 540) {
         surface_resize(application_surface, 960, 540);

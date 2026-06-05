@@ -234,10 +234,12 @@ if (aba == 1) {
     draw_text_transformed(314, 340, "QUALIDADE ATUAL", 0.56, 0.56, 0);
     draw_set_color(_muted);
     draw_text_transformed(314, 370, "Efeitos globais", 0.50, 0.50, 0);
+    var _bar_x = 470;
+    var _bar_w = 350;
     draw_set_color(_cyan_dark);
-    draw_rectangle(470, 374, 820, 384, false);
+    draw_rectangle(_bar_x, 374, _bar_x + _bar_w, 384, false);
     draw_set_color(_green);
-    draw_rectangle(470, 374, 470 + 175 * (global.op_graficos + 1), 384, false);
+    draw_rectangle(_bar_x, 374, _bar_x + _bar_w * ((global.op_graficos + 1) / 3), 384, false);
     draw_set_color(c_white);
     draw_text_transformed(836, 365, grafico_opcoes[global.op_graficos], 0.54, 0.54, 0);
 } else if (aba == 2) {
@@ -260,8 +262,9 @@ draw_set_alpha(0.28 + _pulse * 0.18);
 draw_set_color(_cyan);
 draw_line(312, 445, gui_w - 72, 445);
 draw_set_alpha(1);
-_reset_button(326, 456, 206, 38, "RESTAURAR ABA", hover_reset == 0, false);
-_reset_button(650, 456, 206, 38, "RESTAURAR TUDO", hover_reset == 1, true);
+_reset_button(300, 456, 178, 38, "RESTAURAR ABA", hover_reset == 0, false);
+_reset_button(492, 456, 178, 38, "RESTAURAR TUDO", hover_reset == 1, false);
+_reset_button(684, 456, 178, 38, "RESETAR SAVE", hover_reset == 2, true);
 
 var _btn_drift = sin(menu_timer * 0.035) * 1.4;
 draw_set_alpha(0.62);

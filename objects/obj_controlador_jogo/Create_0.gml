@@ -44,6 +44,34 @@ if (!variable_global_exists("fase_liberada")) {
 if (!variable_global_exists("fase_concluida")) {
     global.fase_concluida = 0;
 }
+save_init();
+save_carregar();
+audio_master_gain(global.op_volume);
+
+var _save_res_w = [960, 1280, 1600, 1920];
+var _save_res_h = [540, 720, 900, 1080];
+var _save_res_idx = clamp(global.op_resolucao, 0, 3);
+if (global.op_tela == 0) {
+    window_set_fullscreen(false);
+    window_set_size(_save_res_w[_save_res_idx], _save_res_h[_save_res_idx]);
+    window_center();
+} else {
+    window_set_size(_save_res_w[_save_res_idx], _save_res_h[_save_res_idx]);
+    window_center();
+    window_set_fullscreen(true);
+}
+display_set_gui_size(960, 540);
+if (surface_exists(application_surface)) surface_resize(application_surface, 960, 540);
+
+save_prev_volume = global.op_volume;
+save_prev_volume_musica = global.op_volume_musica;
+save_prev_volume_efeitos = global.op_volume_efeitos;
+save_prev_som_preset = global.op_som_preset;
+save_prev_graficos = global.op_graficos;
+save_prev_resolucao = global.op_resolucao;
+save_prev_tela = global.op_tela;
+save_prev_fase_liberada = global.fase_liberada;
+save_prev_fase_concluida = global.fase_concluida;
 if (!variable_global_exists("fase_entrada_bloquear_cursor")) {
     global.fase_entrada_bloquear_cursor = false;
 }

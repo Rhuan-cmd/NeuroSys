@@ -67,6 +67,10 @@ function _restaurar_tudo() {
     _aplicar_mix_audio();
 }
 
+function _resetar_save_progresso() {
+    save_resetar_progresso();
+}
+
 function _fx_gain(_v) {
     return _v * (variable_global_exists("op_volume_efeitos") ? global.op_volume_efeitos : 1);
 }
@@ -155,8 +159,9 @@ if (hover_item != -1 && hover_item != hover_item_anterior) audio_play_sound(snd_
 hover_item_anterior = hover_item;
 
 hover_reset = -1;
-if (point_in_rectangle(_mx, _my, 326, 456, 532, 494)) hover_reset = 0;
-if (point_in_rectangle(_mx, _my, 650, 456, 856, 494)) hover_reset = 1;
+if (point_in_rectangle(_mx, _my, 300, 456, 478, 494)) hover_reset = 0;
+if (point_in_rectangle(_mx, _my, 492, 456, 670, 494)) hover_reset = 1;
+if (point_in_rectangle(_mx, _my, 684, 456, 862, 494)) hover_reset = 2;
 if (hover_reset != -1 && hover_reset != hover_reset_anterior) audio_play_sound(snd_f2_selecao, 3, false, _fx_gain(0.42));
 hover_reset_anterior = hover_reset;
 
@@ -178,6 +183,8 @@ if (arrastando_audio != -1) {
     var _valor_audio = clamp((_mx - _slider_x1) / (_slider_x2 - _slider_x1), 0, 1);
     if (arrastando_audio == 0) {
         global.op_volume = _valor_audio;
+        global.op_volume_musica = _valor_audio;
+        global.op_volume_efeitos = _valor_audio;
         global.op_som_preset = _volume_para_preset(global.op_volume);
     } else if (arrastando_audio == 1) {
         global.op_volume_musica = _valor_audio;
@@ -207,6 +214,8 @@ if (mouse_check_button_pressed(mb_left)) {
             case 1:
                 global.op_som_preset = hover_item;
                 global.op_volume = som_valores[hover_item];
+                global.op_volume_musica = global.op_volume;
+                global.op_volume_efeitos = global.op_volume;
                 _aplicar_mix_audio();
                 break;
             case 2:
@@ -233,8 +242,10 @@ if (mouse_check_button_pressed(mb_left)) {
         audio_play_sound(snd_f2_botao, 4, false, _fx_gain(0.58));
         if (hover_reset == 0) {
             _restaurar_aba_atual();
-        } else {
+        } else if (hover_reset == 1) {
             _restaurar_tudo();
+        } else {
+            _resetar_save_progresso();
         }
     }
 }

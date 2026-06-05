@@ -116,6 +116,7 @@
     {"id":{"name":"rm_menu2","path":"rooms/rm_menu2/rm_menu2.yy",},},
     {"id":{"name":"rm_menu_fases","path":"rooms/rm_menu_fases/rm_menu_fases.yy",},},
     {"id":{"name":"rm_menu_opcoes","path":"rooms/rm_menu_opcoes/rm_menu_opcoes.yy",},},
+    {"id":{"name":"scr_save","path":"scripts/scr_save/scr_save.yy",},},
     {"id":{"name":"scr_sistema_particulas","path":"scripts/scr_sistema_particulas/scr_sistema_particulas.yy",},},
     {"id":{"name":"scr_transicao","path":"scripts/scr_transicao/scr_transicao.yy",},},
     {"id":{"name":"snd_creditos_musica","path":"sounds/snd_creditos_musica/snd_creditos_musica.yy",},},
