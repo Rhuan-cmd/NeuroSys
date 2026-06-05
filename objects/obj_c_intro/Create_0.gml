@@ -51,6 +51,7 @@ intro_video_draw_status = -1;
 intro_video_hint_timer = 0;
 intro_video_encerrando = false;
 intro_video_fade_timer = 0;
+intro_video_sem_surface_timer = 0;
 intro_enter_last = -999;
 intro_skip_flash = 0;
 

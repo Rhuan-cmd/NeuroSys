@@ -55,7 +55,8 @@ if (global.intro_phase == 4) {
         intro_video_hint_timer += 1;
     }
 
-    if (intro_video_ready && !intro_video_encerrando && intro_video_draw_status == -2) {
+    var _sem_surface_final = intro_video_ready && intro_video_sem_surface_timer >= round(room_speed * 0.6);
+    if (intro_video_ready && !intro_video_encerrando && (intro_video_draw_status == -2 || _sem_surface_final)) {
         intro_video_encerrando = true;
         intro_video_fade_timer = 0;
     }

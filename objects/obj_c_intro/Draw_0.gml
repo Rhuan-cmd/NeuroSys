@@ -53,6 +53,7 @@ if (global.intro_phase == 4) {
     }
 
     if (surface_exists(_surface)) {
+        intro_video_sem_surface_timer = 0;
         var _surface_w = max(1, surface_get_width(_surface));
         var _surface_h = max(1, surface_get_height(_surface));
         var _scale = max(gui_w / _surface_w, gui_h / _surface_h);
@@ -67,6 +68,8 @@ if (global.intro_phase == 4) {
         if (!intro_video_ready) {
             draw_set_color(make_color_rgb(145, 204, 230));
             draw_text(cx, cy, "carregando video...");
+        } else if (!intro_video_encerrando) {
+            intro_video_sem_surface_timer += 1;
         }
     }
 
