@@ -4,6 +4,7 @@ monitor_x = 443;
 monitor_y = 271;
 proxima_room = rm_fase1;
 reverso = false;
+som_reverso_id = -1;
 
 if (variable_global_exists("menu_destino_room")) {
     proxima_room = global.menu_destino_room;
@@ -14,7 +15,7 @@ if (variable_global_exists("menu_reverso")) {
 if (reverso) {
     duracao = room_speed * 1.55;
     proxima_room = rm_menu;
-    audio_play_sound(snd_menu_succao_reverso, 1, false, 0.9);
+    som_reverso_id = audio_play_sound(snd_menu_succao_reverso, 1, false, 0.9);
 }
 
 window_set_cursor(cr_none);

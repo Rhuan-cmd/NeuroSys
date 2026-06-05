@@ -26,7 +26,7 @@ var _liberada = variable_global_exists("fase_liberada") ? global.fase_liberada :
 
 for (var i = 0; i < array_length(fase_nome); i += 1) {
     var _y = feed_top + i * (post_h + post_gap) - scroll_y;
-    if (i + 1 <= _liberada && mx >= feed_x && mx <= feed_x + feed_w && my >= max(_y, feed_top) && my <= min(_y + post_h, feed_bottom)) {
+    if (i + 1 <= _liberada && mx >= feed_x && mx <= feed_x + feed_w && my >= max(_y + 4, feed_top) && my <= min(_y + post_h - 4, feed_bottom)) {
         hover = i;
         break;
     }

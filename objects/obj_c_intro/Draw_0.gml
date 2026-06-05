@@ -8,7 +8,7 @@ draw_set_alpha(1);
 draw_set_color(c_black);
 draw_rectangle(0, 0, gui_w, gui_h, false);
 
-if (global.intro_phase >= 0 && global.intro_phase <= 2) {
+if ((global.intro_phase >= 0 && global.intro_phase <= 2) || global.intro_phase == 4) {
     draw_set_color(make_color_rgb(4, 8, 14));
     draw_rectangle(0, 0, gui_w, gui_h, false);
 
@@ -39,6 +39,41 @@ if (global.intro_phase == 0) {
     draw_text_transformed(cx, cy + 88, "Maranhão", 2, 2, 0);
     draw_set_color(make_color_rgb(195, 232, 236));
     draw_text_transformed(cx, cy + 132, "Campus Açailândia", 1, 1, 0);
+}
+
+if (global.intro_phase == 4) {
+    draw_set_alpha(phase_alpha);
+    draw_set_color(c_black);
+    draw_rectangle(cx - 292, cy - 168, cx + 292, cy + 168, false);
+    draw_set_color(make_color_rgb(48, 128, 164));
+    draw_roundrect(cx - 304, cy - 180, cx + 304, cy + 180, true);
+
+    var _video_frame = video_draw();
+    var _surface = -1;
+    if (is_array(_video_frame)) {
+        _surface = _video_frame[0];
+    } else {
+        _surface = _video_frame;
+    }
+    if (surface_exists(_surface)) {
+        draw_set_alpha(phase_alpha);
+        draw_surface_stretched(_surface, cx - 288, cy - 162, 576, 324);
+    } else {
+        draw_set_color(make_color_rgb(7, 12, 22));
+        draw_rectangle(cx - 288, cy - 162, cx + 288, cy + 162, false);
+        draw_set_color(make_color_rgb(145, 204, 230));
+        draw_text(cx, cy, "carregando video...");
+    }
+
+    draw_set_alpha(phase_alpha * (0.72 + intro_skip_flash * 0.28));
+    draw_set_color(make_color_rgb(5, 12, 22));
+    draw_roundrect(gui_w - 250, cy - 42, gui_w - 42, cy + 42, false);
+    draw_set_color(make_color_rgb(94, 238, 255));
+    draw_roundrect(gui_w - 250, cy - 42, gui_w - 42, cy + 42, true);
+    draw_set_color(c_white);
+    draw_text(gui_w - 146, cy - 11, "ENTER x2");
+    draw_set_color(make_color_rgb(172, 198, 218));
+    draw_text(gui_w - 146, cy + 17, "pular video");
 }
 
 if (global.intro_phase == 2) {

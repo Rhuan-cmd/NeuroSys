@@ -18,6 +18,11 @@ if (intro_timer < intro_ifma_start) {
     var gm_in = clamp((intro_timer - intro_gm_start) / fade_time, 0, 1);
     var gm_out = clamp((intro_gm_end - intro_timer) / fade_time, 0, 1);
     global.intro_phase_alpha = min(gm_in, gm_out);
+} else if (intro_timer < intro_video_end) {
+    global.intro_phase = 4;
+    var video_in = clamp((intro_timer - intro_video_start) / fade_time, 0, 1);
+    var video_out = clamp((intro_video_end - intro_timer) / fade_time, 0, 1);
+    global.intro_phase_alpha = min(video_in, video_out);
 } else if (intro_timer < intro_fade_out_start) {
     global.intro_phase = 2;
     global.intro_phase_alpha = clamp((intro_timer - intro_neurosys_start) / fade_time, 0, 1);
@@ -30,10 +35,37 @@ if (intro_timer < intro_ifma_start) {
 }
 
 if (global.intro_phase != intro_last_phase) {
-    if (global.intro_phase >= 0 && global.intro_phase < 3) {
+    if ((global.intro_phase >= 0 && global.intro_phase < 3) || global.intro_phase == 4) {
         audio_play_sound(snd_intro_transicao, 1, false);
     }
     intro_last_phase = global.intro_phase;
+}
+
+if (global.intro_phase == 4) {
+    if (!intro_video_started) {
+        var _video_path = "datafiles/Aprenda.mp4";
+        if (!file_exists(_video_path)) _video_path = "Aprenda.mp4";
+        video_open(_video_path);
+        video_set_volume(0.72);
+        intro_video_started = true;
+        intro_video_closed = false;
+    }
+
+    intro_skip_flash = max(0, intro_skip_flash - 0.05);
+    if (keyboard_check_pressed(vk_enter)) {
+        if (intro_timer - intro_enter_last <= round(room_speed * 0.42)) {
+            intro_skip_flash = 1;
+            intro_timer = intro_video_end;
+            if (intro_video_started && !intro_video_closed) {
+                video_close();
+                intro_video_closed = true;
+            }
+        }
+        intro_enter_last = intro_timer;
+    }
+} else if (intro_video_started && !intro_video_closed) {
+    video_close();
+    intro_video_closed = true;
 }
 
 if (global.intro_phase == 2) {
@@ -68,10 +100,12 @@ if (global.intro_phase == 2) {
 if (!transition_started && intro_timer >= intro_duration) {
     transition_started = true;
     audio_sound_gain(intro_music_id, 0, 900);
+    if (intro_video_started && !intro_video_closed) video_close();
     room_goto(rm_menu);
 }
 
-if (keyboard_check_pressed(vk_space) || keyboard_check_pressed(vk_enter)) {
+if (keyboard_check_pressed(vk_space)) {
     audio_sound_gain(intro_music_id, 0, 250);
+    if (intro_video_started && !intro_video_closed) video_close();
     room_goto(rm_menu);
 }

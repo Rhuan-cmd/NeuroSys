@@ -47,7 +47,7 @@ draw_set_alpha(1);
 draw_set_color(make_color_rgb(124, 221, 248));
 draw_text(app_x + 24, app_y + 86, "Navegacao");
 draw_set_color(make_color_rgb(159, 178, 198));
-draw_text_ext(app_x + 24, app_y + 124, "Role para ver as postagens.\nPosts com cadeado liberam apos vencer o anterior.", 18, 120);
+draw_text_ext(app_x + 24, app_y + 124, "Role o feed.\nCada postagem abre uma fase.\nOs cadeados liberam em ordem.", 18, 120);
 draw_set_color(make_color_rgb(255, 232, 138));
 draw_text(app_x + 24, app_y + app_h - 44, "ESC voltar");
 
@@ -70,36 +70,37 @@ for (var i = 0; i < array_length(fase_nome); i += 1) {
 
     draw_set_alpha(1);
     draw_set_color(_bloqueado ? make_color_rgb(86, 96, 112) : make_color_rgb(94, 238, 255));
-    draw_circle(feed_x + 26, _y + 27, 13, false);
+    draw_circle(feed_x + 24, _y + 24, 11, false);
     draw_set_color(_bloqueado ? make_color_rgb(132, 142, 158) : c_white);
-    draw_text(feed_x + 48, _y + 24, fase_tag[i]);
+    draw_text(feed_x + 44, _y + 21, fase_tag[i]);
     draw_set_color(make_color_rgb(102, 123, 146));
-    draw_text(feed_x + 48, _y + 46, "postagem #" + string(i + 1));
+    draw_text(feed_x + 44, _y + 42, "postagem #" + string(i + 1));
 
-    var _foto_x = feed_x + 20;
-    var _foto_y = _y + 68;
+    var _foto_x = feed_x + 18;
+    var _foto_y = _y + 66;
     draw_set_alpha(_bloqueado ? 0.28 : 1);
     draw_set_color(make_color_rgb(2, 8, 16));
-    draw_rectangle(_foto_x, _foto_y, _foto_x + 92, _foto_y + 62, false);
+    draw_roundrect(_foto_x, _foto_y, _foto_x + 100, _foto_y + 58, false);
     var _spr = fase_foto[i];
     var _sw = sprite_get_width(_spr);
     var _sh = sprite_get_height(_spr);
-    var _esc = min(82 / max(1, _sw), 52 / max(1, _sh));
-    draw_sprite_ext(_spr, 0, _foto_x + 46, _foto_y + 31, _esc, _esc, 0, c_white, _bloqueado ? 0.42 : 1);
+    var _esc = min(92 / max(1, _sw), 50 / max(1, _sh));
+    draw_sprite_ext(_spr, 0, _foto_x + 50, _foto_y + 29, _esc, _esc, 0, c_white, _bloqueado ? 0.42 : 1);
 
     draw_set_alpha(1);
     draw_set_color(_bloqueado ? make_color_rgb(132, 142, 158) : c_white);
-    draw_text(feed_x + 128, _y + 76, fase_nome[i]);
+    draw_text(feed_x + 134, _y + 68, fase_nome[i]);
     draw_set_color(_bloqueado ? make_color_rgb(91, 100, 116) : make_color_rgb(185, 205, 224));
-    draw_text_ext(feed_x + 128, _y + 100, fase_desc[i], 17, 178);
+    draw_text_ext(feed_x + 134, _y + 92, fase_desc[i], 16, 248);
 
     draw_set_halign(fa_center);
     if (_bloqueado) {
-        draw_set_color(make_color_rgb(255, 213, 122));
-        draw_text(feed_x + feed_w - 45, _y + 28, "CADEADO");
+        draw_sprite_ext(spr_ui_cadeado, 0, feed_x + feed_w - 42, _y + 30, 1.15, 1.15, 0, c_white, 0.9);
+        draw_set_color(make_color_rgb(142, 153, 171));
+        draw_text(feed_x + feed_w - 42, _y + 58, "bloqueado");
     } else {
         draw_set_color(_hover ? make_color_rgb(255, 246, 152) : make_color_rgb(116, 231, 255));
-        draw_text(feed_x + feed_w - 44, _y + 28, "JOGAR");
+        draw_text(feed_x + feed_w - 44, _y + 30, "JOGAR");
     }
     draw_set_halign(fa_left);
 }

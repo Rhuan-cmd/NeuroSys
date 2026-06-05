@@ -221,6 +221,7 @@
     {"id":{"name":"spr_pc_cartazes","path":"sprites/spr_pc_cartazes/spr_pc_cartazes.yy",},},
     {"id":{"name":"spr_pc_interface_rede","path":"sprites/spr_pc_interface_rede/spr_pc_interface_rede.yy",},},
     {"id":{"name":"spr_ui_barra_felicidade","path":"sprites/spr_ui_barra_felicidade/spr_ui_barra_felicidade.yy",},},
+    {"id":{"name":"spr_ui_cadeado","path":"sprites/spr_ui_cadeado/spr_ui_cadeado.yy",},},
     {"id":{"name":"spr_ui_coracao_chefe","path":"sprites/spr_ui_coracao_chefe/spr_ui_coracao_chefe.yy",},},
     {"id":{"name":"spr_ui_cursor","path":"sprites/spr_ui_cursor/spr_ui_cursor.yy",},},
     {"id":{"name":"spr_ui_esqueleto_chefe","path":"sprites/spr_ui_esqueleto_chefe/spr_ui_esqueleto_chefe.yy",},},

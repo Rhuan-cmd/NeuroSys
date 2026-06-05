@@ -9,12 +9,12 @@ app_x = 110;
 app_y = 46;
 app_w = 740;
 app_h = 448;
-feed_x = 292;
-feed_w = 376;
-post_h = 154;
-post_gap = 18;
-feed_top = 112;
-feed_bottom = 456;
+feed_x = 250;
+feed_w = 496;
+post_h = 138;
+post_gap = 16;
+feed_top = 122;
+feed_bottom = 442;
 
 fase_nome = [
     "Filtro de Respeito",
