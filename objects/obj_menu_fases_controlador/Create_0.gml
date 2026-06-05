@@ -18,6 +18,7 @@ transicao_alvo_y = 0;
 retorno_timer = 0;
 retorno_dur = 176;
 voltar_hover = false;
+voltar_hover_anterior = false;
 voltando_menu = false;
 fade_entrada_branco = 1;
 fade_saida_branco = 0;

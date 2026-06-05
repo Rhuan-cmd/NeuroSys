@@ -216,8 +216,7 @@ for (var i = 0; i < array_length(fase_nome); i += 1) {
         draw_text_transformed(_card_x + feed_w - 42, _y + 58, "bloqueado", 0.58, 0.58, 0);
     } else {
         _glitch_text(_card_x + feed_w - 46, _y + 32, "JOGAR", 0.68, 0.68, _hover ? make_color_rgb(255, 246, 152) : make_color_rgb(116, 231, 255), _glitch);
-        draw_set_color(_concluido ? make_color_rgb(110, 245, 180) : make_color_rgb(255, 215, 116));
-        draw_text_transformed(_card_x + feed_w - 46, _y + 58, _concluido ? "concluída" : "pendente", 0.54, 0.54, 0);
+        _glitch_text(_card_x + feed_w - 46, _y + 58, _concluido ? "CONCLUÍDA" : "PENDENTE", 0.54, 0.54, _concluido ? make_color_rgb(110, 245, 180) : make_color_rgb(255, 215, 116), _glitch);
     }
     draw_set_halign(fa_left);
 }

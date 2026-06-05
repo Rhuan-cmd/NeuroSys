@@ -118,17 +118,24 @@ if (mouse_check_button_pressed(mb_left)) {
         if (_liberada >= 4 && sino_cliques >= 10) {
             global.fase_liberada = 1;
             sino_cliques = 0;
+            audio_play_sound(snd_f2_tremor, 4, false, 0.54, 0, 0.72);
             exit;
         }
         sino_cliques += 1;
         if (sino_cliques >= 10) {
             sino_cliques = 10;
             global.fase_liberada = 4;
-            audio_play_sound(snd_f2_confirmar, 4, false, 0.42, 0, 1.22);
+            audio_play_sound(snd_f2_ponto, 4, false, 0.58, 0, 1.34);
+            audio_play_sound(snd_f2_confirmar, 4, false, 0.36, 0, 1.42);
         }
         exit;
     }
 }
+
+if (voltar_hover && !voltar_hover_anterior) {
+    audio_play_sound(snd_f2_selecao, 3, false, 0.42);
+}
+voltar_hover_anterior = voltar_hover;
 
 for (var i = 0; i < array_length(fase_nome); i += 1) {
     var _y = feed_top + i * (post_h + post_gap) - scroll_y;
