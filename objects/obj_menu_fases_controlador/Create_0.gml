@@ -16,10 +16,10 @@ post_h = 126;
 post_gap = 14;
 feed_top = 124;
 feed_bottom = 430;
-voltar_x = 136;
-voltar_y = 442;
-voltar_w = 74;
-voltar_h = 38;
+voltar_x = 188;
+voltar_y = 464;
+voltar_w = 96;
+voltar_h = 48;
 voltar_sprite = asset_get_index("spr_menu_btn_voltar");
 
 fase_nome = [

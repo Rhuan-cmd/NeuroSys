@@ -8,6 +8,7 @@ var _side_w = 150;
 var _feed_mask_l = app_x + _side_w;
 var _feed_mask_r = app_x + app_w - 18;
 var _scroll_x = _feed_mask_r - 10;
+var _divider_x = _feed_mask_l;
 
 draw_set_alpha(1);
 draw_set_color(make_color_rgb(2, 6, 14));
@@ -25,10 +26,10 @@ draw_sprite_ext(
     1
 );
 
-draw_set_alpha(0.92);
+draw_set_alpha(1);
 draw_set_color(_app_bg);
 draw_roundrect(app_x, app_y, app_x + app_w, app_y + app_h, false);
-draw_set_alpha(0.44);
+draw_set_alpha(1);
 draw_set_color(make_color_rgb(75, 170, 215));
 draw_roundrect(app_x, app_y, app_x + app_w, app_y + app_h, true);
 
@@ -44,7 +45,7 @@ draw_text_transformed(app_x + 24, app_y + 27, "CONECTA", 0.86, 0.86, 0);
 draw_set_color(make_color_rgb(160, 185, 207));
 draw_text_transformed(app_x + 160, app_y + 28, "Feed de casos", 0.74, 0.74, 0);
 
-draw_set_alpha(0.72);
+draw_set_alpha(1);
 draw_set_color(make_color_rgb(5, 12, 22));
 draw_rectangle(app_x, app_y + 54, app_x + _side_w, app_y + app_h, false);
 draw_set_alpha(1);
@@ -53,10 +54,10 @@ draw_text_transformed(app_x + 20, app_y + 106, "Navegação", 0.78, 0.78, 0);
 draw_set_color(make_color_rgb(159, 178, 198));
 draw_text_ext_transformed(app_x + 20, app_y + 156, "Role o feed.\nCada post abre\numa fase.\n\nCadeados liberam\nem ordem.", 15, 118, 0.66, 0.66, 0);
 
-draw_set_alpha(0.88);
+draw_set_alpha(1);
 draw_set_color(make_color_rgb(4, 11, 21));
 draw_rectangle(_feed_mask_l, feed_top, _feed_mask_r, feed_bottom, false);
-draw_set_alpha(0.35);
+draw_set_alpha(1);
 draw_set_color(make_color_rgb(43, 118, 154));
 draw_rectangle(_feed_mask_l, feed_top, _feed_mask_r, feed_bottom, true);
 
@@ -122,17 +123,35 @@ for (var i = 0; i < array_length(fase_nome); i += 1) {
     draw_set_halign(fa_left);
 }
 
-// Mascara o feed para os posts nao vazarem para fora da interface.
+// Mascara o feed com areas opacas para os posts nao vazarem pela borda.
 draw_set_alpha(1);
 draw_set_color(_app_bg);
 draw_rectangle(_feed_mask_l, app_y + 54, _feed_mask_r, feed_top - 1, false);
 draw_rectangle(_feed_mask_l, feed_bottom + 1, _feed_mask_r, app_y + app_h - 1, false);
-draw_rectangle(app_x, app_y + 54, _feed_mask_l - 1, app_y + app_h, false);
 draw_rectangle(_feed_mask_r + 1, app_y + 54, app_x + app_w, app_y + app_h, false);
 draw_rectangle(0, app_y + app_h + 1, gui_w, gui_h, false);
 draw_rectangle(0, 0, gui_w, app_y - 1, false);
 draw_rectangle(0, 0, app_x - 1, gui_h, false);
 draw_rectangle(app_x + app_w + 1, 0, gui_w, gui_h, false);
+
+draw_set_color(make_color_rgb(5, 12, 22));
+draw_rectangle(app_x, app_y + 54, _divider_x - 1, app_y + app_h, false);
+
+draw_set_color(make_color_rgb(2, 7, 14));
+draw_rectangle(_feed_mask_l, feed_top - 4, _feed_mask_r, feed_top, false);
+draw_rectangle(_feed_mask_l, feed_bottom, _feed_mask_r, feed_bottom + 4, false);
+draw_rectangle(_feed_mask_l, feed_top, _feed_mask_l + 3, feed_bottom, false);
+draw_rectangle(_feed_mask_r - 3, feed_top, _feed_mask_r, feed_bottom, false);
+draw_set_color(make_color_rgb(37, 111, 150));
+draw_rectangle(_feed_mask_l, feed_top, _feed_mask_r, feed_top + 1, false);
+draw_rectangle(_feed_mask_l, feed_bottom - 1, _feed_mask_r, feed_bottom, false);
+draw_rectangle(_feed_mask_l, feed_top, _feed_mask_l + 1, feed_bottom, false);
+draw_rectangle(_feed_mask_r - 1, feed_top, _feed_mask_r, feed_bottom, false);
+
+draw_set_color(make_color_rgb(2, 8, 17));
+draw_rectangle(_divider_x - 3, app_y + 54, _divider_x + 3, app_y + app_h, false);
+draw_set_color(make_color_rgb(52, 139, 178));
+draw_rectangle(_divider_x + 2, app_y + 54, _divider_x + 3, app_y + app_h, false);
 
 draw_set_alpha(1);
 draw_set_color(make_color_rgb(10, 31, 50));
@@ -142,9 +161,13 @@ draw_text_transformed(app_x + 24, app_y + 27, "CONECTA", 0.86, 0.86, 0);
 draw_set_color(make_color_rgb(160, 185, 207));
 draw_text_transformed(app_x + 160, app_y + 28, "Feed de casos", 0.74, 0.74, 0);
 
-draw_set_alpha(0.72);
+draw_set_alpha(1);
 draw_set_color(make_color_rgb(5, 12, 22));
 draw_rectangle(app_x, app_y + 54, app_x + _side_w, app_y + app_h, false);
+draw_set_color(make_color_rgb(2, 8, 17));
+draw_rectangle(_divider_x - 3, app_y + 54, _divider_x + 3, app_y + app_h, false);
+draw_set_color(make_color_rgb(52, 139, 178));
+draw_rectangle(_divider_x + 2, app_y + 54, _divider_x + 3, app_y + app_h, false);
 draw_set_alpha(1);
 draw_set_color(make_color_rgb(124, 221, 248));
 draw_text_transformed(app_x + 20, app_y + 106, "Navegação", 0.78, 0.78, 0);
