@@ -15,9 +15,9 @@ var _feed_panel_x = app_x + _side_w;
 var _feed_panel_y = app_y + _header_h;
 var _feed_panel_r = app_x + app_w;
 var _feed_panel_b = app_y + app_h;
-var _feed_mask_l = _feed_panel_x + 8;
-var _feed_mask_r = _feed_panel_r - 26;
-var _scroll_x = _feed_mask_r - 10;
+var _feed_mask_l = _feed_panel_x;
+var _feed_mask_r = _feed_panel_r;
+var _scroll_x = _feed_mask_r - 18;
 var _divider_x = _feed_panel_x;
 var _cover = 18;
 var _glitch = true;
@@ -98,8 +98,7 @@ _grad_rect(app_x, app_y + _header_h, _divider_x - 5, app_y + app_h, make_color_r
 _grad_rect(_feed_panel_x + 1, _feed_panel_y, _feed_panel_r, _feed_panel_b, make_color_rgb(5, 14, 26), _panel, 18);
 draw_set_color(make_color_rgb(2, 7, 14));
 draw_rectangle(_feed_mask_l, feed_top - _cover, _feed_mask_r, feed_top, false);
-draw_rectangle(_feed_mask_l, feed_bottom, _feed_mask_r, feed_bottom + _cover, false);
-draw_rectangle(_feed_mask_r, feed_top - _cover, _feed_mask_r + _cover, feed_bottom + _cover, false);
+draw_rectangle(_feed_mask_r - 18, feed_top - _cover, _feed_mask_r, feed_bottom + _cover, false);
 _grad_rect(_feed_mask_l, feed_top, _feed_mask_r, feed_bottom, make_color_rgb(8, 21, 36), make_color_rgb(4, 11, 22), 18);
 draw_set_alpha(0.20 + 0.12 * _anim);
 draw_set_color(make_color_rgb(48, 166, 203));
@@ -170,17 +169,14 @@ for (var i = 0; i < array_length(fase_nome); i += 1) {
 draw_set_alpha(1);
 draw_set_color(_panel);
 draw_rectangle(_feed_panel_x + 1, _feed_panel_y, _feed_panel_r, feed_top - 1, false);
-draw_rectangle(_feed_panel_x + 1, feed_bottom + 1, _feed_panel_r, _feed_panel_b, false);
-draw_rectangle(_feed_panel_x + 1, _feed_panel_y, _feed_mask_l - 1, _feed_panel_b, false);
-draw_rectangle(_feed_mask_r + 1, _feed_panel_y, _feed_panel_r, _feed_panel_b, false);
+draw_rectangle(_feed_mask_r - 18, _feed_panel_y, _feed_panel_r, _feed_panel_b, false);
 
 draw_set_color(make_color_rgb(2, 7, 14));
 draw_rectangle(_feed_mask_l, feed_top - _cover, _feed_mask_r, feed_top, false);
-draw_rectangle(_feed_mask_l, feed_bottom, _feed_mask_r, feed_bottom + _cover, false);
-draw_rectangle(_feed_mask_r, feed_top - _cover, _feed_mask_r + _cover, feed_bottom + _cover, false);
+draw_rectangle(_feed_mask_r - 18, feed_top - _cover, _feed_mask_r, feed_bottom + _cover, false);
 draw_set_color(_cyan_soft);
 draw_rectangle(_feed_mask_l - 1, feed_top - 1, _feed_mask_r + 1, feed_top + 2, false);
-draw_rectangle(_feed_mask_l - 1, feed_bottom - 2, _feed_mask_r + 1, feed_bottom + 1, false);
+draw_rectangle(_feed_mask_l - 1, feed_bottom - 2, _feed_mask_r + 1, feed_bottom, false);
 draw_rectangle(_feed_mask_l, feed_top - 1, _feed_mask_l + 1, feed_bottom + 1, false);
 draw_rectangle(_feed_mask_r - 2, feed_top - 1, _feed_mask_r + 1, feed_bottom + 1, false);
 
@@ -224,43 +220,17 @@ draw_set_halign(fa_left);
 draw_set_valign(fa_top);
 _glitch_text(app_x + 24, app_y + 90, "Painel de casos", 0.78, 0.78, make_color_rgb(124, 221, 248), _glitch);
 
-draw_set_color(make_color_rgb(8, 24, 40));
-draw_rectangle(app_x + 18, app_y + 128, _divider_x - 18, app_y + 244, false);
-draw_set_color(make_color_rgb(32, 108, 145));
-draw_rectangle(app_x + 18, app_y + 128, _divider_x - 18, app_y + 244, true);
-_glitch_text(app_x + 30, app_y + 144, "Progresso", 0.62, 0.62, make_color_rgb(96, 226, 255), _glitch);
-draw_set_color(make_color_rgb(151, 179, 202));
-draw_text_ext_transformed(app_x + 30, app_y + 170, "Complete uma postagem para liberar a próxima.", 20, 190, 0.55, 0.55, 0);
-draw_set_color(make_color_rgb(2, 8, 17));
-draw_rectangle(app_x + 30, app_y + 222, _divider_x - 30, app_y + 230, false);
-var _prog_w = (_divider_x - app_x - 60) * clamp(_concluidas / 4, 0, 1);
-if (_prog_w > 0) {
-    draw_set_color(make_color_rgb(89, 225, 255));
-    draw_rectangle(app_x + 30, app_y + 222, app_x + 30 + _prog_w, app_y + 230, false);
-}
-
-draw_set_color(make_color_rgb(8, 24, 40));
-draw_rectangle(app_x + 18, app_y + 264, _divider_x - 18, app_y + 420, false);
-draw_set_color(make_color_rgb(32, 108, 145));
-draw_rectangle(app_x + 18, app_y + 264, _divider_x - 18, app_y + 420, true);
-_glitch_text(app_x + 30, app_y + 280, "Missão", 0.62, 0.62, make_color_rgb(96, 226, 255), _glitch);
-draw_set_color(make_color_rgb(159, 178, 198));
-draw_text_ext_transformed(app_x + 30, app_y + 306, "Role o feed e escolha o caso disponível. Os cadeados mostram o que ainda falta desbloquear.", 20, 190, 0.55, 0.55, 0);
-draw_set_color(make_color_rgb(76, 143, 173));
-draw_rectangle(app_x + 30, app_y + 392, _divider_x - 30, app_y + 394, false);
-_glitch_text(app_x + 30, app_y + 398, "Clique em JOGAR para iniciar", 0.46, 0.46, make_color_rgb(151, 179, 202), _glitch);
-
 draw_set_color(make_color_rgb(4, 14, 25));
-draw_rectangle(voltar_x - 82, voltar_y - 32, voltar_x + 82, voltar_y + 32, false);
+draw_rectangle(voltar_x - 92, voltar_y - 34, voltar_x + 92, voltar_y + 34, false);
 draw_set_color(make_color_rgb(18, 68, 96));
-draw_rectangle(voltar_x - 82, voltar_y - 32, voltar_x + 82, voltar_y + 32, true);
+draw_rectangle(voltar_x - 92, voltar_y - 34, voltar_x + 92, voltar_y + 34, true);
 draw_set_color(make_color_rgb(8, 31, 48));
-draw_rectangle(voltar_x - 62, voltar_y - 18, voltar_x + 62, voltar_y + 18, false);
+draw_rectangle(voltar_x - 74, voltar_y - 20, voltar_x + 74, voltar_y + 20, false);
 draw_set_color(make_color_rgb(45, 142, 178));
-draw_rectangle(voltar_x - 17, voltar_y + 31, voltar_x + 17, gui_h + 18, false);
+draw_rectangle(voltar_x - 18, voltar_y + 34, voltar_x + 18, gui_h + 18, false);
 draw_set_color(make_color_rgb(6, 22, 37));
-draw_rectangle(voltar_x - 12, voltar_y + 35, voltar_x + 12, gui_h + 18, false);
-var _voltar_scale_sprite = voltar_hover ? 1.34 : 1.26;
+draw_rectangle(voltar_x - 12, voltar_y + 38, voltar_x + 12, gui_h + 18, false);
+var _voltar_scale_sprite = voltar_hover ? 1.58 : 1.50;
 draw_sprite_ext(voltar_sprite, voltar_hover ? 1 : 0, voltar_x, voltar_y, _voltar_scale_sprite, _voltar_scale_sprite, 0, c_white, 1);
 
 var _max_scroll = max(1, feed_altura - (feed_bottom - feed_top));
