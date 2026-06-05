@@ -52,6 +52,8 @@ intro_video_hint_timer = 0;
 intro_video_encerrando = false;
 intro_video_fade_timer = 0;
 intro_video_sem_surface_timer = 0;
+intro_video_fade_alpha = 0;
+intro_video_fade_pre_ms = 1800;
 intro_enter_last = -999;
 intro_skip_flash = 0;
 
@@ -63,7 +65,7 @@ intro_finalizar_video = function() {
 
     intro_video_finished = true;
     intro_video_end = intro_timer;
-    intro_neurosys_start = intro_timer + 1;
+    intro_neurosys_start = intro_timer + round(room_speed * 0.55);
     intro_neurosys_end = intro_neurosys_start + room_speed * 8;
     intro_fade_out_start = intro_neurosys_end;
     intro_fade_out_end = intro_fade_out_start + round(room_speed * 2.5);

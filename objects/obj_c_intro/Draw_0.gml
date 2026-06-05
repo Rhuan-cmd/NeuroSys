@@ -8,7 +8,7 @@ draw_set_alpha(1);
 draw_set_color(c_black);
 draw_rectangle(0, 0, gui_w, gui_h, false);
 
-if ((global.intro_phase >= 0 && global.intro_phase <= 2) || global.intro_phase == 4) {
+if (global.intro_phase >= 0 && global.intro_phase <= 2) {
     draw_set_color(make_color_rgb(4, 8, 14));
     draw_rectangle(0, 0, gui_w, gui_h, false);
 
@@ -91,8 +91,8 @@ if (global.intro_phase == 4) {
         draw_text(( _hint_x1 + _hint_x2) * 0.5, _hint_y1 + 47, "pular video");
     }
 
-    if (intro_video_encerrando) {
-        draw_set_alpha(clamp(intro_video_fade_timer / max(1, room_speed * 0.8), 0, 1));
+    if (intro_video_fade_alpha > 0 || intro_video_encerrando) {
+        draw_set_alpha(clamp(intro_video_fade_alpha, 0, 1));
         draw_set_color(c_black);
         draw_rectangle(0, 0, gui_w, gui_h, false);
     }

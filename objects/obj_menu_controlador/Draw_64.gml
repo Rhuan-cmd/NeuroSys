@@ -54,13 +54,19 @@ if (clique_iniciado) {
     var soft = fade * fade * (3 - 2 * fade);
     var flash = 0.5 + 0.5 * sin(menu_timer * 0.72);
 
-    draw_set_alpha(soft * 0.26);
-    draw_set_color(make_color_rgb(108, 186, 255));
-    draw_rectangle(0, 0, gui_w, gui_h, false);
+    if (menu_saindo_jogo) {
+        draw_set_alpha(soft);
+        draw_set_color(c_black);
+        draw_rectangle(0, 0, gui_w, gui_h, false);
+    } else {
+        draw_set_alpha(soft * 0.26);
+        draw_set_color(make_color_rgb(108, 186, 255));
+        draw_rectangle(0, 0, gui_w, gui_h, false);
 
-    draw_set_alpha(clamp((fade - 0.16) / 0.84, 0, 1) * (0.45 + flash * 0.28));
-    draw_set_color(c_white);
-    draw_rectangle(0, 0, gui_w, gui_h, false);
+        draw_set_alpha(clamp((fade - 0.16) / 0.84, 0, 1) * (0.45 + flash * 0.28));
+        draw_set_color(c_white);
+        draw_rectangle(0, 0, gui_w, gui_h, false);
+    }
 }
 
 draw_set_alpha(1);
