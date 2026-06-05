@@ -46,6 +46,46 @@ function _glitch_text(_x, _y, _txt, _sx, _sy, _main, _ativo) {
     draw_text_transformed(_x, _y, _txt, _sx, _sy, 0);
 }
 
+var _trans_preto_alpha = 0;
+var _trans_zoom_forca = 0;
+if (entrando_fase) {
+    var _t_cam = transicao_post_timer;
+    if (_t_cam < 25) {
+        _trans_zoom_forca = 0;
+        _trans_preto_alpha = 1;
+    } else if (_t_cam < 61) {
+        var _p_cam1 = (_t_cam - 25) / 36;
+        _p_cam1 = _p_cam1 * _p_cam1 * (3 - 2 * _p_cam1);
+        _trans_zoom_forca = lerp(0.22, 0.38, _p_cam1);
+    } else if (_t_cam < 85) {
+        _trans_zoom_forca = 0.38;
+        _trans_preto_alpha = 1;
+    } else if (_t_cam < 121) {
+        var _p_cam2 = (_t_cam - 85) / 36;
+        _p_cam2 = _p_cam2 * _p_cam2 * (3 - 2 * _p_cam2);
+        _trans_zoom_forca = lerp(0.38, 0.68, _p_cam2);
+    } else if (_t_cam < 145) {
+        _trans_zoom_forca = 0.68;
+        _trans_preto_alpha = 1;
+    } else if (_t_cam < 185) {
+        var _p_cam3 = (_t_cam - 145) / 40;
+        _p_cam3 = _p_cam3 * _p_cam3 * (3 - 2 * _p_cam3);
+        _trans_zoom_forca = lerp(0.68, 1, _p_cam3);
+    } else {
+        _trans_zoom_forca = 1;
+        _trans_preto_alpha = 1;
+    }
+
+    var _target_x = feed_x + 18 + 53;
+    var _target_y = feed_top + fase_escolhida * (post_h + post_gap) - scroll_y + 62 + 29;
+    var _final_scale = max(gui_w / 106, gui_h / 58) * 1.04;
+    var _cam_scale = lerp(1, _final_scale, _trans_zoom_forca);
+    var _cam_x = gui_w * 0.5 - _target_x * _cam_scale;
+    var _cam_y = gui_h * 0.5 - _target_y * _cam_scale;
+    var _cam_shake = (1 - _trans_zoom_forca) * sin(menu_timer * 1.2) * 1.2;
+    matrix_set(matrix_world, matrix_build(_cam_x + _cam_shake, _cam_y - _cam_shake * 0.35, 0, 0, 0, 0, _cam_scale, _cam_scale, 1));
+}
+
 draw_set_alpha(1);
 _grad_rect(0, 0, gui_w, gui_h, make_color_rgb(3, 8, 18), _app_bg, 20);
 draw_set_color(_cyan_soft);
@@ -145,17 +185,6 @@ for (var i = 0; i < array_length(fase_nome); i += 1) {
     draw_set_alpha(_bloqueado ? 0.18 : 0.42);
     draw_set_color(make_color_rgb(73, 166, 204));
     draw_roundrect(_foto_x, _foto_y, _foto_x + _foto_w, _foto_y + _foto_h, true);
-    if (entrando_fase && fase_escolhida == i) {
-        var _trans_t_img = clamp(transicao_post_timer / transicao_post_dur, 0, 1);
-        var _luz_base = clamp((_trans_t_img - 0.10) / 0.48, 0, 1);
-        var _luz = _luz_base * _luz_base * (3 - 2 * _luz_base);
-        draw_set_alpha(0.22 + _luz * 0.58);
-        draw_set_color(make_color_rgb(92, 222, 255));
-        draw_rectangle(_foto_x - 12 - _luz * 18, _foto_y - 8 - _luz * 10, _foto_x + _foto_w + 12 + _luz * 18, _foto_y + _foto_h + 8 + _luz * 10, false);
-        draw_set_alpha(0.34 + _luz * 0.42);
-        draw_set_color(c_white);
-        draw_rectangle(_foto_x - 4, _foto_y - 2, _foto_x + _foto_w + 4, _foto_y + _foto_h + 2, false);
-    }
     var _spr = fase_foto[i];
     var _sw = sprite_get_width(_spr);
     var _sh = sprite_get_height(_spr);
@@ -283,73 +312,14 @@ draw_set_color(make_color_rgb(105, 211, 244));
 draw_rectangle(_scroll_x, max(feed_top + 3, _bar_y), _scroll_x + 9, min(feed_bottom - 3, _bar_y + _bar_h), false);
 
 if (entrando_fase) {
-    var _t = transicao_post_timer;
-    var _zoom_suave = 0;
-    var _preto_alpha = 0;
-    var _azul_alpha = 0;
-    var _zoom_shake = 0;
-
-    if (_t < 15) {
-        _preto_alpha = sin((_t / 15) * pi);
-    } else if (_t < 37) {
-        var _p1 = (_t - 15) / 22;
-        _p1 = _p1 * _p1 * (3 - 2 * _p1);
-        _zoom_suave = lerp(0.18, 0.40, _p1);
-        _azul_alpha = 0.10 + 0.08 * sin(_p1 * pi);
-        _zoom_shake = sin(menu_timer * 1.55) * 1.4;
-    } else if (_t < 51) {
-        _zoom_suave = 0.40;
-        _preto_alpha = sin(((_t - 37) / 14) * pi);
-    } else if (_t < 74) {
-        var _p2 = (_t - 51) / 23;
-        _p2 = _p2 * _p2 * (3 - 2 * _p2);
-        _zoom_suave = lerp(0.40, 0.68, _p2);
-        _azul_alpha = 0.12 + 0.10 * sin(_p2 * pi);
-        _zoom_shake = sin(menu_timer * 1.75) * 2.0;
-    } else if (_t < 88) {
-        _zoom_suave = 0.68;
-        _preto_alpha = sin(((_t - 74) / 14) * pi);
-    } else if (_t < 116) {
-        var _p3 = (_t - 88) / 28;
-        _p3 = _p3 * _p3 * (3 - 2 * _p3);
-        _zoom_suave = lerp(0.68, 1.0, _p3);
-        _azul_alpha = 0.14 + 0.12 * sin(_p3 * pi);
-        _zoom_shake = sin(menu_timer * 2.05) * 2.8 * (1 - _p3);
-    } else {
-        _zoom_suave = 1;
-        _preto_alpha = clamp((_t - 116) / max(1, transicao_post_dur - 116), 0, 1);
-    }
-
-    var _src_x = feed_x + 18 + 53;
-    var _src_y = feed_top + fase_escolhida * (post_h + post_gap) - scroll_y + 62 + 29;
-    var _spr_zoom = fase_foto[fase_escolhida];
-    var _sw_zoom = sprite_get_width(_spr_zoom);
-    var _sh_zoom = sprite_get_height(_spr_zoom);
-    var _base_scale = min(106 / max(1, _sw_zoom), 58 / max(1, _sh_zoom));
-    var _cover_scale = max(gui_w / max(1, _sw_zoom), gui_h / max(1, _sh_zoom)) * 1.08;
-    var _draw_x = lerp(_src_x, gui_w * 0.5, _zoom_suave);
-    var _draw_y = lerp(_src_y, gui_h * 0.5, _zoom_suave);
-    var _draw_scale = lerp(_base_scale, _cover_scale, _zoom_suave);
-
-    draw_set_alpha(0.10 + _zoom_suave * 0.58);
-    draw_set_color(make_color_rgb(2, 7, 14));
-    draw_rectangle(0, 0, gui_w, gui_h, false);
-
-    draw_set_alpha(1);
-    draw_sprite_part_ext(
-        _spr_zoom, 0, 0, 0, _sw_zoom, _sh_zoom,
-        _draw_x + _zoom_shake - _sw_zoom * _draw_scale * 0.5,
-        _draw_y - _zoom_shake * 0.4 - _sh_zoom * _draw_scale * 0.5,
-        _draw_scale, _draw_scale, c_white, 1
-    );
-
-    draw_set_alpha(_azul_alpha);
-    draw_set_color(make_color_rgb(77, 205, 255));
-    draw_rectangle(0, 0, gui_w, gui_h, false);
-
-    draw_set_alpha(_preto_alpha);
+    matrix_set(matrix_world, matrix_build(0, 0, 0, 0, 0, 0, 1, 1, 1));
+    draw_set_alpha(_trans_preto_alpha);
     draw_set_color(c_black);
     draw_rectangle(0, 0, gui_w, gui_h, false);
+}
+
+if (entrando_fase) {
+    matrix_set(matrix_world, matrix_build(0, 0, 0, 0, 0, 0, 1, 1, 1));
 }
 
 if (fade_entrada_branco > 0) {
