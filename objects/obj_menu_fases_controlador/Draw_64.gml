@@ -19,7 +19,8 @@ var _feed_mask_r = _feed_panel_r - 26;
 var _scroll_x = _feed_mask_r - 10;
 var _divider_x = _feed_panel_x;
 var _cover = 18;
-var _glitch = (menu_timer div 9) mod 5 == 0;
+var _glitch = true;
+var _anim = 0.5 + 0.5 * sin(menu_timer * 0.045);
 
 function _mix_col(_a, _b, _t) {
     return merge_color(_a, _b, clamp(_t, 0, 1));
@@ -35,9 +36,9 @@ function _grad_rect(_x1, _y1, _x2, _y2, _c1, _c2, _steps) {
 
 function _glitch_text(_x, _y, _txt, _sx, _sy, _main, _ativo) {
     if (_ativo) {
-        draw_set_color(make_color_rgb(203, 62, 151));
+        draw_set_color(make_color_rgb(174, 54, 144));
         draw_text_transformed(_x - 1, _y, _txt, _sx, _sy, 0);
-        draw_set_color(make_color_rgb(64, 235, 255));
+        draw_set_color(make_color_rgb(58, 215, 238));
         draw_text_transformed(_x + 1, _y + 1, _txt, _sx, _sy, 0);
     }
     draw_set_color(_main);
@@ -71,7 +72,7 @@ draw_set_color(make_color_rgb(33, 115, 150));
 draw_rectangle(app_x + 14, app_y + 10, _divider_x - 18, app_y + 52, true);
 _glitch_text(app_x + 26, app_y + 31, "CONECTA", 0.86, 0.86, _cyan, _glitch);
 draw_set_color(make_color_rgb(92, 143, 168));
-draw_text_transformed(app_x + 128, app_y + 31, "rede escolar", 0.46, 0.46, 0);
+draw_text_transformed(app_x + 128, app_y + 31, "perfil ativo", 0.46, 0.46, 0);
 
 draw_set_color(make_color_rgb(8, 24, 40));
 draw_rectangle(_divider_x + 22, app_y + 13, _divider_x + 154, app_y + 51, false);
@@ -92,8 +93,14 @@ draw_set_halign(fa_left);
 _grad_rect(app_x, app_y + _header_h, _divider_x - 5, app_y + app_h, make_color_rgb(5, 16, 30), _side_bg, 16);
 _grad_rect(_feed_panel_x + 1, _feed_panel_y, _feed_panel_r, _feed_panel_b, make_color_rgb(5, 14, 26), _panel, 18);
 draw_set_color(make_color_rgb(2, 7, 14));
-draw_rectangle(_feed_mask_l - _cover, feed_top - _cover, _feed_mask_r + _cover, feed_bottom + _cover, false);
+draw_rectangle(_feed_mask_l, feed_top - _cover, _feed_mask_r, feed_top, false);
+draw_rectangle(_feed_mask_l, feed_bottom, _feed_mask_r, feed_bottom + _cover, false);
+draw_rectangle(_feed_mask_r, feed_top - _cover, _feed_mask_r + _cover, feed_bottom + _cover, false);
 _grad_rect(_feed_mask_l, feed_top, _feed_mask_r, feed_bottom, make_color_rgb(8, 21, 36), make_color_rgb(4, 11, 22), 18);
+draw_set_alpha(0.20 + 0.12 * _anim);
+draw_set_color(make_color_rgb(48, 166, 203));
+draw_rectangle(_feed_mask_l, feed_top, _feed_mask_r, feed_top + 2, false);
+draw_set_alpha(1);
 
 draw_set_halign(fa_left);
 for (var i = 0; i < array_length(fase_nome); i += 1) {
@@ -102,6 +109,8 @@ for (var i = 0; i < array_length(fase_nome); i += 1) {
 
     var _bloqueado = i + 1 > _liberada;
     var _hover = hover == i;
+    var _post_shift = (_hover ? sin(menu_timer * 0.12) * 1.5 : 0);
+    _y += _post_shift;
     var _cor_post = _bloqueado ? make_color_rgb(11, 15, 22) : make_color_rgb(11, 25, 42);
     var _cor_borda = _bloqueado ? make_color_rgb(58, 67, 82) : (_hover ? make_color_rgb(130, 230, 255) : make_color_rgb(40, 111, 150));
 
@@ -162,14 +171,13 @@ draw_rectangle(_feed_panel_x + 1, _feed_panel_y, _feed_mask_l - 1, _feed_panel_b
 draw_rectangle(_feed_mask_r + 1, _feed_panel_y, _feed_panel_r, _feed_panel_b, false);
 
 draw_set_color(make_color_rgb(2, 7, 14));
-draw_rectangle(_feed_mask_l - _cover, feed_top - _cover, _feed_mask_r + _cover, feed_top, false);
-draw_rectangle(_feed_mask_l - _cover, feed_bottom, _feed_mask_r + _cover, feed_bottom + _cover, false);
-draw_rectangle(_feed_mask_l - _cover, feed_top - _cover, _feed_mask_l + _cover, feed_bottom + _cover, false);
-draw_rectangle(_feed_mask_r - _cover, feed_top - _cover, _feed_mask_r + _cover, feed_bottom + _cover, false);
+draw_rectangle(_feed_mask_l, feed_top - _cover, _feed_mask_r, feed_top, false);
+draw_rectangle(_feed_mask_l, feed_bottom, _feed_mask_r, feed_bottom + _cover, false);
+draw_rectangle(_feed_mask_r, feed_top - _cover, _feed_mask_r + _cover, feed_bottom + _cover, false);
 draw_set_color(_cyan_soft);
 draw_rectangle(_feed_mask_l - 1, feed_top - 1, _feed_mask_r + 1, feed_top + 2, false);
 draw_rectangle(_feed_mask_l - 1, feed_bottom - 2, _feed_mask_r + 1, feed_bottom + 1, false);
-draw_rectangle(_feed_mask_l - 1, feed_top - 1, _feed_mask_l + 2, feed_bottom + 1, false);
+draw_rectangle(_feed_mask_l, feed_top - 1, _feed_mask_l + 1, feed_bottom + 1, false);
 draw_rectangle(_feed_mask_r - 2, feed_top - 1, _feed_mask_r + 1, feed_bottom + 1, false);
 
 // Reaplica navbar/lateral para encobrir qualquer postagem que role por baixo.
@@ -188,7 +196,7 @@ draw_set_color(make_color_rgb(33, 115, 150));
 draw_rectangle(app_x + 14, app_y + 10, _divider_x - 18, app_y + 52, true);
 _glitch_text(app_x + 26, app_y + 31, "CONECTA", 0.86, 0.86, _cyan, _glitch);
 draw_set_color(make_color_rgb(92, 143, 168));
-draw_text_transformed(app_x + 128, app_y + 31, "rede escolar", 0.46, 0.46, 0);
+draw_text_transformed(app_x + 128, app_y + 31, "perfil ativo", 0.46, 0.46, 0);
 draw_set_color(make_color_rgb(8, 24, 40));
 draw_rectangle(_divider_x + 22, app_y + 13, _divider_x + 154, app_y + 51, false);
 draw_set_color(make_color_rgb(89, 225, 255));
@@ -233,11 +241,15 @@ draw_rectangle(app_x + 30, app_y + 392, _divider_x - 30, app_y + 394, false);
 _glitch_text(app_x + 30, app_y + 398, "Clique em JOGAR para iniciar", 0.46, 0.46, make_color_rgb(151, 179, 202), _glitch);
 
 draw_set_color(make_color_rgb(4, 14, 25));
-draw_rectangle(app_x + 34, voltar_y - 34, _divider_x - 34, voltar_y + 34, false);
+draw_rectangle(app_x + 42, voltar_y - 24, _divider_x + 18, voltar_y + 24, false);
 draw_set_color(make_color_rgb(18, 68, 96));
-draw_rectangle(app_x + 34, voltar_y - 34, _divider_x - 34, voltar_y + 34, true);
+draw_rectangle(app_x + 42, voltar_y - 24, _divider_x + 18, voltar_y + 24, true);
 draw_set_color(make_color_rgb(8, 31, 48));
-draw_rectangle(app_x + 56, voltar_y - 20, _divider_x - 56, voltar_y + 20, false);
+draw_rectangle(app_x + 64, voltar_y - 13, _divider_x + 32, voltar_y + 13, false);
+draw_set_color(make_color_rgb(45, 142, 178));
+draw_rectangle(_divider_x - 6, voltar_y - 30, _divider_x + 36, voltar_y + 30, false);
+draw_set_color(make_color_rgb(7, 25, 40));
+draw_rectangle(_divider_x - 3, voltar_y - 25, _divider_x + 32, voltar_y + 25, false);
 var _voltar_scale_sprite = voltar_hover ? 1.14 : 1.08;
 draw_sprite_ext(voltar_sprite, voltar_hover ? 1 : 0, voltar_x, voltar_y, _voltar_scale_sprite, _voltar_scale_sprite, 0, c_white, 1);
 
