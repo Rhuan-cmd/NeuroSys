@@ -7,6 +7,10 @@ function transicao(_room_destino) {
 }
 
 function audio_room_enter(_room_token) {
+    if (_room_token == "menu" || _room_token == "menu_fases") {
+        audio_stop_sound(snd_creditos_musica);
+    }
+
     if (variable_global_exists("audio_preservar_limpeza") && global.audio_preservar_limpeza) {
         global.audio_preservar_limpeza = false;
         global.audio_room_token = _room_token;

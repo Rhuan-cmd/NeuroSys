@@ -1,15 +1,33 @@
 if (resultado_ativo) {
+    window_set_cursor(cr_none);
+    cursor_sprite = spr_ui_cursor;
+    global.transicao_ativa = false;
+    global.fase_entrada_bloquear_cursor = false;
     resultado_transicao = min(1, resultado_transicao + 0.055);
     var _offset = lerp(36, 0, resultado_transicao);
     var _mouse_gui_x = device_mouse_x_to_gui(0);
     var _mouse_gui_y = device_mouse_y_to_gui(0);
     var _hover_menu = point_in_rectangle(_mouse_gui_x, _mouse_gui_y, 312, 375 + _offset, 454, 411 + _offset);
     var _hover_reiniciar = point_in_rectangle(_mouse_gui_x, _mouse_gui_y, 506, 375 + _offset, 648, 411 + _offset);
-    if (resultado_saida == 0 && mouse_check_button_pressed(mb_left)) {
-        if (_hover_menu) resultado_saida = 1;
-        if (_hover_reiniciar) resultado_saida = 2;
+    if ((_hover_menu && !hover_menu_anterior) || (_hover_reiniciar && !hover_reiniciar_anterior)) {
+        audio_play_sound(snd_f2_selecao, 3, false, 0.42);
     }
-    if (resultado_saida == 0 && keyboard_check_pressed(vk_enter)) resultado_saida = 1;
+    hover_menu_anterior = _hover_menu;
+    hover_reiniciar_anterior = _hover_reiniciar;
+    if (resultado_saida == 0 && mouse_check_button_pressed(mb_left)) {
+        if (_hover_menu) {
+            audio_play_sound(snd_f2_botao, 4, false, 0.62);
+            resultado_saida = 1;
+        }
+        if (_hover_reiniciar) {
+            audio_play_sound(snd_f2_botao, 4, false, 0.62);
+            resultado_saida = 2;
+        }
+    }
+    if (resultado_saida == 0 && keyboard_check_pressed(vk_enter)) {
+        audio_play_sound(snd_f2_botao, 4, false, 0.62);
+        resultado_saida = 1;
+    }
     if (resultado_saida != 0) {
         window_set_cursor(cr_none);
         cursor_sprite = cr_none;
@@ -17,7 +35,7 @@ if (resultado_ativo) {
         if (resultado_saida_fade >= 1) {
             if (resultado_saida == 1) {
                 global.menu_reverso = true;
-                global.menu_destino_room = rm_menu;
+                global.menu_destino_room = rm_menu_fases;
                 room_goto(rm_menu2);
             } else {
                 room_goto(rm_fase4);

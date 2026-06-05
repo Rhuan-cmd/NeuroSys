@@ -23,7 +23,17 @@ if (!variable_global_exists("fase_liberada")) {
 if (!variable_global_exists("fase_entrada_bloquear_cursor")) {
     global.fase_entrada_bloquear_cursor = false;
 }
+if (!variable_global_exists("jogo_pausado")) {
+    global.jogo_pausado = false;
+}
+global.jogo_pausado = false;
 global.transicao_ativa = global.fase_entrada_bloquear_cursor;
+
+pausa_hover = -1;
+pausa_hover_anterior = -1;
+pausa_botoes = ["Retomar", "Menu", "Reiniciar"];
+pausa_saindo = 0;
+pausa_fade = 0;
 
 menu_fade_alpha = 0;
 if (room == rm_menu) {

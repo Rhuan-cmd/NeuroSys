@@ -97,6 +97,9 @@ if (hover != -1 && mouse_check_button_pressed(mb_left)) {
         audio_play_sound(snd_f2_aparecer, 4, false, 0.48, 0, 0.82);
         audio_menu_fade(0, 1850);
         fase_escolhida = hover;
+        var _card_y_trans = feed_top + hover * (post_h + post_gap) - scroll_y;
+        transicao_alvo_x = feed_x + 18 + 53;
+        transicao_alvo_y = clamp(_card_y_trans + 62 + 29, feed_top + 29, feed_bottom - 29);
         transicao_post_timer = 0;
         transicao_audio_marca = -1;
         negado_card = hover;

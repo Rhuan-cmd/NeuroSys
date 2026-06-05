@@ -52,7 +52,7 @@ if (resultado_ativo) {
 	draw_text(577, 384 + _offset, "REINICIAR");
 	if (resultado_saida_fade > 0) {
 		draw_set_alpha(resultado_saida_fade);
-		draw_set_color(resultado_saida == 1 ? c_white : c_black);
+		draw_set_color(c_black);
 		draw_rectangle(0, 0, _gui_w, _gui_h, false);
 	}
 	draw_set_halign(fa_left);

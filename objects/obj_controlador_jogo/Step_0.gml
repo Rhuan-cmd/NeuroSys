@@ -24,6 +24,93 @@ if (global.transicao_ativa || global.fase_entrada_bloquear_cursor || instance_ex
     cursor_sprite = cr_none;
 }
 
+var _room_fase = room == rm_fase1 || room == rm_fase2 || room == rm_fase3 || room == rm_fase4;
+var _resultado_aberto = false;
+if (room == rm_fase1 && instance_exists(obj_f1_controlador) && obj_f1_controlador.estado >= 3) _resultado_aberto = true;
+if (room == rm_fase2 && instance_exists(obj_f2_controlador) && obj_f2_controlador.estado_final != 0) _resultado_aberto = true;
+if (room == rm_fase3 && instance_exists(obj_f3_escudo) && obj_f3_escudo.resultado_ativo) _resultado_aberto = true;
+if (room == rm_fase4 && instance_exists(obj_f4_fundo) && obj_f4_fundo.resultado_ativo) _resultado_aberto = true;
+
+if (_room_fase && !global.transicao_ativa && !global.fase_entrada_bloquear_cursor && !instance_exists(obj_transicao) && !_resultado_aberto) {
+    if (!global.jogo_pausado && keyboard_check_pressed(vk_escape)) {
+        global.jogo_pausado = true;
+        pausa_hover = -1;
+        pausa_hover_anterior = -1;
+        pausa_saindo = 0;
+        pausa_fade = 0;
+        audio_pause_all();
+        instance_deactivate_all(true);
+        window_set_cursor(cr_none);
+        cursor_sprite = spr_ui_cursor;
+    }
+}
+
+if (global.jogo_pausado) {
+    window_set_cursor(cr_none);
+    cursor_sprite = spr_ui_cursor;
+
+    var _gui_w = display_get_gui_width();
+    var _gui_h = display_get_gui_height();
+    var _mx = device_mouse_x_to_gui(0);
+    var _my = device_mouse_y_to_gui(0);
+    var _panel_w = 360;
+    var _panel_h = 270;
+    var _panel_x = _gui_w * 0.5 - _panel_w * 0.5;
+    var _panel_y = _gui_h * 0.5 - _panel_h * 0.5;
+    var _btn_x1 = _panel_x + 70;
+    var _btn_x2 = _panel_x + _panel_w - 70;
+    var _btn_h = 40;
+    pausa_hover = -1;
+
+    for (var _p = 0; _p < 3; _p += 1) {
+        var _by1 = _panel_y + 94 + _p * 56;
+        if (point_in_rectangle(_mx, _my, _btn_x1, _by1, _btn_x2, _by1 + _btn_h)) {
+            pausa_hover = _p;
+        }
+    }
+
+    if (pausa_hover != -1 && pausa_hover != pausa_hover_anterior) {
+        audio_play_sound(snd_f2_selecao, 3, false, 0.42);
+    }
+    pausa_hover_anterior = pausa_hover;
+
+    if (pausa_saindo == 0 && mouse_check_button_pressed(mb_left) && pausa_hover != -1) {
+        audio_play_sound(snd_f2_botao, 4, false, 0.62);
+        if (pausa_hover == 0) {
+            audio_resume_all();
+            instance_activate_all();
+            global.jogo_pausado = false;
+            cursor_sprite = cr_none;
+        } else {
+            pausa_saindo = pausa_hover + 1;
+        }
+    }
+
+    if (pausa_saindo == 0 && keyboard_check_pressed(vk_escape)) {
+        audio_resume_all();
+        instance_activate_all();
+        global.jogo_pausado = false;
+        cursor_sprite = cr_none;
+    }
+
+    if (pausa_saindo != 0) {
+        pausa_fade = min(1, pausa_fade + 0.065);
+        if (pausa_fade >= 1) {
+            audio_resume_all();
+            instance_activate_all();
+            global.jogo_pausado = false;
+            if (pausa_saindo == 2) {
+                global.menu_reverso = true;
+                global.menu_destino_room = rm_menu_fases;
+                room_goto(rm_menu2);
+            } else if (pausa_saindo == 3) {
+                room_restart();
+            }
+        }
+    }
+    exit;
+}
+
 global.perf_fullscreen_cooldown = max(0, global.perf_fullscreen_cooldown - 1);
 if (keyboard_check_pressed(vk_f11) && global.perf_fullscreen_cooldown <= 0) {
     if (window_get_fullscreen()) {

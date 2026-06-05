@@ -46,7 +46,7 @@ if (estado >= 3) {
         if (saida_transition >= 1) {
             if (saida_tipo == 1) {
                 global.menu_reverso = true;
-                global.menu_destino_room = rm_menu;
+                global.menu_destino_room = rm_menu_fases;
                 room_goto(rm_menu2);
             } else {
                 room_restart();

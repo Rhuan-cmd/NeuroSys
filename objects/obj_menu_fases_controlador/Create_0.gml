@@ -1,4 +1,5 @@
 menu_timer = 0;
+audio_room_enter("menu_fases");
 audio_menu_iniciar(0.36);
 hover = -1;
 hover_anterior = -1;
@@ -10,6 +11,8 @@ transicao_post_timer = 0;
 transicao_post_dur = 207 + ceil(room_speed * 1.5);
 transicao_audio_marca = -1;
 transicao_preto_final = ceil(room_speed * 1.5);
+transicao_alvo_x = 0;
+transicao_alvo_y = 0;
 voltar_hover = false;
 voltando_menu = false;
 fade_entrada_branco = 1;

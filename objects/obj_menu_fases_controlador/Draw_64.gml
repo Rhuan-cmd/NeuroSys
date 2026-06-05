@@ -53,14 +53,12 @@ if (entrando_fase) {
     if (_t_cam < 23) {
         _trans_zoom_forca = 0;
     } else if (_t_cam < 47) {
-        var _p_prezoom1 = (_t_cam - 23) / 24;
-        _p_prezoom1 = _p_prezoom1 * _p_prezoom1 * (3 - 2 * _p_prezoom1);
-        _trans_zoom_forca = lerp(0, 0.08, _p_prezoom1);
+        _trans_zoom_forca = 0;
         _trans_preto_alpha = sin(((_t_cam - 23) / 24) * pi);
     } else if (_t_cam < 83) {
         var _p_cam1 = (_t_cam - 47) / 36;
         _p_cam1 = _p_cam1 * _p_cam1 * (3 - 2 * _p_cam1);
-        _trans_zoom_forca = lerp(0.08, 0.30, _p_cam1);
+        _trans_zoom_forca = lerp(0, 0.30, _p_cam1);
     } else if (_t_cam < 107) {
         _trans_zoom_forca = 0.30;
         _trans_preto_alpha = 1;
@@ -80,8 +78,8 @@ if (entrando_fase) {
         _trans_preto_alpha = 1;
     }
 
-    var _target_x = feed_x + 18 + 53;
-    var _target_y = feed_top + fase_escolhida * (post_h + post_gap) - scroll_y + 62 + 29;
+    var _target_x = transicao_alvo_x;
+    var _target_y = transicao_alvo_y;
     var _final_scale = max(gui_w / 106, gui_h / 58) * 1.04;
     var _cam_scale = lerp(1, _final_scale, _trans_zoom_forca);
     var _cam_x = (_trans_zoom_forca > 0) ? gui_w * 0.5 - _target_x * _cam_scale : 0;
