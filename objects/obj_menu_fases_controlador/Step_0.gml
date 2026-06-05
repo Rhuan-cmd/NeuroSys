@@ -13,8 +13,8 @@ if (voltando_menu) {
 }
 
 var _max_scroll = max(0, feed_altura - (feed_bottom - feed_top));
-if (mouse_wheel_down()) scroll_alvo = min(_max_scroll, scroll_alvo + 84);
-if (mouse_wheel_up()) scroll_alvo = max(0, scroll_alvo - 84);
+if (mouse_wheel_down()) scroll_alvo = min(_max_scroll, scroll_alvo + 68);
+if (mouse_wheel_up()) scroll_alvo = max(0, scroll_alvo - 68);
 if (keyboard_check(vk_down)) scroll_alvo = min(_max_scroll, scroll_alvo + 8);
 if (keyboard_check(vk_up)) scroll_alvo = max(0, scroll_alvo - 8);
 scroll_y = lerp(scroll_y, scroll_alvo, 0.22);

@@ -5,16 +5,16 @@ voltando_menu = false;
 fade_saida_branco = 0;
 scroll_y = 0;
 scroll_alvo = 0;
-app_x = 110;
+app_x = 92;
 app_y = 46;
-app_w = 740;
+app_w = 776;
 app_h = 448;
-feed_x = 250;
-feed_w = 496;
-post_h = 138;
-post_gap = 16;
-feed_top = 122;
-feed_bottom = 442;
+feed_x = 274;
+feed_w = 438;
+post_h = 126;
+post_gap = 14;
+feed_top = 124;
+feed_bottom = 430;
 
 fase_nome = [
     "Filtro de Respeito",

@@ -4,6 +4,9 @@ var pulse = 0.5 + 0.5 * sin(menu_timer * 0.06);
 var _liberada = variable_global_exists("fase_liberada") ? global.fase_liberada : 1;
 var _app_bg = make_color_rgb(8, 18, 32);
 var _panel = make_color_rgb(6, 13, 24);
+var _side_w = 150;
+var _feed_mask_l = app_x + _side_w;
+var _feed_mask_r = app_x + app_w - 18;
 
 draw_set_alpha(1);
 draw_set_color(make_color_rgb(2, 6, 14));
@@ -36,20 +39,27 @@ draw_set_alpha(1);
 draw_set_color(make_color_rgb(10, 31, 50));
 draw_rectangle(app_x, app_y, app_x + app_w, app_y + 54, false);
 draw_set_color(make_color_rgb(93, 233, 255));
-draw_text_transformed(app_x + 28, app_y + 28, "CONECTA", 1.05, 1.05, 0);
+draw_text_transformed(app_x + 24, app_y + 27, "CONECTA", 0.86, 0.86, 0);
 draw_set_color(make_color_rgb(160, 185, 207));
-draw_text(app_x + 174, app_y + 29, "Feed de casos");
+draw_text_transformed(app_x + 160, app_y + 28, "Feed de casos", 0.74, 0.74, 0);
 
 draw_set_alpha(0.72);
 draw_set_color(make_color_rgb(5, 12, 22));
-draw_rectangle(app_x, app_y + 54, app_x + 162, app_y + app_h, false);
+draw_rectangle(app_x, app_y + 54, app_x + _side_w, app_y + app_h, false);
 draw_set_alpha(1);
 draw_set_color(make_color_rgb(124, 221, 248));
-draw_text(app_x + 24, app_y + 86, "Navegacao");
+draw_text_transformed(app_x + 20, app_y + 82, "Navegacao", 0.78, 0.78, 0);
 draw_set_color(make_color_rgb(159, 178, 198));
-draw_text_ext(app_x + 24, app_y + 124, "Role o feed.\nCada postagem abre uma fase.\nOs cadeados liberam em ordem.", 18, 120);
+draw_text_ext_transformed(app_x + 20, app_y + 118, "Role o feed.\nCada post abre\numa fase.\n\nCadeados liberam\nem ordem.", 15, 118, 0.66, 0.66, 0);
 draw_set_color(make_color_rgb(255, 232, 138));
-draw_text(app_x + 24, app_y + app_h - 44, "ESC voltar");
+draw_text_transformed(app_x + 20, app_y + app_h - 42, "ESC voltar", 0.7, 0.7, 0);
+
+draw_set_alpha(0.88);
+draw_set_color(make_color_rgb(4, 11, 21));
+draw_rectangle(_feed_mask_l, feed_top, _feed_mask_r, feed_bottom, false);
+draw_set_alpha(0.35);
+draw_set_color(make_color_rgb(43, 118, 154));
+draw_rectangle(_feed_mask_l, feed_top, _feed_mask_r, feed_bottom, true);
 
 draw_set_halign(fa_left);
 for (var i = 0; i < array_length(fase_nome); i += 1) {
@@ -72,35 +82,43 @@ for (var i = 0; i < array_length(fase_nome); i += 1) {
     draw_set_color(_bloqueado ? make_color_rgb(86, 96, 112) : make_color_rgb(94, 238, 255));
     draw_circle(feed_x + 24, _y + 24, 11, false);
     draw_set_color(_bloqueado ? make_color_rgb(132, 142, 158) : c_white);
-    draw_text(feed_x + 44, _y + 21, fase_tag[i]);
+    draw_text_transformed(feed_x + 44, _y + 20, fase_tag[i], 0.68, 0.68, 0);
     draw_set_color(make_color_rgb(102, 123, 146));
-    draw_text(feed_x + 44, _y + 42, "postagem #" + string(i + 1));
+    draw_text_transformed(feed_x + 44, _y + 40, "postagem #" + string(i + 1), 0.58, 0.58, 0);
 
-    var _foto_x = feed_x + 18;
-    var _foto_y = _y + 66;
+    var _foto_x = feed_x + 16;
+    var _foto_y = _y + 58;
+    var _foto_w = 94;
+    var _foto_h = 54;
     draw_set_alpha(_bloqueado ? 0.28 : 1);
     draw_set_color(make_color_rgb(2, 8, 16));
-    draw_roundrect(_foto_x, _foto_y, _foto_x + 100, _foto_y + 58, false);
+    draw_roundrect(_foto_x, _foto_y, _foto_x + _foto_w, _foto_y + _foto_h, false);
+    draw_set_alpha(_bloqueado ? 0.18 : 0.42);
+    draw_set_color(make_color_rgb(73, 166, 204));
+    draw_roundrect(_foto_x, _foto_y, _foto_x + _foto_w, _foto_y + _foto_h, true);
     var _spr = fase_foto[i];
     var _sw = sprite_get_width(_spr);
     var _sh = sprite_get_height(_spr);
-    var _esc = min(92 / max(1, _sw), 50 / max(1, _sh));
-    draw_sprite_ext(_spr, 0, _foto_x + 50, _foto_y + 29, _esc, _esc, 0, c_white, _bloqueado ? 0.42 : 1);
+    var _esc = min((_foto_w - 8) / max(1, _sw), (_foto_h - 8) / max(1, _sh));
+    var _dx = _foto_x + (_foto_w - _sw * _esc) * 0.5;
+    var _dy = _foto_y + (_foto_h - _sh * _esc) * 0.5;
+    draw_set_alpha(_bloqueado ? 0.42 : 1);
+    draw_sprite_part_ext(_spr, 0, 0, 0, _sw, _sh, _dx, _dy, _esc, _esc, c_white, _bloqueado ? 0.42 : 1);
 
     draw_set_alpha(1);
     draw_set_color(_bloqueado ? make_color_rgb(132, 142, 158) : c_white);
-    draw_text(feed_x + 134, _y + 68, fase_nome[i]);
+    draw_text_transformed(feed_x + 124, _y + 60, fase_nome[i], 0.75, 0.75, 0);
     draw_set_color(_bloqueado ? make_color_rgb(91, 100, 116) : make_color_rgb(185, 205, 224));
-    draw_text_ext(feed_x + 134, _y + 92, fase_desc[i], 16, 248);
+    draw_text_ext_transformed(feed_x + 124, _y + 83, fase_desc[i], 14, 220, 0.62, 0.62, 0);
 
     draw_set_halign(fa_center);
     if (_bloqueado) {
-        draw_sprite_ext(spr_ui_cadeado, 0, feed_x + feed_w - 42, _y + 30, 1.15, 1.15, 0, c_white, 0.9);
+        draw_sprite_ext(spr_ui_cadeado, 0, feed_x + feed_w - 38, _y + 28, 0.95, 0.95, 0, c_white, 0.9);
         draw_set_color(make_color_rgb(142, 153, 171));
-        draw_text(feed_x + feed_w - 42, _y + 58, "bloqueado");
+        draw_text_transformed(feed_x + feed_w - 38, _y + 54, "bloqueado", 0.58, 0.58, 0);
     } else {
         draw_set_color(_hover ? make_color_rgb(255, 246, 152) : make_color_rgb(116, 231, 255));
-        draw_text(feed_x + feed_w - 44, _y + 30, "JOGAR");
+        draw_text_transformed(feed_x + feed_w - 40, _y + 29, "JOGAR", 0.68, 0.68, 0);
     }
     draw_set_halign(fa_left);
 }
@@ -108,12 +126,24 @@ for (var i = 0; i < array_length(fase_nome); i += 1) {
 // Mascara o feed para os posts nao vazarem para fora da interface.
 draw_set_alpha(1);
 draw_set_color(_app_bg);
-draw_rectangle(app_x + 162, app_y + 54, app_x + app_w - 18, feed_top - 1, false);
-draw_rectangle(app_x + 162, feed_bottom + 1, app_x + app_w - 18, app_y + app_h - 1, false);
+draw_rectangle(_feed_mask_l, app_y + 54, _feed_mask_r, feed_top - 1, false);
+draw_rectangle(_feed_mask_l, feed_bottom + 1, _feed_mask_r, app_y + app_h - 1, false);
+draw_rectangle(app_x, app_y + 54, _feed_mask_l - 1, app_y + app_h, false);
+draw_rectangle(_feed_mask_r + 1, app_y + 54, app_x + app_w, app_y + app_h, false);
+draw_set_alpha(0.72);
+draw_set_color(make_color_rgb(5, 12, 22));
+draw_rectangle(app_x, app_y + 54, app_x + _side_w, app_y + app_h, false);
+draw_set_alpha(1);
+draw_set_color(make_color_rgb(124, 221, 248));
+draw_text_transformed(app_x + 20, app_y + 82, "Navegacao", 0.78, 0.78, 0);
+draw_set_color(make_color_rgb(159, 178, 198));
+draw_text_ext_transformed(app_x + 20, app_y + 118, "Role o feed.\nCada post abre\numa fase.\n\nCadeados liberam\nem ordem.", 15, 118, 0.66, 0.66, 0);
+draw_set_color(make_color_rgb(255, 232, 138));
+draw_text_transformed(app_x + 20, app_y + app_h - 42, "ESC voltar", 0.7, 0.7, 0);
 
 draw_set_halign(fa_center);
 draw_set_color(make_color_rgb(174, 194, 216));
-draw_text((feed_x + feed_w * 0.5), app_y + 82, "escolha uma postagem liberada");
+draw_text_transformed((feed_x + feed_w * 0.5), app_y + 82, "escolha uma postagem liberada", 0.68, 0.68, 0);
 
 var _max_scroll = max(1, feed_altura - (feed_bottom - feed_top));
 var _bar_h = max(34, (feed_bottom - feed_top) * ((feed_bottom - feed_top) / max(feed_altura, feed_bottom - feed_top)));
@@ -127,7 +157,7 @@ draw_rectangle(feed_x + feed_w + 18, _bar_y, feed_x + feed_w + 26, _bar_y + _bar
 
 draw_set_alpha(0.72 + pulse * 0.16);
 draw_set_color(make_color_rgb(145, 204, 230));
-draw_text(gui_w * 0.5, gui_h - 24, "use a roda do mouse para rolar");
+draw_text_transformed(gui_w * 0.5, gui_h - 24, "use a roda do mouse para rolar", 0.62, 0.62, 0);
 
 if (fade_saida_branco > 0) {
     draw_set_alpha(fade_saida_branco);
