@@ -7,14 +7,14 @@ app_x = 0;
 app_y = 0;
 app_w = _gui_w;
 app_h = _gui_h;
-feed_x = _side_w + 24;
+feed_x = _side_w + 8;
 feed_w = max(520, _gui_w - feed_x - 62);
-feed_top = 124;
+feed_top = 96;
 feed_bottom = _gui_h - 28;
 voltar_x = _side_w * 0.5;
 voltar_y = _gui_h - 66;
-voltar_w = 116;
-voltar_h = 58;
+voltar_w = 132;
+voltar_h = 66;
 feed_altura = array_length(fase_nome) * (post_h + post_gap) - post_gap;
 
 if (voltando_menu) {
