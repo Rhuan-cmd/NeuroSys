@@ -129,17 +129,35 @@ if (global.jogo_pausado) {
 
 global.perf_fullscreen_cooldown = max(0, global.perf_fullscreen_cooldown - 1);
 if (keyboard_check_pressed(vk_f11) && global.perf_fullscreen_cooldown <= 0) {
+    var _res_w = [960, 1280, 1600, 1920];
+    var _res_h = [540, 720, 900, 1080];
+    var _res_idx = 0;
+    if (variable_global_exists("op_resolucao")) _res_idx = clamp(global.op_resolucao, 0, 3);
+
     if (window_get_fullscreen()) {
         window_set_fullscreen(false);
-        window_set_size(960, 540);
+        window_set_size(_res_w[_res_idx], _res_h[_res_idx]);
         window_center();
     } else {
+        window_set_size(_res_w[_res_idx], _res_h[_res_idx]);
+        window_center();
         window_set_fullscreen(true);
     }
 
     display_set_gui_size(960, 540);
     if (surface_exists(application_surface)) surface_resize(application_surface, 960, 540);
     global.perf_fullscreen_cooldown = room_speed;
+}
+
+if (variable_global_exists("op_tela")) {
+    global.op_tela = window_get_fullscreen() ? 1 : 0;
+}
+
+if (variable_global_exists("op_graficos")) {
+    global.fx_qualidade = clamp(global.op_graficos, 0, 2);
+    global.fx_densidade = (global.fx_qualidade == 0) ? 0.55 : ((global.fx_qualidade == 1) ? 0.82 : 1);
+    global.fx_brilho = (global.fx_qualidade == 0) ? 0.62 : ((global.fx_qualidade == 1) ? 0.82 : 1);
+    display_set_sleep_margin(global.fx_qualidade == 0 ? 6 : 10);
 }
 
 if (surface_exists(application_surface)) {

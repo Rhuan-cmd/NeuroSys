@@ -23,17 +23,17 @@ anim_brilho = 0;
 
 abas = ["GRÁFICOS", "SOM", "RESOLUÇÃO", "TELA"];
 grafico_opcoes = ["BAIXO", "EQUILIBRADO", "ALTO"];
-som_opcoes = ["MUDO", "BAIXO", "MÉDIO", "ALTO", "CUSTOMIZADO"];
-som_valores = [0, 0.35, 0.65, 1, global.op_volume];
+som_opcoes = ["MUDO", "BAIXO", "MÉDIO", "ALTO"];
+som_valores = [0, 0.35, 0.65, 1];
 res_opcoes = ["960 x 540", "1280 x 720", "1600 x 900", "1920 x 1080"];
 res_w = [960, 1280, 1600, 1920];
 res_h = [540, 720, 900, 1080];
 tela_opcoes = ["JANELA", "TELA CHEIA"];
 
-voltar_x = 141;
-voltar_y = display_get_gui_height() - 66;
-voltar_w = 132;
-voltar_h = 66;
+voltar_x = 126;
+voltar_y = display_get_gui_height() - 62;
+voltar_w = 150;
+voltar_h = 74;
 
 window_set_cursor(cr_none);
 cursor_sprite = spr_ui_cursor;

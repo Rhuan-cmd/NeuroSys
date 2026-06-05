@@ -17,6 +17,21 @@ if (surface_exists(application_surface)) surface_resize(application_surface, 960
 
 global.perf_overlay_ativo = false;
 global.perf_fullscreen_cooldown = 0;
+if (!variable_global_exists("op_volume")) {
+    global.op_volume = 1;
+}
+if (!variable_global_exists("op_graficos")) {
+    global.op_graficos = 1;
+}
+if (!variable_global_exists("op_resolucao")) {
+    global.op_resolucao = 0;
+}
+if (!variable_global_exists("op_tela")) {
+    global.op_tela = window_get_fullscreen() ? 1 : 0;
+}
+global.fx_qualidade = global.op_graficos;
+global.fx_densidade = (global.op_graficos == 0) ? 0.55 : ((global.op_graficos == 1) ? 0.82 : 1);
+global.fx_brilho = (global.op_graficos == 0) ? 0.62 : ((global.op_graficos == 1) ? 0.82 : 1);
 if (!variable_global_exists("fase_liberada")) {
     global.fase_liberada = 1;
 }

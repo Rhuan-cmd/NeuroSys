@@ -95,9 +95,10 @@ sequencia_tipo = 0;
 desenhar_corrupcao_otimizada = function(_forca, _flash) {
     var _nivel = clamp(_forca + _flash * 0.72, 0, 1);
     if (_nivel <= 0) return;
+    var _fx_brilho = variable_global_exists("fx_brilho") ? global.fx_brilho : 1;
     var _pulso = 0.72 + sin(current_time * 0.014) * 0.16;
     var _frame = floor(current_time / 140) mod sprite_get_number(spr_fx_corrupcao);
-    draw_sprite_ext(spr_fx_corrupcao, _frame, 0, 0, room_width / sprite_get_width(spr_fx_corrupcao), room_height / sprite_get_height(spr_fx_corrupcao), 0, c_white, (0.16 + _nivel * 0.34) * _pulso);
+    draw_sprite_ext(spr_fx_corrupcao, _frame, 0, 0, room_width / sprite_get_width(spr_fx_corrupcao), room_height / sprite_get_height(spr_fx_corrupcao), 0, c_white, (0.16 + _nivel * 0.34) * _pulso * _fx_brilho);
 };
 
 formatar_tempo = function(_frames) {
@@ -297,8 +298,10 @@ criar_fragmentos_cartao = function(_m, _angulo) {
 };
 
 criar_particulas = function(_x, _y, _tipo, _angulo) {
-    for (var _i = 0; _i < 6; _i++) {
-        if (array_length(particulas) >= 36) break;
+    var _qtd_fx = max(1, round(6 * (variable_global_exists("fx_densidade") ? global.fx_densidade : 1)));
+    var _limite_fx = max(12, round(36 * (variable_global_exists("fx_densidade") ? global.fx_densidade : 1)));
+    for (var _i = 0; _i < _qtd_fx; _i++) {
+        if (array_length(particulas) >= _limite_fx) break;
         var _dir = _angulo + choose(-90, 90) + random_range(-24, 24);
         var _vel = random_range(1.5, 5.5);
         array_push(particulas, {

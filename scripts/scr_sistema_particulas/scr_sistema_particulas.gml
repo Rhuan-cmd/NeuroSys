@@ -14,6 +14,7 @@ part_type_alpha3(global.pt_universal, 1, 0.8, 0);
 // --- A FUNÇÃO COM ESCALA ---
 /// @function criar_explosao(x, y, cor, quantidade, escala)
 function criar_explosao_particulas(_x, _y, _cor, _qtd, _escala){
+    var _fx_densidade = variable_global_exists("fx_densidade") ? global.fx_densidade : 1;
     
     // Define a escala (tamanho_min, tamanho_max, incremento, oscilação)
     // O incremento negativo (-0.05 * _escala) faz ela sumir proporcionalmente
@@ -23,5 +24,5 @@ function criar_explosao_particulas(_x, _y, _cor, _qtd, _escala){
     part_type_color1(global.pt_universal, _cor);
     
     // Cria as partículas
-    part_particles_create(global.ps, _x, _y, global.pt_universal, min(_qtd, 24));
+    part_particles_create(global.ps, _x, _y, global.pt_universal, max(1, min(round(_qtd * _fx_densidade), 24)));
 }

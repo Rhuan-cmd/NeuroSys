@@ -124,9 +124,10 @@ novo_alvo_cursor = function() {
 desenhar_corrupcao_otimizada = function(_forca, _flash) {
     var _nivel = clamp(_forca + _flash * 0.72, 0, 1);
     if (_nivel <= 0) return;
+    var _fx_brilho = variable_global_exists("fx_brilho") ? global.fx_brilho : 1;
     var _pulso = 0.72 + sin(current_time * 0.014) * 0.16;
     var _frame = floor(current_time / 140) mod sprite_get_number(spr_fx_corrupcao);
-    draw_sprite_ext(spr_fx_corrupcao, _frame, 0, 0, room_width / sprite_get_width(spr_fx_corrupcao), room_height / sprite_get_height(spr_fx_corrupcao), 0, c_white, (0.16 + _nivel * 0.34) * _pulso);
+    draw_sprite_ext(spr_fx_corrupcao, _frame, 0, 0, room_width / sprite_get_width(spr_fx_corrupcao), room_height / sprite_get_height(spr_fx_corrupcao), 0, c_white, (0.16 + _nivel * 0.34) * _pulso * _fx_brilho);
 };
 
 registrar_explosao = function(_x, _y) {
