@@ -283,28 +283,59 @@ draw_set_color(make_color_rgb(105, 211, 244));
 draw_rectangle(_scroll_x, max(feed_top + 3, _bar_y), _scroll_x + 9, min(feed_bottom - 3, _bar_y + _bar_h), false);
 
 if (entrando_fase) {
-    var _trans_t = clamp(transicao_post_timer / transicao_post_dur, 0, 1);
-    var _preto_pisca = (_trans_t < 0.52) ? max(0, sin(menu_timer * 0.62)) * clamp((_trans_t - 0.18) / 0.22, 0, 1) * (1 - clamp((_trans_t - 0.46) / 0.06, 0, 1)) : 0;
-    var _zoom_t = clamp((_trans_t - 0.32) / 0.52, 0, 1);
-    var _zoom_suave = _zoom_t * _zoom_t * (3 - 2 * _zoom_t);
-    var _preto_final = clamp((_trans_t - 0.72) / 0.28, 0, 1);
-    var _flash = 0.5 + 0.5 * sin(menu_timer * 0.85);
+    var _t = transicao_post_timer;
+    var _zoom_suave = 0;
+    var _preto_alpha = 0;
+    var _azul_alpha = 0;
+    var _zoom_shake = 0;
+
+    if (_t < 15) {
+        _preto_alpha = sin((_t / 15) * pi);
+    } else if (_t < 37) {
+        var _p1 = (_t - 15) / 22;
+        _p1 = _p1 * _p1 * (3 - 2 * _p1);
+        _zoom_suave = lerp(0.18, 0.40, _p1);
+        _azul_alpha = 0.10 + 0.08 * sin(_p1 * pi);
+        _zoom_shake = sin(menu_timer * 1.55) * 1.4;
+    } else if (_t < 51) {
+        _zoom_suave = 0.40;
+        _preto_alpha = sin(((_t - 37) / 14) * pi);
+    } else if (_t < 74) {
+        var _p2 = (_t - 51) / 23;
+        _p2 = _p2 * _p2 * (3 - 2 * _p2);
+        _zoom_suave = lerp(0.40, 0.68, _p2);
+        _azul_alpha = 0.12 + 0.10 * sin(_p2 * pi);
+        _zoom_shake = sin(menu_timer * 1.75) * 2.0;
+    } else if (_t < 88) {
+        _zoom_suave = 0.68;
+        _preto_alpha = sin(((_t - 74) / 14) * pi);
+    } else if (_t < 116) {
+        var _p3 = (_t - 88) / 28;
+        _p3 = _p3 * _p3 * (3 - 2 * _p3);
+        _zoom_suave = lerp(0.68, 1.0, _p3);
+        _azul_alpha = 0.14 + 0.12 * sin(_p3 * pi);
+        _zoom_shake = sin(menu_timer * 2.05) * 2.8 * (1 - _p3);
+    } else {
+        _zoom_suave = 1;
+        _preto_alpha = clamp((_t - 116) / max(1, transicao_post_dur - 116), 0, 1);
+    }
+
     var _src_x = feed_x + 18 + 53;
     var _src_y = feed_top + fase_escolhida * (post_h + post_gap) - scroll_y + 62 + 29;
     var _spr_zoom = fase_foto[fase_escolhida];
     var _sw_zoom = sprite_get_width(_spr_zoom);
     var _sh_zoom = sprite_get_height(_spr_zoom);
     var _base_scale = min(106 / max(1, _sw_zoom), 58 / max(1, _sh_zoom));
+    var _cover_scale = max(gui_w / max(1, _sw_zoom), gui_h / max(1, _sh_zoom)) * 1.08;
     var _draw_x = lerp(_src_x, gui_w * 0.5, _zoom_suave);
     var _draw_y = lerp(_src_y, gui_h * 0.5, _zoom_suave);
-    var _draw_scale = _base_scale * lerp(1.0, 12.5, _zoom_suave);
-    var _zoom_shake = sin(menu_timer * 1.9) * (1 - _preto_final) * clamp((_trans_t - 0.24) / 0.28, 0, 1) * 2.5;
+    var _draw_scale = lerp(_base_scale, _cover_scale, _zoom_suave);
 
-    draw_set_alpha(0.18 + _zoom_suave * 0.38);
+    draw_set_alpha(0.10 + _zoom_suave * 0.58);
     draw_set_color(make_color_rgb(2, 7, 14));
     draw_rectangle(0, 0, gui_w, gui_h, false);
 
-    draw_set_alpha((1 - _preto_final) * clamp((_trans_t - 0.22) / 0.24, 0, 1));
+    draw_set_alpha(1);
     draw_sprite_part_ext(
         _spr_zoom, 0, 0, 0, _sw_zoom, _sh_zoom,
         _draw_x + _zoom_shake - _sw_zoom * _draw_scale * 0.5,
@@ -312,15 +343,11 @@ if (entrando_fase) {
         _draw_scale, _draw_scale, c_white, 1
     );
 
-    draw_set_alpha(_preto_pisca * 0.82);
-    draw_set_color(c_black);
-    draw_rectangle(0, 0, gui_w, gui_h, false);
-
-    draw_set_alpha((1 - _preto_final) * clamp((_trans_t - 0.36) / 0.36, 0, 1) * (0.12 + _flash * 0.10));
+    draw_set_alpha(_azul_alpha);
     draw_set_color(make_color_rgb(77, 205, 255));
     draw_rectangle(0, 0, gui_w, gui_h, false);
 
-    draw_set_alpha(_preto_final);
+    draw_set_alpha(_preto_alpha);
     draw_set_color(c_black);
     draw_rectangle(0, 0, gui_w, gui_h, false);
 }
