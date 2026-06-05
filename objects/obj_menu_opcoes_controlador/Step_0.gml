@@ -27,6 +27,46 @@ function _aplicar_mix_audio() {
     }
 }
 
+function _restaurar_aba_atual() {
+    switch (aba) {
+        case 0:
+            global.op_graficos = 1;
+            break;
+        case 1:
+            global.op_volume = 1;
+            global.op_volume_musica = 1;
+            global.op_volume_efeitos = 1;
+            global.op_som_preset = 3;
+            _aplicar_mix_audio();
+            break;
+        case 2:
+            global.op_resolucao = 0;
+            _aplicar_resolucao(0);
+            break;
+        case 3:
+            global.op_tela = 0;
+            window_set_fullscreen(false);
+            window_set_size(res_w[global.op_resolucao], res_h[global.op_resolucao]);
+            window_center();
+            display_set_gui_size(960, 540);
+            if (surface_exists(application_surface)) surface_resize(application_surface, 960, 540);
+            break;
+    }
+}
+
+function _restaurar_tudo() {
+    global.op_graficos = 1;
+    global.op_volume = 1;
+    global.op_volume_musica = 1;
+    global.op_volume_efeitos = 1;
+    global.op_som_preset = 3;
+    global.op_resolucao = 0;
+    global.op_tela = 0;
+    window_set_fullscreen(false);
+    _aplicar_resolucao(0);
+    _aplicar_mix_audio();
+}
+
 function _fx_gain(_v) {
     return _v * (variable_global_exists("op_volume_efeitos") ? global.op_volume_efeitos : 1);
 }
@@ -44,7 +84,7 @@ function _card_rect(_aba, _idx) {
     var _gap = 22;
     var _area_x1 = 306;
     var _area_x2 = 900;
-    var _y0 = 226;
+    var _y0 = 232;
 
     if (_aba == 1) {
         _w = 136;
@@ -114,9 +154,15 @@ for (var _i = 0; _i < _count; _i += 1) {
 if (hover_item != -1 && hover_item != hover_item_anterior) audio_play_sound(snd_f2_selecao, 3, false, _fx_gain(0.42));
 hover_item_anterior = hover_item;
 
+hover_reset = -1;
+if (point_in_rectangle(_mx, _my, 326, 456, 532, 494)) hover_reset = 0;
+if (point_in_rectangle(_mx, _my, 650, 456, 856, 494)) hover_reset = 1;
+if (hover_reset != -1 && hover_reset != hover_reset_anterior) audio_play_sound(snd_f2_selecao, 3, false, _fx_gain(0.42));
+hover_reset_anterior = hover_reset;
+
 var _slider_x1 = 470;
 var _slider_x2 = 842;
-var _slider_y0 = 408;
+var _slider_y0 = 338;
 var _slider_hover = -1;
 if (aba == 1) {
     for (var _s = 0; _s < 3; _s += 1) {
@@ -181,6 +227,14 @@ if (mouse_check_button_pressed(mb_left)) {
                 display_set_gui_size(960, 540);
                 if (surface_exists(application_surface)) surface_resize(application_surface, 960, 540);
                 break;
+        }
+    }
+    if (hover_reset != -1) {
+        audio_play_sound(snd_f2_botao, 4, false, _fx_gain(0.58));
+        if (hover_reset == 0) {
+            _restaurar_aba_atual();
+        } else {
+            _restaurar_tudo();
         }
     }
 }

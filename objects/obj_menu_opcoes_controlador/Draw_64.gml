@@ -50,6 +50,19 @@ function _option_card(_x, _y, _w, _h, _txt, _ativo, _hover) {
     draw_set_valign(fa_top);
 }
 
+function _reset_button(_x, _y, _w, _h, _txt, _hover, _danger) {
+    draw_set_alpha(_hover ? 0.96 : 0.78);
+    _grad_rect(_x, _y, _x + _w, _y + _h, _danger ? make_color_rgb(78, 24, 38) : make_color_rgb(8, 46, 68), make_color_rgb(5, 20, 34), 8, false);
+    draw_set_alpha(1);
+    draw_set_color(_hover ? (_danger ? make_color_rgb(255, 136, 154) : make_color_rgb(118, 234, 255)) : (_danger ? make_color_rgb(164, 70, 90) : make_color_rgb(39, 116, 154)));
+    draw_roundrect(_x, _y, _x + _w, _y + _h, true);
+    draw_set_halign(fa_center);
+    draw_set_valign(fa_middle);
+    _glitch_text(_x + _w * 0.5, _y + _h * 0.5, _txt, 0.50, 0.50, _hover ? c_white : make_color_rgb(204, 225, 238), _hover);
+    draw_set_halign(fa_left);
+    draw_set_valign(fa_top);
+}
+
 function _card_rect(_aba, _idx) {
     var _count = 3;
     if (_aba == 0) _count = array_length(grafico_opcoes);
@@ -62,7 +75,7 @@ function _card_rect(_aba, _idx) {
     var _gap = 22;
     var _area_x1 = 306;
     var _area_x2 = 900;
-    var _y = 226;
+    var _y = 232;
 
     if (_aba == 1) {
         _w = 136;
@@ -157,10 +170,10 @@ if (aba == 3) _descricao = "Alterne entre janela e tela cheia clicando nos botõ
 draw_text_ext_transformed(306, 160, _descricao, 18, 590, 0.56, 0.56, 0);
 
 draw_set_alpha(0.86);
-_grad_rect(282, 218, gui_w - 36, 374, make_color_rgb(4, 17, 31), make_color_rgb(8, 37, 57), 18, true);
+_grad_rect(282, 218, gui_w - 36, 302, make_color_rgb(4, 17, 31), make_color_rgb(8, 37, 57), 12, true);
 draw_set_alpha(1);
 draw_set_color(_cyan_dark);
-draw_rectangle(282, 218, gui_w - 36, 374, true);
+draw_rectangle(282, 218, gui_w - 36, 302, true);
 
 var _nomes = [];
 var _sel = 0;
@@ -186,15 +199,15 @@ for (var _i = 0; _i < array_length(_nomes); _i += 1) {
 draw_set_halign(fa_left);
 draw_set_valign(fa_top);
 draw_set_alpha(0.90);
-_grad_rect(282, 394, gui_w - 36, 510, make_color_rgb(5, 21, 37), make_color_rgb(9, 44, 66), 14, false);
+_grad_rect(282, 318, gui_w - 36, 510, make_color_rgb(5, 21, 37), make_color_rgb(9, 44, 66), 18, false);
 draw_set_alpha(1);
 draw_set_color(_cyan_dark);
-draw_roundrect(282, 394, gui_w - 36, 510, true);
+draw_roundrect(282, 318, gui_w - 36, 510, true);
 
 if (aba == 1) {
     var _slider_x1 = 470;
     var _slider_x2 = 842;
-    var _slider_y0 = 408;
+    var _slider_y0 = 338;
     var _labels = ["VOLUME GERAL", "MÚSICA", "EFEITOS"];
     var _values = [global.op_volume, global.op_volume_musica, global.op_volume_efeitos];
     for (var _s = 0; _s < 3; _s += 1) {
@@ -215,17 +228,40 @@ if (aba == 1) {
     }
     draw_set_halign(fa_left);
     draw_set_color(_muted);
-    draw_text_ext_transformed(312, 488, "Arraste qualquer barra. O preset de som acompanha o volume geral.", 16, 560, 0.46, 0.46, 0);
+    draw_text_transformed(312, 430, "O preset acompanha o VOLUME GERAL.", 0.46, 0.46, 0);
 } else if (aba == 0) {
+    draw_set_color(_cyan);
+    draw_text_transformed(314, 340, "QUALIDADE ATUAL", 0.56, 0.56, 0);
     draw_set_color(_muted);
-    draw_text_ext_transformed(312, 420, "BAIXO reduz efeitos globais. EQUILIBRADO mantém a proposta visual. ALTO libera a densidade máxima de efeitos.", 18, 590, 0.54, 0.54, 0);
+    draw_text_transformed(314, 370, "Efeitos globais", 0.50, 0.50, 0);
+    draw_set_color(_cyan_dark);
+    draw_rectangle(470, 374, 820, 384, false);
+    draw_set_color(_green);
+    draw_rectangle(470, 374, 470 + 175 * (global.op_graficos + 1), 384, false);
+    draw_set_color(c_white);
+    draw_text_transformed(836, 365, grafico_opcoes[global.op_graficos], 0.54, 0.54, 0);
 } else if (aba == 2) {
+    draw_set_color(_cyan);
+    draw_text_transformed(314, 340, "RESOLUÇÃO ATIVA", 0.56, 0.56, 0);
+    draw_set_color(c_white);
+    draw_text_transformed(314, 372, res_opcoes[global.op_resolucao], 0.74, 0.74, 0);
     draw_set_color(_muted);
-    draw_text_ext_transformed(312, 420, "A resolução escolhida é preparada mesmo quando a próxima troca for para tela cheia.", 18, 590, 0.54, 0.54, 0);
+    draw_text_transformed(314, 406, window_get_fullscreen() ? "Modo de tela: tela cheia" : "Modo de tela: janela", 0.50, 0.50, 0);
 } else {
+    draw_set_color(_cyan);
+    draw_text_transformed(314, 340, "MODO DE TELA", 0.56, 0.56, 0);
+    draw_set_color(c_white);
+    draw_text_transformed(314, 372, window_get_fullscreen() ? "TELA CHEIA" : "JANELA", 0.74, 0.74, 0);
     draw_set_color(_muted);
-    draw_text_ext_transformed(312, 420, "Modo atual: " + (window_get_fullscreen() ? "TELA CHEIA" : "JANELA") + ". F11 também alterna e os botões acompanham automaticamente.", 18, 590, 0.54, 0.54, 0);
+    draw_text_transformed(314, 406, "F11 alterna e os botões acompanham.", 0.50, 0.50, 0);
 }
+
+draw_set_alpha(0.28 + _pulse * 0.18);
+draw_set_color(_cyan);
+draw_line(312, 445, gui_w - 72, 445);
+draw_set_alpha(1);
+_reset_button(326, 456, 206, 38, "RESTAURAR ABA", hover_reset == 0, false);
+_reset_button(650, 456, 206, 38, "RESTAURAR TUDO", hover_reset == 1, true);
 
 var _btn_drift = sin(menu_timer * 0.035) * 1.4;
 draw_set_alpha(0.62);
