@@ -1,5 +1,22 @@
 menu_timer += 1;
 
+var _gui_w = display_get_gui_width();
+var _gui_h = display_get_gui_height();
+var _side_w = 220;
+app_x = 0;
+app_y = 0;
+app_w = _gui_w;
+app_h = _gui_h;
+feed_x = _side_w + 46;
+feed_w = max(540, _gui_w - feed_x - 92);
+feed_top = 112;
+feed_bottom = _gui_h - 28;
+voltar_x = _side_w * 0.5;
+voltar_y = _gui_h - 72;
+voltar_w = 112;
+voltar_h = 56;
+feed_altura = array_length(fase_nome) * (post_h + post_gap) - post_gap;
+
 if (voltando_menu) {
     window_set_cursor(cr_none);
     cursor_sprite = cr_none;

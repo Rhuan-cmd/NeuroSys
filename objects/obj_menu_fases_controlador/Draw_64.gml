@@ -7,7 +7,7 @@ var _side_bg = make_color_rgb(5, 13, 24);
 var _header = make_color_rgb(10, 31, 50);
 var _cyan = make_color_rgb(83, 213, 245);
 var _cyan_soft = make_color_rgb(39, 120, 158);
-var _side_w = 184;
+var _side_w = 220;
 var _header_h = 58;
 var _feed_panel_x = app_x + _side_w;
 var _feed_panel_y = app_y + _header_h;
@@ -23,23 +23,11 @@ draw_set_alpha(1);
 draw_set_color(make_color_rgb(2, 6, 14));
 draw_rectangle(0, 0, gui_w, gui_h, false);
 
-draw_sprite_ext(
-    spr_pc_interface_rede,
-    0,
-    app_x,
-    app_y,
-    app_w / sprite_get_width(spr_pc_interface_rede),
-    app_h / sprite_get_height(spr_pc_interface_rede),
-    0,
-    c_white,
-    1
-);
-
 draw_set_alpha(1);
 draw_set_color(_app_bg);
-draw_roundrect(app_x, app_y, app_x + app_w, app_y + app_h, false);
+draw_rectangle(app_x, app_y, app_x + app_w, app_y + app_h, false);
 draw_set_color(_cyan_soft);
-draw_roundrect(app_x, app_y, app_x + app_w, app_y + app_h, true);
+draw_rectangle(app_x, app_y, app_x + app_w, app_y + app_h, true);
 draw_set_color(make_color_rgb(2, 8, 17));
 draw_rectangle(app_x + 4, app_y + 4, app_x + app_w - 4, app_y + app_h - 4, true);
 
@@ -177,7 +165,8 @@ draw_set_color(make_color_rgb(159, 178, 198));
 draw_text_ext_transformed(app_x + 24, app_y + 156, "Role o feed.\n\nCada post abre uma fase.\n\nCadeados liberam em ordem.", 22, 134, 0.66, 0.66, 0);
 
 if (voltar_sprite != -1) {
-    draw_sprite_ext(voltar_sprite, voltar_hover ? 1 : 0, voltar_x, voltar_y, voltar_hover ? 1.04 : 1, voltar_hover ? 1.04 : 1, 0, c_white, 1);
+    var _voltar_scale_sprite = voltar_hover ? 1.18 : 1.14;
+    draw_sprite_ext(voltar_sprite, voltar_hover ? 1 : 0, voltar_x, voltar_y, _voltar_scale_sprite, _voltar_scale_sprite, 0, c_white, 1);
 } else {
     var _voltar_scale = voltar_hover ? 1.04 : 1;
     draw_set_alpha(0.95);
