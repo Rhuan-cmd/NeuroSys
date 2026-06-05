@@ -215,6 +215,7 @@
     {"id":{"name":"spr_menu_fundo","path":"sprites/spr_menu_fundo/spr_menu_fundo.yy",},},
     {"id":{"name":"spr_menu_btn_jogar","path":"sprites/spr_menu_btn_jogar/spr_menu_btn_jogar.yy",},},
     {"id":{"name":"spr_menu_btn_opcoes","path":"sprites/spr_menu_btn_opcoes/spr_menu_btn_opcoes.yy",},},
+    {"id":{"name":"spr_menu_btn_voltar","path":"sprites/spr_menu_btn_voltar/spr_menu_btn_voltar.yy",},},
     {"id":{"name":"spr_menu_btn_creditos","path":"sprites/spr_menu_btn_creditos/spr_menu_btn_creditos.yy",},},
     {"id":{"name":"spr_pc_area_trabalho","path":"sprites/spr_pc_area_trabalho/spr_pc_area_trabalho.yy",},},
     {"id":{"name":"spr_pc_barra_tarefas","path":"sprites/spr_pc_barra_tarefas/spr_pc_barra_tarefas.yy",},},

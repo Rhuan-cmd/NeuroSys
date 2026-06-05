@@ -40,7 +40,7 @@ fase_desc = [
     "Enfrente a origem da pressão digital."
 ];
 fase_room = [rm_fase1, rm_fase2, rm_fase3, rm_fase4];
-fase_foto = [spr_pc_interface_rede, spr_f2_fundo_chat, spr_f3_npc, spr_f4_chefe];
+fase_foto = [spr_f4_perigo, spr_f2_fundo_chat, spr_f3_npc, spr_f4_chefe];
 feed_altura = array_length(fase_nome) * (post_h + post_gap) - post_gap;
 
 window_set_cursor(cr_default);

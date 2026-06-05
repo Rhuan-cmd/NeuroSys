@@ -7,6 +7,7 @@ var _panel = make_color_rgb(6, 13, 24);
 var _side_w = 150;
 var _feed_mask_l = app_x + _side_w;
 var _feed_mask_r = app_x + app_w - 18;
+var _scroll_x = _feed_mask_r - 10;
 
 draw_set_alpha(1);
 draw_set_color(make_color_rgb(2, 6, 14));
@@ -128,6 +129,10 @@ draw_rectangle(_feed_mask_l, app_y + 54, _feed_mask_r, feed_top - 1, false);
 draw_rectangle(_feed_mask_l, feed_bottom + 1, _feed_mask_r, app_y + app_h - 1, false);
 draw_rectangle(app_x, app_y + 54, _feed_mask_l - 1, app_y + app_h, false);
 draw_rectangle(_feed_mask_r + 1, app_y + 54, app_x + app_w, app_y + app_h, false);
+draw_rectangle(0, app_y + app_h + 1, gui_w, gui_h, false);
+draw_rectangle(0, 0, gui_w, app_y - 1, false);
+draw_rectangle(0, 0, app_x - 1, gui_h, false);
+draw_rectangle(app_x + app_w + 1, 0, gui_w, gui_h, false);
 
 draw_set_alpha(1);
 draw_set_color(make_color_rgb(10, 31, 50));
@@ -146,35 +151,17 @@ draw_text_transformed(app_x + 20, app_y + 106, "Navegação", 0.78, 0.78, 0);
 draw_set_color(make_color_rgb(159, 178, 198));
 draw_text_ext_transformed(app_x + 20, app_y + 156, "Role o feed.\nCada post abre\numa fase.\n\nCadeados liberam\nem ordem.", 15, 118, 0.66, 0.66, 0);
 
-var _voltar_scale = voltar_hover ? 1.06 : 1;
-draw_set_alpha(0.95);
-draw_set_color(voltar_hover ? make_color_rgb(22, 64, 88) : make_color_rgb(8, 25, 42));
-draw_roundrect(voltar_x - voltar_w * 0.5 * _voltar_scale, voltar_y - voltar_h * 0.5 * _voltar_scale, voltar_x + voltar_w * 0.5 * _voltar_scale, voltar_y + voltar_h * 0.5 * _voltar_scale, false);
-draw_set_alpha(voltar_hover ? 0.86 : 0.52);
-draw_set_color(make_color_rgb(105, 211, 244));
-draw_roundrect(voltar_x - voltar_w * 0.5 * _voltar_scale, voltar_y - voltar_h * 0.5 * _voltar_scale, voltar_x + voltar_w * 0.5 * _voltar_scale, voltar_y + voltar_h * 0.5 * _voltar_scale, true);
-draw_set_alpha(1);
-draw_set_color(make_color_rgb(220, 247, 255));
-draw_triangle(voltar_x - 16, voltar_y, voltar_x + 5, voltar_y - 13, voltar_x + 5, voltar_y + 13, false);
-draw_rectangle(voltar_x + 2, voltar_y - 5, voltar_x + 22, voltar_y + 5, false);
-
-draw_set_halign(fa_center);
-draw_set_color(make_color_rgb(174, 194, 216));
-draw_text_transformed((feed_x + feed_w * 0.5), app_y + 70, "Escolha uma postagem liberada", 0.68, 0.68, 0);
+draw_sprite_ext(spr_menu_btn_voltar, voltar_hover ? 1 : 0, voltar_x, voltar_y, voltar_hover ? 1.04 : 1, voltar_hover ? 1.04 : 1, 0, c_white, 1);
 
 var _max_scroll = max(1, feed_altura - (feed_bottom - feed_top));
 var _bar_h = max(34, (feed_bottom - feed_top) * ((feed_bottom - feed_top) / max(feed_altura, feed_bottom - feed_top)));
 var _bar_y = feed_top + (feed_bottom - feed_top - _bar_h) * clamp(scroll_y / _max_scroll, 0, 1);
 draw_set_alpha(0.42);
 draw_set_color(make_color_rgb(21, 45, 66));
-draw_rectangle(feed_x + feed_w + 18, feed_top, feed_x + feed_w + 26, feed_bottom, false);
+draw_rectangle(_scroll_x, feed_top, _scroll_x + 8, feed_bottom, false);
 draw_set_alpha(0.86);
 draw_set_color(make_color_rgb(105, 211, 244));
-draw_rectangle(feed_x + feed_w + 18, _bar_y, feed_x + feed_w + 26, _bar_y + _bar_h, false);
-
-draw_set_alpha(0.72 + pulse * 0.16);
-draw_set_color(make_color_rgb(145, 204, 230));
-draw_text_transformed(gui_w * 0.5, gui_h - 24, "use a roda do mouse para rolar", 0.62, 0.62, 0);
+draw_rectangle(_scroll_x, _bar_y, _scroll_x + 8, _bar_y + _bar_h, false);
 
 if (fade_saida_branco > 0) {
     draw_set_alpha(fade_saida_branco);
