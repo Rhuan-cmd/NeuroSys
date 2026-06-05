@@ -113,7 +113,9 @@ for (var i = 0; i < array_length(fase_nome); i += 1) {
     var _bloqueado = i + 1 > _liberada;
     var _hover = hover == i;
     var _post_shift = (_hover ? sin(menu_timer * 0.12) * 1.5 : 0);
-    var _shake_x = (i == negado_card && negado_timer > 0) ? sin(negado_timer * 2.4) * negado_timer * 0.34 : 0;
+    var _trans_t_card = (entrando_fase && fase_escolhida == i) ? clamp(transicao_post_timer / transicao_post_dur, 0, 1) : 0;
+    var _shake_trans = (entrando_fase && fase_escolhida == i && _trans_t_card < 0.36) ? sin(menu_timer * 1.45) * (5.5 * (1 - _trans_t_card / 0.36)) : 0;
+    var _shake_x = (i == negado_card && negado_timer > 0) ? sin(negado_timer * 2.4) * negado_timer * 0.34 : _shake_trans;
     _y += _post_shift;
     var _card_x = feed_x + _shake_x;
     var _cor_post = _bloqueado ? make_color_rgb(11, 15, 22) : make_color_rgb(11, 25, 42);
@@ -145,7 +147,8 @@ for (var i = 0; i < array_length(fase_nome); i += 1) {
     draw_roundrect(_foto_x, _foto_y, _foto_x + _foto_w, _foto_y + _foto_h, true);
     if (entrando_fase && fase_escolhida == i) {
         var _trans_t_img = clamp(transicao_post_timer / transicao_post_dur, 0, 1);
-        var _luz = _trans_t_img * _trans_t_img * (3 - 2 * _trans_t_img);
+        var _luz_base = clamp((_trans_t_img - 0.10) / 0.48, 0, 1);
+        var _luz = _luz_base * _luz_base * (3 - 2 * _luz_base);
         draw_set_alpha(0.22 + _luz * 0.58);
         draw_set_color(make_color_rgb(92, 222, 255));
         draw_rectangle(_foto_x - 12 - _luz * 18, _foto_y - 8 - _luz * 10, _foto_x + _foto_w + 12 + _luz * 18, _foto_y + _foto_h + 8 + _luz * 10, false);
@@ -188,7 +191,6 @@ draw_rectangle(_feed_mask_l, feed_top - _cover, _feed_mask_r, feed_top, false);
 draw_rectangle(_feed_mask_r - 11, feed_top, _feed_mask_r, feed_bottom, false);
 draw_set_color(_cyan_soft);
 draw_rectangle(_feed_mask_l - 1, feed_top - 1, _feed_mask_r + 1, feed_top + 2, false);
-draw_rectangle(_feed_mask_l - 1, feed_bottom - 2, _feed_mask_r + 1, feed_bottom, false);
 draw_rectangle(_feed_mask_l, feed_top - 1, _feed_mask_l + 1, feed_bottom + 1, false);
 draw_rectangle(_feed_mask_r - 2, feed_top - 1, _feed_mask_r + 1, feed_bottom + 1, false);
 
@@ -282,15 +284,49 @@ draw_rectangle(_scroll_x, max(feed_top + 3, _bar_y), _scroll_x + 9, min(feed_bot
 
 if (entrando_fase) {
     var _trans_t = clamp(transicao_post_timer / transicao_post_dur, 0, 1);
-    var _soft = _trans_t * _trans_t * (3 - 2 * _trans_t);
-    var _flash = 0.5 + 0.5 * sin(menu_timer * 0.55);
-    draw_set_alpha(_soft * 0.72);
+    var _preto_pisca = (_trans_t < 0.52) ? max(0, sin(menu_timer * 0.62)) * clamp((_trans_t - 0.18) / 0.22, 0, 1) * (1 - clamp((_trans_t - 0.46) / 0.06, 0, 1)) : 0;
+    var _zoom_t = clamp((_trans_t - 0.32) / 0.52, 0, 1);
+    var _zoom_suave = _zoom_t * _zoom_t * (3 - 2 * _zoom_t);
+    var _preto_final = clamp((_trans_t - 0.72) / 0.28, 0, 1);
+    var _flash = 0.5 + 0.5 * sin(menu_timer * 0.85);
+    var _src_x = feed_x + 18 + 53;
+    var _src_y = feed_top + fase_escolhida * (post_h + post_gap) - scroll_y + 62 + 29;
+    var _spr_zoom = fase_foto[fase_escolhida];
+    var _sw_zoom = sprite_get_width(_spr_zoom);
+    var _sh_zoom = sprite_get_height(_spr_zoom);
+    var _base_scale = min(106 / max(1, _sw_zoom), 58 / max(1, _sh_zoom));
+    var _draw_x = lerp(_src_x, gui_w * 0.5, _zoom_suave);
+    var _draw_y = lerp(_src_y, gui_h * 0.5, _zoom_suave);
+    var _draw_scale = _base_scale * lerp(1.0, 12.5, _zoom_suave);
+    var _zoom_shake = sin(menu_timer * 1.9) * (1 - _preto_final) * clamp((_trans_t - 0.24) / 0.28, 0, 1) * 2.5;
+
+    draw_set_alpha(0.18 + _zoom_suave * 0.38);
+    draw_set_color(make_color_rgb(2, 7, 14));
+    draw_rectangle(0, 0, gui_w, gui_h, false);
+
+    draw_set_alpha((1 - _preto_final) * clamp((_trans_t - 0.22) / 0.24, 0, 1));
+    draw_sprite_part_ext(
+        _spr_zoom, 0, 0, 0, _sw_zoom, _sh_zoom,
+        _draw_x + _zoom_shake - _sw_zoom * _draw_scale * 0.5,
+        _draw_y - _zoom_shake * 0.4 - _sh_zoom * _draw_scale * 0.5,
+        _draw_scale, _draw_scale, c_white, 1
+    );
+
+    draw_set_alpha(_preto_pisca * 0.82);
     draw_set_color(c_black);
     draw_rectangle(0, 0, gui_w, gui_h, false);
-    draw_set_alpha(clamp((_trans_t - 0.12) / 0.62, 0, 1) * (0.18 + _flash * 0.18));
+
+    draw_set_alpha((1 - _preto_final) * clamp((_trans_t - 0.36) / 0.36, 0, 1) * (0.12 + _flash * 0.10));
     draw_set_color(make_color_rgb(77, 205, 255));
     draw_rectangle(0, 0, gui_w, gui_h, false);
-    draw_set_alpha(clamp((_trans_t - 0.42) / 0.58, 0, 1) * (0.18 + _flash * 0.16));
+
+    draw_set_alpha(_preto_final);
+    draw_set_color(c_black);
+    draw_rectangle(0, 0, gui_w, gui_h, false);
+}
+
+if (fade_entrada_branco > 0) {
+    draw_set_alpha(fade_entrada_branco);
     draw_set_color(c_white);
     draw_rectangle(0, 0, gui_w, gui_h, false);
 }

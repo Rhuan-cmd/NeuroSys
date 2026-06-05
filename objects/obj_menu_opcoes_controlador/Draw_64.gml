@@ -43,6 +43,12 @@ if (fade_saida_branco > 0) {
     draw_rectangle(0, 0, gui_w, gui_h, false);
 }
 
+if (fade_entrada_branco > 0) {
+    draw_set_alpha(fade_entrada_branco);
+    draw_set_color(c_white);
+    draw_rectangle(0, 0, gui_w, gui_h, false);
+}
+
 draw_set_alpha(1);
 draw_set_color(c_white);
 draw_set_halign(fa_left);

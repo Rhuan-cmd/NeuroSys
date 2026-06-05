@@ -1,4 +1,5 @@
 menu_timer += 1;
+fade_entrada_branco = max(0, fade_entrada_branco - 0.035);
 
 if (voltando_menu) {
     fade_saida_branco = min(1, fade_saida_branco + 0.065);

@@ -16,6 +16,7 @@ voltar_y = _gui_h - 66;
 voltar_w = 132;
 voltar_h = 66;
 feed_altura = array_length(fase_nome) * (post_h + post_gap) - post_gap;
+fade_entrada_branco = max(0, fade_entrada_branco - 0.035);
 
 if (negado_timer > 0) negado_timer -= 1;
 
@@ -71,7 +72,7 @@ if (hover != -1 && mouse_check_button_pressed(mb_left)) {
     if (hover + 1 <= _liberada) {
         audio_play_sound(snd_f2_botao, 4, false, 0.62);
         audio_play_sound(snd_f2_aparecer, 4, false, 0.48, 0, 0.82);
-        audio_menu_fade(0, 1100);
+        audio_menu_fade(0, 1850);
         fase_escolhida = hover;
         transicao_post_timer = 0;
         entrando_fase = true;
