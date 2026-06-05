@@ -53,7 +53,9 @@ if (entrando_fase) {
     if (_t_cam < 23) {
         _trans_zoom_forca = 0;
     } else if (_t_cam < 47) {
-        _trans_zoom_forca = 0;
+        var _p_prezoom1 = clamp((_t_cam - 31) / 16, 0, 1);
+        _p_prezoom1 = _p_prezoom1 * _p_prezoom1 * (3 - 2 * _p_prezoom1);
+        _trans_zoom_forca = lerp(0, 0.08, _p_prezoom1);
         _trans_preto_alpha = sin(((_t_cam - 23) / 24) * pi);
     } else if (_t_cam < 83) {
         var _p_cam1 = (_t_cam - 47) / 36;
