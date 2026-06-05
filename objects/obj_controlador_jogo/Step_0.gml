@@ -9,7 +9,17 @@ if (keyboard_check_pressed(vk_f3)) {
     }
 }
 
-if (global.transicao_ativa || instance_exists(obj_transicao)) {
+if (global.fase_entrada_bloquear_cursor) {
+    if ((room == rm_fase1 && instance_exists(obj_f1_controlador) && obj_f1_controlador.cutscene_timer >= obj_f1_controlador.fade_duracao)
+    || (room == rm_fase2 && instance_exists(obj_f2_controlador) && obj_f2_controlador.cutscene_timer >= obj_f2_controlador.fade_duracao)
+    || (room == rm_fase3 && instance_exists(obj_f3_controlador) && obj_f3_controlador.entrada_fade <= 0)
+    || (room == rm_fase4 && instance_exists(obj_f4_dialogo) && obj_f4_dialogo.entrada_fade <= 0)) {
+        global.fase_entrada_bloquear_cursor = false;
+        global.transicao_ativa = false;
+    }
+}
+
+if (global.transicao_ativa || global.fase_entrada_bloquear_cursor || instance_exists(obj_transicao)) {
     window_set_cursor(cr_none);
     cursor_sprite = cr_none;
 }

@@ -1,4 +1,4 @@
-﻿cutscene_timer++;
+cutscene_timer++;
 // ===== CUTSCENE E AVANCO DOS DIALOGOS =====
 if (cutscene_timer >= fade_duracao) {
     if (!historia_finalizada && !ativo && !transicao_caixa) {
@@ -66,7 +66,7 @@ if (estado_final == 0) {
     cascata_fluxo += 1.35 + (cliques + (vidas_max - vidas) * 2 + corrupt_flash * 4) * 0.13;
 }
 // ===== LOOPS DE AUDIO AMBIENTE, CORRUPCAO E TREMOR =====
-window_set_cursor(global.perf_overlay_ativo ? cr_default : cr_none);
+window_set_cursor((global.perf_overlay_ativo && !global.fase_entrada_bloquear_cursor) ? cr_default : cr_none);
 cursor_sprite = cr_none;
 audio_mix_timer--;
 if (estado_final == 0 && audio_mix_timer <= 0) {

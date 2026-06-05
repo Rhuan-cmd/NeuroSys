@@ -1,4 +1,4 @@
-window_set_cursor(global.perf_overlay_ativo ? cr_default : cr_none);
+window_set_cursor((global.perf_overlay_ativo && !global.fase_entrada_bloquear_cursor) ? cr_default : cr_none);
 cursor_sprite = cr_none;
 cutscene_timer++;
 if (estado < 3) visual_timer++;

@@ -46,6 +46,8 @@ if (entrando_fase) {
     }
 
     if (transicao_post_timer >= transicao_post_dur) {
+        global.fase_entrada_bloquear_cursor = true;
+        global.transicao_ativa = true;
         room_goto(fase_room[fase_escolhida]);
     }
     exit;
@@ -99,6 +101,7 @@ if (hover != -1 && mouse_check_button_pressed(mb_left)) {
         transicao_audio_marca = -1;
         negado_card = hover;
         negado_timer = 22;
+        global.fase_entrada_bloquear_cursor = true;
         global.transicao_ativa = true;
         entrando_fase = true;
     } else {
