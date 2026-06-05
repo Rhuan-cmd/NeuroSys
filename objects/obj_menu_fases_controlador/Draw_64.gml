@@ -86,6 +86,10 @@ if (entrando_fase || retornando_fase) {
     var _cam_scale = lerp(1, _final_scale, _trans_zoom_forca);
     var _cam_x = (_trans_zoom_forca > 0) ? gui_w * 0.5 - _target_x * _cam_scale : 0;
     var _cam_y = (_trans_zoom_forca > 0) ? gui_h * 0.5 - _target_y * _cam_scale : 0;
+    if (_trans_zoom_forca > 0) {
+        _cam_x = clamp(_cam_x, gui_w - gui_w * _cam_scale, 0);
+        _cam_y = clamp(_cam_y, gui_h - gui_h * _cam_scale, 0);
+    }
     var _cam_shake = _trans_zoom_forca * (1 - _trans_zoom_forca) * sin(menu_timer * 1.2) * 1.2;
     if (retornando_fase) _cam_shake *= (1 - _ret_s_draw);
     matrix_set(matrix_world, matrix_build(_cam_x + _cam_shake, _cam_y - _cam_shake * 0.35, 0, 0, 0, 0, _cam_scale, _cam_scale, 1));

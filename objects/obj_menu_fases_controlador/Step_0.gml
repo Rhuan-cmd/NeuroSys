@@ -111,6 +111,27 @@ var my = device_mouse_y_to_gui(0);
 var _liberada = variable_global_exists("fase_liberada") ? global.fase_liberada : 1;
 voltar_hover = mx >= voltar_x - voltar_w * 0.5 && mx <= voltar_x + voltar_w * 0.5 && my >= voltar_y - voltar_h * 0.5 && my <= voltar_y + voltar_h * 0.5;
 
+if (mouse_check_button_pressed(mb_left)) {
+    var _sino_x = app_x + 135;
+    var _sino_y = app_y + 31;
+    if (point_in_rectangle(mx, my, _sino_x - 15, _sino_y - 15, _sino_x + 15, _sino_y + 15)) {
+        if (_liberada >= 4 && sino_cliques >= 10) {
+            global.fase_liberada = 1;
+            sino_cliques = 0;
+            audio_play_sound(snd_f1_erro, 4, false, 0.68, 0, 0.78);
+            exit;
+        }
+        sino_cliques += 1;
+        audio_play_sound(snd_f2_sino, 4, false, 0.44, 0, 0.9 + min(sino_cliques, 10) * 0.025);
+        if (sino_cliques >= 10) {
+            sino_cliques = 10;
+            global.fase_liberada = 4;
+            audio_play_sound(snd_f2_vitoria, 4, false, 0.58);
+        }
+        exit;
+    }
+}
+
 for (var i = 0; i < array_length(fase_nome); i += 1) {
     var _y = feed_top + i * (post_h + post_gap) - scroll_y;
     if (mx >= feed_x && mx <= feed_x + feed_w && my >= max(_y + 4, feed_top) && my <= min(_y + post_h - 4, feed_bottom)) {

@@ -14,7 +14,7 @@ if (_room_fase && !global.jogo_pausado && keyboard_check_pressed(vk_escape)) {
     pausa_saindo = 0;
     pausa_fade = 0;
     audio_pause_all();
-    pausa_musica_id = audio_play_sound(snd_f2_suspense, 0, true, 0.34, 0, 0.82);
+    pausa_musica_id = audio_play_sound(snd_menu_musica, 0, true, 0.34, 0, 0.92);
     instance_deactivate_all(true);
     window_set_cursor(cr_none);
     cursor_sprite = spr_ui_cursor;
