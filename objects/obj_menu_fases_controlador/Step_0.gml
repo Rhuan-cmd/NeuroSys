@@ -46,7 +46,6 @@ if (entrando_fase) {
     }
 
     if (transicao_post_timer >= transicao_post_dur) {
-        global.transicao_ativa = false;
         room_goto(fase_room[fase_escolhida]);
     }
     exit;

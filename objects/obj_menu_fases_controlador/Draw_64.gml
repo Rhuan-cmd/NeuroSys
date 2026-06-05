@@ -54,7 +54,7 @@ if (entrando_fase) {
         _trans_zoom_forca = 0;
     } else if (_t_cam < 47) {
         _trans_zoom_forca = 0;
-        _trans_preto_alpha = 1;
+        _trans_preto_alpha = sin(((_t_cam - 23) / 24) * pi);
     } else if (_t_cam < 83) {
         var _p_cam1 = (_t_cam - 47) / 36;
         _p_cam1 = _p_cam1 * _p_cam1 * (3 - 2 * _p_cam1);
@@ -82,9 +82,9 @@ if (entrando_fase) {
     var _target_y = feed_top + fase_escolhida * (post_h + post_gap) - scroll_y + 62 + 29;
     var _final_scale = max(gui_w / 106, gui_h / 58) * 1.04;
     var _cam_scale = lerp(1, _final_scale, _trans_zoom_forca);
-    var _cam_x = gui_w * 0.5 - _target_x * _cam_scale;
-    var _cam_y = gui_h * 0.5 - _target_y * _cam_scale;
-    var _cam_shake = (1 - _trans_zoom_forca) * sin(menu_timer * 1.2) * 1.2;
+    var _cam_x = lerp(0, gui_w * 0.5 - _target_x * _cam_scale, _trans_zoom_forca);
+    var _cam_y = lerp(0, gui_h * 0.5 - _target_y * _cam_scale, _trans_zoom_forca);
+    var _cam_shake = _trans_zoom_forca * (1 - _trans_zoom_forca) * sin(menu_timer * 1.2) * 1.2;
     matrix_set(matrix_world, matrix_build(_cam_x + _cam_shake, _cam_y - _cam_shake * 0.35, 0, 0, 0, 0, _cam_scale, _cam_scale, 1));
 }
 
