@@ -155,11 +155,11 @@ if (variable_global_exists("op_tela")) {
 
 if (variable_global_exists("op_graficos")) {
     global.fx_qualidade = clamp(global.op_graficos, 0, 2);
-    global.fx_densidade = (global.fx_qualidade == 0) ? 0.2 : ((global.fx_qualidade == 1) ? 0.55 : 1);
-    global.fx_brilho = (global.fx_qualidade == 0) ? 0.18 : ((global.fx_qualidade == 1) ? 0.55 : 1);
+    global.fx_densidade = (global.fx_qualidade == 0) ? 0.16 : ((global.fx_qualidade == 1) ? 0.55 : 1);
+    global.fx_brilho = (global.fx_qualidade == 0) ? 0.16 : ((global.fx_qualidade == 1) ? 0.55 : 1);
     global.fx_cortar_transicoes = global.fx_qualidade == 0;
-    global.fx_surface_w = global.fx_qualidade == 0 ? 480 : 960;
-    global.fx_surface_h = global.fx_qualidade == 0 ? 270 : 540;
+    global.fx_surface_w = 960;
+    global.fx_surface_h = 540;
     display_set_sleep_margin(global.fx_qualidade == 0 ? 4 : 10);
 }
 

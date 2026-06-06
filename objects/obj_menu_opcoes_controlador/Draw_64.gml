@@ -163,7 +163,7 @@ draw_set_alpha(1);
 _glitch_text(304, 122, abas[aba], 1.0, 1.0, _cyan, true);
 draw_set_color(_muted);
 var _descricao = "";
-if (aba == 0) _descricao = "BAIXO reduz resolucao dos sprites, corta transicoes e derruba efeitos. EQUILIBRADO mantem sprites e reduz efeitos. ALTO deixa tudo completo.";
+if (aba == 0) _descricao = "BAIXO corta efeitos pesados e transicoes, mantendo os sprites intactos. EQUILIBRADO reduz efeitos leves. ALTO deixa tudo completo.";
 if (aba == 1) _descricao = "Ajuste o volume geral, música e efeitos. O preset MUDO, BAIXO, MÉDIO ou ALTO acompanha o volume geral.";
 if (aba == 2) _descricao = "Selecione a resolução base. Ela também é aplicada antes de entrar em tela cheia.";
 if (aba == 3) _descricao = "Alterne entre janela e tela cheia clicando nos botões ou usando F11.";

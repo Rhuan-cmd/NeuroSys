@@ -17,11 +17,7 @@ if (estado == 2) {
     draw_rectangle(731, 346, 824, 366, false);
     draw_set_color(c_white);
     draw_set_halign(fa_left);
-    for (var _vida_i = 0; _vida_i < vidas_max; _vida_i += 1) {
-        var _frame_vida = _vida_i < vidas ? 0 : 2;
-        var _alpha_vida = _vida_i < vidas ? 1 : 0.34;
-        draw_sprite_ext(spr_ui_barra_felicidade, _frame_vida, 740 + _vida_i * 17, 212, 0.22 * _pulse, 0.22 * _pulse, 0, c_white, _alpha_vida);
-    }
+    draw_sprite_ext(spr_f1_vida_coracao, clamp(vidas, 0, vidas_max), 777, 212, 0.72 * _pulse, 0.72 * _pulse, 0, c_white, 1);
     draw_text_transformed(733, 279, formatar_tempo(tempo), 0.94 * _pulse, 0.94 * _pulse, 0);
     draw_text_transformed(733, 351, string(ataques_cortados) + "/" + string(objetivo), 0.94 * _pulse, 0.94 * _pulse, 0);
     draw_set_halign(fa_center);

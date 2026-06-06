@@ -177,6 +177,7 @@
     {"id":{"name":"spr_f1_status_progresso","path":"sprites/spr_f1_status_progresso/spr_f1_status_progresso.yy",},},
     {"id":{"name":"spr_f1_status_tempo","path":"sprites/spr_f1_status_tempo/spr_f1_status_tempo.yy",},},
     {"id":{"name":"spr_f1_status_vidas","path":"sprites/spr_f1_status_vidas/spr_f1_status_vidas.yy",},},
+    {"id":{"name":"spr_f1_vida_coracao","path":"sprites/spr_f1_vida_coracao/spr_f1_vida_coracao.yy",},},
     {"id":{"name":"spr_f2_contato","path":"sprites/spr_f2_contato/spr_f2_contato.yy",},},
     {"id":{"name":"spr_f2_cursor","path":"sprites/spr_f2_cursor/spr_f2_cursor.yy",},},
     {"id":{"name":"spr_f2_fechar","path":"sprites/spr_f2_fechar/spr_f2_fechar.yy",},},

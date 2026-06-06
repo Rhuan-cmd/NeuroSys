@@ -39,11 +39,11 @@ if (!variable_global_exists("op_tela")) {
     global.op_tela = window_get_fullscreen() ? 1 : 0;
 }
 global.fx_qualidade = global.op_graficos;
-global.fx_densidade = (global.op_graficos == 0) ? 0.2 : ((global.op_graficos == 1) ? 0.55 : 1);
-global.fx_brilho = (global.op_graficos == 0) ? 0.18 : ((global.op_graficos == 1) ? 0.55 : 1);
+global.fx_densidade = (global.op_graficos == 0) ? 0.16 : ((global.op_graficos == 1) ? 0.55 : 1);
+global.fx_brilho = (global.op_graficos == 0) ? 0.16 : ((global.op_graficos == 1) ? 0.55 : 1);
 global.fx_cortar_transicoes = global.op_graficos == 0;
-global.fx_surface_w = global.op_graficos == 0 ? 480 : 960;
-global.fx_surface_h = global.op_graficos == 0 ? 270 : 540;
+global.fx_surface_w = 960;
+global.fx_surface_h = 540;
 if (!variable_global_exists("fase_liberada")) {
     global.fase_liberada = 1;
 }
