@@ -6,9 +6,9 @@ if (!variable_global_exists("op_volume")) global.op_volume = 1;
 if (!variable_global_exists("op_volume_musica")) global.op_volume_musica = 1;
 if (!variable_global_exists("op_volume_efeitos")) global.op_volume_efeitos = 1;
 if (!variable_global_exists("op_som_preset")) global.op_som_preset = 3;
-if (!variable_global_exists("op_graficos")) global.op_graficos = 1;
-if (!variable_global_exists("op_resolucao")) global.op_resolucao = 0;
-if (!variable_global_exists("op_tela")) global.op_tela = window_get_fullscreen() ? 1 : 0;
+if (!variable_global_exists("op_graficos")) global.op_graficos = 2;
+if (!variable_global_exists("op_resolucao")) global.op_resolucao = 3;
+if (!variable_global_exists("op_tela")) global.op_tela = 1;
 
 aba = 0;
 hover_aba = -1;

@@ -30,13 +30,13 @@ if (!variable_global_exists("op_som_preset")) {
     global.op_som_preset = 3;
 }
 if (!variable_global_exists("op_graficos")) {
-    global.op_graficos = 1;
+    global.op_graficos = 2;
 }
 if (!variable_global_exists("op_resolucao")) {
-    global.op_resolucao = 0;
+    global.op_resolucao = 3;
 }
 if (!variable_global_exists("op_tela")) {
-    global.op_tela = window_get_fullscreen() ? 1 : 0;
+    global.op_tela = 1;
 }
 global.fx_qualidade = global.op_graficos;
 global.fx_densidade = (global.op_graficos == 0) ? 0.16 : ((global.op_graficos == 1) ? 0.55 : 1);

@@ -7,9 +7,9 @@ function save_init() {
     if (!variable_global_exists("op_volume_musica")) global.op_volume_musica = 1;
     if (!variable_global_exists("op_volume_efeitos")) global.op_volume_efeitos = 1;
     if (!variable_global_exists("op_som_preset")) global.op_som_preset = 3;
-    if (!variable_global_exists("op_graficos")) global.op_graficos = 1;
-    if (!variable_global_exists("op_resolucao")) global.op_resolucao = 0;
-    if (!variable_global_exists("op_tela")) global.op_tela = window_get_fullscreen() ? 1 : 0;
+    if (!variable_global_exists("op_graficos")) global.op_graficos = 2;
+    if (!variable_global_exists("op_resolucao")) global.op_resolucao = 3;
+    if (!variable_global_exists("op_tela")) global.op_tela = 1;
     if (!variable_global_exists("fase_liberada")) global.fase_liberada = 1;
     if (!variable_global_exists("fase_concluida")) global.fase_concluida = 0;
 }
@@ -43,9 +43,9 @@ function save_escrever() {
     ini_write_real("config", "volume_musica", variable_global_exists("op_volume_musica") ? global.op_volume_musica : 1);
     ini_write_real("config", "volume_efeitos", variable_global_exists("op_volume_efeitos") ? global.op_volume_efeitos : 1);
     ini_write_real("config", "som_preset", variable_global_exists("op_som_preset") ? global.op_som_preset : 3);
-    ini_write_real("config", "graficos", variable_global_exists("op_graficos") ? global.op_graficos : 1);
-    ini_write_real("config", "resolucao", variable_global_exists("op_resolucao") ? global.op_resolucao : 0);
-    ini_write_real("config", "tela", variable_global_exists("op_tela") ? global.op_tela : 0);
+    ini_write_real("config", "graficos", variable_global_exists("op_graficos") ? global.op_graficos : 2);
+    ini_write_real("config", "resolucao", variable_global_exists("op_resolucao") ? global.op_resolucao : 3);
+    ini_write_real("config", "tela", variable_global_exists("op_tela") ? global.op_tela : 1);
     ini_write_real("progresso", "fase_liberada", variable_global_exists("fase_liberada") ? global.fase_liberada : 1);
     ini_write_real("progresso", "fase_concluida", variable_global_exists("fase_concluida") ? global.fase_concluida : 0);
     ini_close();

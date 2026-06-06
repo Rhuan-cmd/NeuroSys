@@ -9,15 +9,20 @@ function _volume_para_preset(_v) {
     return 3;
 }
 
+function _rearmar_cursor_opcoes() {
+    window_set_cursor(cr_none);
+    cursor_sprite = spr_ui_cursor;
+}
+
 function _aplicar_resolucao(_idx) {
     var _was_full = window_get_fullscreen();
-    if (_was_full) window_set_fullscreen(false);
     window_set_size(res_w[_idx], res_h[_idx]);
     window_center();
     if (_was_full) window_set_fullscreen(true);
 
     display_set_gui_size(960, 540);
     if (surface_exists(application_surface)) surface_resize(application_surface, variable_global_exists("fx_surface_w") ? global.fx_surface_w : 960, variable_global_exists("fx_surface_h") ? global.fx_surface_h : 540);
+    _rearmar_cursor_opcoes();
 }
 
 function _aplicar_mix_audio() {
@@ -30,7 +35,7 @@ function _aplicar_mix_audio() {
 function _restaurar_aba_atual() {
     switch (aba) {
         case 0:
-            global.op_graficos = 1;
+            global.op_graficos = 2;
             break;
         case 1:
             global.op_volume = 1;
@@ -40,30 +45,32 @@ function _restaurar_aba_atual() {
             _aplicar_mix_audio();
             break;
         case 2:
-            global.op_resolucao = 0;
-            _aplicar_resolucao(0);
+            global.op_resolucao = 3;
+            _aplicar_resolucao(3);
             break;
         case 3:
-            global.op_tela = 0;
-            window_set_fullscreen(false);
+            global.op_tela = 1;
             window_set_size(res_w[global.op_resolucao], res_h[global.op_resolucao]);
             window_center();
+            window_set_fullscreen(true);
             display_set_gui_size(960, 540);
             if (surface_exists(application_surface)) surface_resize(application_surface, variable_global_exists("fx_surface_w") ? global.fx_surface_w : 960, variable_global_exists("fx_surface_h") ? global.fx_surface_h : 540);
+            _rearmar_cursor_opcoes();
             break;
     }
 }
 
 function _restaurar_tudo() {
-    global.op_graficos = 1;
+    global.op_graficos = 2;
     global.op_volume = 1;
     global.op_volume_musica = 1;
     global.op_volume_efeitos = 1;
     global.op_som_preset = 3;
-    global.op_resolucao = 0;
-    global.op_tela = 0;
-    window_set_fullscreen(false);
-    _aplicar_resolucao(0);
+    global.op_resolucao = 3;
+    global.op_tela = 1;
+    _aplicar_resolucao(3);
+    window_set_fullscreen(true);
+    _rearmar_cursor_opcoes();
     _aplicar_mix_audio();
 }
 
