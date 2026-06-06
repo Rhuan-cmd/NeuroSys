@@ -252,8 +252,7 @@ criar_caixa = function(_x, _y, _reposicionar) {
     );
     caixa.configurar(cliques);
     limite_clique_atual = limite_clique;
-    if (cliques >= 8) limite_clique_atual = room_speed * 8;
-    if (cliques >= 9) limite_clique_atual = room_speed * 6;
+    if (cliques >= 7) limite_clique_atual = room_speed * 6;
     timer_clique = 0;
     sino_audio_timer = 1;
     

@@ -158,6 +158,25 @@ if (intro_video_finished && intro_timer >= intro_fade_out_start) {
     draw_rectangle(0, 0, gui_w, gui_h, false);
 }
 
+if (variable_global_exists("intro_vista") && global.intro_vista) {
+    var _skip_alpha = 0.72 + 0.18 * sin(intro_timer * 0.08);
+    var _skip_x1 = 18;
+    var _skip_y1 = gui_h - 86;
+    var _skip_x2 = 244;
+    var _skip_y2 = gui_h - 18;
+    draw_set_alpha(_skip_alpha);
+    draw_set_color(make_color_rgb(5, 12, 22));
+    draw_roundrect(_skip_x1, _skip_y1, _skip_x2, _skip_y2, false);
+    draw_set_color(make_color_rgb(94, 238, 255));
+    draw_roundrect(_skip_x1 + 4, _skip_y1 + 4, _skip_x2 - 4, _skip_y2 - 4, true);
+    draw_set_color(c_white);
+    draw_set_halign(fa_center);
+    draw_set_valign(fa_middle);
+    draw_text((_skip_x1 + _skip_x2) * 0.5, _skip_y1 + 24, "ESPAÇO");
+    draw_set_color(make_color_rgb(172, 198, 218));
+    draw_text((_skip_x1 + _skip_x2) * 0.5, _skip_y1 + 48, "pular intro");
+}
+
 draw_set_alpha(1);
 draw_set_color(c_white);
 draw_set_halign(fa_left);
