@@ -21,13 +21,25 @@ function audio_volume_efeitos() {
     return clamp(global.op_volume_efeitos, 0, 1);
 }
 
-function audio_play_music(_sound, _priority, _loop, _gain = 1, _offset = 0, _pitch = 1) {
+function audio_play_music() {
+    var _sound = argument[0];
+    var _priority = argument[1];
+    var _loop = argument[2];
+    var _gain = argument_count > 3 ? argument[3] : 1;
+    var _offset = argument_count > 4 ? argument[4] : 0;
+    var _pitch = argument_count > 5 ? argument[5] : 1;
     var _volume = audio_volume_musica();
     if (_volume <= 0) return -1;
     return audio_play_sound(_sound, _priority, _loop, _gain * _volume, _offset, _pitch);
 }
 
-function audio_play_sfx(_sound, _priority, _loop, _gain = 1, _offset = 0, _pitch = 1) {
+function audio_play_sfx() {
+    var _sound = argument[0];
+    var _priority = argument[1];
+    var _loop = argument[2];
+    var _gain = argument_count > 3 ? argument[3] : 1;
+    var _offset = argument_count > 4 ? argument[4] : 0;
+    var _pitch = argument_count > 5 ? argument[5] : 1;
     var _volume = audio_volume_efeitos();
     if (_volume <= 0) return -1;
     return audio_play_sound(_sound, _priority, _loop, _gain * _volume, _offset, _pitch);
