@@ -14,7 +14,7 @@ if (_room_fase && !global.jogo_pausado && keyboard_check_pressed(vk_escape)) {
     pausa_saindo = 0;
     pausa_fade = 0;
     audio_pause_all();
-    pausa_musica_id = audio_play_sound(snd_menu_musica, 0, true, 0.34, 0, 0.92);
+    pausa_musica_id = audio_play_music(snd_menu_musica, 0, true, 0.34, 0, 0.92);
     instance_deactivate_all(true);
     window_set_cursor(cr_none);
     cursor_sprite = spr_ui_cursor;
@@ -72,12 +72,12 @@ if (global.jogo_pausado) {
     }
 
     if (pausa_hover != -1 && pausa_hover != pausa_hover_anterior) {
-        audio_play_sound(snd_f2_selecao, 3, false, 0.42);
+        audio_play_sfx(snd_f2_selecao, 3, false, 0.42);
     }
     pausa_hover_anterior = pausa_hover;
 
     if (pausa_saindo == 0 && mouse_check_button_pressed(mb_left) && pausa_hover != -1) {
-        audio_play_sound(snd_f2_botao, 4, false, 0.62);
+        audio_play_sfx(snd_f2_botao, 4, false, 0.62);
         if (pausa_hover == 0) {
             if (pausa_musica_id != -1) {
                 audio_stop_sound(pausa_musica_id);
@@ -86,7 +86,7 @@ if (global.jogo_pausado) {
             audio_resume_all();
             instance_activate_all();
             global.jogo_pausado = false;
-            cursor_sprite = cr_none;
+            cursor_sprite = room == rm_fase3 ? spr_ui_cursor : cr_none;
         } else {
             pausa_saindo = pausa_hover + 1;
         }
@@ -100,7 +100,7 @@ if (global.jogo_pausado) {
         audio_resume_all();
         instance_activate_all();
         global.jogo_pausado = false;
-        cursor_sprite = cr_none;
+        cursor_sprite = room == rm_fase3 ? spr_ui_cursor : cr_none;
     }
 
     if (pausa_saindo != 0) {
@@ -153,6 +153,8 @@ if (variable_global_exists("op_tela")) {
     global.op_tela = window_get_fullscreen() ? 1 : 0;
 }
 
+audio_aplicar_opcoes();
+
 if (variable_global_exists("op_graficos")) {
     global.fx_qualidade = clamp(global.op_graficos, 0, 2);
     global.fx_densidade = (global.fx_qualidade == 0) ? 0.16 : ((global.fx_qualidade == 1) ? 0.55 : 1);
@@ -178,6 +180,7 @@ _save_mudou = _save_mudou || save_prev_resolucao != global.op_resolucao;
 _save_mudou = _save_mudou || save_prev_tela != global.op_tela;
 _save_mudou = _save_mudou || save_prev_fase_liberada != global.fase_liberada;
 _save_mudou = _save_mudou || save_prev_fase_concluida != global.fase_concluida;
+_save_mudou = _save_mudou || save_prev_creditos_vistos != global.creditos_vistos;
 
 if (_save_mudou || global.save_timer >= room_speed * 60 || global.save_sujo) {
     save_escrever();
@@ -191,6 +194,7 @@ if (_save_mudou || global.save_timer >= room_speed * 60 || global.save_sujo) {
     save_prev_tela = global.op_tela;
     save_prev_fase_liberada = global.fase_liberada;
     save_prev_fase_concluida = global.fase_concluida;
+    save_prev_creditos_vistos = global.creditos_vistos;
 }
 
 if (surface_exists(application_surface)) {

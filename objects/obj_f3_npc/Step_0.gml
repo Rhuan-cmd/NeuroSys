@@ -93,7 +93,7 @@ if (atualizar_felicidade > 0){
 	
 	alarm[0] = 120;
 	audio_stop_sound(snd_f3_musica);
-	audio_play_sound(snd_f3_fim_jogo, 1, 0);
+	audio_play_sfx(snd_f3_fim_jogo, 1, 0);
 	layer_background_sprite(idbackground, spr_f3_fundo_morte);
 	perdeu = true;
 }

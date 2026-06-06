@@ -17,7 +17,7 @@ if (estado == 2) {
     draw_rectangle(731, 346, 824, 366, false);
     draw_set_color(c_white);
     draw_set_halign(fa_left);
-    draw_text_transformed(761, 207, string(vidas) + "/" + string(vidas_max), 0.94 * _pulse, 0.94 * _pulse, 0);
+    draw_text_transformed(733, 207, string(vidas) + "/" + string(vidas_max), 0.94 * _pulse, 0.94 * _pulse, 0);
     draw_text_transformed(733, 279, formatar_tempo(tempo), 0.94 * _pulse, 0.94 * _pulse, 0);
     draw_text_transformed(733, 351, string(ataques_cortados) + "/" + string(objetivo), 0.94 * _pulse, 0.94 * _pulse, 0);
     draw_set_halign(fa_center);

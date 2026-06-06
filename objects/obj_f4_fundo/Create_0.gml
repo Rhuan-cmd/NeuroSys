@@ -56,7 +56,7 @@ exibir_resultado = function(_vitoria) {
         camera_set_view_pos(view_camera[0], 0, 0);
     }
     audio_stop_all();
-    audio_play_sound(snd_f2_derrota, 4, false, 0.86);
+    audio_play_sfx(snd_f2_derrota, 4, false, 0.86);
     instance_deactivate_all(true);
     instance_activate_object(obj_controlador_jogo);
 };

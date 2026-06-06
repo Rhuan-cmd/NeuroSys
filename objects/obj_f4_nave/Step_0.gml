@@ -6,7 +6,7 @@ if (vida <= 0){
 	morto = true;
 	alarm[2] = 60;
 	audio_stop_all();
-	audio_play_sound(snd_f3_fim_jogo, 1, 0);
+	audio_play_sfx(snd_f3_fim_jogo, 1, 0);
 	return;
 }
 
@@ -56,7 +56,7 @@ var tiro = keyboard_check(ord("K"));
 if (tiro && pode_atirar && vel != 0){
 	instance_create_layer(x, y, "projeteis", obj_f4_projetil);
 	alarm[0] = tempo_tiro;
-	audio_play_sound(snd_f4_tiro, 1, 0, 0.5);
+	audio_play_sfx(snd_f4_tiro, 1, 0, 0.5);
 	pode_atirar = false;
 }
 

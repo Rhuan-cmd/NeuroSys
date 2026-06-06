@@ -8,7 +8,7 @@ if (introducao_ativa && entrada_fade <= 0.72) {
         dialogo_chars = min(string_length(_texto), dialogo_chars + dialogo_velocidade);
         dialogo_audio_timer = max(0, dialogo_audio_timer - 1);
         if (floor(dialogo_chars) > _chars_antes && dialogo_audio_timer <= 0) {
-            audio_play_sound(snd_f2_digitacao, 2, false, 0.18, 0, random_range(0.96, 1.05));
+            audio_play_sfx(snd_f2_digitacao, 2, false, 0.18, 0, random_range(0.96, 1.05));
             dialogo_audio_timer = 3;
         }
     }

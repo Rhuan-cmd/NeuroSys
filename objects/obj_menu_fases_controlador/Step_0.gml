@@ -39,9 +39,9 @@ if (retornando_fase) {
     if (_marca_reversa != transicao_audio_marca) {
         transicao_audio_marca = _marca_reversa;
         if (_marca_reversa == 1 || _marca_reversa == 3 || _marca_reversa == 5) {
-            audio_play_sound(snd_f2_aparecer, 4, false, 0.38, 0, 0.72);
+            audio_play_sfx(snd_f2_aparecer, 4, false, 0.38, 0, 0.72);
         } else {
-            audio_play_sound(snd_f2_tremor, 4, false, 0.30, 0, 0.58);
+            audio_play_sfx(snd_f2_tremor, 4, false, 0.30, 0, 0.58);
         }
     }
 
@@ -70,11 +70,11 @@ if (entrando_fase) {
     if (_marca != transicao_audio_marca) {
         transicao_audio_marca = _marca;
         if (_marca == 0) {
-            audio_play_sound(snd_f2_sino, 4, false, 0.64, 0, 0.82);
+            audio_play_sfx(snd_f2_sino, 4, false, 0.64, 0, 0.82);
         } else if (_marca == 2 || _marca == 4 || _marca == 6) {
-            audio_play_sound(snd_f2_tremor, 4, false, 0.58, 0, 0.68 + _marca * 0.035);
+            audio_play_sfx(snd_f2_tremor, 4, false, 0.58, 0, 0.68 + _marca * 0.035);
         } else {
-            audio_play_sound(snd_f2_aparecer, 4, false, 0.62, 0, 0.76 + _marca * 0.07);
+            audio_play_sfx(snd_f2_aparecer, 4, false, 0.62, 0, 0.76 + _marca * 0.07);
         }
     }
 
@@ -118,22 +118,22 @@ if (mouse_check_button_pressed(mb_left)) {
         if (_liberada >= 4 && sino_cliques >= 10) {
             global.fase_liberada = 1;
             sino_cliques = 0;
-            audio_play_sound(snd_f2_tremor, 4, false, 0.54, 0, 0.72);
+            audio_play_sfx(snd_f2_tremor, 4, false, 0.54, 0, 0.72);
             exit;
         }
         sino_cliques += 1;
         if (sino_cliques >= 10) {
             sino_cliques = 10;
             global.fase_liberada = 4;
-            audio_play_sound(snd_f2_ponto, 4, false, 0.58, 0, 1.34);
-            audio_play_sound(snd_f2_confirmar, 4, false, 0.36, 0, 1.42);
+            audio_play_sfx(snd_f2_ponto, 4, false, 0.58, 0, 1.34);
+            audio_play_sfx(snd_f2_confirmar, 4, false, 0.36, 0, 1.42);
         }
         exit;
     }
 }
 
 if (voltar_hover && !voltar_hover_anterior) {
-    audio_play_sound(snd_f2_selecao, 3, false, 0.42);
+    audio_play_sfx(snd_f2_selecao, 3, false, 0.42);
 }
 voltar_hover_anterior = voltar_hover;
 
@@ -146,14 +146,14 @@ for (var i = 0; i < array_length(fase_nome); i += 1) {
 }
 
 if (hover != hover_anterior && hover != -1) {
-    audio_play_sound(snd_f2_selecao, 3, false, 0.42);
+    audio_play_sfx(snd_f2_selecao, 3, false, 0.42);
 }
 hover_anterior = hover;
 
 if (hover != -1 && mouse_check_button_pressed(mb_left)) {
     if (hover + 1 <= _liberada) {
-        audio_play_sound(snd_f2_botao, 4, false, 0.62);
-        audio_play_sound(snd_f2_aparecer, 4, false, 0.48, 0, 0.82);
+        audio_play_sfx(snd_f2_botao, 4, false, 0.62);
+        audio_play_sfx(snd_f2_aparecer, 4, false, 0.48, 0, 0.82);
         audio_menu_fade(0, 1850);
         fase_escolhida = hover;
         var _card_y_trans = feed_top + hover * (post_h + post_gap) - scroll_y;
@@ -167,13 +167,13 @@ if (hover != -1 && mouse_check_button_pressed(mb_left)) {
         global.transicao_ativa = true;
         entrando_fase = true;
     } else {
-        audio_play_sound(snd_f1_erro, 4, false, 0.72, 0, 0.86);
+        audio_play_sfx(snd_f1_erro, 4, false, 0.72, 0, 0.86);
         negado_card = hover;
         negado_timer = 18;
     }
 }
 
 if (keyboard_check_pressed(vk_escape) || (voltar_hover && mouse_check_button_pressed(mb_left))) {
-    audio_play_sound(snd_f2_botao, 4, false, 0.62);
+    audio_play_sfx(snd_f2_botao, 4, false, 0.62);
     voltando_menu = true;
 }

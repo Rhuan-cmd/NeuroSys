@@ -52,7 +52,7 @@ if (!variable_global_exists("fase_concluida")) {
 }
 save_init();
 save_carregar();
-audio_master_gain(global.op_volume);
+audio_aplicar_opcoes();
 
 var _save_res_w = [960, 1280, 1600, 1920];
 var _save_res_h = [540, 720, 900, 1080];
@@ -78,6 +78,7 @@ save_prev_resolucao = global.op_resolucao;
 save_prev_tela = global.op_tela;
 save_prev_fase_liberada = global.fase_liberada;
 save_prev_fase_concluida = global.fase_concluida;
+save_prev_creditos_vistos = global.creditos_vistos;
 if (!variable_global_exists("fase_entrada_bloquear_cursor")) {
     global.fase_entrada_bloquear_cursor = false;
 }

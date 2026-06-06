@@ -24,8 +24,8 @@ if (mover) {
 
 if (encerrando) {
     if (!audio_fade_iniciado) {
-        audio_sound_gain(snd_f4_chefe_derrotado, 0, 5400);
-        audio_sound_gain(snd_f4_musica_chefe, 0, 5400);
+        audio_gain_sfx(snd_f4_chefe_derrotado, 0, 5400);
+        audio_gain_music(snd_f4_musica_chefe, 0, 5400);
         audio_fade_iniciado = true;
     }
     timer_encerramento++;
@@ -34,6 +34,11 @@ if (encerrando) {
     }
     if (fade_saida >= 1) {
         timer_preto++;
-        if (timer_preto >= room_speed * 3) room_goto(rm_creditos);
+        if (timer_preto >= room_speed * 3) {
+            global.fase_liberada = max(variable_global_exists("fase_liberada") ? global.fase_liberada : 1, 4);
+            global.fase_concluida = max(variable_global_exists("fase_concluida") ? global.fase_concluida : 0, 4);
+            save_marcar_sujo();
+            room_goto(rm_creditos);
+        }
     }
 }

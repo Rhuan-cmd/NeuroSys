@@ -12,6 +12,7 @@ function save_init() {
     if (!variable_global_exists("op_tela")) global.op_tela = 1;
     if (!variable_global_exists("fase_liberada")) global.fase_liberada = 1;
     if (!variable_global_exists("fase_concluida")) global.fase_concluida = 0;
+    if (!variable_global_exists("creditos_vistos")) global.creditos_vistos = false;
 }
 
 function save_carregar() {
@@ -31,6 +32,7 @@ function save_carregar() {
     global.op_tela = clamp(ini_read_real("config", "tela", global.op_tela), 0, 1);
     global.fase_liberada = clamp(ini_read_real("progresso", "fase_liberada", global.fase_liberada), 1, 4);
     global.fase_concluida = clamp(ini_read_real("progresso", "fase_concluida", global.fase_concluida), 0, 4);
+    global.creditos_vistos = ini_read_real("progresso", "creditos_vistos", global.creditos_vistos ? 1 : 0) >= 1;
     ini_close();
 
     global.save_sujo = false;
@@ -48,6 +50,7 @@ function save_escrever() {
     ini_write_real("config", "tela", variable_global_exists("op_tela") ? global.op_tela : 1);
     ini_write_real("progresso", "fase_liberada", variable_global_exists("fase_liberada") ? global.fase_liberada : 1);
     ini_write_real("progresso", "fase_concluida", variable_global_exists("fase_concluida") ? global.fase_concluida : 0);
+    ini_write_real("progresso", "creditos_vistos", variable_global_exists("creditos_vistos") && global.creditos_vistos ? 1 : 0);
     ini_close();
     global.save_sujo = false;
     global.save_aviso_timer = room_speed * 1.8;

@@ -8,7 +8,10 @@ creditos_scroll = 0;
 etapa_final = false;
 timer_final = 0;
 encerrando = false;
-audio_play_sound(snd_creditos_musica, 4, true, 0.78);
+creditos_visto_antes = variable_global_exists("creditos_vistos") && global.creditos_vistos;
+creditos_salvo = false;
+espaco_duplo_timer = 0;
+audio_play_music(snd_creditos_musica, 4, true, 0.78);
 
 memorias = [
     spr_f2_fechar,
@@ -35,6 +38,8 @@ creditos = [
     { texto: "Ao interromper esse ciclo, você não apagou o que aconteceu. Mas abriu espaço para outra possibilidade: uma internet em que responsabilidade e empatia não sejam exceções.\nA história termina aqui, mas a escolha continua fora do jogo. Antes de comentar, compartilhar ou permanecer em silêncio, lembre-se de que sempre existe alguém do outro lado da tela.", cor: make_color_rgb(172, 224, 255), escala: 0.96, espaco: 164 },
     { texto: "AGRADECIMENTOS", cor: make_color_rgb(255, 232, 138), escala: 1.18, espaco: 42 },
     { texto: "Instituto Federal de Educação, Ciência e Tecnologia do Maranhão - Campus Açailândia", cor: make_color_rgb(82, 214, 128), escala: 1, espaco: 74 },
+    { texto: "FONTES", cor: make_color_rgb(255, 232, 138), escala: 1.18, espaco: 42 },
+    { texto: "Materiais jornalisticos e documentais inspirados em canais de informacao da Globo, SBT, Band e Record, usados como referencia para contextualizar o impacto real da violencia digital e do cyberbullying.", cor: c_white, escala: 0.92, espaco: 118 },
     { texto: "ORIENTADOR", cor: make_color_rgb(255, 232, 138), escala: 1.18, espaco: 42 },
     { texto: "Valter dos Santos Mendonça Neto", cor: c_white, escala: 1, espaco: 68 },
     { texto: "CRIADORES", cor: make_color_rgb(255, 232, 138), escala: 1.18, espaco: 42 },

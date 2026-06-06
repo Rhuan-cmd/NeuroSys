@@ -61,6 +61,24 @@ if (!etapa_final) {
     draw_set_color(c_white);
     draw_text_ext(_hint_x1 + 30, _hint_y1 + 18, "SEGURE ENTER\npara acelerar os créditos", 20, 240);
     draw_set_halign(fa_center);
+
+    if (creditos_visto_antes) {
+        var _skip_x2 = 278;
+        draw_set_alpha(0.78 * _hint_sumir);
+        draw_set_color(make_color_rgb(4, 15, 30));
+        draw_roundrect(18, _hint_y1, _skip_x2, _h - 18, false);
+        draw_set_alpha(0.48 * _hint_sumir);
+        draw_set_color(make_color_rgb(31, 109, 142));
+        draw_roundrect(23, _hint_y1 + 5, _skip_x2 - 5, _h - 23, true);
+        draw_set_alpha(_hint_alpha);
+        draw_set_color(make_color_rgb(255, 232, 138));
+        draw_roundrect(20, _hint_y1 + 2, _skip_x2 - 2, _h - 20, true);
+        draw_set_halign(fa_left);
+        draw_set_alpha(_hint_sumir);
+        draw_set_color(c_white);
+        draw_text_ext(48, _hint_y1 + 18, "APERTE ESPACO 2X\npara pular os creditos", 20, 220);
+        draw_set_halign(fa_center);
+    }
 } else {
     var _alpha_final = clamp(timer_final / (room_speed * 1.2), 0, 1);
     draw_set_alpha(_alpha_final);

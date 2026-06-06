@@ -52,5 +52,5 @@ function tomar_dano(){
 	if (instance_exists(obj_f4_barra_vida_jogador)){
 		obj_f4_barra_vida_jogador.tomou_dano = true;
 	}
-	audio_play_sound(snd_f3_dano, 1, 0);
+	audio_play_sfx(snd_f3_dano, 1, 0);
 }

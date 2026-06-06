@@ -17,7 +17,7 @@ if (vida <= 0) {
 	}
 	instance_destroy(obj_f4_barra_vida_chefe);
 	audio_stop_all();
-	audio_play_sound(snd_f4_chefe_derrotado, 1, 0);
+	audio_play_sfx(snd_f4_chefe_derrotado, 1, 0);
 	morto = true;
 }
 
