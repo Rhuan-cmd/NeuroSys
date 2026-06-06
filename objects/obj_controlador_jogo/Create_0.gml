@@ -26,6 +26,9 @@ if (!variable_global_exists("op_volume_musica")) {
 if (!variable_global_exists("op_volume_efeitos")) {
     global.op_volume_efeitos = 1;
 }
+if (!variable_global_exists("op_som_preset")) {
+    global.op_som_preset = 3;
+}
 if (!variable_global_exists("op_graficos")) {
     global.op_graficos = 1;
 }

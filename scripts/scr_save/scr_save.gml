@@ -2,6 +2,15 @@ function save_init() {
     if (!variable_global_exists("save_arquivo")) global.save_arquivo = "neurosys_save.ini";
     if (!variable_global_exists("save_sujo")) global.save_sujo = false;
     if (!variable_global_exists("save_timer")) global.save_timer = 0;
+    if (!variable_global_exists("op_volume")) global.op_volume = 1;
+    if (!variable_global_exists("op_volume_musica")) global.op_volume_musica = 1;
+    if (!variable_global_exists("op_volume_efeitos")) global.op_volume_efeitos = 1;
+    if (!variable_global_exists("op_som_preset")) global.op_som_preset = 3;
+    if (!variable_global_exists("op_graficos")) global.op_graficos = 1;
+    if (!variable_global_exists("op_resolucao")) global.op_resolucao = 0;
+    if (!variable_global_exists("op_tela")) global.op_tela = window_get_fullscreen() ? 1 : 0;
+    if (!variable_global_exists("fase_liberada")) global.fase_liberada = 1;
+    if (!variable_global_exists("fase_concluida")) global.fase_concluida = 0;
 }
 
 function save_carregar() {
