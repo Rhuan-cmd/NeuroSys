@@ -43,8 +43,8 @@ tremor_x = 0;
 tremor_y = 0;
 audio_stop_sound(snd_f1_musica);
 audio_stop_sound(snd_f1_tensao);
-ambiente_audio = audio_play_music(snd_f1_musica, 1, true, 0.68, 0, 1);
-ambiente_corrupto_audio = audio_play_music(snd_f1_tensao, 1, true, 0, 0, 1);
+ambiente_audio = ns_audio_play_music(snd_f1_musica, 1, true, 0.68, 0, 1);
+ambiente_corrupto_audio = ns_audio_play_music(snd_f1_tensao, 1, true, 0, 0, 1);
 audio_mix_timer = 0;
 cursor_cutscene_x = 480;
 cursor_cutscene_y = 270;
@@ -138,7 +138,7 @@ aplicar_dano = function() {
         damage_flash = 1;
         corrupt_flash = min(1, corrupt_flash + 0.24);
         shake = 12 + (vidas_max - vidas) * 4;
-        audio_play_sfx(snd_f2_dano, 3, false, 0.62, 0, 1);
+        ns_audio_play_sfx(snd_f2_dano, 3, false, 0.62, 0, 1);
     }
     combo = 0;
 };
@@ -354,7 +354,7 @@ finalizar_fase = function(_venceu) {
     }
     audio_stop_sound(snd_f1_musica);
     audio_stop_sound(snd_f1_tensao);
-    audio_play_sfx(_venceu ? snd_f2_vitoria : snd_f2_derrota, 4, false, 0.78, 0, 1);
+    ns_audio_play_sfx(_venceu ? snd_f2_vitoria : snd_f2_derrota, 4, false, 0.78, 0, 1);
     if (_venceu) {
         global.fase_liberada = max(variable_global_exists("fase_liberada") ? global.fase_liberada : 1, 2);
         global.fase_concluida = max(variable_global_exists("fase_concluida") ? global.fase_concluida : 0, 1);

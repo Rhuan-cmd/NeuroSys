@@ -48,10 +48,10 @@ fx_timer = [];
 fx_total = 0;
 // ===== AUDIO AMBIENTE E EFEITOS SONOROS =====
 sino_audio_timer = room_speed;
-ambiente_audio = audio_play_music(snd_f2_ambiente, 2, true, 0.62, 0, 1);
+ambiente_audio = ns_audio_play_music(snd_f2_ambiente, 2, true, 0.62, 0, 1);
 ambiente_corrupto_audio = -1;
 chiado_audio = -1;
-audio_play_sfx(snd_f2_entrada, 4, false, 0.52, 0, 1);
+ns_audio_play_sfx(snd_f2_entrada, 4, false, 0.52, 0, 1);
 digitacao_audio_timer = 0;
 aparicao_audio_etapa = 0;
 audio_mix_timer = 0;
@@ -151,8 +151,8 @@ iniciar_minigame = function() {
     cascata_fluxo = 0;
     window_set_cursor(cr_none);
     aviso_x_timer = aviso_x_duracao;
-    audio_play_sfx(snd_f2_clique, 3, false, 0.5, 0, 1);
-    audio_play_sfx(snd_f2_suspense, 4, false, 0.76, 0, 1);
+    ns_audio_play_sfx(snd_f2_clique, 3, false, 0.5, 0, 1);
+    ns_audio_play_sfx(snd_f2_suspense, 4, false, 0.76, 0, 1);
     criar_caixa(botao_fixo_x, botao_fixo_y, false);
     if (instance_exists(caixa)) {
         caixa.modo_intro = true;
@@ -174,7 +174,7 @@ congelar_cursor = function() {
     congelado_timer = congelado_total;
     gelo_quebra_timer = 0;
     window_mouse_set(gelo_x, gelo_y);
-    audio_play_sfx(snd_f2_congelar, 4, false, 0.72, 0, 1);
+    ns_audio_play_sfx(snd_f2_congelar, 4, false, 0.72, 0, 1);
 };
 
 repelir_cursor = function() {
@@ -197,7 +197,7 @@ repelir_cursor = function() {
     cursor_draw_x = repel_x;
     cursor_draw_y = repel_y;
     shake_impacto = max(shake_impacto, 18);
-    audio_play_sfx(snd_f2_repelir, 4, false, 0.78, 0, 1);
+    ns_audio_play_sfx(snd_f2_repelir, 4, false, 0.78, 0, 1);
 };
 
 iniciar_ataque_cursor = function(_tipo) {
@@ -211,7 +211,7 @@ iniciar_ataque_cursor = function(_tipo) {
     }
     poder_ataque_x1 = mouse_x;
     poder_ataque_y1 = mouse_y;
-    audio_play_sfx(snd_f2_fuga, 3, false, 0.5, 0, _tipo == 1 ? 1.08 : 0.9);
+    ns_audio_play_sfx(snd_f2_fuga, 3, false, 0.5, 0, _tipo == 1 ? 1.08 : 0.9);
 };
 
 // ===== ATIVACAO, CRIACAO E REAPARECIMENTO DO X =====
@@ -232,8 +232,8 @@ ativar_minigame = function() {
     }
     shake_impacto = 22;
     shake_inicio = 1.8;
-    audio_play_sfx(snd_f2_fuga, 2, false, 0.52, 0, 1);
-    audio_play_sfx(snd_f2_tremor, 3, false, 0.36, 0, 1);
+    ns_audio_play_sfx(snd_f2_fuga, 2, false, 0.52, 0, 1);
+    ns_audio_play_sfx(snd_f2_tremor, 3, false, 0.36, 0, 1);
 };
 
 criar_caixa = function(_x, _y, _reposicionar) {
@@ -258,7 +258,7 @@ criar_caixa = function(_x, _y, _reposicionar) {
     sino_audio_timer = 1;
     
     if (_reposicionar) {
-        audio_play_sfx(snd_f2_fuga, 2, false, 0.34, 0, random_range(0.96, 1.08));
+        ns_audio_play_sfx(snd_f2_fuga, 2, false, 0.34, 0, random_range(0.96, 1.08));
         caixa.imortal_timer = ceil(room_speed * 0.5);
         caixa.modo_intro = true;
         caixa.intro_timer = 0;
@@ -277,8 +277,8 @@ criar_caixa = function(_x, _y, _reposicionar) {
 // ===== PERDA DE VIDA E ENCERRAMENTO DA FASE =====
 perder_vida = function() {
     vidas--;
-    audio_play_sfx(snd_f2_dano, 3, false, 0.72, 0, 1);
-    audio_play_sfx(snd_f2_tremor, 3, false, min(0.82, 0.42 + (vidas_max - vidas) * 0.08), 0, 1);
+    ns_audio_play_sfx(snd_f2_dano, 3, false, 0.72, 0, 1);
+    ns_audio_play_sfx(snd_f2_tremor, 3, false, min(0.82, 0.42 + (vidas_max - vidas) * 0.08), 0, 1);
     timer_clique = 0;
     shake_impacto = 32 + (vidas_max - vidas) * 9;
     damage_flash = 1;
@@ -316,8 +316,8 @@ finalizar_jogo = function(_vitoria) {
     damage_flash = _vitoria ? 0.35 : 1;
     audio_stop_sound(snd_f2_ambiente);
     audio_stop_sound(snd_f2_ambiente_corrupto);
-    audio_play_sfx(snd_f2_saida, 4, false, 0.56, 0, 1);
-    audio_play_sfx(_vitoria ? snd_f2_vitoria : snd_f2_derrota, 4, false, _vitoria ? 0.96 : 0.82, 0, 1);
+    ns_audio_play_sfx(snd_f2_saida, 4, false, 0.56, 0, 1);
+    ns_audio_play_sfx(_vitoria ? snd_f2_vitoria : snd_f2_derrota, 4, false, _vitoria ? 0.96 : 0.82, 0, 1);
     if (_vitoria) {
         global.fase_liberada = max(variable_global_exists("fase_liberada") ? global.fase_liberada : 1, 3);
         global.fase_concluida = max(variable_global_exists("fase_concluida") ? global.fase_concluida : 0, 2);

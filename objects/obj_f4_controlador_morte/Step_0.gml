@@ -24,8 +24,8 @@ if (mover) {
 
 if (encerrando) {
     if (!audio_fade_iniciado) {
-        audio_gain_sfx(snd_f4_chefe_derrotado, 0, 5400);
-        audio_gain_music(snd_f4_musica_chefe, 0, 5400);
+        ns_audio_gain_sfx(snd_f4_chefe_derrotado, 0, 5400);
+        ns_audio_gain_music(snd_f4_musica_chefe, 0, 5400);
         audio_fade_iniciado = true;
     }
     timer_encerramento++;

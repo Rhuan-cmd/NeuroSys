@@ -52,7 +52,7 @@ if (!variable_global_exists("fase_concluida")) {
 }
 save_init();
 save_carregar();
-audio_aplicar_opcoes();
+ns_audio_aplicar_opcoes();
 
 var _save_res_w = [960, 1280, 1600, 1920];
 var _save_res_h = [540, 720, 900, 1080];

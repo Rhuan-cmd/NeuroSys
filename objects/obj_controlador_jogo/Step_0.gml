@@ -14,7 +14,7 @@ if (_room_fase && !global.jogo_pausado && keyboard_check_pressed(vk_escape)) {
     pausa_saindo = 0;
     pausa_fade = 0;
     audio_pause_all();
-    pausa_musica_id = audio_play_music(snd_menu_musica, 0, true, 0.34, 0, 0.92);
+    pausa_musica_id = ns_audio_play_music(snd_menu_musica, 0, true, 0.34, 0, 0.92);
     instance_deactivate_all(true);
     window_set_cursor(cr_none);
     cursor_sprite = spr_ui_cursor;
@@ -72,12 +72,12 @@ if (global.jogo_pausado) {
     }
 
     if (pausa_hover != -1 && pausa_hover != pausa_hover_anterior) {
-        audio_play_sfx(snd_f2_selecao, 3, false, 0.42, 0, 1);
+        ns_audio_play_sfx(snd_f2_selecao, 3, false, 0.42, 0, 1);
     }
     pausa_hover_anterior = pausa_hover;
 
     if (pausa_saindo == 0 && mouse_check_button_pressed(mb_left) && pausa_hover != -1) {
-        audio_play_sfx(snd_f2_botao, 4, false, 0.62, 0, 1);
+        ns_audio_play_sfx(snd_f2_botao, 4, false, 0.62, 0, 1);
         if (pausa_hover == 0) {
             if (pausa_musica_id != -1) {
                 audio_stop_sound(pausa_musica_id);
@@ -153,7 +153,7 @@ if (variable_global_exists("op_tela")) {
     global.op_tela = window_get_fullscreen() ? 1 : 0;
 }
 
-audio_aplicar_opcoes();
+ns_audio_aplicar_opcoes();
 
 if (variable_global_exists("op_graficos")) {
     global.fx_qualidade = clamp(global.op_graficos, 0, 2);

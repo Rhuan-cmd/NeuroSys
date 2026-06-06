@@ -11,7 +11,7 @@ encerrando = false;
 creditos_visto_antes = variable_global_exists("creditos_vistos") && global.creditos_vistos;
 creditos_salvo = false;
 espaco_duplo_timer = 0;
-audio_play_music(snd_creditos_musica, 4, true, 0.78, 0, 1);
+ns_audio_play_music(snd_creditos_musica, 4, true, 0.78, 0, 1);
 
 memorias = [
     spr_f2_fechar,

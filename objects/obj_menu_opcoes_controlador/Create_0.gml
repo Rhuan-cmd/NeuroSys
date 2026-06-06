@@ -42,7 +42,7 @@ voltar_h = 74;
 
 window_set_cursor(cr_none);
 cursor_sprite = spr_ui_cursor;
-audio_aplicar_opcoes();
+ns_audio_aplicar_opcoes();
 if (variable_global_exists("audio_menu_musica") && global.audio_menu_musica != -1 && audio_is_playing(global.audio_menu_musica)) {
-    audio_gain_music(global.audio_menu_musica, 0.36, 0);
+    ns_audio_gain_music(global.audio_menu_musica, 0.36, 0);
 }
