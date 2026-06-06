@@ -39,8 +39,11 @@ if (!variable_global_exists("op_tela")) {
     global.op_tela = window_get_fullscreen() ? 1 : 0;
 }
 global.fx_qualidade = global.op_graficos;
-global.fx_densidade = (global.op_graficos == 0) ? 0.55 : ((global.op_graficos == 1) ? 0.82 : 1);
-global.fx_brilho = (global.op_graficos == 0) ? 0.62 : ((global.op_graficos == 1) ? 0.82 : 1);
+global.fx_densidade = (global.op_graficos == 0) ? 0.2 : ((global.op_graficos == 1) ? 0.55 : 1);
+global.fx_brilho = (global.op_graficos == 0) ? 0.18 : ((global.op_graficos == 1) ? 0.55 : 1);
+global.fx_cortar_transicoes = global.op_graficos == 0;
+global.fx_surface_w = global.op_graficos == 0 ? 480 : 960;
+global.fx_surface_h = global.op_graficos == 0 ? 270 : 540;
 if (!variable_global_exists("fase_liberada")) {
     global.fase_liberada = 1;
 }
@@ -64,7 +67,7 @@ if (global.op_tela == 0) {
     window_set_fullscreen(true);
 }
 display_set_gui_size(960, 540);
-if (surface_exists(application_surface)) surface_resize(application_surface, 960, 540);
+if (surface_exists(application_surface)) surface_resize(application_surface, global.fx_surface_w, global.fx_surface_h);
 
 save_prev_volume = global.op_volume;
 save_prev_volume_musica = global.op_volume_musica;

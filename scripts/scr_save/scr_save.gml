@@ -2,6 +2,7 @@ function save_init() {
     if (!variable_global_exists("save_arquivo")) global.save_arquivo = "neurosys_save.ini";
     if (!variable_global_exists("save_sujo")) global.save_sujo = false;
     if (!variable_global_exists("save_timer")) global.save_timer = 0;
+    if (!variable_global_exists("save_aviso_timer")) global.save_aviso_timer = 0;
     if (!variable_global_exists("op_volume")) global.op_volume = 1;
     if (!variable_global_exists("op_volume_musica")) global.op_volume_musica = 1;
     if (!variable_global_exists("op_volume_efeitos")) global.op_volume_efeitos = 1;
@@ -49,6 +50,7 @@ function save_escrever() {
     ini_write_real("progresso", "fase_concluida", variable_global_exists("fase_concluida") ? global.fase_concluida : 0);
     ini_close();
     global.save_sujo = false;
+    global.save_aviso_timer = room_speed * 1.8;
 }
 
 function save_marcar_sujo() {

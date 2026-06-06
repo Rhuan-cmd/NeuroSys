@@ -17,7 +17,7 @@ function _aplicar_resolucao(_idx) {
     if (_was_full) window_set_fullscreen(true);
 
     display_set_gui_size(960, 540);
-    if (surface_exists(application_surface)) surface_resize(application_surface, 960, 540);
+    if (surface_exists(application_surface)) surface_resize(application_surface, variable_global_exists("fx_surface_w") ? global.fx_surface_w : 960, variable_global_exists("fx_surface_h") ? global.fx_surface_h : 540);
 }
 
 function _aplicar_mix_audio() {
@@ -49,7 +49,7 @@ function _restaurar_aba_atual() {
             window_set_size(res_w[global.op_resolucao], res_h[global.op_resolucao]);
             window_center();
             display_set_gui_size(960, 540);
-            if (surface_exists(application_surface)) surface_resize(application_surface, 960, 540);
+            if (surface_exists(application_surface)) surface_resize(application_surface, variable_global_exists("fx_surface_w") ? global.fx_surface_w : 960, variable_global_exists("fx_surface_h") ? global.fx_surface_h : 540);
             break;
     }
 }
@@ -234,7 +234,7 @@ if (mouse_check_button_pressed(mb_left)) {
                     window_set_fullscreen(true);
                 }
                 display_set_gui_size(960, 540);
-                if (surface_exists(application_surface)) surface_resize(application_surface, 960, 540);
+                if (surface_exists(application_surface)) surface_resize(application_surface, variable_global_exists("fx_surface_w") ? global.fx_surface_w : 960, variable_global_exists("fx_surface_h") ? global.fx_surface_h : 540);
                 break;
         }
     }

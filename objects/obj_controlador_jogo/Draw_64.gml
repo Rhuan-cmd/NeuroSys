@@ -6,6 +6,25 @@ if (room == rm_menu && menu_fade_alpha > 0) {
     draw_set_color(c_white);
 }
 
+if (variable_global_exists("save_aviso_timer") && global.save_aviso_timer > 0) {
+    var _gui_w_save = display_get_gui_width();
+    var _alpha_save = min(1, global.save_aviso_timer / 18);
+    draw_set_alpha(0.78 * _alpha_save);
+    draw_set_color(make_color_rgb(4, 18, 31));
+    draw_roundrect(_gui_w_save - 152, 18, _gui_w_save - 26, 50, false);
+    draw_set_alpha(_alpha_save);
+    draw_set_color(make_color_rgb(92, 226, 255));
+    draw_roundrect(_gui_w_save - 152, 18, _gui_w_save - 26, 50, true);
+    draw_set_font(fnt_f2_dialogo);
+    draw_set_halign(fa_center);
+    draw_set_valign(fa_middle);
+    draw_set_color(c_white);
+    draw_text_transformed(_gui_w_save - 89, 34, "SALVO", 0.54, 0.54, 0);
+    draw_set_halign(fa_left);
+    draw_set_valign(fa_top);
+    draw_set_alpha(1);
+}
+
 if (variable_global_exists("jogo_pausado") && global.jogo_pausado) {
     var _gui_w = display_get_gui_width();
     var _gui_h = display_get_gui_height();

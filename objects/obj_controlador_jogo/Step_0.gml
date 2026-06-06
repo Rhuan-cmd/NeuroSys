@@ -145,7 +145,7 @@ if (keyboard_check_pressed(vk_f11) && global.perf_fullscreen_cooldown <= 0) {
     }
 
     display_set_gui_size(960, 540);
-    if (surface_exists(application_surface)) surface_resize(application_surface, 960, 540);
+    if (surface_exists(application_surface)) surface_resize(application_surface, variable_global_exists("fx_surface_w") ? global.fx_surface_w : 960, variable_global_exists("fx_surface_h") ? global.fx_surface_h : 540);
     global.perf_fullscreen_cooldown = room_speed;
 }
 
@@ -155,9 +155,16 @@ if (variable_global_exists("op_tela")) {
 
 if (variable_global_exists("op_graficos")) {
     global.fx_qualidade = clamp(global.op_graficos, 0, 2);
-    global.fx_densidade = (global.fx_qualidade == 0) ? 0.55 : ((global.fx_qualidade == 1) ? 0.82 : 1);
-    global.fx_brilho = (global.fx_qualidade == 0) ? 0.62 : ((global.fx_qualidade == 1) ? 0.82 : 1);
-    display_set_sleep_margin(global.fx_qualidade == 0 ? 6 : 10);
+    global.fx_densidade = (global.fx_qualidade == 0) ? 0.2 : ((global.fx_qualidade == 1) ? 0.55 : 1);
+    global.fx_brilho = (global.fx_qualidade == 0) ? 0.18 : ((global.fx_qualidade == 1) ? 0.55 : 1);
+    global.fx_cortar_transicoes = global.fx_qualidade == 0;
+    global.fx_surface_w = global.fx_qualidade == 0 ? 480 : 960;
+    global.fx_surface_h = global.fx_qualidade == 0 ? 270 : 540;
+    display_set_sleep_margin(global.fx_qualidade == 0 ? 4 : 10);
+}
+
+if (variable_global_exists("save_aviso_timer")) {
+    global.save_aviso_timer = max(0, global.save_aviso_timer - 1);
 }
 
 global.save_timer += 1;
@@ -187,8 +194,10 @@ if (_save_mudou || global.save_timer >= room_speed * 60 || global.save_sujo) {
 }
 
 if (surface_exists(application_surface)) {
-    if (surface_get_width(application_surface) != 960 || surface_get_height(application_surface) != 540) {
-        surface_resize(application_surface, 960, 540);
+    var _surface_w = variable_global_exists("fx_surface_w") ? global.fx_surface_w : 960;
+    var _surface_h = variable_global_exists("fx_surface_h") ? global.fx_surface_h : 540;
+    if (surface_get_width(application_surface) != _surface_w || surface_get_height(application_surface) != _surface_h) {
+        surface_resize(application_surface, _surface_w, _surface_h);
     }
 }
 

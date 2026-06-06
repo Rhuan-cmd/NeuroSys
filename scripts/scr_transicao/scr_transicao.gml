@@ -1,6 +1,11 @@
 function transicao(_room_destino) {
     // Se já houver uma transição acontecendo, não faz nada
     if (instance_exists(obj_transicao)) return;
+    if (variable_global_exists("fx_cortar_transicoes") && global.fx_cortar_transicoes) {
+        global.transicao_ativa = false;
+        room_goto(_room_destino);
+        return;
+    }
 
     var _inst = instance_create_depth(0, 0, -10000, obj_transicao);
     _inst.proxima_room = _room_destino;

@@ -277,6 +277,7 @@ for (var _i = 0; _i < array_length(ecos_cartao); _i++) {
 gpu_set_scissor(0, 0, room_width, room_height);
 
 // ===== RASTRO DO CORTE E PARTÍCULAS =====
+if (!variable_global_exists("fx_qualidade") || global.fx_qualidade > 0) {
 for (var _i = 0; _i < array_length(rastros); _i++) {
     var _r = rastros[_i];
     draw_set_alpha(_r.vida / 8 * 0.28);
@@ -295,6 +296,7 @@ for (var _i = 0; _i < array_length(particulas); _i++) {
     draw_set_alpha(_p.vida / _p.maxvida);
     draw_set_color(_pcor);
     draw_circle(_p.x, _p.y, 2 + _p.vida * 0.06, false);
+}
 }
 
 draw_set_alpha(1);
