@@ -48,9 +48,7 @@
     {"link":"io.gamemaker.gmparticlepresets-1.0.0","name":"io.gamemaker.gmparticlepresets-1.0.0","path":"io.gamemaker.gmparticlepresets-1.0.0.yyp",},
     {"link":"io.gamemaker.sdfshaders-1.0.0","name":"io.gamemaker.sdfshaders-1.0.0","path":"io.gamemaker.sdfshaders-1.0.0.yyp",},
   ],
-  "IncludedFiles":[
-    {"$GMIncludedFile":"","%Name":"easter_conecta.png","CopyToMask":-1,"filePath":"datafiles","name":"easter_conecta.png","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
-  ],
+  "IncludedFiles":[],
   "isEcma":false,
   "LibraryEmitters":[
     {"name":"Emitter1","path":"particlelib/Emitter1/Emitter1.yy",},
@@ -216,6 +214,7 @@
     {"id":{"name":"spr_f4_vilao_chorando","path":"sprites/spr_f4_vilao_chorando/spr_f4_vilao_chorando.yy",},},
     {"id":{"name":"spr_f4_vilao","path":"sprites/spr_f4_vilao/spr_f4_vilao.yy",},},
     {"id":{"name":"spr_fx_corrupcao","path":"sprites/spr_fx_corrupcao/spr_fx_corrupcao.yy",},},
+    {"id":{"name":"spr_easter_conecta","path":"sprites/spr_easter_conecta/spr_easter_conecta.yy",},},
     {"id":{"name":"spr_menu_fundo","path":"sprites/spr_menu_fundo/spr_menu_fundo.yy",},},
     {"id":{"name":"spr_menu_btn_jogar","path":"sprites/spr_menu_btn_jogar/spr_menu_btn_jogar.yy",},},
     {"id":{"name":"spr_menu_btn_opcoes","path":"sprites/spr_menu_btn_opcoes/spr_menu_btn_opcoes.yy",},},

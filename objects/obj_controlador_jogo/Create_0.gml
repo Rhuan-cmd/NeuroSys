@@ -17,7 +17,7 @@ if (surface_exists(application_surface)) surface_resize(application_surface, 960
 
 global.perf_overlay_ativo = false;
 global.perf_fullscreen_cooldown = 0;
-if (!variable_global_exists("easter_conecta_sprite")) global.easter_conecta_sprite = -1;
+if (!variable_global_exists("easter_conecta_sprite")) global.easter_conecta_sprite = spr_easter_conecta;
 if (!variable_global_exists("easter_conecta_timer")) global.easter_conecta_timer = 0;
 if (!variable_global_exists("easter_conecta_dur")) global.easter_conecta_dur = room_speed * 5;
 if (!variable_global_exists("op_volume")) {
