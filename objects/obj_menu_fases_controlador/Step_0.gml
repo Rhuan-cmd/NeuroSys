@@ -117,10 +117,11 @@ if (mouse_check_button_pressed(mb_left)) {
         if (conecta_cliques >= 25) {
             conecta_cliques = 0;
             global.easter_conecta_sprite = spr_easter_conecta;
-            global.easter_conecta_dur = room_speed * 6;
+            global.easter_conecta_dur = room_speed * 4.2;
             global.easter_conecta_timer = global.easter_conecta_dur;
-            ns_audio_play_sfx(snd_f2_tremor, 10, false, 3.2, 0, 0.62);
-            ns_audio_play_sfx(snd_f2_explosao, 10, false, 2.6, 0, 0.72);
+            ns_audio_play_sfx(snd_f2_tremor, 20, false, 6.0, 0, 0.52);
+            ns_audio_play_sfx(snd_f2_explosao, 20, false, 5.2, 0, 0.64);
+            ns_audio_play_sfx(snd_f3_dano, 20, false, 4.0, 0, 0.72);
         }
         exit;
     }

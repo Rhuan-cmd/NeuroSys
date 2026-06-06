@@ -85,7 +85,10 @@ if (variable_global_exists("easter_conecta_timer") && global.easter_conecta_time
     var _egui_h = display_get_gui_height();
     var _edur = max(1, variable_global_exists("easter_conecta_dur") ? global.easter_conecta_dur : room_speed * 5);
     var _etime = global.easter_conecta_timer;
-    var _ealpha = min(1, min((_edur - _etime) / max(1, room_speed * 0.55), _etime / max(1, room_speed * 0.75)));
+    var _efade_in = max(1, room_speed * 0.5);
+    var _efade_out = max(1, room_speed * 0.7);
+    var _elapsed = _edur - _etime;
+    var _ealpha = min(1, min(_elapsed / _efade_in, _etime / _efade_out));
     var _esw = sprite_get_width(global.easter_conecta_sprite);
     var _esh = sprite_get_height(global.easter_conecta_sprite);
     var _esc = max(_egui_w / max(1, _esw), _egui_h / max(1, _esh));
