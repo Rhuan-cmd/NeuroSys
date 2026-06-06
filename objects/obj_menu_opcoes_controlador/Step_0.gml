@@ -15,13 +15,7 @@ function _rearmar_cursor_opcoes() {
 }
 
 function _aplicar_resolucao(_idx) {
-    var _was_full = window_get_fullscreen();
-    window_set_size(res_w[_idx], res_h[_idx]);
-    window_center();
-    if (_was_full) window_set_fullscreen(true);
-
-    display_set_gui_size(960, 540);
-    if (surface_exists(application_surface)) surface_resize(application_surface, variable_global_exists("fx_surface_w") ? global.fx_surface_w : 960, variable_global_exists("fx_surface_h") ? global.fx_surface_h : 540);
+    ns_video_aplicar(_idx, window_get_fullscreen());
     _rearmar_cursor_opcoes();
 }
 
@@ -50,11 +44,7 @@ function _restaurar_aba_atual() {
             break;
         case 3:
             global.op_tela = 1;
-            window_set_size(res_w[global.op_resolucao], res_h[global.op_resolucao]);
-            window_center();
-            window_set_fullscreen(true);
-            display_set_gui_size(960, 540);
-            if (surface_exists(application_surface)) surface_resize(application_surface, variable_global_exists("fx_surface_w") ? global.fx_surface_w : 960, variable_global_exists("fx_surface_h") ? global.fx_surface_h : 540);
+            ns_video_aplicar(global.op_resolucao, true);
             _rearmar_cursor_opcoes();
             break;
         case 4:
@@ -72,8 +62,7 @@ function _restaurar_tudo() {
     global.op_resolucao = 3;
     global.op_tela = 1;
     global.op_mostrar_save_aviso = true;
-    _aplicar_resolucao(3);
-    window_set_fullscreen(true);
+    ns_video_aplicar(3, true);
     _rearmar_cursor_opcoes();
     _aplicar_mix_audio();
 }
@@ -242,17 +231,8 @@ if (mouse_check_button_pressed(mb_left)) {
                 break;
             case 3:
                 global.op_tela = hover_item;
-                if (hover_item == 0) {
-                    window_set_fullscreen(false);
-                    window_set_size(res_w[global.op_resolucao], res_h[global.op_resolucao]);
-                    window_center();
-                } else {
-                    window_set_size(res_w[global.op_resolucao], res_h[global.op_resolucao]);
-                    window_center();
-                    window_set_fullscreen(true);
-                }
-                display_set_gui_size(960, 540);
-                if (surface_exists(application_surface)) surface_resize(application_surface, variable_global_exists("fx_surface_w") ? global.fx_surface_w : 960, variable_global_exists("fx_surface_h") ? global.fx_surface_h : 540);
+                ns_video_aplicar(global.op_resolucao, hover_item == 1);
+                _rearmar_cursor_opcoes();
                 break;
             case 4:
                 global.op_mostrar_save_aviso = hover_item == 0;

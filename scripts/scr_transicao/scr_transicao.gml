@@ -84,3 +84,29 @@ function audio_menu_fade(_ganho, _tempo) {
         ns_audio_gain_music(global.audio_menu_musica, _ganho, _tempo);
     }
 }
+
+function ns_video_aplicar(_idx, _fullscreen) {
+    var _res_w = [960, 1280, 1600, 1920];
+    var _res_h = [540, 720, 900, 1080];
+    var _i = clamp(_idx, 0, 3);
+    var _w = _res_w[_i];
+    var _h = _res_h[_i];
+
+    if (_fullscreen) {
+        window_set_size(_w, _h);
+        window_center();
+        window_set_fullscreen(true);
+    } else {
+        window_set_fullscreen(false);
+        var _max_w = max(640, display_get_width() - 80);
+        var _max_h = max(360, display_get_height() - 120);
+        var _scale = min(1, min(_max_w / _w, _max_h / _h));
+        window_set_size(floor(_w * _scale), floor(_h * _scale));
+        window_center();
+    }
+
+    display_set_gui_size(960, 540);
+    if (surface_exists(application_surface)) {
+        surface_resize(application_surface, variable_global_exists("fx_surface_w") ? global.fx_surface_w : 960, variable_global_exists("fx_surface_h") ? global.fx_surface_h : 540);
+    }
+}

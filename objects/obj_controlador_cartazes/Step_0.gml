@@ -21,3 +21,7 @@ if (_scroll_minimo > 0) {
 
 // Trava o scroll_y para ele nunca sair dos limites (Clamp)
 scroll_y = clamp(scroll_y, _scroll_minimo, _scroll_maximo);
+if (scroll_y != scroll_y_anterior) {
+    scroll_y_anterior = scroll_y;
+    surf_dirty = true;
+}

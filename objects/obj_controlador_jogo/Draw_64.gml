@@ -79,3 +79,20 @@ if (variable_global_exists("jogo_pausado") && global.jogo_pausado) {
     draw_set_halign(fa_left);
     draw_set_valign(fa_top);
 }
+
+if (variable_global_exists("easter_conecta_timer") && global.easter_conecta_timer > 0 && variable_global_exists("easter_conecta_sprite") && global.easter_conecta_sprite != -1) {
+    var _egui_w = display_get_gui_width();
+    var _egui_h = display_get_gui_height();
+    var _edur = max(1, variable_global_exists("easter_conecta_dur") ? global.easter_conecta_dur : room_speed * 5);
+    var _etime = global.easter_conecta_timer;
+    var _ealpha = min(1, min((_edur - _etime) / max(1, room_speed * 0.55), _etime / max(1, room_speed * 0.75)));
+    var _esw = sprite_get_width(global.easter_conecta_sprite);
+    var _esh = sprite_get_height(global.easter_conecta_sprite);
+    var _esc = max(_egui_w / max(1, _esw), _egui_h / max(1, _esh));
+    draw_set_alpha(_ealpha);
+    draw_set_color(c_black);
+    draw_rectangle(0, 0, _egui_w, _egui_h, false);
+    draw_sprite_ext(global.easter_conecta_sprite, 0, _egui_w * 0.5, _egui_h * 0.5, _esc, _esc, 0, c_white, _ealpha);
+    draw_set_alpha(1);
+    draw_set_color(c_white);
+}

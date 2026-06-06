@@ -22,7 +22,7 @@ if (estado < 3 && audio_mix_timer <= 0) {
     }
     ns_audio_gain_music(ambiente_audio, lerp(0.68, 0.2, _mix_suave), 180);
     ns_audio_gain_music(ambiente_corrupto_audio, lerp(0, 0.78, _mix_suave), 180);
-    audio_mix_timer = 12;
+    audio_mix_timer = 20;
 }
 
 // ===== TELA FINAL: CONGELA O JOGO E LIMPA O FUNDO =====

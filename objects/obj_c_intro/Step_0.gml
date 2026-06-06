@@ -126,12 +126,14 @@ if (global.intro_phase == 2) {
 
 if (!transition_started && intro_video_finished && intro_timer >= intro_duration) {
     transition_started = true;
+    global.intro_vista = true;
+    save_marcar_sujo();
     ns_audio_gain_music(intro_music_id, 0, 900);
     if (intro_video_started && !intro_video_closed) video_close();
     room_goto(rm_menu);
 }
 
-if (keyboard_check_pressed(vk_space)) {
+if (variable_global_exists("intro_vista") && global.intro_vista && keyboard_check_pressed(vk_space)) {
     ns_audio_gain_music(intro_music_id, 0, 250);
     if (intro_video_started && !intro_video_closed) video_close();
     room_goto(rm_menu);

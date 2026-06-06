@@ -17,3 +17,5 @@ velocidade_scroll = 20; // Quantos pixels a lista move por "clique" do scroll
 
 // Variável para guardar a nossa superfície (o quadro de desenho)
 surf_caixa = -1;
+surf_dirty = true;
+scroll_y_anterior = scroll_y;

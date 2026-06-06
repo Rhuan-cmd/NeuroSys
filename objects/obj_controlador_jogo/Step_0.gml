@@ -129,23 +129,9 @@ if (global.jogo_pausado) {
 
 global.perf_fullscreen_cooldown = max(0, global.perf_fullscreen_cooldown - 1);
 if (keyboard_check_pressed(vk_f11) && global.perf_fullscreen_cooldown <= 0) {
-    var _res_w = [960, 1280, 1600, 1920];
-    var _res_h = [540, 720, 900, 1080];
     var _res_idx = 0;
     if (variable_global_exists("op_resolucao")) _res_idx = clamp(global.op_resolucao, 0, 3);
-
-    if (window_get_fullscreen()) {
-        window_set_fullscreen(false);
-        window_set_size(_res_w[_res_idx], _res_h[_res_idx]);
-        window_center();
-    } else {
-        window_set_size(_res_w[_res_idx], _res_h[_res_idx]);
-        window_center();
-        window_set_fullscreen(true);
-    }
-
-    display_set_gui_size(960, 540);
-    if (surface_exists(application_surface)) surface_resize(application_surface, variable_global_exists("fx_surface_w") ? global.fx_surface_w : 960, variable_global_exists("fx_surface_h") ? global.fx_surface_h : 540);
+    ns_video_aplicar(_res_idx, !window_get_fullscreen());
     global.perf_fullscreen_cooldown = room_speed;
 }
 
@@ -168,6 +154,9 @@ if (variable_global_exists("op_graficos")) {
 if (variable_global_exists("save_aviso_timer")) {
     global.save_aviso_timer = max(0, global.save_aviso_timer - 1);
 }
+if (variable_global_exists("easter_conecta_timer")) {
+    global.easter_conecta_timer = max(0, global.easter_conecta_timer - 1);
+}
 
 global.save_timer += 1;
 var _save_mudou = false;
@@ -181,6 +170,7 @@ _save_mudou = _save_mudou || save_prev_tela != global.op_tela;
 _save_mudou = _save_mudou || save_prev_fase_liberada != global.fase_liberada;
 _save_mudou = _save_mudou || save_prev_fase_concluida != global.fase_concluida;
 _save_mudou = _save_mudou || save_prev_creditos_vistos != global.creditos_vistos;
+_save_mudou = _save_mudou || save_prev_intro_vista != global.intro_vista;
 _save_mudou = _save_mudou || save_prev_mostrar_save_aviso != global.op_mostrar_save_aviso;
 
 if (_save_mudou || global.save_timer >= room_speed * 60 || global.save_sujo) {
@@ -196,6 +186,7 @@ if (_save_mudou || global.save_timer >= room_speed * 60 || global.save_sujo) {
     save_prev_fase_liberada = global.fase_liberada;
     save_prev_fase_concluida = global.fase_concluida;
     save_prev_creditos_vistos = global.creditos_vistos;
+    save_prev_intro_vista = global.intro_vista;
     save_prev_mostrar_save_aviso = global.op_mostrar_save_aviso;
 }
 

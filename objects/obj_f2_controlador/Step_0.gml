@@ -104,7 +104,7 @@ if (estado_final == 0 && audio_mix_timer <= 0) {
     } else if (tremor_audio != -1 && audio_is_playing(tremor_audio)) {
         ns_audio_gain_sfx(tremor_audio, 0, 100);
     }
-    audio_mix_timer = 8;
+    audio_mix_timer = 16;
 }
 if (ativo && mouse_check_button_pressed(mb_left)) {
     ns_audio_play_sfx(snd_f2_clique, 2, false, 0.34, 0, 1);

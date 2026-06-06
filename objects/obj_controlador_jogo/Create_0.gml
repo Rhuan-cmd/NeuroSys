@@ -17,6 +17,9 @@ if (surface_exists(application_surface)) surface_resize(application_surface, 960
 
 global.perf_overlay_ativo = false;
 global.perf_fullscreen_cooldown = 0;
+if (!variable_global_exists("easter_conecta_sprite")) global.easter_conecta_sprite = -1;
+if (!variable_global_exists("easter_conecta_timer")) global.easter_conecta_timer = 0;
+if (!variable_global_exists("easter_conecta_dur")) global.easter_conecta_dur = room_speed * 5;
 if (!variable_global_exists("op_volume")) {
     global.op_volume = 1;
 }
@@ -57,18 +60,8 @@ save_init();
 save_carregar();
 ns_audio_aplicar_opcoes();
 
-var _save_res_w = [960, 1280, 1600, 1920];
-var _save_res_h = [540, 720, 900, 1080];
 var _save_res_idx = clamp(global.op_resolucao, 0, 3);
-if (global.op_tela == 0) {
-    window_set_fullscreen(false);
-    window_set_size(_save_res_w[_save_res_idx], _save_res_h[_save_res_idx]);
-    window_center();
-} else {
-    window_set_size(_save_res_w[_save_res_idx], _save_res_h[_save_res_idx]);
-    window_center();
-    window_set_fullscreen(true);
-}
+ns_video_aplicar(_save_res_idx, global.op_tela == 1);
 display_set_gui_size(960, 540);
 if (surface_exists(application_surface)) surface_resize(application_surface, global.fx_surface_w, global.fx_surface_h);
 
@@ -82,6 +75,7 @@ save_prev_tela = global.op_tela;
 save_prev_fase_liberada = global.fase_liberada;
 save_prev_fase_concluida = global.fase_concluida;
 save_prev_creditos_vistos = global.creditos_vistos;
+save_prev_intro_vista = global.intro_vista;
 save_prev_mostrar_save_aviso = global.op_mostrar_save_aviso;
 if (!variable_global_exists("fase_entrada_bloquear_cursor")) {
     global.fase_entrada_bloquear_cursor = false;

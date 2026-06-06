@@ -7,14 +7,13 @@ matriz = [
 
 
 function retornar_sorteaveis(){
-	var sorteaveis = ds_list_create();
+	var sorteaveis = [];
 	for (var i = 0; i < 2; i++){
 		for (var e = 0; e < 4; e++){
 			var celula = matriz[i][e];
 			
 			if (celula == 0){
-				var item = string(i) + "_" + string(e);
-				ds_list_add(sorteaveis, item);
+				array_push(sorteaveis, [i, e]);
 			}
 		}
 	}
@@ -25,8 +24,7 @@ function retornar_sorteaveis(){
 function sortear_celula(){
 	var array = retornar_sorteaveis();
 	
-	if (ds_list_size(array) <= 0){
-		ds_list_destroy(array);
+	if (array_length(array) <= 0){
 		for (var i = 0; i < 2; i++){
 			for (var e = 0; e < 4; e++){
 				matriz[i][e] = 0;
@@ -36,19 +34,15 @@ function sortear_celula(){
 	}
 	
 	
-	var itemSorteado = irandom_range(0, ds_list_size(array)-1);
-	
-	
-	var itensArray = string_split(ds_list_find_value(array, itemSorteado), "_");
-	
-	var linha = real(itensArray[0]);
-	var coluna = real(itensArray[1]);
+	var itemSorteado = irandom_range(0, array_length(array)-1);
+	var itensArray = array[itemSorteado];
+	var linha = itensArray[0];
+	var coluna = itensArray[1];
 	
 	var resultado = {
 		linha: linha,
 		coluna: coluna
 	};
-	ds_list_destroy(array);
 	return resultado;
 }
 

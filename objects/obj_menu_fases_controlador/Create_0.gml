@@ -4,6 +4,7 @@ audio_menu_iniciar(0.36);
 hover = -1;
 hover_anterior = -1;
 sino_cliques = 0;
+conecta_cliques = 0;
 negado_card = -1;
 negado_timer = 0;
 entrando_fase = false;
