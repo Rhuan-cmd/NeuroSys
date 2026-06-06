@@ -345,6 +345,30 @@ if (fade_saida_branco > 0) {
     draw_rectangle(0, 0, gui_w, gui_h, false);
 }
 
+if (variable_global_exists("easter_conecta_timer") && global.easter_conecta_timer > 0) {
+    var _easter_sprite = variable_global_exists("easter_conecta_sprite") ? global.easter_conecta_sprite : spr_easter_conecta;
+    if (_easter_sprite != -1) {
+        var _edur = max(1, variable_global_exists("easter_conecta_dur") ? global.easter_conecta_dur : room_speed * 4.2);
+        var _etime = global.easter_conecta_timer;
+        var _efade_in = max(1, room_speed * 0.5);
+        var _efade_out = max(1, room_speed * 0.7);
+        var _elapsed = _edur - _etime;
+        var _ealpha = min(1, min(_elapsed / _efade_in, _etime / _efade_out));
+        var _esw = sprite_get_width(_easter_sprite);
+        var _esh = sprite_get_height(_easter_sprite);
+        var _esc = max(gui_w / max(1, _esw), gui_h / max(1, _esh));
+        var _edw = _esw * _esc;
+        var _edh = _esh * _esc;
+        var _edx = (gui_w - _edw) * 0.5;
+        var _edy = (gui_h - _edh) * 0.5;
+
+        draw_set_alpha(_ealpha);
+        draw_set_color(c_black);
+        draw_rectangle(0, 0, gui_w, gui_h, false);
+        draw_sprite_ext(_easter_sprite, 0, _edx, _edy, _esc, _esc, 0, c_white, _ealpha);
+    }
+}
+
 draw_set_alpha(1);
 draw_set_color(c_white);
 draw_set_halign(fa_left);
