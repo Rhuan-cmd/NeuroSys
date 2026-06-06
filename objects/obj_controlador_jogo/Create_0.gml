@@ -62,7 +62,6 @@ ns_audio_aplicar_opcoes();
 
 var _save_res_idx = clamp(global.op_resolucao, 0, 3);
 ns_video_aplicar(_save_res_idx, global.op_tela == 1);
-window_set_visible(true);
 window_center();
 display_set_gui_size(960, 540);
 if (surface_exists(application_surface)) surface_resize(application_surface, global.fx_surface_w, global.fx_surface_h);
