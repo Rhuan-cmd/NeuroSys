@@ -35,8 +35,10 @@ imune = false;
 alpha = 1;
 
 function tomar_dano(){
+	if (instance_exists(obj_f4_controlador_morte)) return;
+	if (instance_exists(obj_f4_fundo) && obj_f4_fundo.vitoria_em_andamento) return;
 	if (instance_exists(obj_f4_chefe)){
-		if (obj_f4_chefe.vida <= 0) return;
+		if (obj_f4_chefe.morto || obj_f4_chefe.vida <= 0) return;
 	}
 	if (vida <= 0) return;
 	if (imune) return;

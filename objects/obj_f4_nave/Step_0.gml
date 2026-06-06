@@ -1,5 +1,11 @@
 if (morto) return;
 
+var _vitoria_boss = instance_exists(obj_f4_controlador_morte) || (instance_exists(obj_f4_fundo) && obj_f4_fundo.vitoria_em_andamento) || (instance_exists(obj_f4_chefe) && (obj_f4_chefe.morto || obj_f4_chefe.vida <= 0));
+if (_vitoria_boss) {
+	vida = max(vida, 1);
+	alarm[2] = -1;
+}
+
 if (vida <= 0){
 	instance_create_layer(x, y, layer, obj_f4_explosao_chefe);
 	alpha = 0;

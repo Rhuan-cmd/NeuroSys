@@ -30,16 +30,19 @@ hover_reiniciar_anterior = false;
 tempo_fase = 0;
 corrupt_flash = 0;
 shake_fx = 0;
+vitoria_em_andamento = false;
 
 exibir_resultado = function(_vitoria) {
     if (resultado_ativo) return;
     if (_vitoria) {
+        vitoria_em_andamento = true;
         global.fase_liberada = max(variable_global_exists("fase_liberada") ? global.fase_liberada : 1, 4);
         global.fase_concluida = max(variable_global_exists("fase_concluida") ? global.fase_concluida : 0, 4);
         audio_stop_all();
         transicao(rm_creditos);
         return;
     }
+    if (vitoria_em_andamento || instance_exists(obj_f4_controlador_morte) || (instance_exists(obj_f4_chefe) && (obj_f4_chefe.morto || obj_f4_chefe.vida <= 0))) return;
     resultado_ativo = true;
     resultado_vitoria = false;
     resultado_transicao = 0;
@@ -47,7 +50,7 @@ exibir_resultado = function(_vitoria) {
     resultado_saida_fade = 0;
     hover_menu_anterior = false;
     hover_reiniciar_anterior = false;
-    resultado_acertos = instance_exists(obj_f4_chefe) ? max(0, round((obj_f4_chefe.vidaMax - obj_f4_chefe.vida) / 2)) : 0;
+    resultado_acertos = instance_exists(obj_f4_chefe) ? clamp(round((obj_f4_chefe.vidaMax - obj_f4_chefe.vida) / 2), 0, 500) : 0;
     resultado_tempo = tempo_fase;
     resultado_nota = string(clamp(round((resultado_acertos / 500) * 10), 0, 9)) + "/10";
     with (obj_controlador_jogo) cursor_sprite = spr_ui_cursor;

@@ -38,6 +38,9 @@ if (!variable_global_exists("op_resolucao")) {
 if (!variable_global_exists("op_tela")) {
     global.op_tela = 1;
 }
+if (!variable_global_exists("op_mostrar_save_aviso")) {
+    global.op_mostrar_save_aviso = true;
+}
 global.fx_qualidade = global.op_graficos;
 global.fx_densidade = (global.op_graficos == 0) ? 0.16 : ((global.op_graficos == 1) ? 0.55 : 1);
 global.fx_brilho = (global.op_graficos == 0) ? 0.16 : ((global.op_graficos == 1) ? 0.55 : 1);
@@ -79,6 +82,7 @@ save_prev_tela = global.op_tela;
 save_prev_fase_liberada = global.fase_liberada;
 save_prev_fase_concluida = global.fase_concluida;
 save_prev_creditos_vistos = global.creditos_vistos;
+save_prev_mostrar_save_aviso = global.op_mostrar_save_aviso;
 if (!variable_global_exists("fase_entrada_bloquear_cursor")) {
     global.fase_entrada_bloquear_cursor = false;
 }

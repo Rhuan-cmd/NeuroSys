@@ -57,6 +57,9 @@ function _restaurar_aba_atual() {
             if (surface_exists(application_surface)) surface_resize(application_surface, variable_global_exists("fx_surface_w") ? global.fx_surface_w : 960, variable_global_exists("fx_surface_h") ? global.fx_surface_h : 540);
             _rearmar_cursor_opcoes();
             break;
+        case 4:
+            global.op_mostrar_save_aviso = true;
+            break;
     }
 }
 
@@ -68,6 +71,7 @@ function _restaurar_tudo() {
     global.op_som_preset = 3;
     global.op_resolucao = 3;
     global.op_tela = 1;
+    global.op_mostrar_save_aviso = true;
     _aplicar_resolucao(3);
     window_set_fullscreen(true);
     _rearmar_cursor_opcoes();
@@ -88,6 +92,7 @@ function _card_rect(_aba, _idx) {
     if (_aba == 1) _count = array_length(som_opcoes);
     if (_aba == 2) _count = array_length(res_opcoes);
     if (_aba == 3) _count = array_length(tela_opcoes);
+    if (_aba == 4) _count = array_length(save_aviso_opcoes);
 
     var _cols = _count;
     var _w = 174;
@@ -103,6 +108,9 @@ function _card_rect(_aba, _idx) {
         _w = 142;
         _gap = 14;
     } else if (_aba == 3) {
+        _w = 230;
+        _gap = 28;
+    } else if (_aba == 4) {
         _w = 230;
         _gap = 28;
     }
@@ -156,6 +164,7 @@ if (aba == 0) _count = array_length(grafico_opcoes);
 if (aba == 1) _count = array_length(som_opcoes);
 if (aba == 2) _count = array_length(res_opcoes);
 if (aba == 3) _count = array_length(tela_opcoes);
+if (aba == 4) _count = array_length(save_aviso_opcoes);
 for (var _i = 0; _i < _count; _i += 1) {
     var _r = _card_rect(aba, _i);
     if (point_in_rectangle(_mx, _my, _r[0], _r[1], _r[0] + _r[2], _r[1] + _r[3])) {
@@ -244,6 +253,10 @@ if (mouse_check_button_pressed(mb_left)) {
                 }
                 display_set_gui_size(960, 540);
                 if (surface_exists(application_surface)) surface_resize(application_surface, variable_global_exists("fx_surface_w") ? global.fx_surface_w : 960, variable_global_exists("fx_surface_h") ? global.fx_surface_h : 540);
+                break;
+            case 4:
+                global.op_mostrar_save_aviso = hover_item == 0;
+                if (!global.op_mostrar_save_aviso) global.save_aviso_timer = 0;
                 break;
         }
     }

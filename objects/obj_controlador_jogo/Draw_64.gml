@@ -6,7 +6,7 @@ if (room == rm_menu && menu_fade_alpha > 0) {
     draw_set_color(c_white);
 }
 
-if (variable_global_exists("save_aviso_timer") && global.save_aviso_timer > 0) {
+if (variable_global_exists("save_aviso_timer") && global.save_aviso_timer > 0 && (!variable_global_exists("op_mostrar_save_aviso") || global.op_mostrar_save_aviso)) {
     var _gui_w_save = display_get_gui_width();
     var _alpha_save = min(1, global.save_aviso_timer / 18);
     draw_set_alpha(0.78 * _alpha_save);

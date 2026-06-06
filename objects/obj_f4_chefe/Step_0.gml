@@ -8,6 +8,15 @@ if (morto){
 }
 
 if (vida <= 0) {
+	if (instance_exists(obj_f4_fundo)) {
+		obj_f4_fundo.vitoria_em_andamento = true;
+	}
+	if (instance_exists(obj_f4_nave)) {
+		obj_f4_nave.vida = max(obj_f4_nave.vida, 1);
+		obj_f4_nave.morto = false;
+		obj_f4_nave.alpha = 1;
+		obj_f4_nave.alarm[2] = -1;
+	}
 	if (instance_exists(obj_f4_controlador_ataque4)){
 		instance_destroy(obj_f4_controlador_ataque4);
 	}

@@ -69,6 +69,7 @@ function _card_rect(_aba, _idx) {
     if (_aba == 1) _count = array_length(som_opcoes);
     if (_aba == 2) _count = array_length(res_opcoes);
     if (_aba == 3) _count = array_length(tela_opcoes);
+    if (_aba == 4) _count = array_length(save_aviso_opcoes);
 
     var _w = 174;
     var _h = 54;
@@ -83,6 +84,9 @@ function _card_rect(_aba, _idx) {
         _w = 142;
         _gap = 14;
     } else if (_aba == 3) {
+        _w = 230;
+        _gap = 28;
+    } else if (_aba == 4) {
         _w = 230;
         _gap = 28;
     }
@@ -167,6 +171,7 @@ if (aba == 0) _descricao = "BAIXO corta efeitos pesados e transicoes, mantendo o
 if (aba == 1) _descricao = "Ajuste o volume geral, música e efeitos. O preset MUDO, BAIXO, MÉDIO ou ALTO acompanha o volume geral.";
 if (aba == 2) _descricao = "Selecione a resolução base. Ela também é aplicada antes de entrar em tela cheia.";
 if (aba == 3) _descricao = "Alterne entre janela e tela cheia clicando nos botões ou usando F11.";
+if (aba == 4) _descricao = "Escolha se a caixa SALVO aparece quando o jogo grava automaticamente.";
 draw_text_ext_transformed(306, 160, _descricao, 18, 590, 0.56, 0.56, 0);
 
 draw_set_alpha(0.86);
@@ -186,9 +191,12 @@ if (aba == 0) {
 } else if (aba == 2) {
     _nomes = res_opcoes;
     _sel = global.op_resolucao;
-} else {
+} else if (aba == 3) {
     _nomes = tela_opcoes;
     _sel = global.op_tela;
+} else {
+    _nomes = save_aviso_opcoes;
+    _sel = global.op_mostrar_save_aviso ? 0 : 1;
 }
 
 for (var _i = 0; _i < array_length(_nomes); _i += 1) {
@@ -249,13 +257,20 @@ if (aba == 1) {
     draw_text_transformed(314, 372, res_opcoes[global.op_resolucao], 0.74, 0.74, 0);
     draw_set_color(_muted);
     draw_text_transformed(314, 406, window_get_fullscreen() ? "Modo de tela: tela cheia" : "Modo de tela: janela", 0.50, 0.50, 0);
-} else {
+} else if (aba == 3) {
     draw_set_color(_cyan);
     draw_text_transformed(314, 340, "MODO DE TELA", 0.56, 0.56, 0);
     draw_set_color(c_white);
     draw_text_transformed(314, 372, window_get_fullscreen() ? "TELA CHEIA" : "JANELA", 0.74, 0.74, 0);
     draw_set_color(_muted);
     draw_text_transformed(314, 406, "F11 alterna e os botões acompanham.", 0.50, 0.50, 0);
+} else {
+    draw_set_color(_cyan);
+    draw_text_transformed(314, 340, "AVISO DE SALVAMENTO", 0.56, 0.56, 0);
+    draw_set_color(c_white);
+    draw_text_transformed(314, 372, global.op_mostrar_save_aviso ? "VISÍVEL" : "OCULTO", 0.74, 0.74, 0);
+    draw_set_color(_muted);
+    draw_text_ext_transformed(314, 406, "O jogo continua salvando automaticamente. Esta opção muda apenas a caixa pequena que aparece no canto da tela.", 16, 520, 0.50, 0.50, 0);
 }
 
 draw_set_alpha(0.28 + _pulse * 0.18);

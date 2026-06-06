@@ -181,6 +181,7 @@ _save_mudou = _save_mudou || save_prev_tela != global.op_tela;
 _save_mudou = _save_mudou || save_prev_fase_liberada != global.fase_liberada;
 _save_mudou = _save_mudou || save_prev_fase_concluida != global.fase_concluida;
 _save_mudou = _save_mudou || save_prev_creditos_vistos != global.creditos_vistos;
+_save_mudou = _save_mudou || save_prev_mostrar_save_aviso != global.op_mostrar_save_aviso;
 
 if (_save_mudou || global.save_timer >= room_speed * 60 || global.save_sujo) {
     save_escrever();
@@ -195,6 +196,7 @@ if (_save_mudou || global.save_timer >= room_speed * 60 || global.save_sujo) {
     save_prev_fase_liberada = global.fase_liberada;
     save_prev_fase_concluida = global.fase_concluida;
     save_prev_creditos_vistos = global.creditos_vistos;
+    save_prev_mostrar_save_aviso = global.op_mostrar_save_aviso;
 }
 
 if (surface_exists(application_surface)) {
