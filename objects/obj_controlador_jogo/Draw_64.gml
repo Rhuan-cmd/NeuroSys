@@ -89,10 +89,14 @@ if (variable_global_exists("easter_conecta_timer") && global.easter_conecta_time
     var _esw = sprite_get_width(global.easter_conecta_sprite);
     var _esh = sprite_get_height(global.easter_conecta_sprite);
     var _esc = max(_egui_w / max(1, _esw), _egui_h / max(1, _esh));
+    var _edw = _esw * _esc;
+    var _edh = _esh * _esc;
+    var _edx = (_egui_w - _edw) * 0.5;
+    var _edy = (_egui_h - _edh) * 0.5;
     draw_set_alpha(_ealpha);
     draw_set_color(c_black);
     draw_rectangle(0, 0, _egui_w, _egui_h, false);
-    draw_sprite_ext(global.easter_conecta_sprite, 0, _egui_w * 0.5, _egui_h * 0.5, _esc, _esc, 0, c_white, _ealpha);
+    draw_sprite_ext(global.easter_conecta_sprite, 0, _edx, _edy, _esc, _esc, 0, c_white, _ealpha);
     draw_set_alpha(1);
     draw_set_color(c_white);
 }

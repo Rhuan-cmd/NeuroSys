@@ -118,14 +118,16 @@ if (mouse_check_button_pressed(mb_left)) {
             conecta_cliques = 0;
             if (!variable_global_exists("easter_conecta_sprite")) global.easter_conecta_sprite = -1;
             if (global.easter_conecta_sprite == -1) {
-                var _easter_path = "datafiles/easter_conecta.png";
-                if (!file_exists(_easter_path)) _easter_path = "easter_conecta.png";
+                var _easter_path = "";
+                if (file_exists("datafiles/easter_conecta.png")) _easter_path = "datafiles/easter_conecta.png";
+                if (_easter_path == "" && file_exists("easter_conecta.png")) _easter_path = "easter_conecta.png";
+                if (_easter_path == "" && file_exists(working_directory + "easter_conecta.png")) _easter_path = working_directory + "easter_conecta.png";
                 if (file_exists(_easter_path)) {
                     global.easter_conecta_sprite = sprite_add(_easter_path, 1, false, false, 0, 0);
                 }
             }
             if (global.easter_conecta_sprite != -1) {
-                global.easter_conecta_dur = room_speed * 5;
+                global.easter_conecta_dur = room_speed * 6;
                 global.easter_conecta_timer = global.easter_conecta_dur;
             }
         }
