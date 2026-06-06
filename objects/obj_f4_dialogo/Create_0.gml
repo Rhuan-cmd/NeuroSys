@@ -11,7 +11,7 @@ tamanho_texto = 0;
 velocidade_texto = 0.5;
 entrada_fade = 1;
 audio_stop_sound(snd_f4_cutscene);
-cutscene_audio = audio_play_music(snd_f4_cutscene, 1, true, 0.62);
+cutscene_audio = audio_play_music(snd_f4_cutscene, 1, true, 0.62, 0, 1);
 glitch_timer = 0;
 troca_audio_timer = 0;
 

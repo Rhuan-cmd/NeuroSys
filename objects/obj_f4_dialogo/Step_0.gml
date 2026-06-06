@@ -5,7 +5,7 @@ if (estado == "abrindo") {
     abertura = lerp(abertura, 1, 0.1);
     if (abertura > 0.99) {
         estado = "ativo";
-        audio_play_sfx(snd_f4_dialogo, 1, 0);
+        audio_play_sfx(snd_f4_dialogo, 1, 0, 1, 0, 1);
     }
 } else if (estado == "fechando") {
     abertura = lerp(abertura, 0, 0.2);
@@ -31,11 +31,11 @@ if (estado == "ativo") {
             if (pagina_atual >= array_length(textos)) {
                 estado = "fechando";
                 audio_gain_music(cutscene_audio, 0, 900);
-                var _musica_fase = audio_play_music(snd_f4_musica_chefe, 1, true, 0);
+                var _musica_fase = audio_play_music(snd_f4_musica_chefe, 1, true, 0, 0, 1);
                 audio_gain_music(_musica_fase, 0.82, 900);
                 troca_audio_timer = ceil(room_speed * 0.9);
             } else {
-                audio_play_sfx(snd_f4_dialogo, 1, 0);
+                audio_play_sfx(snd_f4_dialogo, 1, 0, 1, 0, 1);
             }
         }
     }

@@ -13,12 +13,12 @@ tremor_x = sin(visual_timer * 0.31) * _forca_tremor;
 tremor_y = cos(visual_timer * 0.27) * _forca_tremor * 0.55;
 audio_mix_timer--;
 if (estado < 3 && audio_mix_timer <= 0) {
-    if (ambiente_audio == -1 || !audio_is_playing(ambiente_audio)) ambiente_audio = audio_play_music(snd_f1_musica, 1, true, 0.68);
+    if (ambiente_audio == -1 || !audio_is_playing(ambiente_audio)) ambiente_audio = audio_play_music(snd_f1_musica, 1, true, 0.68, 0, 1);
     var _mix_corrupcao = estado == 2 ? clamp(_corrupcao_tremor, 0, 1) : 0;
     var _mix_suave = _mix_corrupcao * _mix_corrupcao * (3 - 2 * _mix_corrupcao);
     if (ambiente_corrupto_audio == -1 || !audio_is_playing(ambiente_corrupto_audio)) {
         audio_stop_sound(snd_f1_tensao);
-        ambiente_corrupto_audio = audio_play_music(snd_f1_tensao, 1, true, 0);
+        ambiente_corrupto_audio = audio_play_music(snd_f1_tensao, 1, true, 0, 0, 1);
     }
     audio_gain_music(ambiente_audio, lerp(0.68, 0.2, _mix_suave), 180);
     audio_gain_music(ambiente_corrupto_audio, lerp(0, 0.78, _mix_suave), 180);
@@ -57,22 +57,22 @@ if (estado >= 3) {
     var _hover_acao = final_painel && point_in_rectangle(mouse_x, mouse_y, 312, 375 + _final_offset, 454, 411 + _final_offset);
     var _hover_reiniciar = final_painel && point_in_rectangle(mouse_x, mouse_y, 506, 375 + _final_offset, 648, 411 + _final_offset);
     if ((_hover_acao && !hover_acao_anterior) || (_hover_reiniciar && !hover_reiniciar_anterior)) {
-        audio_play_sfx(snd_f2_selecao, 3, false, 0.42);
+        audio_play_sfx(snd_f2_selecao, 3, false, 0.42, 0, 1);
     }
     hover_acao_anterior = _hover_acao;
     hover_reiniciar_anterior = _hover_reiniciar;
     if (final_painel && mouse_check_button_pressed(mb_left)) {
         if (_hover_acao) {
-            audio_play_sfx(snd_f2_botao, 4, false, 0.62);
+            audio_play_sfx(snd_f2_botao, 4, false, 0.62, 0, 1);
             saida_tipo = 1;
         }
         if (_hover_reiniciar) {
-            audio_play_sfx(snd_f2_botao, 4, false, 0.62);
+            audio_play_sfx(snd_f2_botao, 4, false, 0.62, 0, 1);
             saida_tipo = 2;
         }
     }
     if (final_painel && keyboard_check_pressed(vk_enter)) {
-        audio_play_sfx(snd_f2_botao, 4, false, 0.62);
+        audio_play_sfx(snd_f2_botao, 4, false, 0.62, 0, 1);
         saida_tipo = 1;
     }
     exit;
@@ -86,7 +86,7 @@ if (estado == 0 && cutscene_timer >= fade_duracao) {
         if (dialogo_saida >= 1) {
             estado = 1;
             objetivo_timer = 0;
-            audio_play_sfx(snd_f2_aparecer, 3, false, 0.52);
+            audio_play_sfx(snd_f2_aparecer, 3, false, 0.52, 0, 1);
         }
     } else if (dialogo_chars < string_length(_texto)) {
         dialogo_chars = min(string_length(_texto), dialogo_chars + 0.62);
@@ -97,12 +97,12 @@ if (estado == 0 && cutscene_timer >= fade_duracao) {
         }
         if (keyboard_check_pressed(vk_enter)) {
             dialogo_chars = string_length(_texto);
-            audio_play_sfx(snd_f2_confirmar, 3, false, 0.46);
+            audio_play_sfx(snd_f2_confirmar, 3, false, 0.46, 0, 1);
         }
     } else if (keyboard_check_pressed(vk_enter)) {
         dialogo_index++;
         dialogo_chars = 0;
-        audio_play_sfx(snd_f2_confirmar, 3, false, 0.54);
+        audio_play_sfx(snd_f2_confirmar, 3, false, 0.54, 0, 1);
         if (dialogo_index >= dialogo_total) {
             dialogo_index = dialogo_total - 1;
             dialogo_encerrando = true;
@@ -142,7 +142,7 @@ if (estado == 1) {
     objetivo_timer++;
     if (!objetivo_saida && objetivo_timer >= objetivo_minimo && (keyboard_check_pressed(vk_enter) || mouse_check_button_pressed(mb_left))) {
         objetivo_saida = true;
-        audio_play_sfx(snd_f2_confirmar, 3, false, 0.5);
+        audio_play_sfx(snd_f2_confirmar, 3, false, 0.5, 0, 1);
     }
     if (objetivo_saida) {
         objetivo_saida_alpha = min(1, objetivo_saida_alpha + 0.055);
@@ -194,7 +194,7 @@ if (estado == 2) {
                     }
                 } else if (_m.tipo == 1) {
                     criar_fragmentos_cartao(_m, _angulo_corte);
-                    audio_play_sfx(snd_f1_erro, 4, false, 0.72);
+                    audio_play_sfx(snd_f1_erro, 4, false, 0.72, 0, 1);
                     aplicar_dano();
                     array_delete(mensagens, _i, 1);
                 } else if (_m.tipo == 2) {
@@ -205,11 +205,11 @@ if (estado == 2) {
                     tempo = min(tempo_total, tempo + room_speed * 3);
                     bonus_flash = 1;
                     pontuacao += 180;
-                    audio_play_sfx(snd_f2_repelir, 3, false, 0.62);
+                    audio_play_sfx(snd_f2_repelir, 3, false, 0.62, 0, 1);
                     array_delete(mensagens, _i, 1);
                 } else {
                     criar_fragmentos_cartao(_m, _angulo_corte);
-                    audio_play_sfx(snd_f1_erro, 4, false, 0.76);
+                    audio_play_sfx(snd_f1_erro, 4, false, 0.76, 0, 1);
                     aplicar_dano();
                     shake = 18;
                     array_delete(mensagens, _i, 1);

@@ -19,7 +19,7 @@ if (reverso) {
     } else {
         proxima_room = rm_menu;
     }
-    som_reverso_id = audio_play_sfx(snd_menu_succao_reverso, 1, false, 0.9);
+    som_reverso_id = audio_play_sfx(snd_menu_succao_reverso, 1, false, 0.9, 0, 1);
 }
 
 window_set_cursor(cr_none);

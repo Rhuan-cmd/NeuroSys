@@ -12,22 +12,22 @@ if (resultado_ativo) {
 	var _hover_acao = point_in_rectangle(_mouse_gui_x, _mouse_gui_y, 312, 375 + _offset, 454, 411 + _offset);
 	var _hover_reiniciar = point_in_rectangle(_mouse_gui_x, _mouse_gui_y, 506, 375 + _offset, 648, 411 + _offset);
 	if ((_hover_acao && !hover_acao_anterior) || (_hover_reiniciar && !hover_reiniciar_anterior)) {
-		audio_play_sfx(snd_f2_selecao, 3, false, 0.42);
+		audio_play_sfx(snd_f2_selecao, 3, false, 0.42, 0, 1);
 	}
 	hover_acao_anterior = _hover_acao;
 	hover_reiniciar_anterior = _hover_reiniciar;
 	if (resultado_saida == 0 && mouse_check_button_pressed(mb_left)) {
 		if (_hover_acao) {
-			audio_play_sfx(snd_f2_botao, 4, false, 0.62);
+			audio_play_sfx(snd_f2_botao, 4, false, 0.62, 0, 1);
 			resultado_saida = 1;
 		}
 		if (_hover_reiniciar) {
-			audio_play_sfx(snd_f2_botao, 4, false, 0.62);
+			audio_play_sfx(snd_f2_botao, 4, false, 0.62, 0, 1);
 			resultado_saida = 2;
 		}
 	}
 	if (resultado_saida == 0 && keyboard_check_pressed(vk_enter)) {
-		audio_play_sfx(snd_f2_botao, 4, false, 0.62);
+		audio_play_sfx(snd_f2_botao, 4, false, 0.62, 0, 1);
 		resultado_saida = 1;
 	}
 	if (resultado_saida != 0) {
@@ -81,7 +81,7 @@ if (destruidos >= 50 and !umavez) {
 	with (obj_f3_msg_negativa) instance_destroy();
 	ganhou = true;
 	audio_stop_all();
-	vitoria_audio_id = audio_play_sfx(snd_f3_vilao_raiva, 1, false, 1);
+	vitoria_audio_id = audio_play_sfx(snd_f3_vilao_raiva, 1, false, 1, 0, 1);
 	umavez = true;
 	destruidos = 50;
 	vitoria_cutscene_ativa = true;

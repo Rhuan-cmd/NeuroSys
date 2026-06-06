@@ -26,12 +26,12 @@ if (cutscene_timer >= fade_duracao) {
                 digitacao_audio_timer = 4;
             }
             if (keyboard_check_pressed(vk_enter)) {
-                audio_play_sfx(snd_f2_confirmar, 3, false, 0.46);
+                audio_play_sfx(snd_f2_confirmar, 3, false, 0.46, 0, 1);
                 dialogo_chars = string_length(texto_atual);
             }
         } else {
             if (keyboard_check_pressed(vk_enter)) {
-                audio_play_sfx(snd_f2_confirmar, 3, false, 0.54);
+                audio_play_sfx(snd_f2_confirmar, 3, false, 0.54, 0, 1);
                 dialogo_index++;
                 dialogo_chars = 0;
                 if (dialogo_index >= dialogo_total) {
@@ -50,7 +50,7 @@ if (cutscene_timer >= fade_duracao) {
     status_intro_timer++;
 }
 if (status_intro_timer >= 1 && aparicao_audio_etapa == 0) {
-    audio_play_sfx(snd_f2_aparecer, 2, false, 0.34);
+    audio_play_sfx(snd_f2_aparecer, 2, false, 0.34, 0, 1);
     aparicao_audio_etapa = 1;
 }
 if (status_intro_timer >= 9 && aparicao_audio_etapa == 1) {
@@ -74,13 +74,13 @@ if (estado_final == 0 && audio_mix_timer <= 0) {
     var audio_chiado = clamp((vidas_max - vidas) / vidas_max + corrupt_flash * 0.8, 0, 1);
     var audio_tremor = clamp(shake_inicio * 0.08 + (vidas_max - vidas) * 0.16 + shake_impacto * 0.008, 0, 1);
     if (ambiente_audio == -1 || !audio_is_playing(ambiente_audio)) {
-        ambiente_audio = audio_play_music(snd_f2_ambiente, 2, true, 0.62);
+        ambiente_audio = audio_play_music(snd_f2_ambiente, 2, true, 0.62, 0, 1);
     }
     audio_gain_music(ambiente_audio, 0.62 * (1 - audio_corrupcao * 0.54), 120);
 
     if (ativo && audio_corrupcao > 0) {
         if (ambiente_corrupto_audio == -1 || !audio_is_playing(ambiente_corrupto_audio)) {
-            ambiente_corrupto_audio = audio_play_music(snd_f2_ambiente_corrupto, 2, true, 0.08);
+            ambiente_corrupto_audio = audio_play_music(snd_f2_ambiente_corrupto, 2, true, 0.08, 0, 1);
         }
         audio_gain_music(ambiente_corrupto_audio, min(0.96, 0.22 + 0.92 * audio_corrupcao), 120);
     } else if (ambiente_corrupto_audio != -1 && audio_is_playing(ambiente_corrupto_audio)) {
@@ -89,7 +89,7 @@ if (estado_final == 0 && audio_mix_timer <= 0) {
 
     if (ativo && audio_chiado > 0) {
         if (chiado_audio == -1 || !audio_is_playing(chiado_audio)) {
-            chiado_audio = audio_play_sfx(snd_f2_chiado, 3, true, 0.16);
+            chiado_audio = audio_play_sfx(snd_f2_chiado, 3, true, 0.16, 0, 1);
         }
         audio_gain_sfx(chiado_audio, 0.18 + 0.62 * audio_chiado, 100);
     } else if (chiado_audio != -1 && audio_is_playing(chiado_audio)) {
@@ -98,7 +98,7 @@ if (estado_final == 0 && audio_mix_timer <= 0) {
 
     if (ativo && (vidas_max - vidas) > 0) {
         if (tremor_audio == -1 || !audio_is_playing(tremor_audio)) {
-            tremor_audio = audio_play_sfx(snd_f2_tremor_loop, 3, true, 0.2);
+            tremor_audio = audio_play_sfx(snd_f2_tremor_loop, 3, true, 0.2, 0, 1);
         }
         audio_gain_sfx(tremor_audio, 0.22 + 0.58 * audio_tremor, 100);
     } else if (tremor_audio != -1 && audio_is_playing(tremor_audio)) {
@@ -107,7 +107,7 @@ if (estado_final == 0 && audio_mix_timer <= 0) {
     audio_mix_timer = 8;
 }
 if (ativo && mouse_check_button_pressed(mb_left)) {
-    audio_play_sfx(snd_f2_clique, 2, false, 0.34);
+    audio_play_sfx(snd_f2_clique, 2, false, 0.34, 0, 1);
 }
 if (aviso_x_timer > 0) {
     aviso_x_timer--;
@@ -219,23 +219,23 @@ if (estado_final != 0) {
     var hover_menu_atual = final_painel && point_in_rectangle(mouse_x, mouse_y, bx_menu_1, by_1, bx_menu_2, by_2);
     var hover_reiniciar_atual = final_painel && point_in_rectangle(mouse_x, mouse_y, bx_rein_1, by_1, bx_rein_2, by_2);
     if ((hover_menu_atual && !hover_menu_anterior) || (hover_reiniciar_atual && !hover_reiniciar_anterior)) {
-        audio_play_sfx(snd_f2_selecao, 3, false, 0.42);
+        audio_play_sfx(snd_f2_selecao, 3, false, 0.42, 0, 1);
     }
     hover_menu_anterior = hover_menu_atual;
     hover_reiniciar_anterior = hover_reiniciar_atual;
     if (final_painel && mouse_check_button_pressed(mb_left)) {
         if (point_in_rectangle(mouse_x, mouse_y, bx_menu_1, by_1, bx_menu_2, by_2)) {
-            audio_play_sfx(snd_f2_botao, 4, false, 0.62);
+            audio_play_sfx(snd_f2_botao, 4, false, 0.62, 0, 1);
             saida_tipo = 1;
         }
         if (point_in_rectangle(mouse_x, mouse_y, bx_rein_1, by_1, bx_rein_2, by_2)) {
-            audio_play_sfx(snd_f2_botao, 4, false, 0.62);
+            audio_play_sfx(snd_f2_botao, 4, false, 0.62, 0, 1);
             saida_tipo = 2;
         }
     }
     if (final_painel && keyboard_check_pressed(vk_enter)) {
-        audio_play_sfx(snd_f2_confirmar, 3, false, 0.54);
-        audio_play_sfx(snd_f2_botao, 4, false, 0.62);
+        audio_play_sfx(snd_f2_confirmar, 3, false, 0.54, 0, 1);
+        audio_play_sfx(snd_f2_botao, 4, false, 0.62, 0, 1);
         saida_tipo = 1;
     }
     exit;
@@ -265,7 +265,7 @@ if (ativo) {
         cursor_draw_y = gelo_y;
         if (congelado_timer <= 0) {
             gelo_quebra_timer = 18;
-            audio_play_sfx(snd_f2_gelo_quebra, 4, false, 0.78);
+            audio_play_sfx(snd_f2_gelo_quebra, 4, false, 0.78, 0, 1);
         }
     } else if (poder_ataque_timer <= 0 && instance_exists(caixa) && !caixa.modo_intro && poder_cooldown <= 0 && cliques >= 6) {
         var usar_repulsao = cliques >= 8 && irandom(2) == 2;

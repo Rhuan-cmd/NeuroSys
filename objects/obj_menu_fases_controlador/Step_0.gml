@@ -133,7 +133,7 @@ if (mouse_check_button_pressed(mb_left)) {
 }
 
 if (voltar_hover && !voltar_hover_anterior) {
-    audio_play_sfx(snd_f2_selecao, 3, false, 0.42);
+    audio_play_sfx(snd_f2_selecao, 3, false, 0.42, 0, 1);
 }
 voltar_hover_anterior = voltar_hover;
 
@@ -146,13 +146,13 @@ for (var i = 0; i < array_length(fase_nome); i += 1) {
 }
 
 if (hover != hover_anterior && hover != -1) {
-    audio_play_sfx(snd_f2_selecao, 3, false, 0.42);
+    audio_play_sfx(snd_f2_selecao, 3, false, 0.42, 0, 1);
 }
 hover_anterior = hover;
 
 if (hover != -1 && mouse_check_button_pressed(mb_left)) {
     if (hover + 1 <= _liberada) {
-        audio_play_sfx(snd_f2_botao, 4, false, 0.62);
+        audio_play_sfx(snd_f2_botao, 4, false, 0.62, 0, 1);
         audio_play_sfx(snd_f2_aparecer, 4, false, 0.48, 0, 0.82);
         audio_menu_fade(0, 1850);
         fase_escolhida = hover;
@@ -174,6 +174,6 @@ if (hover != -1 && mouse_check_button_pressed(mb_left)) {
 }
 
 if (keyboard_check_pressed(vk_escape) || (voltar_hover && mouse_check_button_pressed(mb_left))) {
-    audio_play_sfx(snd_f2_botao, 4, false, 0.62);
+    audio_play_sfx(snd_f2_botao, 4, false, 0.62, 0, 1);
     voltando_menu = true;
 }

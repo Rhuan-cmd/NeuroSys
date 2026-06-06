@@ -21,25 +21,13 @@ function audio_volume_efeitos() {
     return clamp(global.op_volume_efeitos, 0, 1);
 }
 
-function audio_play_music() {
-    var _sound = argument[0];
-    var _priority = argument[1];
-    var _loop = argument[2];
-    var _gain = argument_count > 3 ? argument[3] : 1;
-    var _offset = argument_count > 4 ? argument[4] : 0;
-    var _pitch = argument_count > 5 ? argument[5] : 1;
+function audio_play_music(_sound, _priority, _loop, _gain, _offset, _pitch) {
     var _volume = audio_volume_musica();
     if (_volume <= 0) return -1;
     return audio_play_sound(_sound, _priority, _loop, _gain * _volume, _offset, _pitch);
 }
 
-function audio_play_sfx() {
-    var _sound = argument[0];
-    var _priority = argument[1];
-    var _loop = argument[2];
-    var _gain = argument_count > 3 ? argument[3] : 1;
-    var _offset = argument_count > 4 ? argument[4] : 0;
-    var _pitch = argument_count > 5 ? argument[5] : 1;
+function audio_play_sfx(_sound, _priority, _loop, _gain, _offset, _pitch) {
     var _volume = audio_volume_efeitos();
     if (_volume <= 0) return -1;
     return audio_play_sound(_sound, _priority, _loop, _gain * _volume, _offset, _pitch);
@@ -85,7 +73,7 @@ function audio_menu_iniciar(_ganho) {
     if (!variable_global_exists("audio_menu_musica")) global.audio_menu_musica = -1;
     if (!variable_global_exists("op_volume_musica")) global.op_volume_musica = 1;
     if (global.audio_menu_musica == -1 || !audio_is_playing(global.audio_menu_musica)) {
-        global.audio_menu_musica = audio_play_music(snd_menu_musica, 0, true, 0);
+        global.audio_menu_musica = audio_play_music(snd_menu_musica, 0, true, 0, 0, 1);
     }
     audio_gain_music(global.audio_menu_musica, _ganho, 700);
 }

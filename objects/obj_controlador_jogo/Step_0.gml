@@ -72,12 +72,12 @@ if (global.jogo_pausado) {
     }
 
     if (pausa_hover != -1 && pausa_hover != pausa_hover_anterior) {
-        audio_play_sfx(snd_f2_selecao, 3, false, 0.42);
+        audio_play_sfx(snd_f2_selecao, 3, false, 0.42, 0, 1);
     }
     pausa_hover_anterior = pausa_hover;
 
     if (pausa_saindo == 0 && mouse_check_button_pressed(mb_left) && pausa_hover != -1) {
-        audio_play_sfx(snd_f2_botao, 4, false, 0.62);
+        audio_play_sfx(snd_f2_botao, 4, false, 0.62, 0, 1);
         if (pausa_hover == 0) {
             if (pausa_musica_id != -1) {
                 audio_stop_sound(pausa_musica_id);
