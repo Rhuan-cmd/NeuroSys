@@ -189,6 +189,7 @@ if (estado_final != 0) {
                 global.menu_fases_retorno_fase = 1;
                 room_goto(rm_menu_fases);
             } else {
+                global.retry_room = room;
                 room_restart();
             }
         }
@@ -230,6 +231,7 @@ if (estado_final != 0) {
         }
         if (point_in_rectangle(mouse_x, mouse_y, bx_rein_1, by_1, bx_rein_2, by_2)) {
             ns_audio_play_sfx(snd_f2_botao, 4, false, 0.62, 0, 1);
+            global.retry_room = room;
             saida_tipo = 2;
         }
     }

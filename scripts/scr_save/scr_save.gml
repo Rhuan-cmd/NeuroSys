@@ -4,6 +4,8 @@ function save_init() {
     if (!variable_global_exists("save_timer")) global.save_timer = 0;
     if (!variable_global_exists("save_aviso_timer")) global.save_aviso_timer = 0;
     if (!variable_global_exists("op_mostrar_save_aviso")) global.op_mostrar_save_aviso = true;
+    if (!variable_global_exists("op_mostrar_cards_dicas")) global.op_mostrar_cards_dicas = true;
+    if (!variable_global_exists("op_pular_dialogo_retry")) global.op_pular_dialogo_retry = false;
     if (!variable_global_exists("op_volume")) global.op_volume = 1;
     if (!variable_global_exists("op_volume_musica")) global.op_volume_musica = 1;
     if (!variable_global_exists("op_volume_efeitos")) global.op_volume_efeitos = 1;
@@ -33,6 +35,8 @@ function save_carregar() {
     global.op_resolucao = clamp(ini_read_real("config", "resolucao", global.op_resolucao), 0, 3);
     global.op_tela = clamp(ini_read_real("config", "tela", global.op_tela), 0, 1);
     global.op_mostrar_save_aviso = ini_read_real("config", "mostrar_save_aviso", global.op_mostrar_save_aviso ? 1 : 0) >= 1;
+    global.op_mostrar_cards_dicas = ini_read_real("config", "mostrar_cards_dicas", global.op_mostrar_cards_dicas ? 1 : 0) >= 1;
+    global.op_pular_dialogo_retry = ini_read_real("config", "pular_dialogo_retry", global.op_pular_dialogo_retry ? 1 : 0) >= 1;
     global.fase_liberada = clamp(ini_read_real("progresso", "fase_liberada", global.fase_liberada), 1, 4);
     global.fase_concluida = clamp(ini_read_real("progresso", "fase_concluida", global.fase_concluida), 0, 4);
     global.creditos_vistos = ini_read_real("progresso", "creditos_vistos", global.creditos_vistos ? 1 : 0) >= 1;
@@ -53,6 +57,8 @@ function save_escrever() {
     ini_write_real("config", "resolucao", variable_global_exists("op_resolucao") ? global.op_resolucao : 3);
     ini_write_real("config", "tela", variable_global_exists("op_tela") ? global.op_tela : 1);
     ini_write_real("config", "mostrar_save_aviso", variable_global_exists("op_mostrar_save_aviso") && global.op_mostrar_save_aviso ? 1 : 0);
+    ini_write_real("config", "mostrar_cards_dicas", variable_global_exists("op_mostrar_cards_dicas") && global.op_mostrar_cards_dicas ? 1 : 0);
+    ini_write_real("config", "pular_dialogo_retry", variable_global_exists("op_pular_dialogo_retry") && global.op_pular_dialogo_retry ? 1 : 0);
     ini_write_real("progresso", "fase_liberada", variable_global_exists("fase_liberada") ? global.fase_liberada : 1);
     ini_write_real("progresso", "fase_concluida", variable_global_exists("fase_concluida") ? global.fase_concluida : 0);
     ini_write_real("progresso", "creditos_vistos", variable_global_exists("creditos_vistos") && global.creditos_vistos ? 1 : 0);

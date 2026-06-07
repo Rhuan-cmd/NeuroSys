@@ -48,6 +48,7 @@ if (estado >= 3) {
                 global.menu_fases_retorno_fase = 0;
                 room_goto(rm_menu_fases);
             } else {
+                global.retry_room = room;
                 room_restart();
             }
         }
@@ -68,6 +69,7 @@ if (estado >= 3) {
         }
         if (_hover_reiniciar) {
             ns_audio_play_sfx(snd_f2_botao, 4, false, 0.62, 0, 1);
+            global.retry_room = room;
             saida_tipo = 2;
         }
     }

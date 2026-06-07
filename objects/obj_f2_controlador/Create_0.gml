@@ -252,7 +252,7 @@ criar_caixa = function(_x, _y, _reposicionar) {
     );
     caixa.configurar(cliques);
     limite_clique_atual = limite_clique;
-    if (cliques >= 7) limite_clique_atual = room_speed * 6;
+    if (cliques >= 7) limite_clique_atual = room_speed * 9;
     timer_clique = 0;
     sino_audio_timer = 1;
     
@@ -332,3 +332,15 @@ finalizar_jogo = function(_vitoria) {
         with (caixa) instance_destroy();
     }
 };
+
+if (variable_global_exists("op_pular_dialogo_retry") && global.op_pular_dialogo_retry && variable_global_exists("retry_room") && global.retry_room == room) {
+    global.retry_room = -1;
+    historia_finalizada = true;
+    cutscene_timer = fade_duracao;
+    cutscene_ativo_timer = tempo_ate_cascata;
+    status_intro_timer = 38;
+    cascata_ativa = true;
+    cursor_real_liberado = true;
+    ativo = true;
+    criar_caixa(botao_fixo_x, botao_fixo_y, false);
+}

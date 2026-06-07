@@ -10,6 +10,8 @@ if (!variable_global_exists("op_graficos")) global.op_graficos = 2;
 if (!variable_global_exists("op_resolucao")) global.op_resolucao = 3;
 if (!variable_global_exists("op_tela")) global.op_tela = 1;
 if (!variable_global_exists("op_mostrar_save_aviso")) global.op_mostrar_save_aviso = true;
+if (!variable_global_exists("op_mostrar_cards_dicas")) global.op_mostrar_cards_dicas = true;
+if (!variable_global_exists("op_pular_dialogo_retry")) global.op_pular_dialogo_retry = false;
 
 aba = 0;
 hover_aba = -1;
@@ -36,6 +38,8 @@ res_w = [960, 1280, 1600, 1920];
 res_h = [540, 720, 900, 1080];
 tela_opcoes = ["JANELA", "TELA CHEIA"];
 save_aviso_opcoes = ["MOSTRAR", "OCULTAR"];
+sistema_linhas = ["AVISO DE SAVE", "CARDS DE DICAS", "PULAR DIALOGO NO RETRY"];
+sistema_opcoes = ["SIM", "NAO"];
 
 voltar_x = 126;
 voltar_y = display_get_gui_height() - 62;

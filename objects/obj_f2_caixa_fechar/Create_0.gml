@@ -58,11 +58,11 @@ configurar = function(_dificuldade) {
         forca_fuga = 0.56 + dificil * 0.035;
     }
     if (dificuldade >= 7) {
-        velocidade = 8.25;
-        precisao = 0.18;
-        raio_fuga = 198;
-        forca_fuga = 1.08;
-        margem = 52;
+        velocidade = 5.65;
+        precisao = 0.086;
+        raio_fuga = 136;
+        forca_fuga = 0.58;
+        margem = 42;
     }
     imortal_timer = dificuldade > 0 ? 18 : 0;
     image_xscale = escala_padrao;

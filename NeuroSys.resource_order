@@ -5,6 +5,13 @@
   ],
   "ResourceOrderSettings":[
     {"name":"obj_c_credit_intro","order":1,"path":"objects/obj_c_credit_intro/obj_c_credit_intro.yy",},
+    {"name":"snd_creditos_musica","order":7,"path":"sounds/snd_creditos_musica/snd_creditos_musica.yy",},
+    {"name":"snd_intro_apresentacao","order":6,"path":"sounds/snd_intro_apresentacao/snd_intro_apresentacao.yy",},
+    {"name":"snd_intro_digitacao","order":3,"path":"sounds/snd_intro_digitacao/snd_intro_digitacao.yy",},
+    {"name":"snd_intro_transicao","order":4,"path":"sounds/snd_intro_transicao/snd_intro_transicao.yy",},
     {"name":"snd_menu_musica","order":8,"path":"sounds/snd_menu_musica/snd_menu_musica.yy",},
+    {"name":"snd_menu_natureza","order":5,"path":"sounds/snd_menu_natureza/snd_menu_natureza.yy",},
+    {"name":"snd_menu_succao_reverso","order":2,"path":"sounds/snd_menu_succao_reverso/snd_menu_succao_reverso.yy",},
+    {"name":"snd_menu_succao","order":1,"path":"sounds/snd_menu_succao/snd_menu_succao.yy",},
   ],
 }

@@ -172,6 +172,8 @@ _save_mudou = _save_mudou || save_prev_fase_concluida != global.fase_concluida;
 _save_mudou = _save_mudou || save_prev_creditos_vistos != global.creditos_vistos;
 _save_mudou = _save_mudou || save_prev_intro_vista != global.intro_vista;
 _save_mudou = _save_mudou || save_prev_mostrar_save_aviso != global.op_mostrar_save_aviso;
+_save_mudou = _save_mudou || save_prev_mostrar_cards_dicas != global.op_mostrar_cards_dicas;
+_save_mudou = _save_mudou || save_prev_pular_dialogo_retry != global.op_pular_dialogo_retry;
 
 if (_save_mudou || global.save_timer >= room_speed * 60 || global.save_sujo) {
     save_escrever();
@@ -188,6 +190,8 @@ if (_save_mudou || global.save_timer >= room_speed * 60 || global.save_sujo) {
     save_prev_creditos_vistos = global.creditos_vistos;
     save_prev_intro_vista = global.intro_vista;
     save_prev_mostrar_save_aviso = global.op_mostrar_save_aviso;
+    save_prev_mostrar_cards_dicas = global.op_mostrar_cards_dicas;
+    save_prev_pular_dialogo_retry = global.op_pular_dialogo_retry;
 }
 
 if (surface_exists(application_surface)) {

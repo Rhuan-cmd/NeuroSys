@@ -39,6 +39,7 @@ if (!etapa_final) {
         _cy += _credito.espaco;
     }
 
+    if (!variable_global_exists("op_mostrar_cards_dicas") || global.op_mostrar_cards_dicas) {
     var _fim_dist = creditos_altura + display_get_gui_height() + 80 - creditos_scroll;
     var _hint_sumir = clamp(_fim_dist / 260, 0, 1);
     var _hint_alpha = (0.74 + sin(current_time * 0.006) * 0.12) * _hint_sumir;
@@ -78,6 +79,7 @@ if (!etapa_final) {
         draw_set_color(c_white);
         draw_text_ext(48, _hint_y1 + 18, "APERTE ESPACO 2X\npara pular os creditos", 20, 220);
         draw_set_halign(fa_center);
+    }
     }
 } else {
     var _alpha_final = clamp(timer_final / (room_speed * 1.2), 0, 1);

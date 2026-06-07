@@ -69,7 +69,7 @@ function _card_rect(_aba, _idx) {
     if (_aba == 1) _count = array_length(som_opcoes);
     if (_aba == 2) _count = array_length(res_opcoes);
     if (_aba == 3) _count = array_length(tela_opcoes);
-    if (_aba == 4) _count = array_length(save_aviso_opcoes);
+    if (_aba == 4) _count = 6;
 
     var _w = 174;
     var _h = 54;
@@ -87,8 +87,16 @@ function _card_rect(_aba, _idx) {
         _w = 230;
         _gap = 28;
     } else if (_aba == 4) {
-        _w = 230;
-        _gap = 28;
+        _w = 154;
+        _gap = 14;
+    }
+
+    if (_aba == 4) {
+        var _row = _idx div 2;
+        var _col = _idx mod 2;
+        var _row_w = 2 * _w + _gap;
+        var _row_x0 = _area_x1 + ((_area_x2 - _area_x1) - _row_w) * 0.5 + 110;
+        return [_row_x0 + _col * (_w + _gap), _y + _row * 64, _w, _h];
     }
 
     var _total_w = _count * _w + max(0, _count - 1) * _gap;
@@ -171,7 +179,7 @@ if (aba == 0) _descricao = "BAIXO corta efeitos pesados e transicoes, mantendo o
 if (aba == 1) _descricao = "Ajuste o volume geral, música e efeitos. O preset MUDO, BAIXO, MÉDIO ou ALTO acompanha o volume geral.";
 if (aba == 2) _descricao = "Selecione a resolução base. Ela também é aplicada antes de entrar em tela cheia.";
 if (aba == 3) _descricao = "Alterne entre janela e tela cheia clicando nos botões ou usando F11.";
-if (aba == 4) _descricao = "Escolha se a caixa SALVO aparece quando o jogo grava automaticamente.";
+if (aba == 4) _descricao = "Controle avisos, dicas visuais e se dialogos ja vistos somem depois de reiniciar uma fase.";
 draw_text_ext_transformed(306, 160, _descricao, 18, 590, 0.56, 0.56, 0);
 
 draw_set_alpha(0.86);
@@ -195,13 +203,29 @@ if (aba == 0) {
     _nomes = tela_opcoes;
     _sel = global.op_tela;
 } else {
-    _nomes = save_aviso_opcoes;
-    _sel = global.op_mostrar_save_aviso ? 0 : 1;
+    _nomes = ["SIM", "NAO", "SIM", "NAO", "SIM", "NAO"];
+    _sel = -1;
 }
 
 for (var _i = 0; _i < array_length(_nomes); _i += 1) {
     var _r = _card_rect(aba, _i);
-    _option_card(_r[0], _r[1], _r[2], _r[3], _nomes[_i], _sel == _i, hover_item == _i);
+    var _ativo_item = _sel == _i;
+    if (aba == 4) {
+        var _linha_sis = _i div 2;
+        var _valor_sis = (_i mod 2) == 0;
+        if (_linha_sis == 0) _ativo_item = global.op_mostrar_save_aviso == _valor_sis;
+        if (_linha_sis == 1) _ativo_item = global.op_mostrar_cards_dicas == _valor_sis;
+        if (_linha_sis == 2) _ativo_item = global.op_pular_dialogo_retry == _valor_sis;
+        if ((_i mod 2) == 0) {
+            draw_set_halign(fa_right);
+            draw_set_valign(fa_middle);
+            draw_set_color(_muted);
+            draw_text_transformed(_r[0] - 18, _r[1] + _r[3] * 0.5, sistema_linhas[_linha_sis], 0.48, 0.48, 0);
+            draw_set_halign(fa_left);
+            draw_set_valign(fa_top);
+        }
+    }
+    _option_card(_r[0], _r[1], _r[2], _r[3], _nomes[_i], _ativo_item, hover_item == _i);
 }
 
 draw_set_halign(fa_left);
@@ -264,13 +288,13 @@ if (aba == 1) {
     draw_text_transformed(314, 372, window_get_fullscreen() ? "TELA CHEIA" : "JANELA", 0.74, 0.74, 0);
     draw_set_color(_muted);
     draw_text_transformed(314, 406, "F11 alterna e os botões acompanham.", 0.50, 0.50, 0);
-} else {
+ } else {
     draw_set_color(_cyan);
-    draw_text_transformed(314, 340, "AVISO DE SALVAMENTO", 0.56, 0.56, 0);
+    draw_text_transformed(314, 340, "SISTEMA VISUAL", 0.56, 0.56, 0);
     draw_set_color(c_white);
-    draw_text_transformed(314, 372, global.op_mostrar_save_aviso ? "VISÍVEL" : "OCULTO", 0.74, 0.74, 0);
+    draw_text_transformed(314, 372, global.op_mostrar_cards_dicas ? "DICAS VISIVEIS" : "DICAS OCULTAS", 0.74, 0.74, 0);
     draw_set_color(_muted);
-    draw_text_ext_transformed(314, 406, "O jogo continua salvando automaticamente. Esta opção muda apenas a caixa pequena que aparece no canto da tela.", 16, 520, 0.50, 0.50, 0);
+    draw_text_ext_transformed(314, 406, "Os cards de pular intro/video/creditos podem sumir. O pulo de dialogo no retry vale depois de perder e reiniciar a fase.", 16, 520, 0.50, 0.50, 0);
 }
 
 draw_set_alpha(0.28 + _pulse * 0.18);

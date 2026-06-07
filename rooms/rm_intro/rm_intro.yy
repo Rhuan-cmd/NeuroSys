@@ -19,16 +19,35 @@
       ],"layers":[],"name":"Instances","properties":[],"resourceType":"GMRInstanceLayer","resourceVersion":"2.0","userdefinedDepth":false,"visible":true,},
   ],
   "name":"rm_intro",
-  "parent":{"name":"Cenas","path":"folders/Cenas.yy",},
+  "parent":{
+    "name":"Cenas",
+    "path":"folders/Cenas.yy",
+  },
   "parentRoom":null,
-  "physicsSettings":{"inheritPhysicsSettings":false,"PhysicsWorld":false,"PhysicsWorldGravityX":0.0,"PhysicsWorldGravityY":10.0,"PhysicsWorldPixToMetres":0.1,},
+  "physicsSettings":{
+    "inheritPhysicsSettings":false,
+    "PhysicsWorld":false,
+    "PhysicsWorldGravityX":0.0,
+    "PhysicsWorldGravityY":10.0,
+    "PhysicsWorldPixToMetres":0.1,
+  },
   "resourceType":"GMRoom",
   "resourceVersion":"2.0",
-  "roomSettings":{"Height":540,"inheritRoomSettings":false,"persistent":false,"Width":960,},
+  "roomSettings":{
+    "Height":540,
+    "inheritRoomSettings":false,
+    "persistent":false,
+    "Width":960,
+  },
   "sequenceId":null,
   "views":[
     {"hborder":32,"hport":540,"hspeed":-1,"hview":540,"inherit":false,"objectId":null,"vborder":32,"visible":true,"vspeed":-1,"wport":960,"wview":960,"xport":0,"xview":0,"yport":0,"yview":0,},
   ],
-  "viewSettings":{"clearDisplayBuffer":true,"clearViewBackground":false,"enableViews":true,"inheritViewSettings":false,},
-  "volume":1.0
+  "viewSettings":{
+    "clearDisplayBuffer":true,
+    "clearViewBackground":false,
+    "enableViews":true,
+    "inheritViewSettings":false,
+  },
+  "volume":1.0,
 }

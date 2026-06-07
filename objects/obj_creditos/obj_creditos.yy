@@ -9,7 +9,10 @@
   "managed":true,
   "name":"obj_creditos",
   "overriddenProperties":[],
-  "parent":{"name":"Interface","path":"folders/Objetos/Interface.yy",},
+  "parent":{
+    "name":"Interface",
+    "path":"folders/Objetos/Interface.yy",
+  },
   "parentObjectId":null,
   "persistent":false,
   "physicsAngularDamping":0.1,
@@ -30,5 +33,5 @@
   "solid":false,
   "spriteId":null,
   "spriteMaskId":null,
-  "visible":true
+  "visible":true,
 }

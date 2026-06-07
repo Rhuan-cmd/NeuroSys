@@ -14,8 +14,8 @@
   "exportDir":"",
   "name":"snd_creditos_musica",
   "parent":{
-    "name":"Sons",
-    "path":"folders/Sons.yy",
+    "name":"CF",
+    "path":"folders/Sons/CF.yy",
   },
   "preload":false,
   "resourceType":"GMSound",

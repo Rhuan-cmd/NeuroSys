@@ -59,7 +59,7 @@ dialogo_textos = [
     "Cada erro aumenta a pressão digital. A tela se corrompe e fica mais instável conforme suas vidas diminuem.",
     "Com poucas vidas, uma denúncia azul pode surgir às vezes. Corte-a para recuperar uma vida e reduzir a corrupção.",
     "Novos ataques vêm de outros lados. Alguns exigem mais de um corte. Não corte NÃO COMPARTILHE: espalhar agressões também causa dano.",
-    "Leia com atenção e contenha 35 ataques para proteger a postagem. Depois, siga para o chat da próxima etapa."
+    "Leia com atenção e contenha 25 ataques para proteger a postagem. Depois, siga para o chat da próxima etapa."
 ];
 
 dialogo_titulos = [
@@ -74,7 +74,7 @@ dialogo_titulos = [
 // ===== REGRAS DO MINIJOGO =====
 vidas_max = 5;
 vidas = vidas_max;
-objetivo = 35;
+objetivo = 25;
 ataques_cortados = 0;
 pontuacao = 0;
 combo = 0;
@@ -360,3 +360,13 @@ finalizar_fase = function(_venceu) {
         global.fase_concluida = max(variable_global_exists("fase_concluida") ? global.fase_concluida : 0, 1);
     }
 };
+
+if (variable_global_exists("op_pular_dialogo_retry") && global.op_pular_dialogo_retry && variable_global_exists("retry_room") && global.retry_room == room) {
+    global.retry_room = -1;
+    estado = 2;
+    cutscene_timer = fade_duracao;
+    objetivo_timer = objetivo_duracao;
+    objetivo_saida = true;
+    objetivo_saida_alpha = 1;
+    cursor_sprite = spr_ui_cursor;
+}

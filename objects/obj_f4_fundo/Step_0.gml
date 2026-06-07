@@ -21,6 +21,7 @@ if (resultado_ativo) {
         }
         if (_hover_reiniciar) {
             ns_audio_play_sfx(snd_f2_botao, 4, false, 0.62, 0, 1);
+            global.retry_room = room;
             resultado_saida = 2;
         }
     }
@@ -37,6 +38,7 @@ if (resultado_ativo) {
                 global.menu_fases_retorno_fase = 3;
                 room_goto(rm_menu_fases);
             } else {
+                global.retry_room = room;
                 room_goto(rm_fase4);
             }
         }

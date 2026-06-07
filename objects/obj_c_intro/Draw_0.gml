@@ -73,7 +73,7 @@ if (global.intro_phase == 4) {
         }
     }
 
-    if (intro_video_ready && intro_video_hint_timer < room_speed * 5) {
+    if ((!variable_global_exists("op_mostrar_cards_dicas") || global.op_mostrar_cards_dicas) && intro_video_ready && intro_video_hint_timer < room_speed * 5) {
         var _hint_alpha = phase_alpha * clamp((room_speed * 5 - intro_video_hint_timer) / room_speed, 0, 1);
         var _hint_bob = abs(sin(intro_video_hint_timer * 0.18)) * 7;
         var _hint_x1 = gui_w - 238;
@@ -158,12 +158,23 @@ if (intro_video_finished && intro_timer >= intro_fade_out_start) {
     draw_rectangle(0, 0, gui_w, gui_h, false);
 }
 
-if (variable_global_exists("intro_vista") && global.intro_vista) {
-    var _skip_alpha = 0.72 + 0.18 * sin(intro_timer * 0.08);
+if ((!variable_global_exists("op_mostrar_cards_dicas") || global.op_mostrar_cards_dicas) && variable_global_exists("intro_vista") && global.intro_vista && intro_timer < room_speed * 5) {
+    var _skip_life = intro_timer;
+    var _skip_alpha_base = min(1, min(_skip_life / max(1, room_speed * 0.45), (room_speed * 5 - _skip_life) / max(1, room_speed * 0.65)));
+    var _skip_alpha = _skip_alpha_base * (0.72 + 0.18 * sin(intro_timer * 0.08));
+    var _skip_pop = lerp(0.88, 1, clamp(_skip_life / max(1, room_speed * 0.45), 0, 1));
     var _skip_x1 = 18;
     var _skip_y1 = gui_h - 86;
     var _skip_x2 = 244;
     var _skip_y2 = gui_h - 18;
+    var _skip_cx = (_skip_x1 + _skip_x2) * 0.5;
+    var _skip_cy = (_skip_y1 + _skip_y2) * 0.5;
+    var _skip_w = (_skip_x2 - _skip_x1) * _skip_pop;
+    var _skip_h = (_skip_y2 - _skip_y1) * _skip_pop;
+    _skip_x1 = _skip_cx - _skip_w * 0.5;
+    _skip_x2 = _skip_cx + _skip_w * 0.5;
+    _skip_y1 = _skip_cy - _skip_h * 0.5;
+    _skip_y2 = _skip_cy + _skip_h * 0.5;
     draw_set_alpha(_skip_alpha);
     draw_set_color(make_color_rgb(5, 12, 22));
     draw_roundrect(_skip_x1, _skip_y1, _skip_x2, _skip_y2, false);

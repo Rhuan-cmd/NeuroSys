@@ -44,6 +44,12 @@ if (!variable_global_exists("op_tela")) {
 if (!variable_global_exists("op_mostrar_save_aviso")) {
     global.op_mostrar_save_aviso = true;
 }
+if (!variable_global_exists("op_mostrar_cards_dicas")) {
+    global.op_mostrar_cards_dicas = true;
+}
+if (!variable_global_exists("op_pular_dialogo_retry")) {
+    global.op_pular_dialogo_retry = false;
+}
 global.fx_qualidade = global.op_graficos;
 global.fx_densidade = (global.op_graficos == 0) ? 0.16 : ((global.op_graficos == 1) ? 0.55 : 1);
 global.fx_brilho = (global.op_graficos == 0) ? 0.16 : ((global.op_graficos == 1) ? 0.55 : 1);
@@ -78,6 +84,8 @@ save_prev_fase_concluida = global.fase_concluida;
 save_prev_creditos_vistos = global.creditos_vistos;
 save_prev_intro_vista = global.intro_vista;
 save_prev_mostrar_save_aviso = global.op_mostrar_save_aviso;
+save_prev_mostrar_cards_dicas = global.op_mostrar_cards_dicas;
+save_prev_pular_dialogo_retry = global.op_pular_dialogo_retry;
 if (!variable_global_exists("fase_entrada_bloquear_cursor")) {
     global.fase_entrada_bloquear_cursor = false;
 }

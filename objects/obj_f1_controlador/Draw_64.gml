@@ -107,7 +107,7 @@ if (estado == 1) {
     draw_set_color(make_color_rgb(255, 226, 128));
     draw_text_transformed(480, 236, "PROTEJA A POSTAGEM", 1.42 * _pop, 1.42 * _pop, 0);
     draw_set_color(make_color_rgb(164, 229, 245));
-    draw_text_transformed(480, 282, "CORTE 35 ATAQUES  |  LEIA ANTES DE AGIR", 0.9, 0.9, 0);
+    draw_text_transformed(480, 282, "CORTE 25 ATAQUES  |  LEIA ANTES DE AGIR", 0.9, 0.9, 0);
     draw_set_color(make_color_rgb(255, 224, 123));
     draw_text_transformed(480, 310, "ENTER OU CLIQUE", 0.78, 0.78, 0);
     draw_set_halign(fa_left);

@@ -49,6 +49,8 @@ function _restaurar_aba_atual() {
             break;
         case 4:
             global.op_mostrar_save_aviso = true;
+            global.op_mostrar_cards_dicas = true;
+            global.op_pular_dialogo_retry = false;
             break;
     }
 }
@@ -62,6 +64,8 @@ function _restaurar_tudo() {
     global.op_resolucao = 3;
     global.op_tela = 1;
     global.op_mostrar_save_aviso = true;
+    global.op_mostrar_cards_dicas = true;
+    global.op_pular_dialogo_retry = false;
     ns_video_aplicar(3, true);
     _rearmar_cursor_opcoes();
     _aplicar_mix_audio();
@@ -81,7 +85,7 @@ function _card_rect(_aba, _idx) {
     if (_aba == 1) _count = array_length(som_opcoes);
     if (_aba == 2) _count = array_length(res_opcoes);
     if (_aba == 3) _count = array_length(tela_opcoes);
-    if (_aba == 4) _count = array_length(save_aviso_opcoes);
+    if (_aba == 4) _count = 6;
 
     var _cols = _count;
     var _w = 174;
@@ -100,8 +104,8 @@ function _card_rect(_aba, _idx) {
         _w = 230;
         _gap = 28;
     } else if (_aba == 4) {
-        _w = 230;
-        _gap = 28;
+        _w = 154;
+        _gap = 14;
     }
 
     var _total_w = _count * _w + max(0, _count - 1) * _gap;
@@ -153,7 +157,7 @@ if (aba == 0) _count = array_length(grafico_opcoes);
 if (aba == 1) _count = array_length(som_opcoes);
 if (aba == 2) _count = array_length(res_opcoes);
 if (aba == 3) _count = array_length(tela_opcoes);
-if (aba == 4) _count = array_length(save_aviso_opcoes);
+if (aba == 4) _count = 6;
 for (var _i = 0; _i < _count; _i += 1) {
     var _r = _card_rect(aba, _i);
     if (point_in_rectangle(_mx, _my, _r[0], _r[1], _r[0] + _r[2], _r[1] + _r[3])) {
@@ -235,8 +239,16 @@ if (mouse_check_button_pressed(mb_left)) {
                 _rearmar_cursor_opcoes();
                 break;
             case 4:
-                global.op_mostrar_save_aviso = hover_item == 0;
-                if (!global.op_mostrar_save_aviso) global.save_aviso_timer = 0;
+                var _linha = hover_item div 2;
+                var _valor = (hover_item mod 2) == 0;
+                if (_linha == 0) {
+                    global.op_mostrar_save_aviso = _valor;
+                    if (!global.op_mostrar_save_aviso) global.save_aviso_timer = 0;
+                } else if (_linha == 1) {
+                    global.op_mostrar_cards_dicas = _valor;
+                } else {
+                    global.op_pular_dialogo_retry = _valor;
+                }
                 break;
         }
     }

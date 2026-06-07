@@ -1,4 +1,4 @@
-gm_text = "Made in GameMaker";
+gm_text = "Feito no GameMaker";
 gm_text_index = 0;
 gm_text_vel = 5;
 gm_timer = 0;
