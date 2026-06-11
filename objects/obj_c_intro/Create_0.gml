@@ -3,8 +3,10 @@ audio_room_enter("intro");
 window_set_cursor(cr_none);
 cursor_sprite = cr_none;
 display_set_gui_size(960, 540);
+if (!variable_global_exists("fx_surface_w")) global.fx_surface_w = 960;
+if (!variable_global_exists("fx_surface_h")) global.fx_surface_h = 540;
 if (surface_exists(application_surface)) {
-    surface_resize(application_surface, 960, 540);
+    surface_resize(application_surface, global.fx_surface_w, global.fx_surface_h);
 }
 
 intro_timer = 0;

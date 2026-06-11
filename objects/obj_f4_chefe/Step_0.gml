@@ -2,6 +2,14 @@ if (instance_exists(obj_f4_barra_vida_chefe)){
 	obj_f4_barra_vida_chefe.hp = vida / vidaMax;
 }
 
+if (instance_exists(obj_f4_dialogo)) {
+	controles_timer = room_speed * 5;
+	controles_intro = 0;
+} else if (controles_timer > 0) {
+	controles_timer--;
+	controles_intro++;
+}
+
 if (morto){
 	
 	return;

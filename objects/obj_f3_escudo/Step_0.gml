@@ -53,11 +53,15 @@ cursor_sprite = spr_ui_cursor;
 
 if (vitoria_cutscene_ativa) {
 	vitoria_cutscene_timer++;
-	vitoria_cutscene_fade = clamp((vitoria_cutscene_timer - room_speed * 0.45) / (room_speed * 1.8), 0, 1);
+	vitoria_cutscene_fade = clamp(vitoria_cutscene_timer / (room_speed * 1.35), 0, 1);
 	if (vitoria_audio_id != -1) {
 		ns_audio_gain_sfx(vitoria_audio_id, max(0, 1 - vitoria_cutscene_fade), 120);
 	}
-	if (vitoria_cutscene_timer >= room_speed * 2.6) {
+	if (vitoria_cutscene_fade >= 0.74) {
+		if (instance_exists(obj_f3_controlador_msg)) instance_destroy(obj_f3_controlador_msg);
+		with (obj_f3_msg_negativa) instance_destroy();
+	}
+	if (vitoria_cutscene_timer >= room_speed * 2.2) {
 		exibir_resultado(true);
 	}
 	return;
@@ -79,8 +83,6 @@ scala_x = lerp(scala_x, escala_alvo, fator_mola);
 scala_y = lerp(scala_y, escala_alvo, fator_mola);
 
 if (destruidos >= 50 and !umavez) {
-	if (instance_exists(obj_f3_controlador_msg)) instance_destroy(obj_f3_controlador_msg);
-	with (obj_f3_msg_negativa) instance_destroy();
 	ganhou = true;
 	audio_stop_all();
 	vitoria_audio_id = ns_audio_play_sfx(snd_f3_vilao_raiva, 1, false, 1, 0, 1);

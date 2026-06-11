@@ -21,6 +21,8 @@ danificado = false;
 tempo_danificado = 5;
 
 morto = false;
+controles_timer = room_speed * 5;
+controles_intro = 0;
 
 descansar = true;
 

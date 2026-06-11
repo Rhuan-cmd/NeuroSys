@@ -87,8 +87,10 @@ if (global.jogo_pausado) {
             instance_activate_all();
             global.jogo_pausado = false;
             cursor_sprite = room == rm_fase3 ? spr_ui_cursor : cr_none;
+        } else if (pausa_hover == 1) {
+            pausa_saindo = 3;
         } else {
-            pausa_saindo = pausa_hover + 1;
+            pausa_saindo = 2;
         }
     }
 

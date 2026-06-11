@@ -97,7 +97,7 @@ global.transicao_ativa = global.fase_entrada_bloquear_cursor;
 
 pausa_hover = -1;
 pausa_hover_anterior = -1;
-pausa_botoes = ["Retomar", "Menu", "Reiniciar"];
+pausa_botoes = ["Continuar", "Reiniciar", "Sair"];
 pausa_saindo = 0;
 pausa_fade = 0;
 pausa_musica_id = -1;

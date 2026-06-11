@@ -111,11 +111,11 @@ function _card_rect(_aba, _idx) {
     if (_aba == 4) {
         var _row = _idx div 2;
         var _col = _idx mod 2;
-        var _w_sis = 128;
-        var _h_sis = 40;
-        var _gap_sis = 16;
-        var _x_sis = 596 + _col * (_w_sis + _gap_sis);
-        var _y_sis = 340 + _row * 48;
+        var _w_sis = 112;
+        var _h_sis = 36;
+        var _gap_sis = 18;
+        var _x_sis = 644 + _col * (_w_sis + _gap_sis);
+        var _y_sis = 248 + _row * 58;
         return [_x_sis, _y_sis, _w_sis, _h_sis];
     }
 

@@ -29,14 +29,6 @@ if (abertura > 0) {
             var _sh = random_range(-intensidade_glitch / 2, intensidade_glitch / 2);
             draw_sprite_part_ext(sprite_rosto, 0, 0, _yy, 100, 30, _foto_x + _sh, _foto_y + _yy, 0.9, 0.9, c_white, 1);
         }
-        draw_set_font(fnt_dialogo);
-        draw_set_halign(fa_center);
-        draw_set_valign(fa_top);
-        draw_set_color(make_color_rgb(186, 118, 255));
-        draw_text_transformed(_foto_x + 45, _foto_y + 96, "WASD / SETAS", 0.52, 0.52, 0);
-        draw_set_color(make_color_rgb(255, 218, 116));
-        draw_text_transformed(_foto_x + 45, _foto_y + 114, "K  ATIRAR", 0.52, 0.52, 0);
-        draw_set_halign(fa_left);
     }
 
     if (estado == "ativo") {

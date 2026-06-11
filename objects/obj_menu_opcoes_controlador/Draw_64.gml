@@ -75,11 +75,11 @@ function _card_rect(_aba, _idx) {
     if (_aba == 4) {
         var _row = _idx div 2;
         var _col = _idx mod 2;
-        var _w_sis = 128;
-        var _h_sis = 40;
-        var _gap_sis = 16;
-        var _x_sis = 596 + _col * (_w_sis + _gap_sis);
-        var _y_sis = 340 + _row * 48;
+        var _w_sis = 112;
+        var _h_sis = 36;
+        var _gap_sis = 18;
+        var _x_sis = 644 + _col * (_w_sis + _gap_sis);
+        var _y_sis = 248 + _row * 58;
         return [_x_sis, _y_sis, _w_sis, _h_sis];
     }
 
@@ -279,18 +279,18 @@ if (aba == 1) {
     draw_text_transformed(314, 406, "F11 alterna e os botões acompanham.", 0.50, 0.50, 0);
  } else {
     draw_set_color(_cyan);
-    draw_text_transformed(314, 330, "SISTEMA VISUAL", 0.56, 0.56, 0);
+    draw_text_transformed(314, 232, "SISTEMA VISUAL", 0.56, 0.56, 0);
     var _sis_desc = [
         "Mostra o aviso pequeno quando o jogo salva.",
         "Exibe cards de ajuda para pular intro/video/creditos.",
         "Depois da primeira tentativa, pula dialogos/cutscenes da fase."
     ];
     for (var _sis = 0; _sis < 3; _sis += 1) {
-        var _base_y = 344 + _sis * 48;
+        var _base_y = 248 + _sis * 58;
         draw_set_color(c_white);
         _glitch_text(314, _base_y + 6, sistema_linhas[_sis], 0.52, 0.52, c_white, false);
         draw_set_color(_muted);
-        draw_text_ext_transformed(314, _base_y + 23, _sis_desc[_sis], 14, 250, 0.42, 0.42, 0);
+        draw_text_ext_transformed(314, _base_y + 25, _sis_desc[_sis], 14, 272, 0.40, 0.40, 0);
         for (var _op = 0; _op < 2; _op += 1) {
             var _idx_sis = _sis * 2 + _op;
             var _r_sis = _card_rect(4, _idx_sis);
