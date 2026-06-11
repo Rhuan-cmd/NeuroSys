@@ -191,7 +191,7 @@ if (ativo && frame_tempo <= 7) {
     );
 }
 
-draw_sprite_ext(spr_f2_status_pontos, min(cliques, cliques_necessarios), 831, 445, s_score, s_score, 0, c_white, clamp((status_intro_timer - 16) / 38, 0, 1));
+draw_sprite_ext(spr_f2_status_pontos, min(cliques, sprite_get_number(spr_f2_status_pontos) - 1), 831, 445, s_score, s_score, 0, c_white, clamp((status_intro_timer - 16) / 38, 0, 1));
 
 // ===== EXPLOSAO VISUAL AO CLICAR NO X =====
 for (var fx_i = 0; fx_i < array_length(fx_timer); fx_i++) {
@@ -244,7 +244,7 @@ if (!historia_finalizada && cutscene_timer >= fade_duracao && !ativo && !transic
             historia_titulo = "O botão";
             break;
         default:
-            historia_texto = "Clique no X dez vezes. Se demorar demais, você perde uma vida.";
+            historia_texto = "Clique no X quatorze vezes. Se demorar demais, você perde uma vida.";
             historia_titulo = "Assuma o controle";
             break;
     }

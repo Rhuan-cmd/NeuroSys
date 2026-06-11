@@ -31,5 +31,5 @@ if (introducao_ativa && entrada_fade <= 0.72) {
 
 if (excluir) {
     alpha = lerp(alpha, 0, 0.1);
-    if (alpha <= 0.1) instance_destroy();
+    if (alpha <= 0.1 && entrada_fade <= 0) instance_destroy();
 }

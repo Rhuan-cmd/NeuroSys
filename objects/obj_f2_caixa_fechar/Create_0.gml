@@ -57,7 +57,7 @@ configurar = function(_dificuldade) {
         raio_fuga = 128 + dificil * 5;
         forca_fuga = 0.56 + dificil * 0.035;
     }
-    if (dificuldade >= 7) {
+    if (dificuldade >= 11) {
         velocidade = 5.65;
         precisao = 0.086;
         raio_fuga = 136;

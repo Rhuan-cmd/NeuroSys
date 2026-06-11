@@ -91,6 +91,9 @@ function ns_video_aplicar(_idx, _fullscreen) {
     var _i = clamp(_idx, 0, 3);
     var _w = _res_w[_i];
     var _h = _res_h[_i];
+    global.fx_surface_w = (_i <= 0) ? 480 : ((_i == 1) ? 640 : 960);
+    global.fx_surface_h = (_i <= 0) ? 270 : ((_i == 1) ? 360 : 540);
+    gpu_set_texfilter(false);
 
     if (_fullscreen) {
         window_set_size(_w, _h);

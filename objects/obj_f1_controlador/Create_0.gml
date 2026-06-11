@@ -364,7 +364,7 @@ finalizar_fase = function(_venceu) {
 if (variable_global_exists("op_pular_dialogo_retry") && global.op_pular_dialogo_retry && variable_global_exists("retry_room") && global.retry_room == room) {
     global.retry_room = -1;
     estado = 2;
-    cutscene_timer = fade_duracao;
+    cutscene_timer = 0;
     objetivo_timer = objetivo_duracao;
     objetivo_saida = true;
     objetivo_saida_alpha = 1;

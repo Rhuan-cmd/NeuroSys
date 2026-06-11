@@ -8,6 +8,7 @@ var _green = make_color_rgb(112, 245, 185);
 var _pulse = 0.5 + 0.5 * sin(menu_timer * 0.055);
 
 function _grad_rect(_x1, _y1, _x2, _y2, _c1, _c2, _steps, _vertical) {
+    _steps = max(1, min(_steps, 6));
     for (var _g = 0; _g < _steps; _g += 1) {
         var _t1 = _g / _steps;
         var _t2 = (_g + 1) / _steps;
@@ -71,6 +72,17 @@ function _card_rect(_aba, _idx) {
     if (_aba == 3) _count = array_length(tela_opcoes);
     if (_aba == 4) _count = 6;
 
+    if (_aba == 4) {
+        var _row = _idx div 2;
+        var _col = _idx mod 2;
+        var _w_sis = 128;
+        var _h_sis = 40;
+        var _gap_sis = 16;
+        var _x_sis = 596 + _col * (_w_sis + _gap_sis);
+        var _y_sis = 340 + _row * 48;
+        return [_x_sis, _y_sis, _w_sis, _h_sis];
+    }
+
     var _w = 174;
     var _h = 54;
     var _gap = 22;
@@ -89,14 +101,6 @@ function _card_rect(_aba, _idx) {
     } else if (_aba == 4) {
         _w = 154;
         _gap = 14;
-    }
-
-    if (_aba == 4) {
-        var _row = _idx div 2;
-        var _col = _idx mod 2;
-        var _row_w = 2 * _w + _gap;
-        var _row_x0 = _area_x1 + ((_area_x2 - _area_x1) - _row_w) * 0.5 + 110;
-        return [_row_x0 + _col * (_w + _gap), _y + _row * 64, _w, _h];
     }
 
     var _total_w = _count * _w + max(0, _count - 1) * _gap;
@@ -124,8 +128,8 @@ _grad_rect(0, 0, gui_w, _top_h, make_color_rgb(8, 44, 69), make_color_rgb(4, 14,
 
 draw_set_alpha(0.38);
 draw_set_color(make_color_rgb(28, 111, 150));
-for (var _gx = _content_x + 18; _gx < gui_w; _gx += 24) draw_line(_gx, _top_h, _gx, gui_h);
-for (var _gy = _top_h + 20; _gy < gui_h; _gy += 24) draw_line(_content_x, _gy, gui_w, _gy);
+for (var _gx = _content_x + 18; _gx < gui_w; _gx += 48) draw_line(_gx, _top_h, _gx, gui_h);
+for (var _gy = _top_h + 20; _gy < gui_h; _gy += 48) draw_line(_content_x, _gy, gui_w, _gy);
 draw_set_alpha(1);
 
 draw_set_color(_cyan);
@@ -207,24 +211,9 @@ if (aba == 0) {
     _sel = -1;
 }
 
-for (var _i = 0; _i < array_length(_nomes); _i += 1) {
+if (aba != 4) for (var _i = 0; _i < array_length(_nomes); _i += 1) {
     var _r = _card_rect(aba, _i);
     var _ativo_item = _sel == _i;
-    if (aba == 4) {
-        var _linha_sis = _i div 2;
-        var _valor_sis = (_i mod 2) == 0;
-        if (_linha_sis == 0) _ativo_item = global.op_mostrar_save_aviso == _valor_sis;
-        if (_linha_sis == 1) _ativo_item = global.op_mostrar_cards_dicas == _valor_sis;
-        if (_linha_sis == 2) _ativo_item = global.op_pular_dialogo_retry == _valor_sis;
-        if ((_i mod 2) == 0) {
-            draw_set_halign(fa_right);
-            draw_set_valign(fa_middle);
-            draw_set_color(_muted);
-            draw_text_transformed(_r[0] - 18, _r[1] + _r[3] * 0.5, sistema_linhas[_linha_sis], 0.48, 0.48, 0);
-            draw_set_halign(fa_left);
-            draw_set_valign(fa_top);
-        }
-    }
     _option_card(_r[0], _r[1], _r[2], _r[3], _nomes[_i], _ativo_item, hover_item == _i);
 }
 
@@ -290,11 +279,29 @@ if (aba == 1) {
     draw_text_transformed(314, 406, "F11 alterna e os botões acompanham.", 0.50, 0.50, 0);
  } else {
     draw_set_color(_cyan);
-    draw_text_transformed(314, 340, "SISTEMA VISUAL", 0.56, 0.56, 0);
-    draw_set_color(c_white);
-    draw_text_transformed(314, 372, global.op_mostrar_cards_dicas ? "DICAS VISIVEIS" : "DICAS OCULTAS", 0.74, 0.74, 0);
-    draw_set_color(_muted);
-    draw_text_ext_transformed(314, 406, "Os cards de pular intro/video/creditos podem sumir. O pulo de dialogo no retry vale depois de perder e reiniciar a fase.", 16, 520, 0.50, 0.50, 0);
+    draw_text_transformed(314, 330, "SISTEMA VISUAL", 0.56, 0.56, 0);
+    var _sis_desc = [
+        "Mostra o aviso pequeno quando o jogo salva.",
+        "Exibe cards de ajuda para pular intro/video/creditos.",
+        "Depois da primeira tentativa, pula dialogos/cutscenes da fase."
+    ];
+    for (var _sis = 0; _sis < 3; _sis += 1) {
+        var _base_y = 344 + _sis * 48;
+        draw_set_color(c_white);
+        _glitch_text(314, _base_y + 6, sistema_linhas[_sis], 0.52, 0.52, c_white, false);
+        draw_set_color(_muted);
+        draw_text_ext_transformed(314, _base_y + 23, _sis_desc[_sis], 14, 250, 0.42, 0.42, 0);
+        for (var _op = 0; _op < 2; _op += 1) {
+            var _idx_sis = _sis * 2 + _op;
+            var _r_sis = _card_rect(4, _idx_sis);
+            var _valor_sis = _op == 0;
+            var _ativo_sis = false;
+            if (_sis == 0) _ativo_sis = global.op_mostrar_save_aviso == _valor_sis;
+            if (_sis == 1) _ativo_sis = global.op_mostrar_cards_dicas == _valor_sis;
+            if (_sis == 2) _ativo_sis = global.op_pular_dialogo_retry == _valor_sis;
+            _option_card(_r_sis[0], _r_sis[1], _r_sis[2], _r_sis[3], _valor_sis ? "SIM" : "NAO", _ativo_sis, hover_item == _idx_sis);
+        }
+    }
 }
 
 draw_set_alpha(0.28 + _pulse * 0.18);
@@ -304,6 +311,40 @@ draw_set_alpha(1);
 _reset_button(300, 456, 178, 38, "RESTAURAR ABA", hover_reset == 0, false);
 _reset_button(492, 456, 178, 38, "RESTAURAR TUDO", hover_reset == 1, false);
 _reset_button(684, 456, 178, 38, "RESETAR SAVE", hover_reset == 2, true);
+
+if (reset_feedback_timer > 0) {
+    var _fb_alpha = min(1, min(reset_feedback_timer / 18, (room_speed * 1.8 - reset_feedback_timer) / 12));
+    draw_set_alpha(_fb_alpha);
+    _grad_rect(gui_w - 292, 86, gui_w - 34, 126, make_color_rgb(8, 50, 68), make_color_rgb(3, 18, 32), 5, false);
+    draw_set_color(make_color_rgb(98, 234, 255));
+    draw_roundrect(gui_w - 292, 86, gui_w - 34, 126, true);
+    draw_set_halign(fa_center);
+    draw_set_valign(fa_middle);
+    _glitch_text(gui_w - 163, 106, reset_feedback_texto, 0.50, 0.50, c_white, true);
+    draw_set_halign(fa_left);
+    draw_set_valign(fa_top);
+    draw_set_alpha(1);
+}
+
+if (confirmar_reset != -1) {
+    draw_set_alpha(0.62);
+    draw_set_color(c_black);
+    draw_rectangle(0, 0, gui_w, gui_h, false);
+    draw_set_alpha(1);
+    _grad_rect(298, 226, 712, 394, make_color_rgb(8, 35, 55), make_color_rgb(4, 13, 25), 6, true);
+    draw_set_color(make_color_rgb(98, 234, 255));
+    draw_roundrect(298, 226, 712, 394, true);
+    draw_set_halign(fa_center);
+    draw_set_valign(fa_middle);
+    var _msg_reset = confirmar_reset == 0 ? "restaurar esta aba?" : (confirmar_reset == 1 ? "restaurar tudo?" : "resetar progresso?");
+    _glitch_text(505, 266, "CONFIRMAR RESET", 0.72, 0.72, _cyan, true);
+    draw_set_color(_muted);
+    draw_text_ext_transformed(505, 298, "Tem certeza que deseja " + _msg_reset, 18, 330, 0.50, 0.50, 0);
+    _option_card(386, 330, 110, 44, "SIM", false, hover_confirmar_reset == 0);
+    _option_card(514, 330, 110, 44, "NAO", false, hover_confirmar_reset == 1);
+    draw_set_halign(fa_left);
+    draw_set_valign(fa_top);
+}
 
 var _btn_drift = sin(menu_timer * 0.035) * 1.4;
 draw_set_alpha(0.62);

@@ -3,7 +3,7 @@ audio_room_enter("fase2");
 vidas_max = 5;
 vidas = vidas_max;
 cliques = 0;
-cliques_necessarios = 10;
+cliques_necessarios = 14;
 randomize();
 
 // ===== CUTSCENE, DIALOGOS E TRANSICOES =====
@@ -252,7 +252,7 @@ criar_caixa = function(_x, _y, _reposicionar) {
     );
     caixa.configurar(cliques);
     limite_clique_atual = limite_clique;
-    if (cliques >= 7) limite_clique_atual = room_speed * 9;
+    if (cliques >= 11) limite_clique_atual = room_speed * 9;
     timer_clique = 0;
     sino_audio_timer = 1;
     
@@ -336,7 +336,7 @@ finalizar_jogo = function(_vitoria) {
 if (variable_global_exists("op_pular_dialogo_retry") && global.op_pular_dialogo_retry && variable_global_exists("retry_room") && global.retry_room == room) {
     global.retry_room = -1;
     historia_finalizada = true;
-    cutscene_timer = fade_duracao;
+    cutscene_timer = 0;
     cutscene_ativo_timer = tempo_ate_cascata;
     status_intro_timer = 38;
     cascata_ativa = true;

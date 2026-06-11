@@ -75,6 +75,27 @@ function _resetar_save_progresso() {
     save_resetar_progresso();
 }
 
+function _mostrar_feedback_reset(_texto) {
+    reset_feedback_texto = _texto;
+    reset_feedback_timer = room_speed * 1.8;
+    if (variable_global_exists("save_sujo")) global.save_sujo = true;
+}
+
+function _executar_reset_confirmado(_tipo) {
+    if (_tipo == 0) {
+        _restaurar_aba_atual();
+        _mostrar_feedback_reset("ABA RESTAURADA");
+    } else if (_tipo == 1) {
+        _restaurar_tudo();
+        _mostrar_feedback_reset("CONFIGURACOES RESTAURADAS");
+    } else {
+        _resetar_save_progresso();
+        _mostrar_feedback_reset("PROGRESSO RESETADO");
+    }
+    confirmar_reset = -1;
+    hover_confirmar_reset = -1;
+}
+
 function _fx_gain(_v) {
     return _v;
 }
@@ -86,6 +107,17 @@ function _card_rect(_aba, _idx) {
     if (_aba == 2) _count = array_length(res_opcoes);
     if (_aba == 3) _count = array_length(tela_opcoes);
     if (_aba == 4) _count = 6;
+
+    if (_aba == 4) {
+        var _row = _idx div 2;
+        var _col = _idx mod 2;
+        var _w_sis = 128;
+        var _h_sis = 40;
+        var _gap_sis = 16;
+        var _x_sis = 596 + _col * (_w_sis + _gap_sis);
+        var _y_sis = 340 + _row * 48;
+        return [_x_sis, _y_sis, _w_sis, _h_sis];
+    }
 
     var _cols = _count;
     var _w = 174;
@@ -121,6 +153,7 @@ voltar_y = _gui_h - 62;
 
 global.op_tela = window_get_fullscreen() ? 1 : 0;
 global.op_som_preset = _volume_para_preset(global.op_volume);
+reset_feedback_timer = max(0, reset_feedback_timer - 1);
 
 if (voltando_menu) {
     window_set_cursor(cr_none);
@@ -136,6 +169,33 @@ if (voltando_menu) {
 
 var _mx = device_mouse_x_to_gui(0);
 var _my = device_mouse_y_to_gui(0);
+
+if (confirmar_reset != -1) {
+    window_set_cursor(cr_none);
+    cursor_sprite = spr_ui_cursor;
+    hover_confirmar_reset = -1;
+    if (point_in_rectangle(_mx, _my, 386, 330, 496, 374)) hover_confirmar_reset = 0;
+    if (point_in_rectangle(_mx, _my, 514, 330, 624, 374)) hover_confirmar_reset = 1;
+    if (hover_confirmar_reset != -1 && hover_confirmar_reset != hover_confirmar_reset_anterior) {
+        ns_audio_play_sfx(snd_f2_selecao, 3, false, _fx_gain(0.42), 0, 1);
+    }
+    hover_confirmar_reset_anterior = hover_confirmar_reset;
+    if (mouse_check_button_pressed(mb_left)) {
+        if (hover_confirmar_reset == 0) {
+            ns_audio_play_sfx(snd_f2_botao, 4, false, _fx_gain(0.62), 0, 1);
+            _executar_reset_confirmado(confirmar_reset);
+        } else if (hover_confirmar_reset == 1 || !point_in_rectangle(_mx, _my, 298, 226, 712, 394)) {
+            ns_audio_play_sfx(snd_f2_botao, 4, false, _fx_gain(0.50), 0, 1);
+            confirmar_reset = -1;
+            hover_confirmar_reset = -1;
+        }
+    }
+    if (keyboard_check_pressed(vk_escape)) {
+        confirmar_reset = -1;
+        hover_confirmar_reset = -1;
+    }
+    exit;
+}
 
 voltar_hover = point_in_rectangle(_mx, _my, voltar_x - voltar_w * 0.5, voltar_y - voltar_h * 0.5, voltar_x + voltar_w * 0.5, voltar_y + voltar_h * 0.5);
 if (voltar_hover && !voltar_hover_anterior) ns_audio_play_sfx(snd_f2_selecao, 3, false, _fx_gain(0.42), 0, 1);
@@ -254,13 +314,7 @@ if (mouse_check_button_pressed(mb_left)) {
     }
     if (hover_reset != -1) {
         ns_audio_play_sfx(snd_f2_botao, 4, false, _fx_gain(0.58), 0, 1);
-        if (hover_reset == 0) {
-            _restaurar_aba_atual();
-        } else if (hover_reset == 1) {
-            _restaurar_tudo();
-        } else {
-            _resetar_save_progresso();
-        }
+        confirmar_reset = hover_reset;
     }
 }
 

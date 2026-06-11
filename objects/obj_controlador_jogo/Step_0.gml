@@ -120,6 +120,7 @@ if (global.jogo_pausado) {
                 if (room == rm_fase4) global.menu_fases_retorno_fase = 3;
                 room_goto(rm_menu_fases);
             } else if (pausa_saindo == 3) {
+                global.retry_room = room;
                 room_restart();
             }
         }
@@ -146,8 +147,9 @@ if (variable_global_exists("op_graficos")) {
     global.fx_densidade = (global.fx_qualidade == 0) ? 0.16 : ((global.fx_qualidade == 1) ? 0.55 : 1);
     global.fx_brilho = (global.fx_qualidade == 0) ? 0.16 : ((global.fx_qualidade == 1) ? 0.55 : 1);
     global.fx_cortar_transicoes = global.fx_qualidade == 0;
-    global.fx_surface_w = 960;
-    global.fx_surface_h = 540;
+    var _res_fx = variable_global_exists("op_resolucao") ? clamp(global.op_resolucao, 0, 3) : 3;
+    global.fx_surface_w = (_res_fx <= 0) ? 480 : ((_res_fx == 1) ? 640 : 960);
+    global.fx_surface_h = (_res_fx <= 0) ? 270 : ((_res_fx == 1) ? 360 : 540);
     display_set_sleep_margin(global.fx_qualidade == 0 ? 4 : 10);
 }
 

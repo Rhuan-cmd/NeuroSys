@@ -11,6 +11,9 @@ if (estado == "abrindo") {
     abertura = lerp(abertura, 0, 0.2);
     troca_audio_timer = max(0, troca_audio_timer - 1);
     if (abertura < 0.05 && troca_audio_timer <= 0) instance_destroy();
+} else if (estado == "skip_retry") {
+    troca_audio_timer = max(0, troca_audio_timer - 1);
+    if (entrada_fade <= 0 && troca_audio_timer <= 0) instance_destroy();
 }
 
 // 2. Máquina de escrever e avanço do diálogo

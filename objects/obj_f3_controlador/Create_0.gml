@@ -22,3 +22,11 @@ dialogo_titulos = [
 
 excluir = false;
 alpha = 1;
+
+if (variable_global_exists("op_pular_dialogo_retry") && global.op_pular_dialogo_retry && variable_global_exists("retry_room") && global.retry_room == room) {
+    global.retry_room = -1;
+    introducao_ativa = false;
+    excluir = true;
+    alpha = 0;
+    instance_create_layer(0, 0, layer, obj_f3_controlador_msg);
+}

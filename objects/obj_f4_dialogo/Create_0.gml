@@ -25,3 +25,16 @@ offsets_borda = array_create(pontos_borda, 0);
 intensidade_glitch = 4;
 
 alarm[0] = ceil(room_speed * 2.4);
+
+if (variable_global_exists("op_pular_dialogo_retry") && global.op_pular_dialogo_retry && variable_global_exists("retry_room") && global.retry_room == room) {
+    global.retry_room = -1;
+    alarm[0] = -1;
+    estado = "skip_retry";
+    abertura = 0;
+    pagina_atual = array_length(textos) - 1;
+    tamanho_texto = string_length(textos[pagina_atual]);
+    ns_audio_gain_music(cutscene_audio, 0, 900);
+    var _musica_retry = ns_audio_play_music(snd_f4_musica_chefe, 1, true, 0, 0, 1);
+    ns_audio_gain_music(_musica_retry, 0.82, 900);
+    troca_audio_timer = ceil(room_speed * 1.0);
+}

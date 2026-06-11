@@ -16,7 +16,7 @@ if (cutscene_timer >= fade_duracao) {
             case 2: texto_atual = "Cada notificação tenta prender sua atenção e te fazer desistir de fechar a tela."; break;
             case 3: texto_atual = "Seu objetivo é simples: recuperar o controle antes que a pressão tome conta."; break;
             case 4: texto_atual = "Quando as mensagens desabarem, o botão de fechar vai fugir do cursor."; break;
-            case 5: texto_atual = "Clique no X dez vezes. Se demorar demais, você perde uma vida."; break;
+            case 5: texto_atual = "Clique no X quatorze vezes. Se demorar demais, você perde uma vida."; break;
         }
         if (dialogo_chars < string_length(texto_atual)) {
             dialogo_chars = min(string_length(texto_atual), dialogo_chars + 0.58);
