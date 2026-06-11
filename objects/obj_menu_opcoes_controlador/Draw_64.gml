@@ -76,10 +76,10 @@ function _card_rect(_aba, _idx) {
         var _row = _idx div 2;
         var _col = _idx mod 2;
         var _w_sis = 112;
-        var _h_sis = 36;
-        var _gap_sis = 18;
-        var _x_sis = 644 + _col * (_w_sis + _gap_sis);
-        var _y_sis = 248 + _row * 58;
+        var _h_sis = 40;
+        var _gap_sis = 20;
+        var _x_sis = 642 + _col * (_w_sis + _gap_sis);
+        var _y_sis = 248 + _row * 70;
         return [_x_sis, _y_sis, _w_sis, _h_sis];
     }
 
@@ -267,11 +267,11 @@ if (aba == 1) {
     draw_set_color(c_white);
     draw_text_transformed(836, 365, grafico_opcoes[global.op_graficos], 0.54, 0.54, 0);
     draw_set_color(_cyan);
-    draw_text_transformed(314, 404, "PIXEL PERFECT", 0.56, 0.56, 0);
+    draw_text_transformed(314, 388, "PIXEL PERFECT", 0.58, 0.58, 0);
     draw_set_color(_muted);
-    draw_text_ext_transformed(314, 430, "Renderiza em baixa resolucao e aumenta em pixels limpos quando a resolucao e menor.", 14, 270, 0.42, 0.42, 0);
-    _option_card(612, 398, 112, 36, "SIM", global.op_pixel_perfect, hover_pixel == 0);
-    _option_card(742, 398, 112, 36, "NAO", !global.op_pixel_perfect, hover_pixel == 1);
+    draw_text_ext_transformed(314, 414, "Mantem pixels secos nas escalas de tela sem reduzir a nitidez dos dialogos e textos.", 18, 300, 0.48, 0.48, 0);
+    _option_card(612, 386, 112, 40, "SIM", global.op_pixel_perfect, hover_pixel == 0);
+    _option_card(742, 386, 112, 40, "NAO", !global.op_pixel_perfect, hover_pixel == 1);
 } else if (aba == 2) {
     draw_set_color(_cyan);
     draw_text_transformed(314, 340, "RESOLUÇÃO ATIVA", 0.56, 0.56, 0);
@@ -288,18 +288,18 @@ if (aba == 1) {
     draw_text_transformed(314, 406, "F11 alterna e os botões acompanham.", 0.50, 0.50, 0);
  } else {
     draw_set_color(_cyan);
-    draw_text_transformed(314, 232, "SISTEMA VISUAL", 0.56, 0.56, 0);
+    draw_text_transformed(314, 232, "SISTEMA VISUAL", 0.58, 0.58, 0);
     var _sis_desc = [
         "Mostra o aviso pequeno quando o jogo salva.",
         "Exibe cards de ajuda para pular intro/video/creditos.",
         "Depois da primeira tentativa, pula dialogos/cutscenes da fase."
     ];
     for (var _sis = 0; _sis < 3; _sis += 1) {
-        var _base_y = 248 + _sis * 58;
+        var _base_y = 248 + _sis * 70;
         draw_set_color(c_white);
-        _glitch_text(314, _base_y + 6, sistema_linhas[_sis], 0.52, 0.52, c_white, false);
+        _glitch_text(314, _base_y + 4, sistema_linhas[_sis], 0.55, 0.55, c_white, false);
         draw_set_color(_muted);
-        draw_text_ext_transformed(314, _base_y + 25, _sis_desc[_sis], 14, 272, 0.40, 0.40, 0);
+        draw_text_ext_transformed(314, _base_y + 28, _sis_desc[_sis], 17, 300, 0.47, 0.47, 0);
         for (var _op = 0; _op < 2; _op += 1) {
             var _idx_sis = _sis * 2 + _op;
             var _r_sis = _card_rect(4, _idx_sis);

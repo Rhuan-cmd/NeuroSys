@@ -150,13 +150,15 @@ if (variable_global_exists("op_graficos")) {
     global.fx_brilho = (global.fx_qualidade == 0) ? 0.16 : ((global.fx_qualidade == 1) ? 0.55 : 1);
     global.fx_cortar_transicoes = global.fx_qualidade == 0;
     var _res_fx = variable_global_exists("op_resolucao") ? clamp(global.op_resolucao, 0, 3) : 3;
-    var _usar_pixel = !variable_global_exists("op_pixel_perfect") || global.op_pixel_perfect;
-    global.fx_surface_w = _usar_pixel ? ((_res_fx <= 0) ? 480 : ((_res_fx == 1) ? 640 : 960)) : 960;
-    global.fx_surface_h = _usar_pixel ? ((_res_fx <= 0) ? 270 : ((_res_fx == 1) ? 360 : 540)) : 540;
+    var _usar_pixel = variable_global_exists("op_pixel_perfect") && global.op_pixel_perfect;
+    global.fx_pixel_perfect = _usar_pixel;
+    global.fx_surface_w = 960;
+    global.fx_surface_h = 540;
     display_set_sleep_margin(global.fx_qualidade == 0 ? 4 : 10);
 }
 
-if (variable_global_exists("op_auto_config_feita") && !global.op_auto_config_feita && room_speed > 0) {
+var _auto_config_pode_rodar = !variable_global_exists("auto_config_aguardar_reinicio") || !global.auto_config_aguardar_reinicio;
+if (_auto_config_pode_rodar && variable_global_exists("op_auto_config_feita") && !global.op_auto_config_feita && room_speed > 0) {
     auto_config_timer++;
     auto_config_min_fps = min(auto_config_min_fps, fps_real);
     if (auto_config_timer >= room_speed * 4) {

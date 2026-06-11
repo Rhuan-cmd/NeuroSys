@@ -60,6 +60,7 @@ global.fx_qualidade = global.op_graficos;
 global.fx_densidade = (global.op_graficos == 0) ? 0.16 : ((global.op_graficos == 1) ? 0.55 : 1);
 global.fx_brilho = (global.op_graficos == 0) ? 0.16 : ((global.op_graficos == 1) ? 0.55 : 1);
 global.fx_cortar_transicoes = global.op_graficos == 0;
+global.fx_pixel_perfect = global.op_pixel_perfect;
 global.fx_surface_w = 960;
 global.fx_surface_h = 540;
 if (!variable_global_exists("fase_liberada")) {
@@ -111,6 +112,7 @@ pausa_fade = 0;
 pausa_musica_id = -1;
 auto_config_timer = 0;
 auto_config_min_fps = 999;
+global.auto_config_aguardar_reinicio = false;
 
 menu_fade_alpha = 0;
 if (room == rm_menu) {

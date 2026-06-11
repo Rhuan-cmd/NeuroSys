@@ -114,10 +114,10 @@ function _card_rect(_aba, _idx) {
         var _row = _idx div 2;
         var _col = _idx mod 2;
         var _w_sis = 112;
-        var _h_sis = 36;
-        var _gap_sis = 18;
-        var _x_sis = 644 + _col * (_w_sis + _gap_sis);
-        var _y_sis = 248 + _row * 58;
+        var _h_sis = 40;
+        var _gap_sis = 20;
+        var _x_sis = 642 + _col * (_w_sis + _gap_sis);
+        var _y_sis = 248 + _row * 70;
         return [_x_sis, _y_sis, _w_sis, _h_sis];
     }
 
@@ -238,8 +238,8 @@ hover_reset_anterior = hover_reset;
 
 hover_pixel = -1;
 if (aba == 0) {
-    if (point_in_rectangle(_mx, _my, 612, 398, 724, 434)) hover_pixel = 0;
-    if (point_in_rectangle(_mx, _my, 742, 398, 854, 434)) hover_pixel = 1;
+    if (point_in_rectangle(_mx, _my, 612, 386, 724, 426)) hover_pixel = 0;
+    if (point_in_rectangle(_mx, _my, 742, 386, 854, 426)) hover_pixel = 1;
 }
 if (hover_pixel != -1 && hover_pixel != hover_pixel_anterior) ns_audio_play_sfx(snd_f2_selecao, 3, false, _fx_gain(0.42), 0, 1);
 hover_pixel_anterior = hover_pixel;

@@ -85,5 +85,7 @@ function save_resetar_progresso() {
     global.fase_concluida = 0;
     global.creditos_vistos = false;
     global.intro_vista = false;
+    global.op_auto_config_feita = false;
+    global.auto_config_aguardar_reinicio = true;
     save_escrever();
 }
