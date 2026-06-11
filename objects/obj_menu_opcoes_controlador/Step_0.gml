@@ -30,6 +30,7 @@ function _restaurar_aba_atual() {
     switch (aba) {
         case 0:
             global.op_graficos = 2;
+            global.op_pixel_perfect = false;
             break;
         case 1:
             global.op_volume = 1;
@@ -57,6 +58,7 @@ function _restaurar_aba_atual() {
 
 function _restaurar_tudo() {
     global.op_graficos = 2;
+    global.op_pixel_perfect = false;
     global.op_volume = 1;
     global.op_volume_musica = 1;
     global.op_volume_efeitos = 1;
@@ -234,6 +236,14 @@ if (point_in_rectangle(_mx, _my, 684, 456, 862, 494)) hover_reset = 2;
 if (hover_reset != -1 && hover_reset != hover_reset_anterior) ns_audio_play_sfx(snd_f2_selecao, 3, false, _fx_gain(0.42), 0, 1);
 hover_reset_anterior = hover_reset;
 
+hover_pixel = -1;
+if (aba == 0) {
+    if (point_in_rectangle(_mx, _my, 612, 398, 724, 434)) hover_pixel = 0;
+    if (point_in_rectangle(_mx, _my, 742, 398, 854, 434)) hover_pixel = 1;
+}
+if (hover_pixel != -1 && hover_pixel != hover_pixel_anterior) ns_audio_play_sfx(snd_f2_selecao, 3, false, _fx_gain(0.42), 0, 1);
+hover_pixel_anterior = hover_pixel;
+
 var _slider_x1 = 470;
 var _slider_x2 = 842;
 var _slider_y0 = 338;
@@ -315,6 +325,11 @@ if (mouse_check_button_pressed(mb_left)) {
     if (hover_reset != -1) {
         ns_audio_play_sfx(snd_f2_botao, 4, false, _fx_gain(0.58), 0, 1);
         confirmar_reset = hover_reset;
+    }
+    if (hover_pixel != -1) {
+        ns_audio_play_sfx(snd_f2_botao, 4, false, _fx_gain(0.58), 0, 1);
+        global.op_pixel_perfect = hover_pixel == 0;
+        ns_video_aplicar(global.op_resolucao, global.op_tela == 1);
     }
 }
 

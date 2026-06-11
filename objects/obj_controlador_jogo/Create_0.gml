@@ -35,6 +35,12 @@ if (!variable_global_exists("op_som_preset")) {
 if (!variable_global_exists("op_graficos")) {
     global.op_graficos = 2;
 }
+if (!variable_global_exists("op_pixel_perfect")) {
+    global.op_pixel_perfect = true;
+}
+if (!variable_global_exists("op_auto_config_feita")) {
+    global.op_auto_config_feita = false;
+}
 if (!variable_global_exists("op_resolucao")) {
     global.op_resolucao = 3;
 }
@@ -77,6 +83,8 @@ save_prev_volume_musica = global.op_volume_musica;
 save_prev_volume_efeitos = global.op_volume_efeitos;
 save_prev_som_preset = global.op_som_preset;
 save_prev_graficos = global.op_graficos;
+save_prev_pixel_perfect = global.op_pixel_perfect;
+save_prev_auto_config_feita = global.op_auto_config_feita;
 save_prev_resolucao = global.op_resolucao;
 save_prev_tela = global.op_tela;
 save_prev_fase_liberada = global.fase_liberada;
@@ -101,6 +109,8 @@ pausa_botoes = ["Continuar", "Reiniciar", "Sair"];
 pausa_saindo = 0;
 pausa_fade = 0;
 pausa_musica_id = -1;
+auto_config_timer = 0;
+auto_config_min_fps = 999;
 
 menu_fade_alpha = 0;
 if (room == rm_menu) {

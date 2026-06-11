@@ -338,7 +338,8 @@ if (variable_global_exists("op_pular_dialogo_retry") && global.op_pular_dialogo_
     historia_finalizada = true;
     cutscene_timer = 0;
     cutscene_ativo_timer = tempo_ate_cascata;
-    status_intro_timer = 38;
+    status_intro_timer = 999;
+    aparicao_audio_etapa = 3;
     cascata_ativa = true;
     cursor_real_liberado = true;
     ativo = true;

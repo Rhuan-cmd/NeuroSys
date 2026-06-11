@@ -193,17 +193,7 @@ if (ativo && frame_tempo <= 7) {
 
 var _score_alpha = clamp((status_intro_timer - 16) / 38, 0, 1);
 var _score_frames = max(1, sprite_get_number(spr_f2_status_pontos));
-var _score_frame = floor(clamp(cliques / max(1, cliques_necessarios), 0, 1) * (_score_frames - 1));
-draw_sprite_ext(spr_f2_status_pontos, _score_frame, 831, 445, s_score, s_score, 0, c_white, _score_alpha);
-draw_set_alpha(_score_alpha);
-draw_set_font(fnt_dialogo);
-draw_set_halign(fa_center);
-draw_set_valign(fa_middle);
-draw_set_color(c_white);
-draw_text_transformed(831, 445, string(cliques) + "/" + string(cliques_necessarios), 0.58 * escala_texto_f2, 0.58 * escala_texto_f2, 0);
-draw_set_halign(fa_left);
-draw_set_valign(fa_top);
-draw_set_alpha(1);
+draw_sprite_ext(spr_f2_status_pontos, min(cliques, _score_frames - 1), 831, 445, s_score, s_score, 0, c_white, _score_alpha);
 
 // ===== EXPLOSAO VISUAL AO CLICAR NO X =====
 for (var fx_i = 0; fx_i < array_length(fx_timer); fx_i++) {

@@ -186,11 +186,13 @@ if (aba == 3) _descricao = "Alterne entre janela e tela cheia clicando nos botõ
 if (aba == 4) _descricao = "Controle avisos, dicas visuais e se dialogos ja vistos somem depois de reiniciar uma fase.";
 draw_text_ext_transformed(306, 160, _descricao, 18, 590, 0.56, 0.56, 0);
 
-draw_set_alpha(0.86);
-_grad_rect(282, 218, gui_w - 36, 302, make_color_rgb(4, 17, 31), make_color_rgb(8, 37, 57), 12, true);
-draw_set_alpha(1);
-draw_set_color(_cyan_dark);
-draw_rectangle(282, 218, gui_w - 36, 302, true);
+if (aba != 4) {
+    draw_set_alpha(0.86);
+    _grad_rect(282, 218, gui_w - 36, 302, make_color_rgb(4, 17, 31), make_color_rgb(8, 37, 57), 12, true);
+    draw_set_alpha(1);
+    draw_set_color(_cyan_dark);
+    draw_rectangle(282, 218, gui_w - 36, 302, true);
+}
 
 var _nomes = [];
 var _sel = 0;
@@ -220,10 +222,11 @@ if (aba != 4) for (var _i = 0; _i < array_length(_nomes); _i += 1) {
 draw_set_halign(fa_left);
 draw_set_valign(fa_top);
 draw_set_alpha(0.90);
-_grad_rect(282, 318, gui_w - 36, 510, make_color_rgb(5, 21, 37), make_color_rgb(9, 44, 66), 18, false);
+var _content_y1 = aba == 4 ? 218 : 318;
+_grad_rect(282, _content_y1, gui_w - 36, 510, make_color_rgb(5, 21, 37), make_color_rgb(9, 44, 66), 18, false);
 draw_set_alpha(1);
 draw_set_color(_cyan_dark);
-draw_roundrect(282, 318, gui_w - 36, 510, true);
+draw_roundrect(282, _content_y1, gui_w - 36, 510, true);
 
 if (aba == 1) {
     var _slider_x1 = 470;
@@ -263,6 +266,12 @@ if (aba == 1) {
     draw_rectangle(_bar_x, 374, _bar_x + _bar_w * ((global.op_graficos + 1) / 3), 384, false);
     draw_set_color(c_white);
     draw_text_transformed(836, 365, grafico_opcoes[global.op_graficos], 0.54, 0.54, 0);
+    draw_set_color(_cyan);
+    draw_text_transformed(314, 404, "PIXEL PERFECT", 0.56, 0.56, 0);
+    draw_set_color(_muted);
+    draw_text_ext_transformed(314, 430, "Renderiza em baixa resolucao e aumenta em pixels limpos quando a resolucao e menor.", 14, 270, 0.42, 0.42, 0);
+    _option_card(612, 398, 112, 36, "SIM", global.op_pixel_perfect, hover_pixel == 0);
+    _option_card(742, 398, 112, 36, "NAO", !global.op_pixel_perfect, hover_pixel == 1);
 } else if (aba == 2) {
     draw_set_color(_cyan);
     draw_text_transformed(314, 340, "RESOLUÇÃO ATIVA", 0.56, 0.56, 0);

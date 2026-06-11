@@ -11,6 +11,8 @@ function save_init() {
     if (!variable_global_exists("op_volume_efeitos")) global.op_volume_efeitos = 1;
     if (!variable_global_exists("op_som_preset")) global.op_som_preset = 3;
     if (!variable_global_exists("op_graficos")) global.op_graficos = 2;
+    if (!variable_global_exists("op_pixel_perfect")) global.op_pixel_perfect = true;
+    if (!variable_global_exists("op_auto_config_feita")) global.op_auto_config_feita = false;
     if (!variable_global_exists("op_resolucao")) global.op_resolucao = 3;
     if (!variable_global_exists("op_tela")) global.op_tela = 1;
     if (!variable_global_exists("fase_liberada")) global.fase_liberada = 1;
@@ -32,6 +34,8 @@ function save_carregar() {
     global.op_volume_efeitos = clamp(ini_read_real("config", "volume_efeitos", global.op_volume_efeitos), 0, 1);
     global.op_som_preset = clamp(ini_read_real("config", "som_preset", global.op_som_preset), 0, 3);
     global.op_graficos = clamp(ini_read_real("config", "graficos", global.op_graficos), 0, 2);
+    global.op_pixel_perfect = ini_read_real("config", "pixel_perfect", global.op_pixel_perfect ? 1 : 0) >= 1;
+    global.op_auto_config_feita = ini_read_real("config", "auto_config_feita", global.op_auto_config_feita ? 1 : 0) >= 1;
     global.op_resolucao = clamp(ini_read_real("config", "resolucao", global.op_resolucao), 0, 3);
     global.op_tela = clamp(ini_read_real("config", "tela", global.op_tela), 0, 1);
     global.op_mostrar_save_aviso = ini_read_real("config", "mostrar_save_aviso", global.op_mostrar_save_aviso ? 1 : 0) >= 1;
@@ -54,6 +58,8 @@ function save_escrever() {
     ini_write_real("config", "volume_efeitos", variable_global_exists("op_volume_efeitos") ? global.op_volume_efeitos : 1);
     ini_write_real("config", "som_preset", variable_global_exists("op_som_preset") ? global.op_som_preset : 3);
     ini_write_real("config", "graficos", variable_global_exists("op_graficos") ? global.op_graficos : 2);
+    ini_write_real("config", "pixel_perfect", variable_global_exists("op_pixel_perfect") && global.op_pixel_perfect ? 1 : 0);
+    ini_write_real("config", "auto_config_feita", variable_global_exists("op_auto_config_feita") && global.op_auto_config_feita ? 1 : 0);
     ini_write_real("config", "resolucao", variable_global_exists("op_resolucao") ? global.op_resolucao : 3);
     ini_write_real("config", "tela", variable_global_exists("op_tela") ? global.op_tela : 1);
     ini_write_real("config", "mostrar_save_aviso", variable_global_exists("op_mostrar_save_aviso") && global.op_mostrar_save_aviso ? 1 : 0);

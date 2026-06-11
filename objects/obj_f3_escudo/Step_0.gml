@@ -6,6 +6,10 @@ if (resultado_ativo) {
 	resultado_timer++;
 	resultado_fade = min(1, resultado_fade + 0.06);
 	if (resultado_fade >= 1 && resultado_timer > 18) resultado_transicao = min(1, resultado_transicao + 0.055);
+	if (resultado_transicao >= 1 && !resultado_limpeza_feita) {
+		with (obj_f3_msg_negativa) instance_destroy();
+		resultado_limpeza_feita = true;
+	}
 	var _offset = lerp(36, 0, resultado_transicao);
 	var _mouse_gui_x = device_mouse_x_to_gui(0);
 	var _mouse_gui_y = device_mouse_y_to_gui(0);
@@ -56,10 +60,6 @@ if (vitoria_cutscene_ativa) {
 	vitoria_cutscene_fade = clamp(vitoria_cutscene_timer / (room_speed * 1.35), 0, 1);
 	if (vitoria_audio_id != -1) {
 		ns_audio_gain_sfx(vitoria_audio_id, max(0, 1 - vitoria_cutscene_fade), 120);
-	}
-	if (vitoria_cutscene_fade >= 0.74) {
-		if (instance_exists(obj_f3_controlador_msg)) instance_destroy(obj_f3_controlador_msg);
-		with (obj_f3_msg_negativa) instance_destroy();
 	}
 	if (vitoria_cutscene_timer >= room_speed * 2.2) {
 		exibir_resultado(true);
