@@ -233,10 +233,10 @@
   "resourceVersion":"2.0",
   "RoomOrderNodes":[
     {"roomId":{"name":"rm_intro","path":"rooms/rm_intro/rm_intro.yy",},},
+    {"roomId":{"name":"rm_menu_opcoes","path":"rooms/rm_menu_opcoes/rm_menu_opcoes.yy",},},
     {"roomId":{"name":"rm_menu","path":"rooms/rm_menu/rm_menu.yy",},},
     {"roomId":{"name":"rm_menu2","path":"rooms/rm_menu2/rm_menu2.yy",},},
     {"roomId":{"name":"rm_menu_fases","path":"rooms/rm_menu_fases/rm_menu_fases.yy",},},
-    {"roomId":{"name":"rm_menu_opcoes","path":"rooms/rm_menu_opcoes/rm_menu_opcoes.yy",},},
     {"roomId":{"name":"rm_fase1","path":"rooms/rm_fase1/rm_fase1.yy",},},
     {"roomId":{"name":"rm_fase2","path":"rooms/rm_fase2/rm_fase2.yy",},},
     {"roomId":{"name":"rm_fase3","path":"rooms/rm_fase3/rm_fase3.yy",},},
