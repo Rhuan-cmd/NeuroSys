@@ -4,6 +4,8 @@ vidas_max = 5;
 vidas = vidas_max;
 cliques = 0;
 cliques_necessarios = 14;
+x_retry_dificuldade = -1;
+dificuldade_x_ativa = 0;
 randomize();
 
 // ===== CUTSCENE, DIALOGOS E TRANSICOES =====
@@ -202,7 +204,7 @@ repelir_cursor = function() {
 
 iniciar_ataque_cursor = function(_tipo) {
     poder_ataque_tipo = _tipo;
-    poder_ataque_timer = cliques >= 8 ? 18 : poder_ataque_total;
+    poder_ataque_timer = dificuldade_x_ativa >= 8 ? 18 : poder_ataque_total;
     poder_ataque_x0 = room_width * 0.5;
     poder_ataque_y0 = room_height * 0.5;
     if (instance_exists(caixa)) {
@@ -250,10 +252,13 @@ criar_caixa = function(_x, _y, _reposicionar) {
         "Fase2_Minijogo",
         obj_f2_caixa_fechar
     );
-    caixa.configurar(cliques);
+    var _dificuldade_caixa = x_retry_dificuldade >= 0 ? x_retry_dificuldade : cliques;
+    x_retry_dificuldade = -1;
+    dificuldade_x_ativa = _dificuldade_caixa;
+    caixa.configurar(dificuldade_x_ativa);
     limite_clique_atual = limite_clique;
-    if (cliques >= 4) limite_clique_atual = room_speed * 10;
-    if (cliques >= 8) limite_clique_atual = ceil(room_speed * max(6.2, 8.8 - (cliques - 8) * 0.38));
+    if (dificuldade_x_ativa >= 4) limite_clique_atual = room_speed * 10;
+    if (dificuldade_x_ativa >= 8) limite_clique_atual = ceil(room_speed * max(6.2, 8.8 - (dificuldade_x_ativa - 8) * 0.38));
     timer_clique = 0;
     sino_audio_timer = 1;
     
@@ -277,6 +282,14 @@ criar_caixa = function(_x, _y, _reposicionar) {
 // ===== PERDA DE VIDA E ENCERRAMENTO DA FASE =====
 perder_vida = function() {
     vidas--;
+    x_retry_dificuldade = max(0, cliques - 1);
+    dificuldade_x_ativa = x_retry_dificuldade;
+    congelado_timer = 0;
+    gelo_quebra_timer = 0;
+    repel_fx_timer = 0;
+    poder_ataque_timer = 0;
+    poder_ataque_tipo = 0;
+    poder_cooldown = dificuldade_x_ativa >= 8 ? ceil(room_speed * 1.8) : ceil(room_speed * 3.0);
     ns_audio_play_sfx(snd_f2_dano, 3, false, 0.72, 0, 1);
     ns_audio_play_sfx(snd_f2_tremor, 3, false, min(0.82, 0.42 + (vidas_max - vidas) * 0.08), 0, 1);
     timer_clique = 0;

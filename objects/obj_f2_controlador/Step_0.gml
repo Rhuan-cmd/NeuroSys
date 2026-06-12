@@ -269,14 +269,14 @@ if (ativo) {
             gelo_quebra_timer = 18;
             ns_audio_play_sfx(snd_f2_gelo_quebra, 4, false, 0.78, 0, 1);
         }
-    } else if (poder_ataque_timer <= 0 && instance_exists(caixa) && !caixa.modo_intro && poder_cooldown <= 0 && cliques >= 5) {
-        var usar_repulsao = cliques >= 8 && irandom(3) >= 1;
+    } else if (poder_ataque_timer <= 0 && instance_exists(caixa) && !caixa.modo_intro && poder_cooldown <= 0 && dificuldade_x_ativa >= 5) {
+        var usar_repulsao = dificuldade_x_ativa >= 8 && irandom(3) >= 1;
         if (usar_repulsao) {
             iniciar_ataque_cursor(2);
         } else {
             iniciar_ataque_cursor(1);
         }
-        if (cliques >= 8) {
+        if (dificuldade_x_ativa >= 8) {
             poder_cooldown = irandom_range(ceil(room_speed * 1.35), ceil(room_speed * 2.25));
         } else {
             poder_cooldown = irandom_range(ceil(room_speed * 2.6), ceil(room_speed * 4.0));

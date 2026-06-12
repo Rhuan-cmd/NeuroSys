@@ -78,6 +78,46 @@ for (var i = 0; i < array_length(botao_sprite); i += 1) {
     }
 }
 
+if (confirmar_sair) {
+    draw_set_alpha(0.62);
+    draw_set_color(c_black);
+    draw_rectangle(0, 0, gui_w, gui_h, false);
+    draw_set_alpha(1);
+    draw_set_color(make_color_rgb(8, 35, 55));
+    draw_roundrect(298, 226, 712, 394, false);
+    draw_set_color(make_color_rgb(4, 13, 25));
+    draw_rectangle(304, 286, 706, 388, false);
+    draw_set_color(make_color_rgb(98, 234, 255));
+    draw_roundrect(298, 226, 712, 394, true);
+    draw_set_halign(fa_center);
+    draw_set_valign(fa_middle);
+    draw_set_alpha(0.72);
+    draw_set_color(make_color_rgb(242, 74, 124));
+    draw_text_transformed(507, 266, "CONFIRMAR SAÍDA", 0.72, 0.72, 0);
+    draw_set_color(make_color_rgb(31, 214, 181));
+    draw_text_transformed(503, 268, "CONFIRMAR SAÍDA", 0.72, 0.72, 0);
+    draw_set_alpha(1);
+    draw_set_color(make_color_rgb(226, 248, 255));
+    draw_text_transformed(505, 266, "CONFIRMAR SAÍDA", 0.72, 0.72, 0);
+    draw_set_color(make_color_rgb(165, 187, 206));
+    draw_text_ext_transformed(505, 300, "Tem certeza que deseja sair do jogo?", 18, 330, 0.50, 0.50, 0);
+
+    var _confirm_txt = ["SIM", "NÃO"];
+    for (var _c = 0; _c < 2; _c += 1) {
+        var _x1 = _c == 0 ? 386 : 514;
+        var _y1 = 330;
+        var _x2 = _x1 + 110;
+        var _y2 = 374;
+        var _hover = hover_confirmar_sair == _c;
+        draw_set_color(_hover ? make_color_rgb(20, 83, 109) : make_color_rgb(7, 24, 42));
+        draw_roundrect(_x1, _y1, _x2, _y2, false);
+        draw_set_color(_hover ? make_color_rgb(120, 236, 255) : make_color_rgb(46, 129, 163));
+        draw_roundrect(_x1, _y1, _x2, _y2, true);
+        draw_set_color(_hover ? make_color_rgb(255, 232, 138) : c_white);
+        draw_text_transformed((_x1 + _x2) * 0.5, (_y1 + _y2) * 0.5, _confirm_txt[_c], 0.68, 0.68, 0);
+    }
+}
+
 if (clique_iniciado) {
     var fade = 1 - clamp(menu_saida_timer / max(1, round(room_speed * 0.82)), 0, 1);
     var soft = fade * fade * (3 - 2 * fade);
