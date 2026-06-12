@@ -79,7 +79,7 @@ function _card_rect(_aba, _idx) {
         var _h_sis = 40;
         var _gap_sis = 20;
         var _x_sis = 642 + _col * (_w_sis + _gap_sis);
-        var _y_sis = 250 + _row * 62;
+        var _y_sis = 246 + _row * 72;
         return [_x_sis, _y_sis, _w_sis, _h_sis];
     }
 
@@ -184,7 +184,7 @@ if (aba == 1) _descricao = "Ajuste o volume geral, música e efeitos.\nO preset 
 if (aba == 2) _descricao = "Selecione a resolução base.\nEla também é aplicada antes de entrar em tela cheia.";
 if (aba == 3) _descricao = "Alterne entre janela e tela cheia clicando nos botões ou usando F11.";
 if (aba == 4) _descricao = "Controle avisos, dicas visuais e diálogos já vistos.\nEssas opções afetam intro, créditos e retry das fases.";
-draw_text_ext_transformed(306, 158, _descricao, 12, 590, 0.56, 0.56, 0);
+draw_text_ext_transformed(306, 154, _descricao, 26, 590, 0.50, 0.50, 0);
 
 if (aba != 4) {
     draw_set_alpha(0.86);
@@ -267,12 +267,12 @@ if (aba == 1) {
     draw_set_color(c_white);
     draw_text_transformed(836, 353, grafico_opcoes[global.op_graficos], 0.54, 0.54, 0);
     draw_set_color(_cyan);
-    draw_text_transformed(314, 398, "PIXEL PERFECT", 0.48, 0.48, 0);
+    draw_text_transformed(314, 388, "PIXEL PERFECT", 0.46, 0.46, 0);
     draw_set_color(_muted);
-    draw_text_ext_transformed(314, 418, "BAIXO desliga.\nMÉDIO preserva textos.\nALTO aplica na tela toda.", 10, 300, 0.40, 0.40, 0);
+    draw_text_ext_transformed(314, 406, "BAIXO desliga.\nMÉDIO preserva textos.\nALTO aplica na tela toda.", 18, 280, 0.36, 0.36, 0);
     var _pixel_sel = variable_global_exists("op_pixel_perfect_nivel") ? global.op_pixel_perfect_nivel : (global.op_pixel_perfect ? 1 : 0);
     for (var _px = 0; _px < 3; _px += 1) {
-        _option_card(542 + _px * 128, 412, 112, 36, pixel_opcoes[_px], _pixel_sel == _px, hover_pixel == _px);
+        _option_card(500 + _px * 122, 382, 108, 36, pixel_opcoes[_px], _pixel_sel == _px, hover_pixel == _px);
     }
 } else if (aba == 2) {
     draw_set_color(_cyan);
@@ -297,11 +297,11 @@ if (aba == 1) {
         "Depois da primeira tentativa, pula diálogos/cutscenes da fase."
     ];
     for (var _sis = 0; _sis < 3; _sis += 1) {
-        var _base_y = 250 + _sis * 62;
+        var _base_y = 246 + _sis * 72;
         draw_set_color(c_white);
         _glitch_text(314, _base_y + 4, sistema_linhas[_sis], 0.55, 0.55, c_white, false);
         draw_set_color(_muted);
-        draw_text_ext_transformed(314, _base_y + 27, _sis_desc[_sis], 10, 306, 0.43, 0.43, 0);
+        draw_text_ext_transformed(314, _base_y + 25, _sis_desc[_sis], 22, 306, 0.38, 0.38, 0);
         for (var _op = 0; _op < 2; _op += 1) {
             var _idx_sis = _sis * 2 + _op;
             var _r_sis = _card_rect(4, _idx_sis);

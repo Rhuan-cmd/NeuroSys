@@ -156,6 +156,7 @@ if (variable_global_exists("op_graficos")) {
     global.fx_pixel_perfect_nivel = _pixel_nivel;
     global.fx_surface_w = (_pixel_nivel >= 2) ? ((_res_fx <= 0) ? 480 : ((_res_fx == 1) ? 640 : 960)) : 960;
     global.fx_surface_h = (_pixel_nivel >= 2) ? ((_res_fx <= 0) ? 270 : ((_res_fx == 1) ? 360 : 540)) : 540;
+    gpu_set_texfilter(_pixel_nivel <= 0);
     display_set_sleep_margin(global.fx_qualidade == 0 ? 4 : 10);
 }
 
