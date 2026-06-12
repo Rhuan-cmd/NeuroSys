@@ -28,7 +28,7 @@ function _mix_col(_a, _b, _t) {
 }
 
 function _grad_rect(_x1, _y1, _x2, _y2, _c1, _c2, _steps) {
-    _steps = max(1, min(_steps, 6));
+    _steps = max(1, min(_steps, 4));
     var _h = (_y2 - _y1) / _steps;
     for (var _g = 0; _g < _steps; _g += 1) {
         draw_set_color(_mix_col(_c1, _c2, _g / max(1, _steps - 1)));

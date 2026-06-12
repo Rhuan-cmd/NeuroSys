@@ -5,6 +5,14 @@ if (room == rm_fase2 && instance_exists(obj_f2_controlador) && obj_f2_controlado
 if (room == rm_fase3 && instance_exists(obj_f3_escudo) && obj_f3_escudo.resultado_ativo) _resultado_aberto = true;
 if (room == rm_fase4 && instance_exists(obj_f4_fundo) && obj_f4_fundo.resultado_ativo) _resultado_aberto = true;
 
+global.perf_fullscreen_cooldown = max(0, global.perf_fullscreen_cooldown - 1);
+if (keyboard_check_pressed(vk_f11) && global.perf_fullscreen_cooldown <= 0) {
+    var _res_idx = 0;
+    if (variable_global_exists("op_resolucao")) _res_idx = clamp(global.op_resolucao, 0, 3);
+    ns_video_aplicar(_res_idx, !window_get_fullscreen());
+    global.perf_fullscreen_cooldown = room_speed;
+}
+
 if (_room_fase && !_resultado_aberto && !global.transicao_ativa && !global.fase_entrada_bloquear_cursor && !instance_exists(obj_transicao) && !global.jogo_pausado && keyboard_check_pressed(vk_escape)) {
     global.transicao_ativa = false;
     global.fase_entrada_bloquear_cursor = false;
@@ -130,14 +138,6 @@ if (global.jogo_pausado) {
     exit;
 }
 
-global.perf_fullscreen_cooldown = max(0, global.perf_fullscreen_cooldown - 1);
-if (keyboard_check_pressed(vk_f11) && global.perf_fullscreen_cooldown <= 0) {
-    var _res_idx = 0;
-    if (variable_global_exists("op_resolucao")) _res_idx = clamp(global.op_resolucao, 0, 3);
-    ns_video_aplicar(_res_idx, !window_get_fullscreen());
-    global.perf_fullscreen_cooldown = room_speed;
-}
-
 if (variable_global_exists("op_tela")) {
     global.op_tela = window_get_fullscreen() ? 1 : 0;
 }
@@ -154,8 +154,9 @@ if (variable_global_exists("op_graficos")) {
     global.op_pixel_perfect = _pixel_nivel > 0;
     global.fx_pixel_perfect = _pixel_nivel > 0;
     global.fx_pixel_perfect_nivel = _pixel_nivel;
-    global.fx_surface_w = (_pixel_nivel >= 2) ? ((_res_fx <= 0) ? 480 : ((_res_fx == 1) ? 640 : 960)) : 960;
-    global.fx_surface_h = (_pixel_nivel >= 2) ? ((_res_fx <= 0) ? 270 : ((_res_fx == 1) ? 360 : 540)) : 540;
+    // Mantem a surface base fixa para nao cortar GUI/dialogos; o nivel controla a filtragem visual.
+    global.fx_surface_w = 960;
+    global.fx_surface_h = 540;
     gpu_set_texfilter(_pixel_nivel <= 0);
     display_set_sleep_margin(global.fx_qualidade == 0 ? 4 : 10);
 }

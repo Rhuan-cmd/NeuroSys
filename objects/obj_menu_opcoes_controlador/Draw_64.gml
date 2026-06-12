@@ -8,7 +8,7 @@ var _green = make_color_rgb(112, 245, 185);
 var _pulse = 0.5 + 0.5 * sin(menu_timer * 0.055);
 
 function _grad_rect(_x1, _y1, _x2, _y2, _c1, _c2, _steps, _vertical) {
-    _steps = max(1, min(_steps, 6));
+    _steps = max(1, min(_steps, 4));
     for (var _g = 0; _g < _steps; _g += 1) {
         var _t1 = _g / _steps;
         var _t2 = (_g + 1) / _steps;
@@ -269,7 +269,7 @@ if (aba == 1) {
     draw_set_color(_cyan);
     draw_text_transformed(314, 388, "PIXEL PERFECT", 0.46, 0.46, 0);
     draw_set_color(_muted);
-    draw_text_ext_transformed(314, 406, "BAIXO desliga.\nMÉDIO preserva textos.\nALTO aplica na tela toda.", 18, 280, 0.36, 0.36, 0);
+    draw_text_ext_transformed(314, 406, "DESLIGADO remove o efeito.\nBAIXO preserva textos.\nALTO aplica na tela toda.", 18, 280, 0.35, 0.35, 0);
     var _pixel_sel = variable_global_exists("op_pixel_perfect_nivel") ? global.op_pixel_perfect_nivel : (global.op_pixel_perfect ? 1 : 0);
     for (var _px = 0; _px < 3; _px += 1) {
         _option_card(500 + _px * 122, 382, 108, 36, pixel_opcoes[_px], _pixel_sel == _px, hover_pixel == _px);
@@ -301,7 +301,7 @@ if (aba == 1) {
         draw_set_color(c_white);
         _glitch_text(314, _base_y + 4, sistema_linhas[_sis], 0.55, 0.55, c_white, false);
         draw_set_color(_muted);
-        draw_text_ext_transformed(314, _base_y + 25, _sis_desc[_sis], 22, 306, 0.38, 0.38, 0);
+        draw_text_ext_transformed(314, _base_y + 25, _sis_desc[_sis], 20, 306, 0.34, 0.34, 0);
         for (var _op = 0; _op < 2; _op += 1) {
             var _idx_sis = _sis * 2 + _op;
             var _r_sis = _card_rect(4, _idx_sis);

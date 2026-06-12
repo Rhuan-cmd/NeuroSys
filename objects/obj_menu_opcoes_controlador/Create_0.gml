@@ -40,7 +40,7 @@ anim_brilho = 0;
 
 abas = ["GRÁFICOS", "SOM", "RESOLUÇÃO", "TELA", "SISTEMA"];
 grafico_opcoes = ["BAIXO", "EQUILIBRADO", "ALTO"];
-pixel_opcoes = ["BAIXO", "MÉDIO", "ALTO"];
+pixel_opcoes = ["DESLIGADO", "BAIXO", "ALTO"];
 som_opcoes = ["MUDO", "BAIXO", "MÉDIO", "ALTO"];
 som_valores = [0, 0.35, 0.65, 1];
 res_opcoes = ["960 x 540", "1280 x 720", "1600 x 900", "1920 x 1080"];

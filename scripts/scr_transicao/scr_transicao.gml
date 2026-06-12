@@ -95,8 +95,8 @@ function ns_video_aplicar(_idx, _fullscreen) {
     global.op_pixel_perfect = _pixel_nivel > 0;
     global.fx_pixel_perfect = _pixel_nivel > 0;
     global.fx_pixel_perfect_nivel = _pixel_nivel;
-    global.fx_surface_w = (_pixel_nivel >= 2) ? ((_i <= 0) ? 480 : ((_i == 1) ? 640 : 960)) : 960;
-    global.fx_surface_h = (_pixel_nivel >= 2) ? ((_i <= 0) ? 270 : ((_i == 1) ? 360 : 540)) : 540;
+    global.fx_surface_w = 960;
+    global.fx_surface_h = 540;
     gpu_set_texfilter(_pixel_nivel <= 0);
 
     if (_fullscreen) {
