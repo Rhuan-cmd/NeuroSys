@@ -6,15 +6,18 @@ if (!surface_exists(application_surface)) {
 }
 
 var _div = 1;
-if (_qualidade == 1) _div = 2;
-if (_qualidade == 0) _div = 4;
-if (_pixel_nivel == 1) _div = max(_div, 2);
-if (_pixel_nivel == 2) _div = max(_div, 3);
+if (_qualidade == 1) _div = 3;
+if (_qualidade == 0) _div = 6;
+if (_pixel_nivel == 1) _div = max(_div, 3);
+if (_pixel_nivel == 2) _div = max(_div, 8);
 
 if (_div <= 1) {
+    application_surface_draw_enable(true);
     gpu_set_texfilter(true);
     exit;
 }
+
+application_surface_draw_enable(false);
 
 var _src_w = surface_get_width(application_surface);
 var _src_h = surface_get_height(application_surface);

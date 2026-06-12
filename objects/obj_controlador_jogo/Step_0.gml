@@ -155,6 +155,13 @@ if (variable_global_exists("op_graficos")) {
     global.fx_pixel_perfect_nivel = _pixel_nivel;
     global.fx_sprite_quality = global.fx_qualidade;
     global.fx_pixel_textos = _pixel_nivel >= 2;
+    var _post_div = 1;
+    if (global.fx_qualidade == 1) _post_div = 3;
+    if (global.fx_qualidade == 0) _post_div = 6;
+    if (_pixel_nivel == 1) _post_div = max(_post_div, 3);
+    if (_pixel_nivel == 2) _post_div = max(_post_div, 8);
+    global.fx_post_div = _post_div;
+    application_surface_draw_enable(_post_div <= 1);
     // A surface base fica fixa para nao cortar GUI/dialogos; o visual e controlado por filtro/efeitos.
     global.fx_surface_w = 960;
     global.fx_surface_h = 540;

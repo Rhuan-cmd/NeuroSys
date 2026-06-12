@@ -179,12 +179,12 @@ draw_set_alpha(1);
 _glitch_text(304, 122, abas[aba], 1.0, 1.0, _cyan, true);
 draw_set_color(_muted);
 var _descricao = "";
-if (aba == 0) _descricao = "BAIXO reduz muito a qualidade visual e corta efeitos pesados.\nEQUILIBRADO reduz parcialmente o render e efeitos leves.\nALTO deixa filtros e efeitos completos.";
-if (aba == 1) _descricao = "Ajuste o volume geral, música e efeitos.\nO preset MUDO, BAIXO, MÉDIO ou ALTO acompanha o volume geral.";
-if (aba == 2) _descricao = "Selecione a resolução base.\nEla também é aplicada antes de entrar em tela cheia.";
-if (aba == 3) _descricao = "Alterne entre janela e tela cheia clicando nos botões ou usando F11.";
-if (aba == 4) _descricao = "Controle avisos, dicas visuais e diálogos já vistos.\nEssas opções afetam intro, créditos e retry das fases.";
-draw_text_ext_transformed(306, 154, _descricao, 26, 590, 0.50, 0.50, 0);
+if (aba == 0) _descricao = "BAIXO reduz forte a qualidade e corta efeitos.\nEQUILIBRADO reduz parcialmente.\nALTO mantem tudo completo.";
+if (aba == 1) _descricao = "Ajuste volume geral, musica e efeitos.\nO preset acompanha o volume geral.";
+if (aba == 2) _descricao = "Selecione a resolucao base.\nTambem vale antes da tela cheia.";
+if (aba == 3) _descricao = "Alterne janela ou tela cheia.\nF11 tambem funciona.";
+if (aba == 4) _descricao = "Controle avisos, dicas e pulos automaticos.\nAfeta intro, creditos e retry das fases.";
+draw_text_ext_transformed(306, 154, _descricao, 22, 760, 0.43, 0.43, 0);
 
 if (aba != 4) {
     draw_set_alpha(0.86);
@@ -269,10 +269,10 @@ if (aba == 1) {
     draw_set_color(_cyan);
     draw_text_transformed(314, 388, "PIXEL PERFECT", 0.46, 0.46, 0);
     draw_set_color(_muted);
-    draw_text_ext_transformed(314, 406, "DESLIGADO remove o efeito.\nBAIXO aplica nos sprites.\nALTO aplica tambem nos textos.", 18, 280, 0.35, 0.35, 0);
+    draw_text_ext_transformed(314, 406, "DESLIGADO: normal.\nBAIXO: sprites.\nALTO: tudo.", 18, 340, 0.34, 0.34, 0);
     var _pixel_sel = variable_global_exists("op_pixel_perfect_nivel") ? global.op_pixel_perfect_nivel : (global.op_pixel_perfect ? 1 : 0);
     for (var _px = 0; _px < 3; _px += 1) {
-        _option_card(500 + _px * 122, 382, 108, 36, pixel_opcoes[_px], _pixel_sel == _px, hover_pixel == _px);
+        _option_card(500 + _px * 122, 404, 108, 36, pixel_opcoes[_px], _pixel_sel == _px, hover_pixel == _px);
     }
 } else if (aba == 2) {
     draw_set_color(_cyan);
@@ -292,16 +292,16 @@ if (aba == 1) {
     draw_set_color(_cyan);
     draw_text_transformed(314, 232, "SISTEMA VISUAL", 0.58, 0.58, 0);
     var _sis_desc = [
-        "Mostra o aviso pequeno quando o jogo salva.",
-        "Exibe cards de ajuda para pular intro, vídeo e créditos.",
-        "Depois da primeira tentativa, pula diálogos/cutscenes da fase."
+        "Mostra aviso quando salva.",
+        "Mostra dicas de pulo na intro e nos creditos.",
+        "Pula dialogos apos retry."
     ];
     for (var _sis = 0; _sis < 3; _sis += 1) {
         var _base_y = 246 + _sis * 72;
         draw_set_color(c_white);
         _glitch_text(314, _base_y + 4, sistema_linhas[_sis], 0.55, 0.55, c_white, false);
         draw_set_color(_muted);
-        draw_text_ext_transformed(314, _base_y + 25, _sis_desc[_sis], 20, 306, 0.34, 0.34, 0);
+        draw_text_ext_transformed(314, _base_y + 25, _sis_desc[_sis], 20, 390, 0.40, 0.40, 0);
         for (var _op = 0; _op < 2; _op += 1) {
             var _idx_sis = _sis * 2 + _op;
             var _r_sis = _card_rect(4, _idx_sis);

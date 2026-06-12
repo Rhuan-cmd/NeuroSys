@@ -240,9 +240,9 @@ hover_reset_anterior = hover_reset;
 
 hover_pixel = -1;
 if (aba == 0) {
-    if (point_in_rectangle(_mx, _my, 500, 382, 608, 418)) hover_pixel = 0;
-    if (point_in_rectangle(_mx, _my, 622, 382, 730, 418)) hover_pixel = 1;
-    if (point_in_rectangle(_mx, _my, 744, 382, 852, 418)) hover_pixel = 2;
+    if (point_in_rectangle(_mx, _my, 500, 404, 608, 440)) hover_pixel = 0;
+    if (point_in_rectangle(_mx, _my, 622, 404, 730, 440)) hover_pixel = 1;
+    if (point_in_rectangle(_mx, _my, 744, 404, 852, 440)) hover_pixel = 2;
 }
 if (hover_pixel != -1 && hover_pixel != hover_pixel_anterior) ns_audio_play_sfx(snd_f2_selecao, 3, false, _fx_gain(0.42), 0, 1);
 hover_pixel_anterior = hover_pixel;
