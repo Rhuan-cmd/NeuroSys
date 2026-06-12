@@ -1,6 +1,7 @@
 if (resultado_ativo) {
 	var _gui_w = display_get_gui_width();
 	var _gui_h = display_get_gui_height();
+	var _fx_qualidade = variable_global_exists("fx_qualidade") ? global.fx_qualidade : 2;
 	var _suave = resultado_transicao * resultado_transicao * (3 - 2 * resultado_transicao);
 	var _offset = lerp(38, 0, _suave);
 	var _cor = resultado_vitoria ? make_color_rgb(55, 222, 242) : make_color_rgb(255, 78, 105);
@@ -16,10 +17,12 @@ if (resultado_ativo) {
 	draw_rectangle(0, 0, _gui_w, _gui_h, false);
 	if (resultado_transicao <= 0) exit;
 
-	draw_set_alpha(0.22 * _suave);
-	draw_set_color(_cor);
-	for (var _scan = 0; _scan < _gui_h; _scan += 22) {
-		draw_rectangle(0, _scan + _offset * 0.25, _gui_w, _scan + 2 + _offset * 0.25, false);
+	if (_fx_qualidade > 0) {
+		draw_set_alpha(0.22 * _suave);
+		draw_set_color(_cor);
+		for (var _scan = 0; _scan < _gui_h; _scan += (_fx_qualidade == 1 ? 44 : 22)) {
+			draw_rectangle(0, _scan + _offset * 0.25, _gui_w, _scan + 2 + _offset * 0.25, false);
+		}
 	}
 	draw_set_alpha(_suave);
 	draw_sprite_ext(spr_f3_painel_resultado, resultado_vitoria ? 0 : 1, 480, 270 + _offset, 1, 1, 0, c_white, _suave);

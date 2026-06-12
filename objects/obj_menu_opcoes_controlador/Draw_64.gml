@@ -6,6 +6,7 @@ var _muted = make_color_rgb(146, 172, 198);
 var _yellow = make_color_rgb(255, 232, 128);
 var _green = make_color_rgb(112, 245, 185);
 var _pulse = 0.5 + 0.5 * sin(menu_timer * 0.055);
+var _fx_qualidade = variable_global_exists("fx_qualidade") ? global.fx_qualidade : 2;
 
 function _grad_rect(_x1, _y1, _x2, _y2, _c1, _c2, _steps, _vertical) {
     _steps = max(1, min(_steps, 4));
@@ -111,7 +112,6 @@ function _card_rect(_aba, _idx) {
 
 draw_set_alpha(1);
 draw_set_color(c_white);
-draw_sprite_stretched(spr_menu_opcoes_fundo, 0, 0, 0, gui_w, gui_h);
 
 _grad_rect(0, 0, gui_w, gui_h, make_color_rgb(3, 10, 20), make_color_rgb(10, 42, 66), 28, true);
 draw_set_alpha(0.42);
@@ -126,11 +126,13 @@ _grad_rect(0, 0, _side_w, gui_h, make_color_rgb(4, 18, 32), make_color_rgb(8, 37
 _grad_rect(_content_x, 0, gui_w, gui_h, make_color_rgb(4, 12, 24), make_color_rgb(8, 31, 51), 22, true);
 _grad_rect(0, 0, gui_w, _top_h, make_color_rgb(8, 44, 69), make_color_rgb(4, 14, 27), 18, true);
 
-draw_set_alpha(0.38);
-draw_set_color(make_color_rgb(28, 111, 150));
-for (var _gx = _content_x + 18; _gx < gui_w; _gx += 48) draw_line(_gx, _top_h, _gx, gui_h);
-for (var _gy = _top_h + 20; _gy < gui_h; _gy += 48) draw_line(_content_x, _gy, gui_w, _gy);
-draw_set_alpha(1);
+if (_fx_qualidade > 0) {
+    draw_set_alpha(_fx_qualidade == 1 ? 0.18 : 0.38);
+    draw_set_color(make_color_rgb(28, 111, 150));
+    for (var _gx = _content_x + 18; _gx < gui_w; _gx += 48) draw_line(_gx, _top_h, _gx, gui_h);
+    for (var _gy = _top_h + 20; _gy < gui_h; _gy += 48) draw_line(_content_x, _gy, gui_w, _gy);
+    draw_set_alpha(1);
+}
 
 draw_set_color(_cyan);
 draw_rectangle(_side_w - 2, 0, _side_w + 2, gui_h, false);
@@ -179,7 +181,7 @@ draw_set_alpha(1);
 _glitch_text(304, 122, abas[aba], 1.0, 1.0, _cyan, true);
 draw_set_color(_muted);
 var _descricao = "";
-if (aba == 0) _descricao = "BAIXO reduz forte a qualidade e corta efeitos.\nEQUILIBRADO reduz parcialmente.\nALTO mantém tudo completo.";
+if (aba == 0) _descricao = "BAIXO corta efeitos pesados e animações extras.\nEQUILIBRADO reduz efeitos leves.\nALTO mantém tudo completo.";
 if (aba == 1) _descricao = "Ajuste volume geral, música e efeitos.\nO preset acompanha o volume geral.";
 if (aba == 2) _descricao = "Selecione a resolução base.\nTambém vale antes da tela cheia.";
 if (aba == 3) _descricao = "Alterne janela ou tela cheia.\nF11 também funciona.";

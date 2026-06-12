@@ -1,6 +1,7 @@
 // ==========================================
 // 1. FUNDO GRADIENTE ANIMADO (TELA INTEIRA)
 // ==========================================
+var _fx_qualidade = variable_global_exists("fx_qualidade") ? global.fx_qualidade : 2;
 var tempo_cor = get_timer() / 3000000; 
 var blend = (sin(tempo_cor) + 1) / 2; 
 
@@ -15,8 +16,9 @@ draw_rectangle_color(0, 0, room_width, room_height, cor_topo, cor_topo, cor_hori
 // ==========================================
 draw_set_color(c_white);
 var centro_x = room_width / 2;
+var _poeira_step = _fx_qualidade <= 0 ? 4 : (_fx_qualidade == 1 ? 2 : 1);
 
-for (var i = 0; i < num_poeiras; i++) {
+for (var i = 0; i < num_poeiras; i += _poeira_step) {
     var dz = poeira_z[i]; 
     
     var px = centro_x + (poeira_x[i] - centro_x - (camera_offset_x * 0.2)) / dz;
@@ -40,8 +42,9 @@ draw_set_color(c_aqua);
 var inicio_x = -(room_width / 2); 
 var deslocamento_onda = camera_offset_x * 0.4; 
 var tempo_onda = current_time / 200;
+var _barra_step = _fx_qualidade <= 0 ? 4 : (_fx_qualidade == 1 ? 2 : 1);
 
-for (var i = 0; i < num_barras; i++) {
+for (var i = 0; i < num_barras; i += _barra_step) {
     var xx = inicio_x + (i * barra_w) - deslocamento_onda;
     
     if (xx > -barra_w && xx < room_width) {
@@ -69,7 +72,7 @@ draw_set_alpha(1);
 
 var _vidas_perdidas = instance_exists(obj_f4_nave) ? 4 - obj_f4_nave.vida : 0;
 var _corrupcao = clamp(_vidas_perdidas / 4 + corrupt_flash * 0.42, 0, 1);
-if (_corrupcao > 0) {
+if (_corrupcao > 0 && _fx_qualidade > 0) {
     var _frame = floor(current_time / 140) mod sprite_get_number(spr_fx_corrupcao);
     draw_sprite_ext(spr_fx_corrupcao, _frame, 0, 0, room_width / sprite_get_width(spr_fx_corrupcao), room_height / sprite_get_height(spr_fx_corrupcao), 0, c_white, 0.12 + _corrupcao * 0.38);
 }
@@ -88,10 +91,12 @@ if (resultado_ativo) {
     draw_set_alpha(0.86);
     draw_set_color(c_black);
     draw_rectangle(0, 0, room_width, room_height, false);
-    draw_set_alpha(0.22 * _suave);
-    draw_set_color(_cor);
-    for (var _scan = 0; _scan < room_height; _scan += 22) {
-        draw_rectangle(0, _scan + _offset * 0.25, room_width, _scan + 2 + _offset * 0.25, false);
+    if (_fx_qualidade > 0) {
+        draw_set_alpha(0.22 * _suave);
+        draw_set_color(_cor);
+        for (var _scan = 0; _scan < room_height; _scan += (_fx_qualidade == 1 ? 44 : 22)) {
+            draw_rectangle(0, _scan + _offset * 0.25, room_width, _scan + 2 + _offset * 0.25, false);
+        }
     }
     draw_set_alpha(_suave);
     draw_sprite_ext(spr_f4_painel_resultado, 1, 480, 270 + _offset, 1, 1, 0, c_white, _suave);

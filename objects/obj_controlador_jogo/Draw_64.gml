@@ -1,31 +1,5 @@
 var _pixel_nivel_gui = variable_global_exists("fx_pixel_perfect_nivel") ? global.fx_pixel_perfect_nivel : 0;
-var _qualidade_gui = variable_global_exists("fx_qualidade") ? global.fx_qualidade : 2;
-var _post_div_gui = variable_global_exists("fx_post_div") ? global.fx_post_div : 1;
-
-if (_post_div_gui > 1 && surface_exists(application_surface)) {
-    var _src_w_gui = surface_get_width(application_surface);
-    var _src_h_gui = surface_get_height(application_surface);
-    var _dst_w_gui = max(1, floor(_src_w_gui / _post_div_gui));
-    var _dst_h_gui = max(1, floor(_src_h_gui / _post_div_gui));
-
-    if (!surface_exists(fx_post_surface) || fx_post_w != _dst_w_gui || fx_post_h != _dst_h_gui) {
-        if (surface_exists(fx_post_surface)) surface_free(fx_post_surface);
-        fx_post_surface = surface_create(_dst_w_gui, _dst_h_gui);
-        fx_post_w = _dst_w_gui;
-        fx_post_h = _dst_h_gui;
-    }
-
-    surface_set_target(fx_post_surface);
-    draw_clear(c_black);
-    gpu_set_texfilter(false);
-    draw_surface_stretched(application_surface, 0, 0, _dst_w_gui, _dst_h_gui);
-    surface_reset_target();
-
-    gpu_set_texfilter(false);
-    draw_surface_stretched(fx_post_surface, 0, 0, display_get_gui_width(), display_get_gui_height());
-}
-
-gpu_set_texfilter(_pixel_nivel_gui <= 0 && _qualidade_gui >= 2);
+gpu_set_texfilter(_pixel_nivel_gui <= 0);
 
 if (room == rm_menu && menu_fade_alpha > 0) {
     draw_set_alpha(menu_fade_alpha);

@@ -2,6 +2,7 @@
 draw_set_font(fnt_dialogo);
 var desenhar_fase = !(estado_final != 0 && final_painel);
 var escala_texto_f2 = 1;
+var _fx_qualidade = variable_global_exists("fx_qualidade") ? global.fx_qualidade : 2;
 if (desenhar_fase) {
 draw_sprite(spr_f2_fundo_chat, 0, 0, 0);
 
@@ -196,6 +197,7 @@ var _score_frames = max(1, sprite_get_number(spr_f2_status_pontos));
 draw_sprite_ext(spr_f2_status_pontos, min(cliques, _score_frames - 1), 831, 445, s_score, s_score, 0, c_white, _score_alpha);
 
 // ===== EXPLOSAO VISUAL AO CLICAR NO X =====
+if (_fx_qualidade > 0) {
 for (var fx_i = 0; fx_i < array_length(fx_timer); fx_i++) {
     if (fx_timer[fx_i] > 0) {
         var fx_t = 1 - fx_timer[fx_i] / 18;
@@ -218,6 +220,7 @@ for (var fx_i = 0; fx_i < array_length(fx_timer); fx_i++) {
         draw_set_alpha(1);
         draw_set_color(c_white);
     }
+}
 }
 
 // ===== CAIXA DE DIALOGO DA CUTSCENE =====
@@ -367,8 +370,10 @@ if (estado_final != 0) {
     
     draw_set_alpha(0.22 * final_suave);
     draw_set_color(final_vitoria ? make_color_rgb(34, 211, 238) : make_color_rgb(255, 67, 88));
-    for (var scan = 0; scan < room_height; scan += 22) {
-        draw_rectangle(0, scan + final_offset * 0.25, room_width, scan + 2 + final_offset * 0.25, false);
+    if (_fx_qualidade > 0) {
+        for (var scan = 0; scan < room_height; scan += (_fx_qualidade == 1 ? 44 : 22)) {
+            draw_rectangle(0, scan + final_offset * 0.25, room_width, scan + 2 + final_offset * 0.25, false);
+        }
     }
     draw_set_alpha(final_suave);
     draw_sprite_ext(

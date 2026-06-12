@@ -1,6 +1,7 @@
 var _pulso = 0.5 + sin(visual_timer * 0.12) * 0.5;
 var _sx = tremor_x;
 var _sy = tremor_y;
+var _fx_qualidade = variable_global_exists("fx_qualidade") ? global.fx_qualidade : 2;
 
 draw_set_font(fnt_dialogo);
 draw_set_halign(fa_left);
@@ -10,10 +11,12 @@ draw_set_valign(fa_top);
 draw_clear(make_color_rgb(4, 10, 20));
 draw_set_color(make_color_rgb(8, 20, 38));
 draw_rectangle(0, 0, room_width, room_height, false);
-draw_set_alpha(0.12);
-draw_set_color(make_color_rgb(70, 191, 234));
-for (var _linha = 0; _linha < room_height; _linha += 20) draw_line(0, _linha, room_width, _linha);
-draw_set_alpha(1);
+if (_fx_qualidade > 0) {
+    draw_set_alpha(_fx_qualidade == 1 ? 0.06 : 0.12);
+    draw_set_color(make_color_rgb(70, 191, 234));
+    for (var _linha = 0; _linha < room_height; _linha += (_fx_qualidade == 1 ? 40 : 20)) draw_line(0, _linha, room_width, _linha);
+    draw_set_alpha(1);
+}
 
 draw_set_color(make_color_rgb(3, 8, 17));
 draw_roundrect(54 + _sx, 18 + _sy, 906 + _sx, 520 + _sy, false);

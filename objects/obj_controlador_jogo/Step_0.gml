@@ -155,17 +155,12 @@ if (variable_global_exists("op_graficos")) {
     global.fx_pixel_perfect_nivel = _pixel_nivel;
     global.fx_sprite_quality = global.fx_qualidade;
     global.fx_pixel_textos = _pixel_nivel >= 2;
-    var _post_div = 1;
-    if (global.fx_qualidade == 1) _post_div = 2;
-    if (global.fx_qualidade == 0) _post_div = 4;
-    if (_pixel_nivel == 1) _post_div = max(_post_div, 3);
-    if (_pixel_nivel == 2) _post_div = max(_post_div, 6);
-    global.fx_post_div = _post_div;
-    application_surface_draw_enable(_post_div <= 1);
-    // A surface base fica fixa para nao cortar GUI/dialogos; o visual e controlado por filtro/efeitos.
+    global.fx_post_div = 1;
+    application_surface_draw_enable(true);
+    // A surface base fica fixa para nao cortar GUI/dialogos/cursor. Pixel perfect so altera filtro.
     global.fx_surface_w = 960;
     global.fx_surface_h = 540;
-    gpu_set_texfilter(_pixel_nivel <= 0 && global.fx_qualidade >= 2);
+    gpu_set_texfilter(_pixel_nivel <= 0);
     display_set_sleep_margin(global.fx_qualidade == 0 ? 4 : 10);
 }
 
@@ -177,17 +172,17 @@ if (_auto_config_pode_rodar && variable_global_exists("op_auto_config_feita") &&
         if (auto_config_min_fps < 45) {
             global.op_graficos = 0;
             global.op_resolucao = 0;
-            global.op_pixel_perfect_nivel = 2;
-            global.op_pixel_perfect = true;
+            global.op_pixel_perfect_nivel = 0;
+            global.op_pixel_perfect = false;
         } else if (auto_config_min_fps < 56) {
             global.op_graficos = 1;
             global.op_resolucao = min(global.op_resolucao, 1);
-            global.op_pixel_perfect_nivel = 1;
-            global.op_pixel_perfect = true;
+            global.op_pixel_perfect_nivel = 0;
+            global.op_pixel_perfect = false;
         } else {
             global.op_graficos = 2;
-            global.op_pixel_perfect_nivel = 1;
-            global.op_pixel_perfect = true;
+            global.op_pixel_perfect_nivel = 0;
+            global.op_pixel_perfect = false;
         }
         global.op_auto_config_feita = true;
         ns_video_aplicar(global.op_resolucao, global.op_tela == 1);

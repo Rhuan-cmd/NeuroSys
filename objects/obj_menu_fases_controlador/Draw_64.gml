@@ -20,7 +20,8 @@ var _feed_mask_r = _feed_panel_r;
 var _scroll_x = _feed_mask_r - 11;
 var _divider_x = _feed_panel_x;
 var _cover = 18;
-var _glitch = true;
+var _fx_qualidade = variable_global_exists("fx_qualidade") ? global.fx_qualidade : 2;
+var _glitch = _fx_qualidade > 0;
 var _anim = 0.5 + 0.5 * sin(menu_timer * 0.045);
 
 function _mix_col(_a, _b, _t) {
@@ -156,6 +157,7 @@ draw_rectangle(_feed_mask_l, feed_top, _feed_mask_r, feed_top + 2, false);
 draw_set_alpha(1);
 
 draw_set_halign(fa_left);
+gpu_set_scissor(_feed_mask_l, feed_top, max(1, _feed_mask_r - _feed_mask_l - 11), max(1, feed_bottom - feed_top));
 for (var i = 0; i < array_length(fase_nome); i += 1) {
     var _y = feed_top + i * (post_h + post_gap) - scroll_y;
     if (_y > feed_bottom + 12 || _y + post_h < feed_top - 12) continue;
@@ -221,6 +223,7 @@ for (var i = 0; i < array_length(fase_nome); i += 1) {
     }
     draw_set_halign(fa_left);
 }
+gpu_set_scissor(0, 0, gui_w, gui_h);
 
 draw_set_alpha(1);
 draw_set_color(_panel);
