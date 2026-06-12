@@ -1,5 +1,6 @@
 entrada_bloqueada = max(0, entrada_bloqueada - 1);
 menu_timer += 1;
+creditos_bloqueado_timer = max(0, creditos_bloqueado_timer - 1);
 
 var mx = device_mouse_x_to_gui(0);
 var my = device_mouse_y_to_gui(0);
@@ -46,6 +47,13 @@ if (clique_iniciado) {
 
 if (!clique_iniciado && entrada_bloqueada <= 0) {
     if (botao_hover != -1 && mouse_check_button_pressed(mb_left)) {
+        var _creditos_liberados = variable_global_exists("fase_concluida") && global.fase_concluida >= 4;
+        if (botao_hover == 2 && !_creditos_liberados) {
+            creditos_bloqueado_timer = round(room_speed * 0.55);
+            ns_audio_play_sfx(snd_f1_erro, 4, false, 0.72, 0, 0.82);
+            ns_audio_play_sfx(snd_f2_tremor, 3, false, 0.28, 0, 0.72);
+            exit;
+        }
         clique_iniciado = true;
         menu_saida_timer = round(room_speed * 0.82);
         menu_destino = botao_room[botao_hover];

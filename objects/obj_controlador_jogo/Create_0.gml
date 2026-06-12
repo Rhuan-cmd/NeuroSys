@@ -33,25 +33,25 @@ if (!variable_global_exists("op_som_preset")) {
     global.op_som_preset = 3;
 }
 if (!variable_global_exists("op_graficos")) {
-    global.op_graficos = 2;
+    global.op_graficos = 1;
 }
 if (!variable_global_exists("op_pixel_perfect")) {
-    global.op_pixel_perfect = false;
+    global.op_pixel_perfect = true;
 }
 if (!variable_global_exists("op_pixel_perfect_nivel")) {
-    global.op_pixel_perfect_nivel = global.op_pixel_perfect ? 1 : 0;
+    global.op_pixel_perfect_nivel = 2;
 }
 if (!variable_global_exists("op_auto_config_feita")) {
-    global.op_auto_config_feita = false;
+    global.op_auto_config_feita = true;
 }
 if (!variable_global_exists("op_resolucao")) {
-    global.op_resolucao = 3;
+    global.op_resolucao = 1;
 }
 if (!variable_global_exists("op_tela")) {
     global.op_tela = 1;
 }
 if (!variable_global_exists("op_mostrar_save_aviso")) {
-    global.op_mostrar_save_aviso = true;
+    global.op_mostrar_save_aviso = false;
 }
 if (!variable_global_exists("op_mostrar_cards_dicas")) {
     global.op_mostrar_cards_dicas = true;
@@ -118,8 +118,6 @@ pausa_botoes = ["Continuar", "Reiniciar", "Sair"];
 pausa_saindo = 0;
 pausa_fade = 0;
 pausa_musica_id = -1;
-auto_config_timer = 0;
-auto_config_min_fps = 999;
 global.auto_config_aguardar_reinicio = false;
 
 menu_fade_alpha = 0;

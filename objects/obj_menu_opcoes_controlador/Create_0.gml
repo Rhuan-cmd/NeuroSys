@@ -6,12 +6,12 @@ if (!variable_global_exists("op_volume")) global.op_volume = 1;
 if (!variable_global_exists("op_volume_musica")) global.op_volume_musica = 1;
 if (!variable_global_exists("op_volume_efeitos")) global.op_volume_efeitos = 1;
 if (!variable_global_exists("op_som_preset")) global.op_som_preset = 3;
-if (!variable_global_exists("op_graficos")) global.op_graficos = 2;
-if (!variable_global_exists("op_pixel_perfect")) global.op_pixel_perfect = false;
-if (!variable_global_exists("op_pixel_perfect_nivel")) global.op_pixel_perfect_nivel = global.op_pixel_perfect ? 1 : 0;
-if (!variable_global_exists("op_resolucao")) global.op_resolucao = 3;
+if (!variable_global_exists("op_graficos")) global.op_graficos = 1;
+if (!variable_global_exists("op_pixel_perfect")) global.op_pixel_perfect = true;
+if (!variable_global_exists("op_pixel_perfect_nivel")) global.op_pixel_perfect_nivel = 2;
+if (!variable_global_exists("op_resolucao")) global.op_resolucao = 1;
 if (!variable_global_exists("op_tela")) global.op_tela = 1;
-if (!variable_global_exists("op_mostrar_save_aviso")) global.op_mostrar_save_aviso = true;
+if (!variable_global_exists("op_mostrar_save_aviso")) global.op_mostrar_save_aviso = false;
 if (!variable_global_exists("op_mostrar_cards_dicas")) global.op_mostrar_cards_dicas = true;
 if (!variable_global_exists("op_pular_dialogo_retry")) global.op_pular_dialogo_retry = false;
 

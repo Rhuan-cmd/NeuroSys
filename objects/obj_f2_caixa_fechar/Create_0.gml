@@ -40,29 +40,30 @@ for (var rastro_i = 0; rastro_i < 3; rastro_i++) {
 configurar = function(_dificuldade) {
     dificuldade = _dificuldade;
     if (dificuldade < 3) {
-        velocidade = 4.15 + dificuldade * 0.14;
-        precisao = 0.052 + dificuldade * 0.003;
-        raio_fuga = 94 + dificuldade * 3;
-        forca_fuga = 0.34 + dificuldade * 0.02;
+        velocidade = 4.35 + dificuldade * 0.18;
+        precisao = 0.056 + dificuldade * 0.003;
+        raio_fuga = 100 + dificuldade * 4;
+        forca_fuga = 0.38 + dificuldade * 0.02;
     } else if (dificuldade < 8) {
         var medio = dificuldade - 3;
-        velocidade = 4.7 + medio * 0.17;
-        precisao = 0.064 + medio * 0.004;
-        raio_fuga = 108 + medio * 4;
-        forca_fuga = 0.43 + medio * 0.026;
+        velocidade = 5.0 + medio * 0.22;
+        precisao = 0.070 + medio * 0.005;
+        raio_fuga = 116 + medio * 5;
+        forca_fuga = 0.49 + medio * 0.03;
     } else {
         var dificil = dificuldade - 8;
-        velocidade = 5.65 + dificil * 0.24;
-        precisao = 0.082 + dificil * 0.007;
-        raio_fuga = 128 + dificil * 5;
-        forca_fuga = 0.56 + dificil * 0.035;
+        velocidade = 6.05 + dificil * 0.30;
+        precisao = 0.090 + dificil * 0.008;
+        raio_fuga = 140 + dificil * 6;
+        forca_fuga = 0.63 + dificil * 0.045;
     }
-    if (dificuldade >= 11) {
-        velocidade = 5.65;
-        precisao = 0.086;
-        raio_fuga = 136;
-        forca_fuga = 0.58;
-        margem = 42;
+    if (dificuldade >= 10) {
+        var _final = dificuldade - 10;
+        velocidade = 6.8 + _final * 0.32;
+        precisao = 0.108 + _final * 0.011;
+        raio_fuga = 152 + _final * 8;
+        forca_fuga = 0.74 + _final * 0.06;
+        margem = 46 + _final * 2;
     }
     imortal_timer = dificuldade > 0 ? 18 : 0;
     image_xscale = escala_padrao;

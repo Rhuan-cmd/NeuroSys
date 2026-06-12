@@ -67,7 +67,7 @@ if (global.intro_phase == 4) {
         draw_rectangle(0, 0, gui_w, gui_h, false);
         if (!intro_video_ready) {
             draw_set_color(make_color_rgb(145, 204, 230));
-            draw_text(cx, cy, "carregando video...");
+            draw_text(cx, cy, "carregando vídeo...");
         } else if (!intro_video_encerrando) {
             intro_video_sem_surface_timer += 1;
         }
@@ -88,7 +88,7 @@ if (global.intro_phase == 4) {
         draw_set_color(c_white);
         draw_text(( _hint_x1 + _hint_x2) * 0.5, _hint_y1 + 23, "ENTER x2");
         draw_set_color(make_color_rgb(172, 198, 218));
-        draw_text(( _hint_x1 + _hint_x2) * 0.5, _hint_y1 + 47, "pular video");
+        draw_text(( _hint_x1 + _hint_x2) * 0.5, _hint_y1 + 47, "pular vídeo");
     }
 
     if (intro_video_fade_alpha > 0 || intro_video_encerrando) {

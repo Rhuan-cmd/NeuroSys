@@ -39,7 +39,7 @@ creditos = [
     { texto: "AGRADECIMENTOS", cor: make_color_rgb(255, 232, 138), escala: 1.18, espaco: 42 },
     { texto: "Instituto Federal de Educação, Ciência e Tecnologia do Maranhão - Campus Açailândia", cor: make_color_rgb(82, 214, 128), escala: 1, espaco: 74 },
     { texto: "FONTES", cor: make_color_rgb(255, 232, 138), escala: 1.18, espaco: 42 },
-    { texto: "Materiais jornalisticos e documentais inspirados em canais de informacao da Globo, SBT, Band e Record, usados como referencia para contextualizar o impacto real da violencia digital e do cyberbullying.", cor: c_white, escala: 0.92, espaco: 118 },
+    { texto: "Materiais jornalísticos e documentais inspirados em canais de informação da Globo, SBT, Band e Record, usados como referência para contextualizar o impacto real da violência digital e do cyberbullying.", cor: c_white, escala: 0.92, espaco: 118 },
     { texto: "ORIENTADOR", cor: make_color_rgb(255, 232, 138), escala: 1.18, espaco: 42 },
     { texto: "Valter dos Santos Mendonça Neto", cor: c_white, escala: 1, espaco: 68 },
     { texto: "CRIADORES", cor: make_color_rgb(255, 232, 138), escala: 1.18, espaco: 42 },

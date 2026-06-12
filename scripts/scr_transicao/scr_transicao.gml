@@ -91,7 +91,7 @@ function ns_video_aplicar(_idx, _fullscreen) {
     var _i = clamp(_idx, 0, 3);
     var _w = _res_w[_i];
     var _h = _res_h[_i];
-    var _pixel_nivel = variable_global_exists("op_pixel_perfect_nivel") ? clamp(global.op_pixel_perfect_nivel, 0, 2) : (variable_global_exists("op_pixel_perfect") && global.op_pixel_perfect ? 1 : 0);
+    var _pixel_nivel = variable_global_exists("op_pixel_perfect_nivel") ? clamp(global.op_pixel_perfect_nivel, 0, 2) : 2;
     global.op_pixel_perfect = _pixel_nivel > 0;
     global.fx_pixel_perfect = _pixel_nivel > 0;
     global.fx_pixel_perfect_nivel = _pixel_nivel;
@@ -99,7 +99,7 @@ function ns_video_aplicar(_idx, _fullscreen) {
     global.fx_post_div = 1;
     global.fx_surface_w = 960;
     global.fx_surface_h = 540;
-    var _qualidade = variable_global_exists("op_graficos") ? clamp(global.op_graficos, 0, 2) : 2;
+    var _qualidade = variable_global_exists("op_graficos") ? clamp(global.op_graficos, 0, 2) : 1;
     global.fx_sprite_quality = _qualidade;
     gpu_set_texfilter(_pixel_nivel <= 0);
     application_surface_draw_enable(true);

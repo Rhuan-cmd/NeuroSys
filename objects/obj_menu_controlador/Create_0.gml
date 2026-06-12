@@ -13,6 +13,7 @@ botao_sprite = [spr_menu_btn_jogar, spr_menu_btn_opcoes, spr_menu_btn_creditos, 
 botao_room = [rm_menu_fases, rm_menu_opcoes, rm_creditos, -1];
 botao_hover_anterior = -1;
 menu_saindo_jogo = false;
+creditos_bloqueado_timer = 0;
 global.menu_reverso = false;
 menu_bg_layer = layer_get_id("Backgrounds_1");
 som_luz_id = ns_audio_play_sfx(snd_menu_luz, 0, true, 1, 0, 1);

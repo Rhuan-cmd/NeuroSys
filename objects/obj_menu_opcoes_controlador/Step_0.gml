@@ -29,9 +29,9 @@ function _aplicar_mix_audio() {
 function _restaurar_aba_atual() {
     switch (aba) {
         case 0:
-            global.op_graficos = 2;
-            global.op_pixel_perfect_nivel = 0;
-            global.op_pixel_perfect = false;
+            global.op_graficos = 1;
+            global.op_pixel_perfect_nivel = 2;
+            global.op_pixel_perfect = true;
             break;
         case 1:
             global.op_volume = 1;
@@ -41,8 +41,8 @@ function _restaurar_aba_atual() {
             _aplicar_mix_audio();
             break;
         case 2:
-            global.op_resolucao = 3;
-            _aplicar_resolucao(3);
+            global.op_resolucao = 1;
+            _aplicar_resolucao(1);
             break;
         case 3:
             global.op_tela = 1;
@@ -50,7 +50,7 @@ function _restaurar_aba_atual() {
             _rearmar_cursor_opcoes();
             break;
         case 4:
-            global.op_mostrar_save_aviso = true;
+            global.op_mostrar_save_aviso = false;
             global.op_mostrar_cards_dicas = true;
             global.op_pular_dialogo_retry = false;
             break;
@@ -58,19 +58,19 @@ function _restaurar_aba_atual() {
 }
 
 function _restaurar_tudo() {
-    global.op_graficos = 2;
-    global.op_pixel_perfect_nivel = 0;
-    global.op_pixel_perfect = false;
+    global.op_graficos = 1;
+    global.op_pixel_perfect_nivel = 2;
+    global.op_pixel_perfect = true;
     global.op_volume = 1;
     global.op_volume_musica = 1;
     global.op_volume_efeitos = 1;
     global.op_som_preset = 3;
-    global.op_resolucao = 3;
+    global.op_resolucao = 1;
     global.op_tela = 1;
-    global.op_mostrar_save_aviso = true;
+    global.op_mostrar_save_aviso = false;
     global.op_mostrar_cards_dicas = true;
     global.op_pular_dialogo_retry = false;
-    ns_video_aplicar(3, true);
+    ns_video_aplicar(1, true);
     _rearmar_cursor_opcoes();
     _aplicar_mix_audio();
 }

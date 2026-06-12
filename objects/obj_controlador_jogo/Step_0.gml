@@ -164,32 +164,6 @@ if (variable_global_exists("op_graficos")) {
     display_set_sleep_margin(global.fx_qualidade == 0 ? 4 : 10);
 }
 
-var _auto_config_pode_rodar = !variable_global_exists("auto_config_aguardar_reinicio") || !global.auto_config_aguardar_reinicio;
-if (_auto_config_pode_rodar && variable_global_exists("op_auto_config_feita") && !global.op_auto_config_feita && room_speed > 0) {
-    auto_config_timer++;
-    auto_config_min_fps = min(auto_config_min_fps, fps_real);
-    if (auto_config_timer >= room_speed * 4) {
-        if (auto_config_min_fps < 45) {
-            global.op_graficos = 0;
-            global.op_resolucao = 0;
-            global.op_pixel_perfect_nivel = 0;
-            global.op_pixel_perfect = false;
-        } else if (auto_config_min_fps < 56) {
-            global.op_graficos = 1;
-            global.op_resolucao = min(global.op_resolucao, 1);
-            global.op_pixel_perfect_nivel = 0;
-            global.op_pixel_perfect = false;
-        } else {
-            global.op_graficos = 2;
-            global.op_pixel_perfect_nivel = 0;
-            global.op_pixel_perfect = false;
-        }
-        global.op_auto_config_feita = true;
-        ns_video_aplicar(global.op_resolucao, global.op_tela == 1);
-        global.save_sujo = true;
-    }
-}
-
 if (variable_global_exists("save_aviso_timer")) {
     global.save_aviso_timer = max(0, global.save_aviso_timer - 1);
 }

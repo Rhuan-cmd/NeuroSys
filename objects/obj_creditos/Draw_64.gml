@@ -84,7 +84,7 @@ if (!etapa_final) {
         draw_set_halign(fa_left);
         draw_set_alpha(_hint_sumir);
         draw_set_color(c_white);
-        draw_text_ext(48, _hint_y1 + 18, "APERTE ESPACO 2X\npara pular os creditos", 20, 220);
+        draw_text_ext(48, _hint_y1 + 18, "APERTE ESPAÇO 2X\npara pular os créditos", 20, 220);
         draw_set_halign(fa_center);
     }
     }
