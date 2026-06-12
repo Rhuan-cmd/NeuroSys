@@ -17,6 +17,7 @@ creditos_bloqueado_timer = 0;
 confirmar_sair = false;
 hover_confirmar_sair = -1;
 hover_confirmar_sair_anterior = -1;
+confirmar_sair_timer = 0;
 global.menu_reverso = false;
 menu_bg_layer = layer_get_id("Backgrounds_1");
 som_luz_id = ns_audio_play_sfx(snd_menu_luz, 0, true, 1, 0, 1);

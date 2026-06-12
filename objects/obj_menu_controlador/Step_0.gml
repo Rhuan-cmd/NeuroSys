@@ -7,11 +7,12 @@ var my = device_mouse_y_to_gui(0);
 botao_hover = -1;
 
 if (confirmar_sair) {
+    confirmar_sair_timer = min(confirmar_sair_timer + 1, room_speed);
     hover_confirmar_sair = -1;
-    if (point_in_rectangle(mx, my, 386, 330, 496, 374)) hover_confirmar_sair = 0;
-    if (point_in_rectangle(mx, my, 514, 330, 624, 374)) hover_confirmar_sair = 1;
+    if (point_in_rectangle(mx, my, 334, 346, 484, 404)) hover_confirmar_sair = 0;
+    if (point_in_rectangle(mx, my, 526, 346, 676, 404)) hover_confirmar_sair = 1;
     if (hover_confirmar_sair != -1 && hover_confirmar_sair != hover_confirmar_sair_anterior) {
-        ns_audio_play_sfx(snd_f2_selecao, 3, false, 0.42, 0, 1);
+        ns_audio_play_sfx(snd_f2_selecao, 3, false, 0.52, 0, 1);
     }
     hover_confirmar_sair_anterior = hover_confirmar_sair;
 
@@ -28,10 +29,12 @@ if (confirmar_sair) {
             ns_audio_gain_sfx(som_luz_id, 0, 950);
             ns_audio_gain_sfx(som_natureza_id, 0, 950);
             audio_menu_fade(0, 950);
-            ns_audio_play_sfx(snd_f2_botao, 4, false, 0.62, 0, 1);
-        } else if (hover_confirmar_sair == 1 || !point_in_rectangle(mx, my, 298, 226, 712, 394)) {
+            ns_audio_play_sfx(snd_f2_confirmar, 4, false, 0.78, 0, 0.92);
+            ns_audio_play_sfx(snd_f2_tremor, 3, false, 0.25, 0, 0.7);
+        } else if (hover_confirmar_sair == 1 || !point_in_rectangle(mx, my, 260, 196, 750, 426)) {
             confirmar_sair = false;
             hover_confirmar_sair = -1;
+            confirmar_sair_timer = 0;
             ns_audio_play_sfx(snd_f2_botao, 4, false, 0.50, 0, 1);
         }
     }
@@ -39,6 +42,8 @@ if (confirmar_sair) {
     if (keyboard_check_pressed(vk_escape)) {
         confirmar_sair = false;
         hover_confirmar_sair = -1;
+        confirmar_sair_timer = 0;
+        ns_audio_play_sfx(snd_f2_botao, 4, false, 0.45, 0, 1);
     }
     exit;
 }
@@ -95,7 +100,10 @@ if (!clique_iniciado && entrada_bloqueada <= 0) {
         if (menu_destino == -1) {
             confirmar_sair = true;
             hover_confirmar_sair = -1;
-            ns_audio_play_sfx(snd_f2_botao, 4, false, 0.58, 0, 1);
+            hover_confirmar_sair_anterior = -1;
+            confirmar_sair_timer = 0;
+            ns_audio_play_sfx(snd_f2_aparecer, 4, false, 0.72, 0, 0.9);
+            ns_audio_play_sfx(snd_f2_botao, 4, false, 0.48, 0, 1);
             exit;
         }
         clique_iniciado = true;

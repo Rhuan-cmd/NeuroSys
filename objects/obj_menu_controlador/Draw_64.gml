@@ -79,42 +79,74 @@ for (var i = 0; i < array_length(botao_sprite); i += 1) {
 }
 
 if (confirmar_sair) {
-    draw_set_alpha(0.62);
+    var _confirm_p = clamp(confirmar_sair_timer / max(1, room_speed * 0.22), 0, 1);
+    var _confirm_s = _confirm_p * _confirm_p * (3 - 2 * _confirm_p);
+    var _confirm_scale = lerp(0.92, 1, _confirm_s);
+    var _confirm_cx = 505;
+    var _confirm_cy = 312;
+    var _confirm_w = 490 * _confirm_scale;
+    var _confirm_h = 230 * _confirm_scale;
+    var _confirm_x1 = _confirm_cx - _confirm_w * 0.5;
+    var _confirm_y1 = _confirm_cy - _confirm_h * 0.5;
+    var _confirm_x2 = _confirm_cx + _confirm_w * 0.5;
+    var _confirm_y2 = _confirm_cy + _confirm_h * 0.5;
+    var _confirm_pulse = 0.5 + 0.5 * sin(menu_timer * 0.12);
+
+    draw_set_alpha(0.68 * _confirm_s);
     draw_set_color(c_black);
     draw_rectangle(0, 0, gui_w, gui_h, false);
-    draw_set_alpha(1);
-    draw_set_color(make_color_rgb(8, 35, 55));
-    draw_roundrect(298, 226, 712, 394, false);
-    draw_set_color(make_color_rgb(4, 13, 25));
-    draw_rectangle(304, 286, 706, 388, false);
-    draw_set_color(make_color_rgb(98, 234, 255));
-    draw_roundrect(298, 226, 712, 394, true);
+
+    draw_set_alpha(0.42 * _confirm_s);
+    draw_set_color(c_black);
+    draw_roundrect(_confirm_x1 + 8, _confirm_y1 + 10, _confirm_x2 + 10, _confirm_y2 + 12, false);
+
+    draw_set_alpha(_confirm_s);
+    draw_set_color(make_color_rgb(5, 20, 37));
+    draw_roundrect(_confirm_x1, _confirm_y1, _confirm_x2, _confirm_y2, false);
+    draw_set_color(make_color_rgb(9, 44, 67));
+    draw_rectangle(_confirm_x1 + 8, _confirm_y1 + 8, _confirm_x2 - 8, _confirm_y1 + 62, false);
+    draw_set_color(make_color_rgb(4, 12, 23));
+    draw_rectangle(_confirm_x1 + 12, _confirm_y1 + 82, _confirm_x2 - 12, _confirm_y2 - 18, false);
+    draw_set_color(make_color_rgb(90 + _confirm_pulse * 25, 225, 255));
+    draw_roundrect(_confirm_x1, _confirm_y1, _confirm_x2, _confirm_y2, true);
+    draw_set_alpha(0.55 * _confirm_s);
+    draw_set_color(make_color_rgb(80, 227, 255));
+    draw_line_width(_confirm_x1 + 32, _confirm_y1 + 70, _confirm_x2 - 32, _confirm_y1 + 70, 2);
+    draw_set_alpha(_confirm_s);
+
     draw_set_halign(fa_center);
     draw_set_valign(fa_middle);
-    draw_set_alpha(0.72);
+    draw_set_alpha(0.75 * _confirm_s);
     draw_set_color(make_color_rgb(242, 74, 124));
-    draw_text_transformed(507, 266, "CONFIRMAR SAÍDA", 0.72, 0.72, 0);
+    draw_text_transformed(508, 238, "CONFIRMAR SAÍDA", 1.02, 1.02, 0);
     draw_set_color(make_color_rgb(31, 214, 181));
-    draw_text_transformed(503, 268, "CONFIRMAR SAÍDA", 0.72, 0.72, 0);
-    draw_set_alpha(1);
+    draw_text_transformed(502, 242, "CONFIRMAR SAÍDA", 1.02, 1.02, 0);
+    draw_set_alpha(_confirm_s);
     draw_set_color(make_color_rgb(226, 248, 255));
-    draw_text_transformed(505, 266, "CONFIRMAR SAÍDA", 0.72, 0.72, 0);
+    draw_text_transformed(505, 240, "CONFIRMAR SAÍDA", 1.02, 1.02, 0);
     draw_set_color(make_color_rgb(165, 187, 206));
-    draw_text_ext_transformed(505, 300, "Tem certeza que deseja sair do jogo?", 18, 330, 0.50, 0.50, 0);
+    draw_text_ext_transformed(505, 295, "Tem certeza que deseja fechar o NeuroSys?\nSeu progresso salvo será mantido.", 20, 410, 0.64, 0.64, 0);
 
-    var _confirm_txt = ["SIM", "NÃO"];
+    var _confirm_txt = ["SAIR", "VOLTAR"];
     for (var _c = 0; _c < 2; _c += 1) {
-        var _x1 = _c == 0 ? 386 : 514;
-        var _y1 = 330;
-        var _x2 = _x1 + 110;
-        var _y2 = 374;
+        var _x1 = _c == 0 ? 334 : 526;
+        var _y1 = 346;
+        var _x2 = _x1 + 150;
+        var _y2 = 404;
         var _hover = hover_confirmar_sair == _c;
-        draw_set_color(_hover ? make_color_rgb(20, 83, 109) : make_color_rgb(7, 24, 42));
+        var _btn_col = _c == 0 ? make_color_rgb(86, 24, 42) : make_color_rgb(7, 38, 56);
+        var _btn_hover = _c == 0 ? make_color_rgb(132, 36, 58) : make_color_rgb(20, 83, 109);
+        draw_set_color(_hover ? _btn_hover : _btn_col);
         draw_roundrect(_x1, _y1, _x2, _y2, false);
+        draw_set_alpha((_hover ? 0.95 : 0.62) * _confirm_s);
         draw_set_color(_hover ? make_color_rgb(120, 236, 255) : make_color_rgb(46, 129, 163));
         draw_roundrect(_x1, _y1, _x2, _y2, true);
+        draw_set_alpha(0.45 * _confirm_s);
+        draw_set_color(c_white);
+        draw_rectangle(_x1 + 10, _y1 + 8, _x2 - 10, _y1 + 15, false);
+        draw_set_alpha(_confirm_s);
         draw_set_color(_hover ? make_color_rgb(255, 232, 138) : c_white);
-        draw_text_transformed((_x1 + _x2) * 0.5, (_y1 + _y2) * 0.5, _confirm_txt[_c], 0.68, 0.68, 0);
+        draw_text_transformed((_x1 + _x2) * 0.5, (_y1 + _y2) * 0.5 + 2, _confirm_txt[_c], 0.78, 0.78, 0);
     }
 }
 

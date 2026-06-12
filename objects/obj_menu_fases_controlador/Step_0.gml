@@ -113,14 +113,25 @@ if (_codigo_tecla != "") {
         neurosys_indice += 1;
         if (neurosys_indice >= string_length(neurosys_codigo)) {
             neurosys_indice = 0;
-            global.fase_liberada = 4;
-            global.fase_concluida = 4;
-            global.creditos_vistos = true;
+            var _ja_platinado = (variable_global_exists("fase_liberada") && global.fase_liberada >= 4) && (variable_global_exists("fase_concluida") && global.fase_concluida >= 4) && (variable_global_exists("creditos_vistos") && global.creditos_vistos);
+            if (_ja_platinado) {
+                global.fase_liberada = 1;
+                global.fase_concluida = 0;
+                global.creditos_vistos = false;
+                global.intro_vista = false;
+                ns_audio_play_sfx(snd_f2_tremor, 6, false, 0.95, 0, 0.62);
+                ns_audio_play_sfx(snd_f1_erro, 6, false, 0.86, 0, 0.72);
+            } else {
+                global.fase_liberada = 4;
+                global.fase_concluida = 4;
+                global.creditos_vistos = true;
+                global.intro_vista = true;
+                ns_audio_play_sfx(snd_f2_tremor, 6, false, 1.0, 0, 0.68);
+                ns_audio_play_sfx(snd_f2_explosao, 6, false, 0.82, 0, 0.92);
+                ns_audio_play_sfx(snd_f2_confirmar, 6, false, 0.72, 0, 1.28);
+            }
             neurosys_shake_timer = neurosys_shake_dur;
             save_marcar_sujo();
-            ns_audio_play_sfx(snd_f2_tremor, 6, false, 1.0, 0, 0.68);
-            ns_audio_play_sfx(snd_f2_explosao, 6, false, 0.82, 0, 0.92);
-            ns_audio_play_sfx(snd_f2_confirmar, 6, false, 0.72, 0, 1.28);
         }
     } else {
         neurosys_indice = 0;
