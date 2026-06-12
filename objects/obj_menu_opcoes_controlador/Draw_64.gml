@@ -179,11 +179,11 @@ draw_set_alpha(1);
 _glitch_text(304, 122, abas[aba], 1.0, 1.0, _cyan, true);
 draw_set_color(_muted);
 var _descricao = "";
-if (aba == 0) _descricao = "BAIXO reduz forte a qualidade e corta efeitos.\nEQUILIBRADO reduz parcialmente.\nALTO mantem tudo completo.";
-if (aba == 1) _descricao = "Ajuste volume geral, musica e efeitos.\nO preset acompanha o volume geral.";
-if (aba == 2) _descricao = "Selecione a resolucao base.\nTambem vale antes da tela cheia.";
-if (aba == 3) _descricao = "Alterne janela ou tela cheia.\nF11 tambem funciona.";
-if (aba == 4) _descricao = "Controle avisos, dicas e pulos automaticos.\nAfeta intro, creditos e retry das fases.";
+if (aba == 0) _descricao = "BAIXO reduz forte a qualidade e corta efeitos.\nEQUILIBRADO reduz parcialmente.\nALTO mantém tudo completo.";
+if (aba == 1) _descricao = "Ajuste volume geral, música e efeitos.\nO preset acompanha o volume geral.";
+if (aba == 2) _descricao = "Selecione a resolução base.\nTambém vale antes da tela cheia.";
+if (aba == 3) _descricao = "Alterne janela ou tela cheia.\nF11 também funciona.";
+if (aba == 4) _descricao = "Controle avisos, dicas e pulos automáticos.\nAfeta intro, créditos e retry das fases.";
 draw_text_ext_transformed(306, 154, _descricao, 22, 760, 0.43, 0.43, 0);
 
 if (aba != 4) {
@@ -293,8 +293,8 @@ if (aba == 1) {
     draw_text_transformed(314, 232, "SISTEMA VISUAL", 0.58, 0.58, 0);
     var _sis_desc = [
         "Mostra aviso quando salva.",
-        "Mostra dicas de pulo na intro e nos creditos.",
-        "Pula dialogos apos retry."
+        "Mostra dicas de pulo na intro e nos créditos.",
+        "Pula diálogos após retry."
     ];
     for (var _sis = 0; _sis < 3; _sis += 1) {
         var _base_y = 246 + _sis * 72;
