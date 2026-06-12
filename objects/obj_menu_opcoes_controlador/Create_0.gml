@@ -8,6 +8,7 @@ if (!variable_global_exists("op_volume_efeitos")) global.op_volume_efeitos = 1;
 if (!variable_global_exists("op_som_preset")) global.op_som_preset = 3;
 if (!variable_global_exists("op_graficos")) global.op_graficos = 2;
 if (!variable_global_exists("op_pixel_perfect")) global.op_pixel_perfect = true;
+if (!variable_global_exists("op_pixel_perfect_nivel")) global.op_pixel_perfect_nivel = global.op_pixel_perfect ? 1 : 0;
 if (!variable_global_exists("op_resolucao")) global.op_resolucao = 3;
 if (!variable_global_exists("op_tela")) global.op_tela = 1;
 if (!variable_global_exists("op_mostrar_save_aviso")) global.op_mostrar_save_aviso = true;
@@ -39,6 +40,7 @@ anim_brilho = 0;
 
 abas = ["GRÁFICOS", "SOM", "RESOLUÇÃO", "TELA", "SISTEMA"];
 grafico_opcoes = ["BAIXO", "EQUILIBRADO", "ALTO"];
+pixel_opcoes = ["BAIXO", "MÉDIO", "ALTO"];
 som_opcoes = ["MUDO", "BAIXO", "MÉDIO", "ALTO"];
 som_valores = [0, 0.35, 0.65, 1];
 res_opcoes = ["960 x 540", "1280 x 720", "1600 x 900", "1920 x 1080"];
@@ -46,8 +48,8 @@ res_w = [960, 1280, 1600, 1920];
 res_h = [540, 720, 900, 1080];
 tela_opcoes = ["JANELA", "TELA CHEIA"];
 save_aviso_opcoes = ["MOSTRAR", "OCULTAR"];
-sistema_linhas = ["AVISO DE SAVE", "CARDS DE DICAS", "PULAR DIALOGO NO RETRY"];
-sistema_opcoes = ["SIM", "NAO"];
+sistema_linhas = ["AVISO DE SAVE", "CARDS DE DICAS", "PULAR DIÁLOGO NO RETRY"];
+sistema_opcoes = ["SIM", "NÃO"];
 
 voltar_x = 126;
 voltar_y = display_get_gui_height() - 62;

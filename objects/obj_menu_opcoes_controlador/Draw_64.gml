@@ -79,7 +79,7 @@ function _card_rect(_aba, _idx) {
         var _h_sis = 40;
         var _gap_sis = 20;
         var _x_sis = 642 + _col * (_w_sis + _gap_sis);
-        var _y_sis = 248 + _row * 70;
+        var _y_sis = 250 + _row * 62;
         return [_x_sis, _y_sis, _w_sis, _h_sis];
     }
 
@@ -179,12 +179,12 @@ draw_set_alpha(1);
 _glitch_text(304, 122, abas[aba], 1.0, 1.0, _cyan, true);
 draw_set_color(_muted);
 var _descricao = "";
-if (aba == 0) _descricao = "BAIXO corta efeitos pesados e transicoes, mantendo os sprites intactos. EQUILIBRADO reduz efeitos leves. ALTO deixa tudo completo.";
-if (aba == 1) _descricao = "Ajuste o volume geral, música e efeitos. O preset MUDO, BAIXO, MÉDIO ou ALTO acompanha o volume geral.";
-if (aba == 2) _descricao = "Selecione a resolução base. Ela também é aplicada antes de entrar em tela cheia.";
+if (aba == 0) _descricao = "BAIXO corta efeitos pesados e transições.\nEQUILIBRADO reduz efeitos leves.\nALTO deixa tudo completo.";
+if (aba == 1) _descricao = "Ajuste o volume geral, música e efeitos.\nO preset MUDO, BAIXO, MÉDIO ou ALTO acompanha o volume geral.";
+if (aba == 2) _descricao = "Selecione a resolução base.\nEla também é aplicada antes de entrar em tela cheia.";
 if (aba == 3) _descricao = "Alterne entre janela e tela cheia clicando nos botões ou usando F11.";
-if (aba == 4) _descricao = "Controle avisos, dicas visuais e se dialogos ja vistos somem depois de reiniciar uma fase.";
-draw_text_ext_transformed(306, 160, _descricao, 18, 590, 0.56, 0.56, 0);
+if (aba == 4) _descricao = "Controle avisos, dicas visuais e diálogos já vistos.\nEssas opções afetam intro, créditos e retry das fases.";
+draw_text_ext_transformed(306, 158, _descricao, 12, 590, 0.56, 0.56, 0);
 
 if (aba != 4) {
     draw_set_alpha(0.86);
@@ -209,7 +209,7 @@ if (aba == 0) {
     _nomes = tela_opcoes;
     _sel = global.op_tela;
 } else {
-    _nomes = ["SIM", "NAO", "SIM", "NAO", "SIM", "NAO"];
+    _nomes = ["SIM", "NÃO", "SIM", "NÃO", "SIM", "NÃO"];
     _sel = -1;
 }
 
@@ -255,23 +255,25 @@ if (aba == 1) {
     draw_text_transformed(312, 430, "O preset acompanha o VOLUME GERAL.", 0.46, 0.46, 0);
 } else if (aba == 0) {
     draw_set_color(_cyan);
-    draw_text_transformed(314, 340, "QUALIDADE ATUAL", 0.56, 0.56, 0);
+    draw_text_transformed(314, 330, "QUALIDADE ATUAL", 0.56, 0.56, 0);
     draw_set_color(_muted);
-    draw_text_transformed(314, 370, "Efeitos globais", 0.50, 0.50, 0);
+    draw_text_transformed(314, 358, "Efeitos globais", 0.50, 0.50, 0);
     var _bar_x = 470;
     var _bar_w = 350;
     draw_set_color(_cyan_dark);
-    draw_rectangle(_bar_x, 374, _bar_x + _bar_w, 384, false);
+    draw_rectangle(_bar_x, 362, _bar_x + _bar_w, 372, false);
     draw_set_color(_green);
-    draw_rectangle(_bar_x, 374, _bar_x + _bar_w * ((global.op_graficos + 1) / 3), 384, false);
+    draw_rectangle(_bar_x, 362, _bar_x + _bar_w * ((global.op_graficos + 1) / 3), 372, false);
     draw_set_color(c_white);
-    draw_text_transformed(836, 365, grafico_opcoes[global.op_graficos], 0.54, 0.54, 0);
+    draw_text_transformed(836, 353, grafico_opcoes[global.op_graficos], 0.54, 0.54, 0);
     draw_set_color(_cyan);
-    draw_text_transformed(314, 388, "PIXEL PERFECT", 0.58, 0.58, 0);
+    draw_text_transformed(314, 398, "PIXEL PERFECT", 0.48, 0.48, 0);
     draw_set_color(_muted);
-    draw_text_ext_transformed(314, 414, "Mantem pixels secos nas escalas de tela sem reduzir a nitidez dos dialogos e textos.", 18, 300, 0.48, 0.48, 0);
-    _option_card(612, 386, 112, 40, "SIM", global.op_pixel_perfect, hover_pixel == 0);
-    _option_card(742, 386, 112, 40, "NAO", !global.op_pixel_perfect, hover_pixel == 1);
+    draw_text_ext_transformed(314, 418, "BAIXO desliga.\nMÉDIO preserva textos.\nALTO aplica na tela toda.", 10, 300, 0.40, 0.40, 0);
+    var _pixel_sel = variable_global_exists("op_pixel_perfect_nivel") ? global.op_pixel_perfect_nivel : (global.op_pixel_perfect ? 1 : 0);
+    for (var _px = 0; _px < 3; _px += 1) {
+        _option_card(542 + _px * 128, 412, 112, 36, pixel_opcoes[_px], _pixel_sel == _px, hover_pixel == _px);
+    }
 } else if (aba == 2) {
     draw_set_color(_cyan);
     draw_text_transformed(314, 340, "RESOLUÇÃO ATIVA", 0.56, 0.56, 0);
@@ -291,15 +293,15 @@ if (aba == 1) {
     draw_text_transformed(314, 232, "SISTEMA VISUAL", 0.58, 0.58, 0);
     var _sis_desc = [
         "Mostra o aviso pequeno quando o jogo salva.",
-        "Exibe cards de ajuda para pular intro/video/creditos.",
-        "Depois da primeira tentativa, pula dialogos/cutscenes da fase."
+        "Exibe cards de ajuda para pular intro, vídeo e créditos.",
+        "Depois da primeira tentativa, pula diálogos/cutscenes da fase."
     ];
     for (var _sis = 0; _sis < 3; _sis += 1) {
-        var _base_y = 248 + _sis * 70;
+        var _base_y = 250 + _sis * 62;
         draw_set_color(c_white);
         _glitch_text(314, _base_y + 4, sistema_linhas[_sis], 0.55, 0.55, c_white, false);
         draw_set_color(_muted);
-        draw_text_ext_transformed(314, _base_y + 28, _sis_desc[_sis], 17, 300, 0.47, 0.47, 0);
+        draw_text_ext_transformed(314, _base_y + 27, _sis_desc[_sis], 10, 306, 0.43, 0.43, 0);
         for (var _op = 0; _op < 2; _op += 1) {
             var _idx_sis = _sis * 2 + _op;
             var _r_sis = _card_rect(4, _idx_sis);
@@ -308,7 +310,7 @@ if (aba == 1) {
             if (_sis == 0) _ativo_sis = global.op_mostrar_save_aviso == _valor_sis;
             if (_sis == 1) _ativo_sis = global.op_mostrar_cards_dicas == _valor_sis;
             if (_sis == 2) _ativo_sis = global.op_pular_dialogo_retry == _valor_sis;
-            _option_card(_r_sis[0], _r_sis[1], _r_sis[2], _r_sis[3], _valor_sis ? "SIM" : "NAO", _ativo_sis, hover_item == _idx_sis);
+            _option_card(_r_sis[0], _r_sis[1], _r_sis[2], _r_sis[3], _valor_sis ? "SIM" : "NÃO", _ativo_sis, hover_item == _idx_sis);
         }
     }
 }
@@ -350,7 +352,7 @@ if (confirmar_reset != -1) {
     draw_set_color(_muted);
     draw_text_ext_transformed(505, 298, "Tem certeza que deseja " + _msg_reset, 18, 330, 0.50, 0.50, 0);
     _option_card(386, 330, 110, 44, "SIM", false, hover_confirmar_reset == 0);
-    _option_card(514, 330, 110, 44, "NAO", false, hover_confirmar_reset == 1);
+    _option_card(514, 330, 110, 44, "NÃO", false, hover_confirmar_reset == 1);
     draw_set_halign(fa_left);
     draw_set_valign(fa_top);
 }

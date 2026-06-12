@@ -38,6 +38,9 @@ if (!variable_global_exists("op_graficos")) {
 if (!variable_global_exists("op_pixel_perfect")) {
     global.op_pixel_perfect = true;
 }
+if (!variable_global_exists("op_pixel_perfect_nivel")) {
+    global.op_pixel_perfect_nivel = global.op_pixel_perfect ? 1 : 0;
+}
 if (!variable_global_exists("op_auto_config_feita")) {
     global.op_auto_config_feita = false;
 }
@@ -61,6 +64,7 @@ global.fx_densidade = (global.op_graficos == 0) ? 0.16 : ((global.op_graficos ==
 global.fx_brilho = (global.op_graficos == 0) ? 0.16 : ((global.op_graficos == 1) ? 0.55 : 1);
 global.fx_cortar_transicoes = global.op_graficos == 0;
 global.fx_pixel_perfect = global.op_pixel_perfect;
+global.fx_pixel_perfect_nivel = global.op_pixel_perfect_nivel;
 global.fx_surface_w = 960;
 global.fx_surface_h = 540;
 if (!variable_global_exists("fase_liberada")) {
@@ -85,6 +89,7 @@ save_prev_volume_efeitos = global.op_volume_efeitos;
 save_prev_som_preset = global.op_som_preset;
 save_prev_graficos = global.op_graficos;
 save_prev_pixel_perfect = global.op_pixel_perfect;
+save_prev_pixel_perfect_nivel = global.op_pixel_perfect_nivel;
 save_prev_auto_config_feita = global.op_auto_config_feita;
 save_prev_resolucao = global.op_resolucao;
 save_prev_tela = global.op_tela;

@@ -91,10 +91,12 @@ function ns_video_aplicar(_idx, _fullscreen) {
     var _i = clamp(_idx, 0, 3);
     var _w = _res_w[_i];
     var _h = _res_h[_i];
-    var _usar_pixel = variable_global_exists("op_pixel_perfect") && global.op_pixel_perfect;
-    global.fx_pixel_perfect = _usar_pixel;
-    global.fx_surface_w = 960;
-    global.fx_surface_h = 540;
+    var _pixel_nivel = variable_global_exists("op_pixel_perfect_nivel") ? clamp(global.op_pixel_perfect_nivel, 0, 2) : (variable_global_exists("op_pixel_perfect") && global.op_pixel_perfect ? 1 : 0);
+    global.op_pixel_perfect = _pixel_nivel > 0;
+    global.fx_pixel_perfect = _pixel_nivel > 0;
+    global.fx_pixel_perfect_nivel = _pixel_nivel;
+    global.fx_surface_w = (_pixel_nivel >= 2) ? ((_i <= 0) ? 480 : ((_i == 1) ? 640 : 960)) : 960;
+    global.fx_surface_h = (_pixel_nivel >= 2) ? ((_i <= 0) ? 270 : ((_i == 1) ? 360 : 540)) : 540;
     gpu_set_texfilter(false);
 
     if (_fullscreen) {

@@ -35,9 +35,9 @@ if (controles_timer > 0) {
 	draw_set_halign(fa_center);
 	draw_set_valign(fa_middle);
 	draw_set_color(make_color_rgb(186, 118, 255));
-	draw_text_transformed(_bx + 130, _by + 40, "WASD / SETAS", 1.02 * _pulse, 1.02 * _pulse, 0);
+	draw_text_transformed(_bx + 130, _by + 40, "WASD / SETAS - MOVER", 0.88 * _pulse, 0.88 * _pulse, 0);
 	draw_set_color(make_color_rgb(255, 218, 116));
-	draw_text_transformed(_bx + 130, _by + 86, "K  ATIRAR", 1.02 * _pulse, 1.02 * _pulse, 0);
+	draw_text_transformed(_bx + 130, _by + 86, "K - ATIRAR", 1.02 * _pulse, 1.02 * _pulse, 0);
 	draw_set_halign(fa_left);
 	draw_set_valign(fa_top);
 	draw_set_alpha(1);

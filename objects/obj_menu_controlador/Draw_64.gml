@@ -20,16 +20,17 @@ draw_set_valign(fa_middle);
 
 var titulo_x = botao_x;
 var titulo_y = botao_y[0] - 58 + sin(menu_timer * 0.035) * 2.2;
-var titulo_glitch = (menu_timer mod 54) < 6;
+var titulo_glitch = ((menu_timer div 5) mod 9) == 0;
+var titulo_shift = titulo_glitch ? choose(-3, -2, 2, 3) : sin(menu_timer * 0.13);
 draw_set_alpha(1);
-if (titulo_glitch) {
-    draw_set_color(make_color_rgb(255, 74, 150));
-    draw_text_transformed(titulo_x - 2, titulo_y, "NeuroSys", 1.34, 1.34, 0);
-    draw_set_color(make_color_rgb(54, 226, 255));
-    draw_text_transformed(titulo_x + 2, titulo_y + 1, "NeuroSys", 1.34, 1.34, 0);
-}
+draw_set_alpha(0.68);
+draw_set_color(make_color_rgb(242, 74, 124));
+draw_text_transformed(titulo_x + titulo_shift + 2, titulo_y - 2, "NeuroSys", 1.52, 1.52, 0);
+draw_set_color(make_color_rgb(31, 214, 181));
+draw_text_transformed(titulo_x - titulo_shift - 2, titulo_y + 2, "NeuroSys", 1.52, 1.52, 0);
+draw_set_alpha(1);
 draw_set_color(make_color_rgb(226, 248, 255));
-draw_text_transformed(titulo_x, titulo_y, "NeuroSys", 1.34, 1.34, 0);
+draw_text_transformed(titulo_x, titulo_y + sin(menu_timer * 0.08) * 1.2, "NeuroSys", 1.52, 1.52, 0);
 
 for (var i = 0; i < array_length(botao_sprite); i += 1) {
     var frame = 0;

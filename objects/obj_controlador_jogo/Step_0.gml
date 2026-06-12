@@ -150,10 +150,12 @@ if (variable_global_exists("op_graficos")) {
     global.fx_brilho = (global.fx_qualidade == 0) ? 0.16 : ((global.fx_qualidade == 1) ? 0.55 : 1);
     global.fx_cortar_transicoes = global.fx_qualidade == 0;
     var _res_fx = variable_global_exists("op_resolucao") ? clamp(global.op_resolucao, 0, 3) : 3;
-    var _usar_pixel = variable_global_exists("op_pixel_perfect") && global.op_pixel_perfect;
-    global.fx_pixel_perfect = _usar_pixel;
-    global.fx_surface_w = 960;
-    global.fx_surface_h = 540;
+    var _pixel_nivel = variable_global_exists("op_pixel_perfect_nivel") ? clamp(global.op_pixel_perfect_nivel, 0, 2) : (variable_global_exists("op_pixel_perfect") && global.op_pixel_perfect ? 1 : 0);
+    global.op_pixel_perfect = _pixel_nivel > 0;
+    global.fx_pixel_perfect = _pixel_nivel > 0;
+    global.fx_pixel_perfect_nivel = _pixel_nivel;
+    global.fx_surface_w = (_pixel_nivel >= 2) ? ((_res_fx <= 0) ? 480 : ((_res_fx == 1) ? 640 : 960)) : 960;
+    global.fx_surface_h = (_pixel_nivel >= 2) ? ((_res_fx <= 0) ? 270 : ((_res_fx == 1) ? 360 : 540)) : 540;
     display_set_sleep_margin(global.fx_qualidade == 0 ? 4 : 10);
 }
 
@@ -165,14 +167,17 @@ if (_auto_config_pode_rodar && variable_global_exists("op_auto_config_feita") &&
         if (auto_config_min_fps < 45) {
             global.op_graficos = 0;
             global.op_resolucao = 0;
+            global.op_pixel_perfect_nivel = 2;
             global.op_pixel_perfect = true;
         } else if (auto_config_min_fps < 56) {
             global.op_graficos = 1;
             global.op_resolucao = min(global.op_resolucao, 1);
+            global.op_pixel_perfect_nivel = 1;
             global.op_pixel_perfect = true;
         } else {
             global.op_graficos = 2;
-            global.op_pixel_perfect = false;
+            global.op_pixel_perfect_nivel = 1;
+            global.op_pixel_perfect = true;
         }
         global.op_auto_config_feita = true;
         ns_video_aplicar(global.op_resolucao, global.op_tela == 1);
@@ -195,6 +200,7 @@ _save_mudou = _save_mudou || save_prev_volume_efeitos != global.op_volume_efeito
 _save_mudou = _save_mudou || save_prev_som_preset != global.op_som_preset;
 _save_mudou = _save_mudou || save_prev_graficos != global.op_graficos;
 _save_mudou = _save_mudou || save_prev_pixel_perfect != global.op_pixel_perfect;
+_save_mudou = _save_mudou || save_prev_pixel_perfect_nivel != global.op_pixel_perfect_nivel;
 _save_mudou = _save_mudou || save_prev_auto_config_feita != global.op_auto_config_feita;
 _save_mudou = _save_mudou || save_prev_resolucao != global.op_resolucao;
 _save_mudou = _save_mudou || save_prev_tela != global.op_tela;
@@ -215,6 +221,7 @@ if (_save_mudou || global.save_timer >= room_speed * 60 || global.save_sujo) {
     save_prev_som_preset = global.op_som_preset;
     save_prev_graficos = global.op_graficos;
     save_prev_pixel_perfect = global.op_pixel_perfect;
+    save_prev_pixel_perfect_nivel = global.op_pixel_perfect_nivel;
     save_prev_auto_config_feita = global.op_auto_config_feita;
     save_prev_resolucao = global.op_resolucao;
     save_prev_tela = global.op_tela;

@@ -30,7 +30,8 @@ function _restaurar_aba_atual() {
     switch (aba) {
         case 0:
             global.op_graficos = 2;
-            global.op_pixel_perfect = false;
+            global.op_pixel_perfect_nivel = 1;
+            global.op_pixel_perfect = true;
             break;
         case 1:
             global.op_volume = 1;
@@ -58,7 +59,8 @@ function _restaurar_aba_atual() {
 
 function _restaurar_tudo() {
     global.op_graficos = 2;
-    global.op_pixel_perfect = false;
+    global.op_pixel_perfect_nivel = 1;
+    global.op_pixel_perfect = true;
     global.op_volume = 1;
     global.op_volume_musica = 1;
     global.op_volume_efeitos = 1;
@@ -89,7 +91,7 @@ function _executar_reset_confirmado(_tipo) {
         _mostrar_feedback_reset("ABA RESTAURADA");
     } else if (_tipo == 1) {
         _restaurar_tudo();
-        _mostrar_feedback_reset("CONFIGURACOES RESTAURADAS");
+        _mostrar_feedback_reset("CONFIGURAÇÕES RESTAURADAS");
     } else {
         _resetar_save_progresso();
         _mostrar_feedback_reset("PROGRESSO RESETADO");
@@ -117,7 +119,7 @@ function _card_rect(_aba, _idx) {
         var _h_sis = 40;
         var _gap_sis = 20;
         var _x_sis = 642 + _col * (_w_sis + _gap_sis);
-        var _y_sis = 248 + _row * 70;
+        var _y_sis = 250 + _row * 62;
         return [_x_sis, _y_sis, _w_sis, _h_sis];
     }
 
@@ -238,8 +240,9 @@ hover_reset_anterior = hover_reset;
 
 hover_pixel = -1;
 if (aba == 0) {
-    if (point_in_rectangle(_mx, _my, 612, 386, 724, 426)) hover_pixel = 0;
-    if (point_in_rectangle(_mx, _my, 742, 386, 854, 426)) hover_pixel = 1;
+    if (point_in_rectangle(_mx, _my, 542, 412, 654, 448)) hover_pixel = 0;
+    if (point_in_rectangle(_mx, _my, 670, 412, 782, 448)) hover_pixel = 1;
+    if (point_in_rectangle(_mx, _my, 798, 412, 910, 448)) hover_pixel = 2;
 }
 if (hover_pixel != -1 && hover_pixel != hover_pixel_anterior) ns_audio_play_sfx(snd_f2_selecao, 3, false, _fx_gain(0.42), 0, 1);
 hover_pixel_anterior = hover_pixel;
@@ -328,7 +331,8 @@ if (mouse_check_button_pressed(mb_left)) {
     }
     if (hover_pixel != -1) {
         ns_audio_play_sfx(snd_f2_botao, 4, false, _fx_gain(0.58), 0, 1);
-        global.op_pixel_perfect = hover_pixel == 0;
+        global.op_pixel_perfect_nivel = hover_pixel;
+        global.op_pixel_perfect = hover_pixel > 0;
         ns_video_aplicar(global.op_resolucao, global.op_tela == 1);
     }
 }
