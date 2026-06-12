@@ -1,4 +1,4 @@
-gpu_set_texfilter(false);
+gpu_set_texfilter(true);
 audio_room_enter("intro");
 window_set_cursor(cr_none);
 cursor_sprite = cr_none;

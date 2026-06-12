@@ -30,8 +30,8 @@ function _restaurar_aba_atual() {
     switch (aba) {
         case 0:
             global.op_graficos = 2;
-            global.op_pixel_perfect_nivel = 1;
-            global.op_pixel_perfect = true;
+            global.op_pixel_perfect_nivel = 0;
+            global.op_pixel_perfect = false;
             break;
         case 1:
             global.op_volume = 1;
@@ -59,8 +59,8 @@ function _restaurar_aba_atual() {
 
 function _restaurar_tudo() {
     global.op_graficos = 2;
-    global.op_pixel_perfect_nivel = 1;
-    global.op_pixel_perfect = true;
+    global.op_pixel_perfect_nivel = 0;
+    global.op_pixel_perfect = false;
     global.op_volume = 1;
     global.op_volume_musica = 1;
     global.op_volume_efeitos = 1;

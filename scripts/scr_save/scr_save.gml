@@ -11,7 +11,7 @@ function save_init() {
     if (!variable_global_exists("op_volume_efeitos")) global.op_volume_efeitos = 1;
     if (!variable_global_exists("op_som_preset")) global.op_som_preset = 3;
     if (!variable_global_exists("op_graficos")) global.op_graficos = 2;
-    if (!variable_global_exists("op_pixel_perfect")) global.op_pixel_perfect = true;
+    if (!variable_global_exists("op_pixel_perfect")) global.op_pixel_perfect = false;
     if (!variable_global_exists("op_pixel_perfect_nivel")) global.op_pixel_perfect_nivel = global.op_pixel_perfect ? 1 : 0;
     if (!variable_global_exists("op_auto_config_feita")) global.op_auto_config_feita = false;
     if (!variable_global_exists("op_resolucao")) global.op_resolucao = 3;

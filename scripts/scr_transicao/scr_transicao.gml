@@ -95,9 +95,12 @@ function ns_video_aplicar(_idx, _fullscreen) {
     global.op_pixel_perfect = _pixel_nivel > 0;
     global.fx_pixel_perfect = _pixel_nivel > 0;
     global.fx_pixel_perfect_nivel = _pixel_nivel;
+    global.fx_pixel_textos = _pixel_nivel >= 2;
     global.fx_surface_w = 960;
     global.fx_surface_h = 540;
-    gpu_set_texfilter(_pixel_nivel <= 0);
+    var _qualidade = variable_global_exists("op_graficos") ? clamp(global.op_graficos, 0, 2) : 2;
+    global.fx_sprite_quality = _qualidade;
+    gpu_set_texfilter(_pixel_nivel <= 0 && _qualidade >= 2);
 
     if (_fullscreen) {
         window_set_size(_w, _h);

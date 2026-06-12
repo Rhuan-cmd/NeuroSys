@@ -179,7 +179,7 @@ draw_set_alpha(1);
 _glitch_text(304, 122, abas[aba], 1.0, 1.0, _cyan, true);
 draw_set_color(_muted);
 var _descricao = "";
-if (aba == 0) _descricao = "BAIXO corta efeitos pesados e transições.\nEQUILIBRADO reduz efeitos leves.\nALTO deixa tudo completo.";
+if (aba == 0) _descricao = "BAIXO corta efeitos pesados e reduz a filtragem dos sprites.\nEQUILIBRADO reduz efeitos leves.\nALTO deixa filtros e efeitos completos.";
 if (aba == 1) _descricao = "Ajuste o volume geral, música e efeitos.\nO preset MUDO, BAIXO, MÉDIO ou ALTO acompanha o volume geral.";
 if (aba == 2) _descricao = "Selecione a resolução base.\nEla também é aplicada antes de entrar em tela cheia.";
 if (aba == 3) _descricao = "Alterne entre janela e tela cheia clicando nos botões ou usando F11.";
@@ -269,7 +269,7 @@ if (aba == 1) {
     draw_set_color(_cyan);
     draw_text_transformed(314, 388, "PIXEL PERFECT", 0.46, 0.46, 0);
     draw_set_color(_muted);
-    draw_text_ext_transformed(314, 406, "DESLIGADO remove o efeito.\nBAIXO preserva textos.\nALTO aplica na tela toda.", 18, 280, 0.35, 0.35, 0);
+    draw_text_ext_transformed(314, 406, "DESLIGADO remove o efeito.\nBAIXO aplica nos sprites.\nALTO aplica tambem nos textos.", 18, 280, 0.35, 0.35, 0);
     var _pixel_sel = variable_global_exists("op_pixel_perfect_nivel") ? global.op_pixel_perfect_nivel : (global.op_pixel_perfect ? 1 : 0);
     for (var _px = 0; _px < 3; _px += 1) {
         _option_card(500 + _px * 122, 382, 108, 36, pixel_opcoes[_px], _pixel_sel == _px, hover_pixel == _px);

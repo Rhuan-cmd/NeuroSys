@@ -146,18 +146,19 @@ ns_audio_aplicar_opcoes();
 
 if (variable_global_exists("op_graficos")) {
     global.fx_qualidade = clamp(global.op_graficos, 0, 2);
-    global.fx_densidade = (global.fx_qualidade == 0) ? 0.16 : ((global.fx_qualidade == 1) ? 0.55 : 1);
-    global.fx_brilho = (global.fx_qualidade == 0) ? 0.16 : ((global.fx_qualidade == 1) ? 0.55 : 1);
+    global.fx_densidade = (global.fx_qualidade == 0) ? 0.08 : ((global.fx_qualidade == 1) ? 0.42 : 1);
+    global.fx_brilho = (global.fx_qualidade == 0) ? 0.12 : ((global.fx_qualidade == 1) ? 0.48 : 1);
     global.fx_cortar_transicoes = global.fx_qualidade == 0;
-    var _res_fx = variable_global_exists("op_resolucao") ? clamp(global.op_resolucao, 0, 3) : 3;
     var _pixel_nivel = variable_global_exists("op_pixel_perfect_nivel") ? clamp(global.op_pixel_perfect_nivel, 0, 2) : (variable_global_exists("op_pixel_perfect") && global.op_pixel_perfect ? 1 : 0);
     global.op_pixel_perfect = _pixel_nivel > 0;
     global.fx_pixel_perfect = _pixel_nivel > 0;
     global.fx_pixel_perfect_nivel = _pixel_nivel;
-    // Mantem a surface base fixa para nao cortar GUI/dialogos; o nivel controla a filtragem visual.
+    global.fx_sprite_quality = global.fx_qualidade;
+    global.fx_pixel_textos = _pixel_nivel >= 2;
+    // A surface base fica fixa para nao cortar GUI/dialogos; o visual e controlado por filtro/efeitos.
     global.fx_surface_w = 960;
     global.fx_surface_h = 540;
-    gpu_set_texfilter(_pixel_nivel <= 0);
+    gpu_set_texfilter(_pixel_nivel <= 0 && global.fx_qualidade >= 2);
     display_set_sleep_margin(global.fx_qualidade == 0 ? 4 : 10);
 }
 

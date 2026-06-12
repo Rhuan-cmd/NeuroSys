@@ -5,7 +5,7 @@ if (room == rm_fase4) {
 }
 
 window_set_cursor(cr_none);
-gpu_set_texfilter(false);
+gpu_set_texfilter(true);
 show_debug_overlay(false);
 
 game_set_speed(60, gamespeed_fps);
@@ -36,7 +36,7 @@ if (!variable_global_exists("op_graficos")) {
     global.op_graficos = 2;
 }
 if (!variable_global_exists("op_pixel_perfect")) {
-    global.op_pixel_perfect = true;
+    global.op_pixel_perfect = false;
 }
 if (!variable_global_exists("op_pixel_perfect_nivel")) {
     global.op_pixel_perfect_nivel = global.op_pixel_perfect ? 1 : 0;
@@ -67,6 +67,7 @@ global.fx_pixel_perfect = global.op_pixel_perfect;
 global.fx_pixel_perfect_nivel = global.op_pixel_perfect_nivel;
 global.fx_surface_w = 960;
 global.fx_surface_h = 540;
+global.fx_sprite_quality = global.op_graficos;
 if (!variable_global_exists("fase_liberada")) {
     global.fase_liberada = 1;
 }

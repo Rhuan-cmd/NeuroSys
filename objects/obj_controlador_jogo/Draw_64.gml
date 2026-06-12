@@ -1,3 +1,7 @@
+var _pixel_nivel_gui = variable_global_exists("fx_pixel_perfect_nivel") ? global.fx_pixel_perfect_nivel : 0;
+var _qualidade_gui = variable_global_exists("fx_qualidade") ? global.fx_qualidade : 2;
+gpu_set_texfilter(_pixel_nivel_gui <= 1 && _qualidade_gui >= 2);
+
 if (room == rm_menu && menu_fade_alpha > 0) {
     draw_set_alpha(menu_fade_alpha);
     draw_set_color(c_black);
