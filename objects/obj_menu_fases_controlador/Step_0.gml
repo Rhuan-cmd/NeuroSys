@@ -19,6 +19,7 @@ feed_altura = array_length(fase_nome) * (post_h + post_gap) - post_gap;
 fade_entrada_branco = max(0, fade_entrada_branco - 0.035);
 
 if (negado_timer > 0) negado_timer -= 1;
+if (neurosys_shake_timer > 0) neurosys_shake_timer -= 1;
 
 if (retornando_fase) {
     window_set_cursor(cr_none);
@@ -96,6 +97,34 @@ if (voltando_menu) {
         room_goto(rm_menu2);
     }
     exit;
+}
+
+var _codigo_tecla = "";
+for (var _codigo_k = ord("A"); _codigo_k <= ord("Z"); _codigo_k += 1) {
+    if (keyboard_check_pressed(_codigo_k)) {
+        _codigo_tecla = chr(_codigo_k);
+        break;
+    }
+}
+
+if (_codigo_tecla != "") {
+    var _codigo_esperado = string_char_at(neurosys_codigo, neurosys_indice + 1);
+    if (_codigo_tecla == _codigo_esperado) {
+        neurosys_indice += 1;
+        if (neurosys_indice >= string_length(neurosys_codigo)) {
+            neurosys_indice = 0;
+            global.fase_liberada = 4;
+            global.fase_concluida = 4;
+            global.creditos_vistos = true;
+            neurosys_shake_timer = neurosys_shake_dur;
+            save_marcar_sujo();
+            ns_audio_play_sfx(snd_f2_tremor, 6, false, 1.0, 0, 0.68);
+            ns_audio_play_sfx(snd_f2_explosao, 6, false, 0.82, 0, 0.92);
+            ns_audio_play_sfx(snd_f2_confirmar, 6, false, 0.72, 0, 1.28);
+        }
+    } else {
+        neurosys_indice = 0;
+    }
 }
 
 var _max_scroll = max(0, feed_altura - (feed_bottom - feed_top));

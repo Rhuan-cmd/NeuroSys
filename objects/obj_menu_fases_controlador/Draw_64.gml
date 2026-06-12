@@ -23,6 +23,7 @@ var _cover = 18;
 var _fx_qualidade = variable_global_exists("fx_qualidade") ? global.fx_qualidade : 2;
 var _glitch = _fx_qualidade > 0;
 var _anim = 0.5 + 0.5 * sin(menu_timer * 0.045);
+var _neurosys_shake_ativo = neurosys_shake_timer > 0 && !entrando_fase && !retornando_fase;
 
 function _mix_col(_a, _b, _t) {
     return merge_color(_a, _b, clamp(_t, 0, 1));
@@ -95,6 +96,14 @@ if (entrando_fase || retornando_fase) {
     var _cam_shake = _trans_zoom_forca * (1 - _trans_zoom_forca) * sin(menu_timer * 1.2) * 1.2;
     if (retornando_fase) _cam_shake *= (1 - _ret_s_draw);
     matrix_set(matrix_world, matrix_build(_cam_x + _cam_shake, _cam_y - _cam_shake * 0.35, 0, 0, 0, 0, _cam_scale, _cam_scale, 1));
+}
+
+if (_neurosys_shake_ativo) {
+    var _shake_p = neurosys_shake_timer / max(1, neurosys_shake_dur);
+    var _shake_amp = 28 * _shake_p;
+    var _shake_x = sin(menu_timer * 2.8) * _shake_amp + sin(menu_timer * 6.3) * _shake_amp * 0.35;
+    var _shake_y = cos(menu_timer * 3.1) * _shake_amp * 0.62 + sin(menu_timer * 5.4) * _shake_amp * 0.28;
+    matrix_set(matrix_world, matrix_build(_shake_x, _shake_y, 0, 0, 0, 0, 1, 1, 1));
 }
 
 draw_set_alpha(1);
@@ -323,6 +332,10 @@ draw_set_color(make_color_rgb(14, 37, 57));
 draw_rectangle(_scroll_x, feed_top + 3, _scroll_x + 9, feed_bottom - 3, false);
 draw_set_color(make_color_rgb(105, 211, 244));
 draw_rectangle(_scroll_x, max(feed_top + 3, _bar_y), _scroll_x + 9, min(feed_bottom - 3, _bar_y + _bar_h), false);
+
+if (_neurosys_shake_ativo) {
+    matrix_set(matrix_world, matrix_build(0, 0, 0, 0, 0, 0, 1, 1, 1));
+}
 
 if (entrando_fase || retornando_fase) {
     matrix_set(matrix_world, matrix_build(0, 0, 0, 0, 0, 0, 1, 1, 1));
