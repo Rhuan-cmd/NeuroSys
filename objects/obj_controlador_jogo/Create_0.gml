@@ -68,6 +68,9 @@ global.fx_pixel_perfect_nivel = global.op_pixel_perfect_nivel;
 global.fx_surface_w = 960;
 global.fx_surface_h = 540;
 global.fx_sprite_quality = global.op_graficos;
+fx_post_surface = -1;
+fx_post_w = 0;
+fx_post_h = 0;
 if (!variable_global_exists("fase_liberada")) {
     global.fase_liberada = 1;
 }
