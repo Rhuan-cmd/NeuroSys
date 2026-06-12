@@ -40,30 +40,30 @@ for (var rastro_i = 0; rastro_i < 3; rastro_i++) {
 configurar = function(_dificuldade) {
     dificuldade = _dificuldade;
     if (dificuldade < 3) {
-        velocidade = 4.35 + dificuldade * 0.18;
-        precisao = 0.056 + dificuldade * 0.003;
-        raio_fuga = 100 + dificuldade * 4;
-        forca_fuga = 0.38 + dificuldade * 0.02;
+        velocidade = 4.55 + dificuldade * 0.22;
+        precisao = 0.060 + dificuldade * 0.004;
+        raio_fuga = 106 + dificuldade * 5;
+        forca_fuga = 0.42 + dificuldade * 0.025;
     } else if (dificuldade < 8) {
         var medio = dificuldade - 3;
-        velocidade = 5.0 + medio * 0.22;
-        precisao = 0.070 + medio * 0.005;
-        raio_fuga = 116 + medio * 5;
-        forca_fuga = 0.49 + medio * 0.03;
+        velocidade = 5.28 + medio * 0.27;
+        precisao = 0.078 + medio * 0.006;
+        raio_fuga = 126 + medio * 6;
+        forca_fuga = 0.56 + medio * 0.035;
     } else {
         var dificil = dificuldade - 8;
-        velocidade = 6.05 + dificil * 0.30;
-        precisao = 0.090 + dificil * 0.008;
-        raio_fuga = 140 + dificil * 6;
-        forca_fuga = 0.63 + dificil * 0.045;
+        velocidade = 6.75 + dificil * 0.38;
+        precisao = 0.110 + dificil * 0.010;
+        raio_fuga = 158 + dificil * 8;
+        forca_fuga = 0.78 + dificil * 0.055;
     }
-    if (dificuldade >= 10) {
-        var _final = dificuldade - 10;
-        velocidade = 6.8 + _final * 0.32;
-        precisao = 0.108 + _final * 0.011;
-        raio_fuga = 152 + _final * 8;
-        forca_fuga = 0.74 + _final * 0.06;
-        margem = 46 + _final * 2;
+    if (dificuldade >= 8) {
+        var _final = dificuldade - 8;
+        velocidade = 7.05 + _final * 0.42;
+        precisao = 0.118 + _final * 0.012;
+        raio_fuga = 166 + _final * 9;
+        forca_fuga = 0.86 + _final * 0.065;
+        margem = 48 + _final * 2;
     }
     imortal_timer = dificuldade > 0 ? 18 : 0;
     image_xscale = escala_padrao;
@@ -74,7 +74,7 @@ configurar = function(_dificuldade) {
 novo_alvo = function() {
     alvo_x = random_range(margem, room_width - margem);
     alvo_y = random_range(margem, room_height - margem);
-    trocar_alvo_timer = dificuldade >= 8 ? irandom_range(8, 18) : irandom_range(14, 32);
+    trocar_alvo_timer = dificuldade >= 8 ? irandom_range(5, 12) : (dificuldade >= 4 ? irandom_range(9, 22) : irandom_range(12, 28));
 };
 
 reposicionar = function() {

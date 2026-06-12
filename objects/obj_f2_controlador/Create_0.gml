@@ -76,7 +76,7 @@ repel_fx_x = 0;
 repel_fx_y = 0;
 poder_ataque_tipo = 0;
 poder_ataque_timer = 0;
-poder_ataque_total = 28;
+poder_ataque_total = 24;
 poder_ataque_x0 = 0;
 poder_ataque_y0 = 0;
 poder_ataque_x1 = 0;
@@ -202,7 +202,7 @@ repelir_cursor = function() {
 
 iniciar_ataque_cursor = function(_tipo) {
     poder_ataque_tipo = _tipo;
-    poder_ataque_timer = poder_ataque_total;
+    poder_ataque_timer = cliques >= 8 ? 18 : poder_ataque_total;
     poder_ataque_x0 = room_width * 0.5;
     poder_ataque_y0 = room_height * 0.5;
     if (instance_exists(caixa)) {
@@ -252,8 +252,8 @@ criar_caixa = function(_x, _y, _reposicionar) {
     );
     caixa.configurar(cliques);
     limite_clique_atual = limite_clique;
-    if (cliques >= 6) limite_clique_atual = room_speed * 11;
-    if (cliques >= 10) limite_clique_atual = ceil(room_speed * max(7.4, 9.5 - (cliques - 10) * 0.7));
+    if (cliques >= 4) limite_clique_atual = room_speed * 10;
+    if (cliques >= 8) limite_clique_atual = ceil(room_speed * max(6.2, 8.8 - (cliques - 8) * 0.38));
     timer_clique = 0;
     sino_audio_timer = 1;
     
